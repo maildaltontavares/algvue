@@ -104,11 +104,13 @@
                                                     type="number"
                                                     inputmode="numeric"                                                   
                                                     density="compact"
+                                                    @blur="apiPesquisaParam('fornecedor', this.param.fornecedor, this.param)"
                                                     
                                                 ></v-text-field>    
                                                     
                                                 <v-btn   data-bs-toggle="modal" 
-                                                    data-bs-target="#modalPesquisaUsuario" tabindex="-1"  @click="apiFlushPesquisa" :disabled="codigoDesabilitado" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    tabindex="-1"  @click="apiFlushPesquisa"  
                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                     > 
                                                         <v-icon
@@ -123,7 +125,7 @@
 
                                             <div class=" backCampoConjugado "  >   
                                                 <v-text-field
-                                                    v-model="this.param.nomeFornecedor" 
+                                                    v-model="this.nomeFornecedor" 
                                                     id="nomeFornecedor"   
                                                     disabled 
                                                     class="limitadorMedia"                                                                                                        
@@ -391,11 +393,14 @@
                     :haSucessoProps= "haSucesso"
                 />  
    
+                <!--
                <div  class="  rodape_crud2" 
                          style="position: fixed;background-color:rgb(173, 173, 187);"  :style="{marginLeft:  this.$store.state.configuracaoTela.marginLeftRodape  ,
                                              width:  this.$store.state.configuracaoTela.tamanhoRodape,
                                              height:  this.$store.state.configuracaoTela.alturaRodape   }" > 
-                       
+                         -->
+                         
+              <div   class=" elevation-12 rodape_crud2" style=" background-color:rgb(173, 173, 187);"  >                          
                        
                        <div class=" d-flex justify-space-between ">  
    
@@ -417,7 +422,9 @@
                            <div class="col-3 div_rodape d-flex justify-content-end">
 
                                <v-btn color="secondary" class="botao_rodape" style="width:170px;min-width: 170px;" accesskey="p"  @click="resetaCampos"><u>L</u>impar pesquisa</v-btn>                               
-                               <v-btn color="primary" class="botao_rodape"  style="margin-right: 10px;" accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
+                               <v-btn color="primary" class="botao_rodape"  
+                                :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "
+                                 accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
                            </div>   
    
                        </div>    
@@ -426,6 +433,7 @@
        </v-container>                    
    
     </v-form>
+    <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
 </template> 
     
 <script>
@@ -436,13 +444,14 @@
     import ApiMixinALG from '@/mixins/ApiMixinALG'
     import ApiMixinValidator from '@/mixins/ApiMixinValidator'
     import MensagemMobile  from '@/components/MensagemMobileComponent.vue'
+    import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
 
     //import {VDataTable } from "vuetify/labs/VDataTable";
   
     export default {
       name: 'MovimentacaoEstoquePesquisaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile},  
+      components: {MensagemMobile,PesquisaFornecedor},  
       data: () => ({
         resultPesquisaCRUD : [] , 
         movimentoDTO:{  
@@ -492,6 +501,7 @@
 
 
         },
+        nomeFornecedor:'',
 
 
         movimentoParamDTO:{
@@ -535,6 +545,14 @@
   
         } ,
 
+
+        setaPesquisa(e) {    
+
+          this.param.fornecedor = e.obj.codigo;
+          this.nomeFornecedor = e.obj.descricao;
+ 
+        },        
+
         resetaCampos() {  
 
             //console.log('Resetar');
@@ -544,6 +562,7 @@
             this.param.dataFinal='' ;
             this.param.fornecedor='';
             this.param.nomeFornecedor='';
+            this.nomeFornecedor='';
             this.param.notaFiscal='';
 
             this.param.tipoMP='';
@@ -559,6 +578,10 @@
             
   
           navegarParaLogin(){this.$router.push({name:'login'  })}   ,
+
+          scrollToTop() {
+              window.scrollTo(0, 0);
+            },          
 
           async pesquisaDados(){    
 
@@ -628,15 +651,17 @@
             this.populaTipoMovimento(); 
             this.populaTipoMP();
             this.populaProdutor();
-            this.populaProcedencia();
+            //this.populaProcedencia();
 
             this.msgProcessamento = '';
+            this.scrollToTop();
     
       }
   
       ,
     mounted(){ 
        //this.$refs.dataInicial.focus();     
+       this.scrollToTop();
     } 
     
     }

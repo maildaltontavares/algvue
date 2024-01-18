@@ -6,7 +6,7 @@ export default new Vuex.Store({
     permissoesUsuario: [],
     permissaoUsuario: {},
     _token: '',
-    configuracaoTela:{marginBottomTela:'120px',tamanhoRodape:'87%',marginLeftRodape:'5%',alturaRodape:'6%'},
+    configuracaoTela:{marginBottomTela:'120px',tamanhoRodape:'87%',marginLeftRodape:'5%',marginRightRodape:'5%',alturaRodape:'6%'},
     tipoDispositivo:'',
     alturaCard:0,
     larguraCard:0,
@@ -50,6 +50,9 @@ export default new Vuex.Store({
       setConfiguracaoTelaMarginLeftRodape(state, marginLeftRodape) {
         state.configuracaoTela.marginLeftRodape = marginLeftRodape
       } ,     
+      setConfiguracaoTelaMarginRightRodape(state, marginRightRodape) {
+        state.configuracaoTela.marginRightRodape = marginRightRodape
+      } ,        
       setConfiguracaoTelaAlturatRodape(state, alturatRodape) {
         state.configuracaoTela.alturatRodape = alturatRodape
       } ,            

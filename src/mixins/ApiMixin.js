@@ -68,7 +68,7 @@ export default {
     },
     nomePesquisa: '',
     itens: [],
-    indiceAtual: {},
+    indiceAtual: {}, 
     resultPesquisa: [],
     page: 1,
     perPage: 10,
@@ -179,8 +179,10 @@ export default {
     },
 
     */
-    apiAutorizacao(idfil, codigo, senha, rota) {
-      console.log('idfil: ', idfil, 'codigo: ', codigo, 'senha: ', senha, 'rota', rota)
+    
+    
+    apiAutorizacao(idfil, codigo, senha ) {
+      //console.log('idfil: ', idfil, 'codigo: ', codigo, 'senha: ', senha, 'rota', rota)
       let url = `${process.env.VUE_APP_BASE_URL}/passegeral/login`;
       if (idfil != undefined) {
         this.axios.post(url, {
@@ -252,18 +254,13 @@ export default {
     // Dalton - Alterada
     async apiPesquisaParam(tipo, id, target) {
      
-      let url;
-       
-
-/*
-      console.log('apiPesquisaParam')
-      console.log( id)
-      console.log( id.length)
-      
-*/
+      let url; 
  
+      //console.log('apiPesquisaParam')
+      //console.log( id)  
 
       if (id.length>0) {
+
         if(tipo=="classematerial"){
              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/${id}`
         }else if (tipo=="item" || tipo=="itemDet"   ) {
@@ -276,16 +273,20 @@ export default {
         }else if (tipo=="usuarioseg"  ) {          
              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/usuario/${id}`
         }else if (tipo=="fornecedor"  ) {          
-              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisanmred/${this.$store.state.usuarioSistema.idfil}/${id}`    
+              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisacod/${this.$store.state.usuarioSistema.idfil}/${id}`    
+        }else if (tipo=="loteItem"  ) {          
+              url = `${process.env.VUE_APP_BASE_URL}/estoquemp/id/${id}`   
         }
+
+         
         
-        console.log('API Pesquisa Param')
-        console.log(url)
+        //console.log('API Pesquisa Param')
+        //console.log(url)
 
         await this.axios.get(url, this.apiTokenHeader())
           .then(response => {
 
-            //console.log('item') 
+            //console.log('loteItem') 
             //console.log(response.data)
 
             if (tipo == 'classematerial') {
@@ -323,17 +324,73 @@ export default {
             }   
 
             if (tipo == 'itemDet') {
-              target.nomeItem = response.data.material.descricao.substring(0, 40)
+              /// target.nomeItem = response.data.material.descricao.substring(0, 40)
+
+
+
+              if ( response.data != null &&  response.data  != ''){
+                target.descFio = response.data.material.descricao.substring(0, 40);   
+              }else{
+                target.descFio = '';                      
+              }   
+
             }      
             
-            if (tipo == 'fornecedor') {
-              target.nomeFornecedor = response.data.descricao.substring(0, 40)
-            }               
+            if (tipo == 'fornecedor') {  
+              //this.nomeFornecedor = response.data[0].descricao.substring(0, 40) ;  //response.data[0].descricao.substring(0, 40)
+              if ( response.data  != null &&  response.data  != ''){
+                  this.nomeFornecedor  = response.data[0].descricao.substring(0, 40);   
+              }else{
+                  this.nomeFornecedor  = '';                      
+              } 
 
 
+            }  
+
+ 
+
+             
+            if (tipo == 'loteItem') {  
+              
+              if ( response.data.lote  != null &&  response.data.lote  != ''){
+                  target.lote  = response.data.lote;   
+              }else{
+                  target.lote  = '';                      
+              } 
+
+              if ( response.data.pilha  != null &&  response.data.pilha  != ''){
+                  target.pilha  = response.data.pilha;   
+              }else{
+                  target.pilha  = '';                      
+              }           
+              
+              if ( response.data.tamanho  != null &&  response.data.tamanho  != ''){
+                  target.tamanho  = response.data.tamanho;   
+              }else{
+                  target.tamanho  = '';                      
+              }               
+
+              if ( response.data.descFio  != null &&  response.data.descFio  != ''){
+                target.descFio  = response.data.descFio;   
+              }else{
+                target.descFio  = '';                      
+              } 
+
+              if ( response.data.item  != null &&  response.data.item  != ''){
+                  target.item  = parseInt(response.data.item);   
+              }else{
+                  target.item  = '';                      
+              }   
+              
+              if ( response.data.um  != null &&  response.data.um  != ''){
+                  target.unidadeMedida  = response.data.um;   
+              }else{
+                  target.unidadeMedida  = '';                      
+              }                
 
 
-
+            }            
+             
              
           })
           .catch(error => {
@@ -478,7 +535,7 @@ export default {
           //console.log('this.loteFiacaoParams' );
           //console.log(this.loteFiacaoParams);    
 
-          console.log('this.movimentoParamDTO');
+          //console.log('this.movimentoParamDTO');
 
 
 
@@ -559,7 +616,7 @@ export default {
               this.apiSetPagesCRUD() 
               this.msgProcessamento = ''
 
-              console.log(this.resultPesquisaCRUD);
+              //console.log(this.resultPesquisaCRUD);
    
             }) 
             .catch(error => {
@@ -783,16 +840,7 @@ export default {
 
           this.msgProcessamento = "Processando"
           this.page = 1
-          this.apiProcessamento()
-
-          //console.log('this.apiPesquisaCRUDByFilial usulogin222222222222222')
-          //console.log(tipo)
-          
- 
-          //this.producaoFiacao.dataProducao.substring(0,4) + this.producaoFiacao.dataProducao.substring(5,7) + this.producaoFiacao.dataProducao.substring(8,10) 
-          //console.log('procurarPor ')  
-          //console.log(procurarPor.dataProducaoInicial.length) 
- 
+          this.apiProcessamento() 
           
           let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/buscasistemausuario`; 
               
@@ -909,7 +957,76 @@ export default {
           });  
 
 
-    }else{
+    } else if(tipo=="lotePesquisa"){   
+
+      this.msgProcessamento = "Processando"
+      this.page = 1
+      this.apiProcessamento()
+
+       
+
+      //console.log('this.apiPesquisaCRUDByFilial itemXX')      
+      //console.log(this.indAtual)  
+      ///console.log(this.aMovimentoItem[z].item)
+      //console.log(z)
+      
+      let url = `${process.env.VUE_APP_BASE_URL}/estoquemp/id`; 
+      this.resultPesquisaCRUD = []
+      this.pages = [] 
+
+      if  ((this.param.lote!='' && this.param.lote!=null  )){
+          this.lotePesquisaDTO.lote =   this.param.lote;
+      } else{
+          this.lotePesquisaDTO.lote = '';
+      } 
+
+      if  ((this.param.produtor!='' && this.param.produtor!=null  )){
+          this.lotePesquisaDTO.produtor =   this.param.produtor;
+      } else{
+         this.lotePesquisaDTO.produtor = '';
+      }  
+
+      if  ((this.param.item!='' && this.param.item!=null  )){
+          this.lotePesquisaDTO.item =   this.param.item;
+      } else{
+         this.lotePesquisaDTO.item = '';
+      } 
+
+      this.lotePesquisaDTO.idfil = this.$store.state.usuarioSistema.idfil;  
+      
+       //console.log('this.lotePesquisaDTO') 
+       //console.log(this.lotePesquisaDTO) 
+
+      await this.axios.post(
+        url,
+        JSON.stringify(this.lotePesquisaDTO),
+        //{
+        //headers: { "Content-Type": "application/json" }
+       // }
+       this.apiTokenHeader({ "Content-Type": "application/json" })
+        )
+        .then(response => {
+          
+          this.resultPesquisaCRUD = response.data   
+          this.msgProcessamento = ''
+
+          this.setaPesquisaCRUD(this.resultPesquisaCRUD)
+          this.apiSetPagesCRUD() 
+          //console.log('this.resultPesquisaCRUD')  
+          //console.log(this.resultPesquisaCRUD) 
+
+          this.msgProcessamento = ''
+
+        }) 
+        .catch(error => {
+          console.log("Erro: ", error.response.data);
+          this.haErros = true
+          this.mensagemErro = error.response.data
+          this.msgProcessamento = ''
+        });   
+    }
+    
+    else{
             if (this.nomePesquisa) {
               
               let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/filial/${this.$store.state.usuarioSistema.idfil}/${nomeCampoProcura}/${procurarPor}`;
@@ -943,16 +1060,7 @@ export default {
             }) 
           }
         } 
-      //if (this.resultPesquisa) {
-
-        //console.log('SSEETTA')
-        //console.log(tipo) 
-
-        //this.setaPesquisaCRUD(this.resultPesquisaCRUD)
-        //this.apiSetPagesCRUD()
-     
        
-    //}
     
   }
     ,
@@ -991,7 +1099,7 @@ export default {
         } else if (tipo=="fornecedor"  ) {          
             url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisanmred/${this.$store.state.usuarioSistema.idfil}/${procurarPor}` 
         } 
-        console.log(url)
+        //console.log(url)
           //console.log( this.$store.state._token)
           
           this.resultPesquisa = []
@@ -1021,6 +1129,7 @@ export default {
         this.apiSetPages()
       }
     },
+   
    // Dalton
     async apiTipoMaquina(pTpMaq){
 
@@ -1297,7 +1406,7 @@ export default {
   */
 
     apiFlushPesquisa(indice) {
-      this.indiceAtual = indice;
+      this.indiceAtual = indice;  
       this.nomePesquisa = '';
       this.resultPesquisa = []
       this.page = 1
@@ -1483,6 +1592,13 @@ export default {
 
       }  
       ,*/
+
+      exibeModalLote(pItem){ 
+        /* DALTON */
+               this.paramItem =  pItem  
+                $('#modalPesquisaLote').modal('show');
+       
+      } ,      
 
       exibeModal(acao,pergunta,botoes,tipo){ 
  /* DALTON */

@@ -70,7 +70,7 @@
 
                 <template v-slot:activator="{ props }">
                 <v-list-item
-                prepend-icon="mdi-clipboard-file-outline"
+                prepend-icon="mdi-view-quilt-outline "
 
                     v-bind="props"
                     title="Misturas"
@@ -89,7 +89,7 @@
 
                 <template v-slot:activator="{ props }">
                 <v-list-item
-                prepend-icon="mdi-clipboard-file-outline"
+                prepend-icon="mdi-account"
 
                     v-bind="props"
                     title="Autorizações"
@@ -766,6 +766,10 @@
   background-color: #00060a; /* Defina a cor desejada para o hover */
   color: #fff; /* Cor do texto para o hover */
   cursor: pointer;
+  
+
+
+
 }
 
 

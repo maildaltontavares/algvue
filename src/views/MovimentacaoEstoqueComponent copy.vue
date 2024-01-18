@@ -32,18 +32,18 @@
                     <div class="flex-linha"  style="margin-left:2%;width:95%;margin-top: 1%; ">  
                             
                                 <div    class="espacoEntreComponentes">  
-                                 
+                                     
                                     <v-autocomplete
-                                        class="text-input" 
-                                        :items="tipoMovimentoItens"    
-                                        label="Tipo Movimento"          
+                                        label="Tipo Movimento"
+                                        :items="tipoMovimentoItens" 
+                                        :disabled="tipoMovimentoDesabilitado"                                           
                                         v-model="this.movimento.tipoMovimento"   
                                         @blur="buscaTipoMovimento"
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 160px;" 
-                                        :disabled="tipoMovimentoDesabilitado"  
+                                        style="width: 160px; font-size:16px;" 
+                                        bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                   
@@ -56,7 +56,6 @@
                                 <div    class="espacoEntreComponentes">  
 
                                     <v-autocomplete
-                                        class="text-input"
                                         label="Tipo MP"
                                         :items="tipoMPItens" 
                                         :disabled="tipoMPDesabilitado"                                           
@@ -64,7 +63,7 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 160px; " 
+                                        style="width: 160px;font-size:16px " 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
@@ -82,7 +81,6 @@
                                             <div class="d-flex  justify-content-start">
                                                 
                                                 <v-text-field
-                                                    class="text-input"
                                                     v-model.trim="this.movimento.fornecedor" 
                                                     label="Fornecedor"
                                                     id="fornecedor"                                                  
@@ -137,7 +135,6 @@
                                             <div >
                                                 
                                                 <v-text-field
-                                                    class="text-input"
                                                     v-model.trim="this.movimento.notaFiscal" 
                                                     id="notaFiscal"
                                                     label="Documento" 
@@ -163,7 +160,6 @@
                                     <div >
                                         
                                         <v-text-field
-                                            class="text-input"
                                             v-model.trim="this.movimento.dataBase" 
                                             id="dataBase"
                                             label="Data Movimento" 
@@ -187,7 +183,6 @@
                                     <div >
                                         
                                         <v-text-field
-                                            class="text-input"
                                             v-model.trim="this.movimento.dataEmissao" 
                                             id="dataEmissao"
                                             label="Data Emissão" 
@@ -211,7 +206,6 @@
                                 <div    class="espacoEntreComponentes" v-if="this.tipoMatP == 'ALGOD'">   
 
                                     <v-autocomplete
-                                        class="text-input"
                                         label="Produtor"
                                         :items="produtorItens" 
                                         :disabled="produtorDesabilitado "    
@@ -231,7 +225,6 @@
                                 <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">   
 
                                     <v-autocomplete
-                                        class="text-input"
                                         label="Procedencia"
                                         :items="procedenciaItens" 
                                         :disabled="procedenciaDesabilitado"                                           
@@ -255,7 +248,6 @@
                                     <div >
                                         
                                         <v-text-field
-                                            class="text-input"
                                             v-model.trim="this.movimento.pesoTotal" 
                                             id="pesoTotal"
                                             label="Peso Liquido" 
@@ -278,7 +270,6 @@
                                     <div >
                                         
                                         <v-text-field
-                                           class="text-input"
                                             v-model.trim="this.movimento.numVolumes" 
                                             id="numVolumes"
                                             label="Núm. Volumes" 
@@ -303,7 +294,6 @@
                                     <div >
                                         
                                         <v-text-field
-                                            class="text-input"
                                             v-model.trim="this.movimento.pesoMedio" 
                                             id="pesoMedio"
                                             label="Peso Médio" 
@@ -326,7 +316,7 @@
                                 <div    class="espacoEntreComponentes">  
                                      
                                      <v-autocomplete
-                                         class="text-input"
+
                                          label="Id Movimento" 
                                          disabled                                           
                                          v-model="this.movimento.id"   
@@ -366,7 +356,66 @@
                         </v-btn>  
                     </div>  
 
-                   
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                    <div class="d-flex justify-content-end " style=" margin-top: 20px;border-radius:15px 15px 15px 15px;width:100%;background-color:red; height:50px  " >                                    
+                     
+                     
+                            
+
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232); margin-right:8px;" 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232);  margin-right:8px;" 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>  
+                        
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232); " 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>   
+                        
+                        
+
+                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px; margin:5px" accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
+                         
+
+                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                         <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
+
+
+                    </div>                      
                     
                     
                     
@@ -407,12 +456,10 @@
     
                                     <tr>
                                         <td>
-                                            <div class="d-flex justify-content-end " style=" margin-left:1px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
+                                            <div class="d-flex justify-content-end " style=" margin-left:5px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
 
-                                              <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
-                                                <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
-                                                 
-                                                    <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
+                                                <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">
+                                                    <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
                                                 </div>    
 
                                                 <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
@@ -424,9 +471,13 @@
                                                 </div>                                                   
 
                                                 <v-btn  
+                            
                                                         style="height:20px; background-color:rgb(240, 237, 232); "    
                                                         @click="excluirItem(indice)"
-                                                        >   
+                                                        > 
+
+                                                             
+
                                                             <v-icon                                                       
                                                             color="primary"
                                                             icon="mdi-minus-box-outline"  
@@ -459,7 +510,7 @@
                                                                     label="item"
                                                                     ref="item"  
                                                                     maxlength="7"  
-                                                                    style=" width: 150px; "
+                                                                    style=" width: 150px; " 
                                                                     variant="outlined"
                                                                     bg-color="white"
                                                                     :disabled="itemDesabilitado   && i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão'"  
@@ -521,7 +572,7 @@
                                                                             id="idItem"
                                                                             label="id" 
                                                                             ref="idItem"   
-                                                                            style=" width: 150px; "
+                                                                            style=" width: 150px; " 
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -558,7 +609,7 @@
                                                                             id="idItem"
                                                                             label="id" 
                                                                             ref="idItem"     
-                                                                            style=" width: 150px; "
+                                                                            style=" width: 150px; " 
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -592,7 +643,7 @@
                                                                             id="idItem"
                                                                             label="id" 
                                                                             ref="idItem"     
-                                                                            style=" width: 150px; "
+                                                                            style=" width: 150px; " 
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -659,15 +710,15 @@
                                                 <div >
                                                     
                                                     <v-text-field
-                                                         
                                                         v-model.trim="i.pilha" 
                                                         id="pilha"
                                                         label="Pilha" 
                                                         ref="pilha"  
                                                         maxlength="6"                                         
-                                                        style=" width: 150px; "
+                                                        style=" width: 150px; " 
                                                         variant="outlined"
-                                                        :disabled="pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') " 
+                                                        bg-color="white"
+                                                        :disabled="pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') "   
                                                         type="number"
                                                         inputmode="numeric"
                                                         
@@ -691,7 +742,7 @@
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
-                                                    style=" width: 150px; "
+                                                    style=" width: 150px; " 
                                                     bg-color="white"      
                                                     
                                                     density="compact"
@@ -767,7 +818,7 @@
                                                         id="um"
                                                         label="UM" 
                                                         ref="um"   
-                                                        style=" width: 150px; "
+                                                        style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="umDesabilitado && i.habilitado"    
@@ -812,7 +863,6 @@
                                                 <div >
                                                     
                                                     <v-text-field
-                                                        class="v-input"
                                                         v-model.trim="i.observacao" 
                                                         id="observacao"
                                                         label="Observação" 
@@ -829,8 +879,8 @@
                                     
                                             </div>     
                                         </td> 
+
 <!--
- 
                                         <td>
                                             <div   class="espacoEntreComponentesGrid">    
                                                         
@@ -851,32 +901,9 @@
                                                 </div>
                                     
                                             </div>     
-                                        </td>         
-                                        
-                                        
-                                        <td>
-                                            <div   class="espacoEntreComponentesGrid">    
-                                                        
-                                                <div >
-                                                    
-                                                    <v-text-field
-                                                        v-model.trim="i.statusItemOriginal" 
-                                                        id="statusItemOriginal"
-                                                        label="statusItemOriginal" 
-                                                        ref="statusItemOriginal"   
-                                                        style=" width: 250px; " 
-                                                        variant="outlined"
-                                                        bg-color="white"
-                                                        disabled 
-                                                        density="compact"
-                                                    ></v-text-field>    
-
-                                                </div>
-                                    
-                                            </div>     
-                                        </td>                                          
-                                    
--->
+                                        </td>                                         
+-->                                    
+    
         
                                     </tr>
                                 </tbody>
@@ -916,13 +943,12 @@
                 :haErrosProps="haErros"
                 :haSucessoProps= "haSucesso"
                 />   
-<!--                <div   class=" elevation-12 rodape_crud2" 
+
+                <div   class=" elevation-12 rodape_crud2" 
                         style="position: fixed;background-color:rgb(173, 173, 187);"  :style="{marginLeft:  this.$store.state.configuracaoTela.marginLeftRodape  ,
                                             width:  this.$store.state.configuracaoTela.tamanhoRodape,
                                             height:  this.$store.state.configuracaoTela.alturaRodape   }" >  
--->
-
-                    <div   class=" elevation-12 rodape_crud2" style=" background-color:rgb(173, 173, 187);"  > 
+<!-- 
                         
                         <div class=" d-flex justify-space-between " style=" margin-bottom:5px" >  
 
@@ -945,20 +971,80 @@
                          
 
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
-                                <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
-                                :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
-                                accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
+                                <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
 
                             </div> 
 
                         </div>
-                 
+                -->
                     </div>   
 
                           
             </div>
 
- 
+
+
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                        <div class="d-flex justify-content-end " style=" margin-top: 20px;border-radius:15px 15px 15px 15px;width:100%;background-color:red; height:50px  " >                                    
+                     
+                     
+                            
+
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232); margin-right:8px;" 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>  
+
+
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232);  margin-right:8px;" 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>  
+                     
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232); " 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>   
+                     
+                     
+
+                     <v-btn color="primary" class="botao_rodape" style="min-width: 70px; margin:5px" accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
+                      
+
+                      <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                      <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
+
+
+                 </div>               
+      
 
 
 
@@ -1288,7 +1374,6 @@
         
             aMovimentoItemDAO: [],
             aMovimentoItemFinal: [],
-            aMovimentoItemTransitorio: [],
 
             aMovimentoItem :[ 
 
@@ -1518,14 +1603,7 @@
                 if(this.aMovimentoItem[pInd].statusItemOriginal  == 'Inclusão') {
                     
                     if (this.aMovimentoItem[pInd].item == 0 || this.aMovimentoItem[pInd].item == null  || this.aMovimentoItem[pInd].item == 'undefined'   ){
-                        this.aMovimentoItem.splice(pInd,1);  
-
-                        this.numItem = 0;
-                        for (let i = 0; i < this.aMovimentoItem.length; i++) {   
-                                    this.numItem = this.numItem+1;                                                                    
-                                    this.aMovimentoItem[i].ind =  String(this.numItem).padStart(3, '0')  ;    
-                        }   
-
+                        this.aMovimentoItem.splice(pInd,1); 
                     }else{
                         this.apiDisplayMensagem('Item já informado.')
                     }
@@ -1756,8 +1834,8 @@
                                                         // Gera um id para o item caso ainda não tenha
                                                         if(this.aMovimentoItem[i].idItem == 0) { 
 
-                                                            //console.log('Valida iitteemm 333333')
-                                                            //console.log(this.aMovimentoItem[i].idItem)                                                             
+                                                            console.log('Valida iitteemm 333333')
+                                                            console.log(this.aMovimentoItem[i].idItem)                                                             
 
                                                             const resposta = await this.buscaId();        
                                                             if ((resposta != 0 && resposta != undefined) ){
@@ -1769,8 +1847,8 @@
                                                             this.aMovimentoItem[i].idItem = idMovto 
                                                         } 
 
-                                                        //console.log('Valida iitteemm')
-                                                        //console.log(idMovto) 
+                                                        console.log('Valida iitteemm')
+                                                        console.log(idMovto) 
 
 
 
@@ -1832,7 +1910,7 @@
                                     /// É uma inclusão porém todos os itens estão excluídos
 
 
-                                    //console.log(itensValidos);
+                                    console.log(itensValidos);
 
                                     if(itensValidos>0){
 
@@ -1864,8 +1942,8 @@
 
                                             this.aMovimentoItemFinal.push(this.movimentoDAO);  
                                             
-                                            //console.log('this.aMovimentoItemFinal')
-                                            //console.log(this.aMovimentoItemFinal)
+                                            console.log('this.aMovimentoItemFinal')
+                                            console.log(this.aMovimentoItemFinal)
                                              
                                             await this.axios.post(
                                                 url,
@@ -1894,8 +1972,8 @@
                                                  
                                             })
                                             .catch(error => {
-                                                console.log("Erro: ", error.response.data); 
-                                                this.apiDisplayMensagem(error.response.data ) 
+                                                console.log("Erro: ", error.response.data.message); 
+                                                this.apiDisplayMensagem(error.response.data.message ) 
                                             }); 
                                    } else{
                                         this.apiDisplayMensagem('Documento sem itens. Não será gravado')
@@ -1940,7 +2018,7 @@
                                                             } 
 
                                                             //console.log('Valida iitteemm 7777')
-                                                            //console.log(this.movimento)  
+                                                            //console.log(idMovto)  
 
                                                             objItem = {  
                                                             
@@ -1999,7 +2077,7 @@
 
                                             }   
 
-                                            //console.log(itensValidos);
+                                            console.log(itensValidos);
 
                                             if(itensValidos>0){
 
@@ -2029,7 +2107,7 @@
                                                     } 
 
                                                     //console.log('AlteraCAO')
-                                                    //console.log(this.movimentoDAO) 
+                                                    //console.log(this.usuarioDAO ) 
 
                                                 
                                                     this.aMovimentoItemFinal.push(this.movimentoDAO);  
@@ -2044,54 +2122,26 @@
                                                     )
                                                     .then(response => { 
 
+                                                        this.apiDisplayMensagemSucesso('Movimento alterado com sucesso.' ) 
+                                                        this.tmp = JSON.stringify(response.data);    
 
-                                                        this.resultado = response.data; 
-                                                        //console.log('this.resultado 444')
-                                                        //console.log(this.resultado)                                                        
-
-
-                                                        if(this.resultado=="Deletado"){
-                                                            this.simNaoRetorno = 'S'
-                                                            this.resetarForm();
-                                                            this.apiDisplayMensagemSucesso('Movimento excluido com sucesso.' ) 
+                                                        for (let i = 0; i < this.aMovimentoItem.length; i++) {    
                                                             
-
-                                                        }else{
-                                                                this.apiDisplayMensagemSucesso('Movimento alterado com sucesso.' ) 
-                                                                this.tmp = JSON.stringify(response.data);   
+                                                            //if(this.aMovimentoItem[i].statusItem == 'Inclusão' ||  this.aMovimentoItem[i].statusItem == 'Alteração' ||    (this.aMovimentoItem[i].statusItem == 'Exclusão' && this.aMovimentoItem[i].statusItemOriginal == 'Alteração' ) ){
+                                                                if(this.aMovimentoItem[i].statusItem == 'Inclusão') {
+                                                                    this.aMovimentoItem[i].statusItem = 'Alteração';   
+                                                                }
+                                                                if(this.aMovimentoItem[i].statusItem == 'Exclusão'   ){
+                                                                    this.aMovimentoItem[i].statusItemOriginal = 'Exclusão';  
+                                                                }
                                                                 
-                                                                this.aMovimentoItemTransitorio = [];
-                                                                this.numItem = 0;
-                                                                for (let i = 0; i < this.aMovimentoItem.length; i++) {    
-                                                                    
-                                                                    
-                                                                        if(this.aMovimentoItem[i].statusItem != 'Exclusão' ) {
-                                                                            this.aMovimentoItem[i].statusItem = 'Alteração';   
-                                                                            this.aMovimentoItem[i].statusItemOriginal = 'Alteração'; 
-                                                                        }
-
-                                                                        if(this.aMovimentoItem[i].statusItem == 'Exclusão'   ){
-                                                                            this.aMovimentoItem[i].statusItemOriginal = 'Exclusão';  
-                                                                        }
-                                                                        
-                                                                        if(this.aMovimentoItem[i].statusItem == 'Inclusão' || this.aMovimentoItem[i].statusItem == 'Alteração') {
-                                                                            this.numItem = this.numItem+1;                                                                    
-                                                                            this.aMovimentoItem[i].ind =  String(this.numItem).padStart(3, '0')  ;  
-                                                                            this.aMovimentoItemTransitorio.push(this.aMovimentoItem[i]);
-                                                                        }
-                                                                
-                                                                } 
-
-                                                                //console.log('this.aMovimentoItemTransitorio')
-                                                                //console.log(this.aMovimentoItemTransitorio)
-                                                                this.aMovimentoItem = this.aMovimentoItemTransitorio;
+                                                            //} 
                                                         } 
-
                                                         
                                                     })
                                                     .catch(error => {
-                                                        console.log("Erro: ", error.response.data ); 
-                                                        this.apiDisplayMensagem(error.response.data  ) 
+                                                        console.log("Erro: ", error.response.data.message); 
+                                                        this.apiDisplayMensagem(error.response.data.message ) 
                                                     });  
                                             }
 
@@ -2435,14 +2485,14 @@
                                     }     
                                     
                                     if (this.resultado.fkProdutor!= null){
-                                        this.movimento.produtor = this.resultado.fkProdutor.codigo ;     
+                                        this.movimento.produtor = this.resultado.fkProdutor.descricao ;     
                                     
                                     }else{
                                         this.movimento.produtor = "" ;                       
                                     }                          
 
                                     if (this.resultado.fkProcedencia!= null){
-                                        this.movimento.procedencia = this.resultado.fkProcedencia.codigo ;     
+                                        this.movimento.procedencia = this.resultado.fkProcedencia.descricao ;     
                                     
                                     }else{
                                         this.movimento.procedencia = "" ;                       
@@ -2475,8 +2525,8 @@
 
 
                                    
-                                   //console.log('this.resultado.itemMovimento');
-                                   //console.log(this.resultado.itemMovimento);
+                                   console.log('this.resultado.itemMovimento');
+                                   console.log(this.resultado.itemMovimento);
 
                                    let aItens =  this.resultado.itemMovimento;
 
@@ -2485,8 +2535,8 @@
                                         return a.idItem - b.idItem;
                                     }); 
 
-                                   //console.log('aItens');
-                                   //console.log(aItens);
+                                   console.log('aItens');
+                                   console.log(aItens);
 
                                    // for (let i = 0; i < this.resultado.itemMovimento.length; i++) { 
                                     for (let i = 0; i < aItens.length; i++) { 
@@ -2558,8 +2608,8 @@
                         }
                         this.msgProcessamento = "" 
 
-                        //console.log('this.aMovimentoItem 333333')
-                        //console.log(this.aMovimentoItem)                        
+                        console.log('this.aMovimentoItem 333333')
+                        console.log(this.aMovimentoItem)                        
 
                          
                      
@@ -2725,12 +2775,6 @@
 */
 
             navegarParaLogin(){this.$router.push({name:'login'  })},  
-
-
-            scrollToTop() {
-              window.scrollTo(0, 0);
-            },                  
-
         } , 
     
         async created(){   
@@ -2768,9 +2812,6 @@
                 this.populaTipoMP();
                 this.populaProdutor();
                 this.populaProcedencia();
-
-                this.scrollToTop();
-
 
         } ,
        

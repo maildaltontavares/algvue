@@ -124,8 +124,8 @@ export default {
     position: fixed;
     bottom: 16px;
     background-color: #003366;
-    width: 98%;
-    height: 5%;
+    width: 100%;
+    height: 50px;
     margin-bottom: 15px; 
     border-radius: 5px;
     color: white;
@@ -261,4 +261,76 @@ export default {
   font-size: 14px;
   font-weight: bold;
 }
+
+.v-input--is-disabled .v-label .v-input__control .v-input__slot {
+    color:rgb(9, 29, 247);
+    pointer-events: none;
+    font-weight:bold; 
+    font-size: 30px;
+    background-color: #28a745;
+
+
+}
+
+.v-input--disabled {
+    pointer-events: none;
+    color:rgb(9, 29, 247);
+    pointer-events: none;
+    font-weight:bold; 
+    font-size: 30px;
+    white-space: pre-line;
+    
+   
+    
+
+}
+
+.text-input input {
+    font-size: 16px;
+    white-space: pre-line;
+}
+
+.text-input-center input {
+    font-size: 14px;
+    text-align: center;
+}
+
+.text-input-right input {
+    font-size: 14px;
+    text-align: right;
+}
+
+.text-input textarea {
+    font-size: 14px;
+}
+
+.text-input select {
+    font-size: 14px;
+}
+
+.text-input checkbox {
+    font-size: 14px;
+}
+
+.text-input .v-label {
+    color: #1A237E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.text-input-center .v-label {
+    color: #1A237E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.text-input-right .v-label {
+    color: #1A237E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+
+
 </style>

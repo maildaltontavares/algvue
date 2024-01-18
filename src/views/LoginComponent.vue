@@ -173,8 +173,8 @@ methods: {
             "idfil":this.idfil
 
           } 
-          //console.log( this.usuarioDAO)
-          //console.log( url)
+          console.log( this.usuarioDAO)
+          console.log( url)
           
 
            await this.axios.post(url,this.usuarioDAO

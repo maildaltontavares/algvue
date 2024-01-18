@@ -8,7 +8,8 @@
         </div>
         <div class="modal-body" >
           <div class="mb-3">
-              <div class="col-md-12 input-group">
+              <div class="col-md-12 input-group"> 
+
                   <input type="text" class="form-control form-control-sm" @blur="apiPesquisaNome('fornecedor','descricao',nomePesquisa,1)" v-model.lazy="nomePesquisa" placeholder="Informe o nome do fornecedor">
                   <button type="button" class="btn btn-primary" @click="apiPesquisaNome('fornecedor','descricao',nomePesquisa,1)"><i class="bi bi-search input-group-append"></i></button>
               </div>

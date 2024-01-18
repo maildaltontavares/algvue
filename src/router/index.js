@@ -175,8 +175,8 @@ router.beforeEach(async (to ) => {
                         .then(response => {
                             store.state.permissoesUsuario = response.data
                       
-                            console.log(response.data)
-                            console.log(this.$store.state.permissoesUsuario);
+                            //console.log(response.data)
+                            //console.log(this.$store.state.permissoesUsuario);
                         })
                         .catch(error => {
                 

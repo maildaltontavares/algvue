@@ -22,7 +22,7 @@ export default {
                this.tipoMovimentoItens = []; 
        
                // Carrega tipo Maquina
-               let url = `${process.env.VUE_APP_BASE_URL}/tipomovto/filial/${this.$store.state.usuarioSistema.idfil}`; 
+               let url = `${process.env.VUE_APP_BASE_URL}/tipomovto/pesquisa/${this.$store.state.usuarioSistema.idfil}`; 
 
                //console.log(url);
                
@@ -62,7 +62,7 @@ export default {
                    this.tipoMPItens = []; 
            
                    // Carrega tipo Maquina
-                   let url = `${process.env.VUE_APP_BASE_URL}/tipomp/filial/${this.$store.state.usuarioSistema.idfil}`; 
+                   let url = `${process.env.VUE_APP_BASE_URL}/tipomp/pesquisa/${this.$store.state.usuarioSistema.idfil}`; 
     
                    //console.log(url);
                    
@@ -156,6 +156,7 @@ export default {
                            .then(response => { 
                                this.resultado = response.data;     
             
+                               //console.log('Procedencia' );
                                //console.log(this.resultado );
                                
                                this.procedenciaItens = [];
@@ -172,8 +173,8 @@ export default {
                                     });  
                     
     
-                                     console.log('Produtores')
-                                    console.log(this.produtorItens)
+                                    //console.log('Produtores')
+                                    //console.log(this.produtorItens)
     
     
     
@@ -185,7 +186,40 @@ export default {
                            console.log("Erro: ", error);
                            this.haErros = true
                            });
-                       },                   
+                       },       
+                       
+                       
+                       async buscaId(){
+                        /* DALTON */
+                               
+                               let vId = 0;
+                               this.resultado = ""; 
+                               this.tipoMPItens = []; 
+                               
+                               // Carrega tipo Maquina
+                               let url = `${process.env.VUE_APP_BASE_URL}/movimento/novoitem`; 
+                
+                               console.log('id'); 
+                               
+                               await this.axios.get(url,this.apiTokenHeader())
+                               .then(response => { 
+                                   this.resultado = response.data;  
+                                   vId = this.resultado ; 
+                                   console.log(' Funcao vId'); 
+                                   console.log(vId); 
+                       
+                               })
+                                .catch(error => {
+                                console.log("Erro: ", error);
+                                this.haErros = true
+                                
+                               });
+
+                               return vId;
+                           },
+
+
+
 
     }
 }    
