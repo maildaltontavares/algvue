@@ -16,7 +16,7 @@ export default {
   }),
   methods: {
    
-       populaTipoMovimento(){
+       async populaTipoMovimento(){
         /* DALTON */
                this.resultado = ""; 
                this.tipoMovimentoItens = []; 
@@ -26,7 +26,7 @@ export default {
 
                //console.log(url);
                
-               this.axios.get(url,this.apiTokenHeader())
+               await this.axios.get(url,this.apiTokenHeader())
                .then(response => { 
                    this.resultado = response.data;     
 
@@ -56,7 +56,7 @@ export default {
                });
            },
  
-           populaTipoMP(){
+           async populaTipoMP(){
             /* DALTON */
                    this.resultado = ""; 
                    this.tipoMPItens = []; 
@@ -66,7 +66,8 @@ export default {
     
                    //console.log(url);
                    
-                   this.axios.get(url,this.apiTokenHeader())
+                   
+                   await this.axios.get(url,this.apiTokenHeader())
                    .then(response => { 
                        this.resultado = response.data;     
     
@@ -194,12 +195,12 @@ export default {
                                
                                let vId = 0;
                                this.resultado = ""; 
-                               this.tipoMPItens = []; 
+                               ///this.tipoMPItens = []; 
                                
                                // Carrega tipo Maquina
                                let url = `${process.env.VUE_APP_BASE_URL}/movimento/novoitem`; 
                 
-                               console.log('id'); 
+                               //console.log('id'); 
                                
                                await this.axios.get(url,this.apiTokenHeader())
                                .then(response => { 

@@ -249,7 +249,7 @@
                                 </div>                                  
 
 
-                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">   
+                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">   
                                     
                                             
                                     <div >
@@ -264,7 +264,7 @@
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="pesoTotalDesabilitado"                                                                                          
-                                            :rules="[campoRequerido]"
+                                            
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -273,7 +273,7 @@
                                 </div>     
 
      
-                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">    
                                             
                                     <div >
                                         
@@ -289,7 +289,7 @@
                                             :disabled="numVolumesDesabilitado"  
                                             type="number"
                                             inputmode="numeric"
-                                            :rules="[campoRequerido]"
+                                          
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -298,7 +298,7 @@
                                 </div> 
 
 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'">    
                                             
                                     <div >
                                         
@@ -314,7 +314,7 @@
                                             :disabled="pesoMedioDesabilitado"  
                                             type="number"
                                             inputmode="numeric"
-                                            :rules="[campoRequerido]"
+                                             
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -413,15 +413,15 @@
                                               <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
                                                 <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
                                                  
-                                                    <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
+                                                    <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
                                                 </div>    
 
                                                 <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
-                                                    <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
+                                                    <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
                                                 </div>   
                                                 
                                                 <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
-                                                    <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
+                                                    <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
                                                 </div>                                                   
 
                                                 <v-btn  
@@ -605,7 +605,7 @@
                                                           
                                                               
                                                                 <v-btn   @click="validaItem(indice,i.item)" 
-                                                                  tabindex="-1"    
+                                                                  tabindex="-1"   :disabled="itemDesabilitado && i.habilitado" 
   
                                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                                     > 
@@ -642,7 +642,7 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
+                                                        :disabled="loteItemDesabilitado  && i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão'"  
                                                         type="text"                                       
                                                         :rules="[campoRequerido]" 
                                                         density="compact"                                                        
@@ -652,7 +652,6 @@
                                                 
                                             </div> 
                                         </td>            
-                                         
 
 
                                         <td     v-if="this.tipoMatP == 'ALGOD'">
@@ -670,7 +669,7 @@
                                                         maxlength="6"                                         
                                                         style=" width: 150px; "
                                                         variant="outlined"
-                                                        :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
+                                                        :disabled="pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') " 
                                                         type="number"
                                                         inputmode="numeric"
                                                         
@@ -689,14 +688,14 @@
 
                                                     label="Tam"
                                                     :items="tamanhoItens"                                                        
-                                                    :disabled="(tamanhoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    :disabled="tamanhoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') "                                
                                                     v-model="i.tamanho"   
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
                                                     style=" width: 150px; "
                                                     bg-color="white"      
-                                                    :rules="[campoRequerido]" 
+                                                    
                                                     density="compact"
                                                     
                                                 ></v-autocomplete> 
@@ -773,7 +772,7 @@
                                                         style=" width: 150px; "
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
+                                                        :disabled="umDesabilitado && i.habilitado"    
                                                         :rules="[campoRequerido]"    
                                                         density="compact"                                     
                                                     ></v-text-field>                                    
@@ -781,7 +780,7 @@
                                     
                                             </div> 
                                         </td>
-                                        
+
                                         
 
                                         <td>
@@ -1300,8 +1299,6 @@
             vOperAlteraEstoque:'',
             vOperAlteraItem:'' ,
             indAtual: 0,
-
-            vTmp:'' 
             
            
         }              
@@ -1493,25 +1490,7 @@
                     this.apiDisplayMensagem('Informe a data de emissão.');
                     validado = false;
                 }   
-
-                if(this.vOperAlteraItem=='S' && this.tipoMatP == 'ALGOD'  ){ 
-                 
-                    if (this.movimento.pesoTotal=='' || this.movimento.pesoTotal==null || this.movimento.pesoTotal==0)  {
-                        this.apiDisplayMensagem('Informe o peso líquido.');
-                        validado = false;
-                    }   
-                    
-                    if (this.movimento.numVolumes=='' || this.movimento.numVolumes==null || this.movimento.numVolumes==0)  {
-                        this.apiDisplayMensagem('Informe o número de volumes.');
-                        validado = false;
-                    }   
-                    
-                    if (this.movimento.pesoMedio=='' || this.movimento.pesoMedio==null || this.movimento.pesoMedio==0)  {
-                        this.apiDisplayMensagem('Informe o peso medio.');
-                        validado = false;
-                    }            
-
-                }
+                
                 if(validado){
 
                     this.novoItem();  
@@ -1579,12 +1558,12 @@
                     this.numItem = this.numItem+1; 
                     this.movimentoItemTempAux = Object.assign({},this.movimentoItemInicial);  
                     this.movimentoItemTempAux.ind =  String(this.numItem).padStart(3, '0')  ;  
-                    //if(this.vOperAlteraItem=='N'){
-                    //    this.movimentoItemTempAux.habilitado = true;
-                        //this.configuraNovoItemAtlzItem();
-                    //}else{
+                    if(this.vOperAlteraItem=='N'){
+                        this.movimentoItemTempAux.habilitado = true;
+                        this.configuraNovoItemAtlzItem();
+                    }else{
                         this.movimentoItemTempAux.habilitado = false;
-                    //}
+                    }
                     
                     this.movimentoItemTempAux.alteracao = false; 
                     this.movimentoItemTempAux.statusItem = 'Inclusão'
@@ -1606,7 +1585,6 @@
                 if (e.tipo == "item") {
                     this.aMovimentoItem[this.indiceAtual].item = e.obj.codigo;
                     this.aMovimentoItem[this.indiceAtual].descFio = e.obj.material.descricao.substring(0, 40);
-                    this.aMovimentoItem[this.indiceAtual].idMovimento = 0;
                 } 
 
                 if(e.tipo == "fornecedor") {
@@ -1637,35 +1615,14 @@
                     this.mensagemSucesso = ''
                     this.mensagemErro = '' 
                     let objItem ; 
-                    let validado;
-                    let myMsg;
                    
                     this.aMovimentoItemFinal = []; 
                     this.aMovimentoItemDAO = [];  
-                    
-                    myMsg = '';
-                    validado = true;
-                    for (let i = 0; i < this.aMovimentoItem.length; i++) {    
-                                                    
-                        if(this.aMovimentoItem[i].idMovimento ==0 && this.vOperAlteraItem=='N'   ){
-                            validado = false;
-                            myMsg = 'Id do lote ' + this.aMovimentoItem[i].lote + ' inválido.'
-                            this.apiDisplayMensagem('Id do lote ' + this.aMovimentoItem[i].lote + ' inválido.');
-                            this.haErros = true;
-                        }
-                                                        
-                    } 
-
-                    this.validacao = await this.$refs.formulario.validate();   
-
-                    if (!this.validacao.valid){
-                        validado = false; 
-                        myMsg = 'Preencha os campos com críticas.';
-                    }
-                    
-                    if (validado == false ) {
+ 
+                   this.validacao = await this.$refs.formulario.validate();   
+                    if (!this.validacao.valid) {
                
-                        this.apiDisplayMensagem(myMsg);
+                        this.apiDisplayMensagem('Preencha os campos com críticas.');
                         this.haErros = true;
                         return;
                     } else {    
@@ -1686,10 +1643,6 @@
 
                         let url = `${process.env.VUE_APP_BASE_URL}/movimento` ; 
 
-
- 
-
-
                         if(this.tipoOperacao=="I"){
                                 dataInsercao = dataFormatada;
                                 this.movimento.dataInclusao  = this.$moment(dataAtual).format("DD/MM/YYYY") ;
@@ -1697,7 +1650,9 @@
                         }else{
                                     if (typeof this.movimento.dataInclusao   === "string") {
                                         dataInsercao  = this.movimento.dataInclusao ;
-                                    } else if (this.movimento.dataInclusao  instanceof Date) {
+                                    } else if (this
+                                    
+                                    .movimento.dataInclusao  instanceof Date) {
                                         dataInsercao  = this.$moment(this.movimento.dataInclusao .format("DD/MM/YYYY")  )
                                     } 
 
@@ -2088,7 +2043,7 @@
                    // } //////////////////// limpaItensBranco
 
            }, 
-  
+ 
 
            resetarForm(){
 
@@ -2130,19 +2085,16 @@
 
             },
 
-/*
-            configuraNovoItemAtlzItem(){    
 
-                //this.itemDesabilitado = false; 
+            configuraNovoItemAtlzItem(){    
 
                 this.loteItemDesabilitado = true; 
                 this.pilhaDesabilitado = true; 
                 this.tamanhoDesabilitado = true; 
                 this.umDesabilitado = true;   
-                this.vTmp = 'ZZZZZKKKK'
                              
             },
-*/
+
             configuraCampos(oper ){
 
 
@@ -2197,15 +2149,11 @@
                            
                             this.loteItemDesabilitado = true;
                             this.tamanhoDesabilitado = true; 
-                            this.vTmp = 'ZZZZZ1111'
                         }else{                 
                             
                             this.loteItemDesabilitado = false;
                             this.tamanhoDesabilitado = false; 
-                            this.vTmp = 'ZZZZZ2222'
                         } 
-
-                        
                          
 
 
@@ -2213,7 +2161,18 @@
 
                         if(this.vOperAlteraEstoque=='S'){                            
                             
-                             
+                            if(this.vOperAlteraItem=='N'){ 
+
+
+                            
+
+                            }else {
+                                this.itemDesabilitado = true;                                
+                                this.loteItemDesabilitado = true;                             
+                                this.pilhaDesabilitado = true; 
+                                this.tamanhoDesabilitado = true; 
+                                this.umDesabilitado = true;
+                            }
                             this.itemDesabilitado = true;
                             ///this.idDesabilitado = true;
                             this.loteItemDesabilitado = true;                             
@@ -2221,21 +2180,9 @@
                             this.tamanhoDesabilitado = true; 
                             //this.quantidadeDesabilitado = true; 
                             //this.pesoDesabilitado = true;   
-                            this.umDesabilitado = true;   
+                            //this.umDesabilitado = true;   
                             //this.vlUnitarioDesabilitado = true;  
                             //this.observacaoDesabilitado = true; 
-
-                            this.vTmp = 'ZZZZZaaaaaaa'
-
-                            if(this.vOperAlteraItem=='N'){  
-                           
-                               this.loteItemDesabilitado = true;
-                               this.tamanhoDesabilitado = true; 
-                               this.umDesabilitado = true; 
-                        
-                               this.vTmp = 'ZZZZZbbbbb'
-                             } 
-
 
                         }else{
                             
@@ -2249,8 +2196,6 @@
                             //this.umDesabilitado = false;   
                             //this.vlUnitarioDesabilitado = false;  
                             this.observacaoDesabilitado = false;  
-
-                            this.vTmp = 'ZZZZZccccc'
 
                              /*
                             if(this.vOperAlteraItem=='N'){  
@@ -2485,7 +2430,7 @@
                                         this.vOperAlteraItem = "" ;                       
                                     }           
                    
-                                     
+                                                             
 
                                    //console.log('this.vOperAlteraEstoque')
                                    //console.log(this.vOperAlteraEstoque)

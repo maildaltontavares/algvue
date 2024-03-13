@@ -327,12 +327,19 @@ export default {
               /// target.nomeItem = response.data.material.descricao.substring(0, 40)
 
 
-
+              target.idMovimento = 0;
               if ( response.data != null &&  response.data  != ''){
-                target.descFio = response.data.material.descricao.substring(0, 40);   
+                 target.descFio = response.data.material.descricao.substring(0, 40);   
+                 
               }else{
-                target.descFio = '';                      
+                target.descFio = '';
+                
               }   
+
+               
+            
+              //console.log('target.descFio')
+              //console.log(target.descFio)
 
             }      
             
@@ -370,8 +377,8 @@ export default {
                   target.tamanho  = '';                      
               }               
 
-              if ( response.data.descFio  != null &&  response.data.descFio  != ''){
-                target.descFio  = response.data.descFio;   
+              if ( response.data.nomeItem  != null &&  response.data.nomeItem  != ''){
+                target.descFio  = response.data.nomeItem;   
               }else{
                 target.descFio  = '';                      
               } 
@@ -386,8 +393,9 @@ export default {
                   target.unidadeMedida  = response.data.um;   
               }else{
                   target.unidadeMedida  = '';                      
-              }                
+              }           
 
+              
 
             }            
              
