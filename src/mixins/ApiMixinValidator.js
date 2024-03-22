@@ -14,7 +14,7 @@ export default {
         if(!value==''){  
             return true
         }else{
-        return 'Campo obrigatório!'
+        return '(*)'
         }
 
     },

@@ -14,137 +14,20 @@
                     
                     >  
                       -->
+                    <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">                   
+                    
+                        <div>                         
+                            <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Movimentação de Estoque</b></p>                               
+                        </div>
 
-                      
-                      <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
-
-                        <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
-                            <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Movimentação de Estoque</b></p>                               
-                            </div> 
-                        </div>    
-
-
-                        <div class="espacoEntreComponentes d-flex justify-content-end"   style=" height:45px; "  v-if="this.$store.state.tipoDispositivo == 'desktop'"    > 
-                           
-                             
-                                
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && parseFloat(this.movimento.pesoMedio) > 0">    
-                                             
-
-                                            <div >
-                                                
-                                                <v-text-field
-                                                     
-                                                    v-model.trim="this.pPesoDocumento" 
-                                                    id="pesoDocumento"
-                                                    label="Peso Digitado" 
-                                                    ref="pesoDocumento"   
-                                                    style=" width: 150px;    " 
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    disabled
-                                                    
-                                                    inputmode="numeric"
-                                                   
-                                                    density="compact" 
-                                                    
-                                                ></v-text-field>                                    
-                                            </div>
-                                   
-                                </div>                                 
-
-
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  parseFloat(this.movimento.pesoMedio) > 0">    
-                                            
-                                            <div >
-                                                
-                                                <v-text-field
-                                                    
-                                                    v-model.trim="this.pNumVolumes" 
-                                                    id="qtdeDigitado"
-                                                    label="Num.Vol Digitado" 
-                                                    ref="qtdeDigitado"   
-                                                    style=" width: 150px; " 
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    disabled
-                                                    
-                                                    inputmode="numeric"
-                                                    
-                                                    density="compact" 
-                                                    
-                                                ></v-text-field>                                    
-                                            </div>
-                                   
-                                </div>                                 
-
-
- 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  parseFloat(this.movimento.pesoMedio) > 0" >    
-                                            
-                                            <div >
-                                                
-                                                <v-text-field
-                                                     
-                                                    v-model.trim="this.pPesoMedio" 
-                                                    id="pesoMDigitado"
-                                                    label="Peso Médio Digitado" 
-                                                    ref="pesoMDigitado"   
-                                                    style=" width: 150px; " 
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    disabled
-                                                     
-                                                    inputmode="numeric"
-                                                    
-                                                    density="compact" 
-                                                    
-                                                ></v-text-field>                                    
-                                            </div>
-                                   
-                                </div>                                 
-
-
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0 ">    
-                                            
-                                            <div >
-                                                <v-icon
-                                                    class="mb-6"
-                                                    color="green"
-                                                    icon="mdi-check"
-                                                    size="55"
-                                               ></v-icon>                                                 
-                                                                                  
-                                            </div>
-                                   
-                                </div>  
-
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && !this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0   ">    
-                                            
-                                            <div >
-                                                <v-icon
-                                                    class="mb-6"
-                                                    color="red"
-                                                    icon="mdi-alert-circle-outline"  
-                                                    size="35"
-                                               ></v-icon>                                                 
-                                                                                  
-                                            </div>
-                                   
-                                </div>   
-
-                      
-                        </div>              
-
-                      </div>  
+                    </div>     
 
                     <div class="flex-linha"  style="margin-left:2%;width:95%;margin-top: 1%; ">  
                             
                                 <div    class="espacoEntreComponentes">  
                                  
                                     <v-autocomplete
-                                        
+                                        class="text-input" 
                                         :items="tipoMovimentoItens"    
                                         label="Tipo Movimento"          
                                         v-model="this.movimento.tipoMovimento"   
@@ -166,7 +49,7 @@
                                 <div    class="espacoEntreComponentes">  
 
                                     <v-autocomplete
-                                         
+                                        class="text-input"
                                         label="Tipo MP"
                                         :items="tipoMPItens" 
                                         :disabled="tipoMPDesabilitado"                                           
@@ -174,7 +57,7 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 120px; " 
+                                        style="width: 160px; " 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
@@ -192,14 +75,14 @@
                                             <div class="d-flex  justify-content-start">
                                                 
                                                 <v-text-field
-                                                     
+                                                    class="text-input"
                                                     v-model.trim="this.movimento.fornecedor" 
                                                     label="Fornecedor"
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
                                                     maxlength="5" 
                                                     @blur="buscaByChave"
-                                                    style=" width: 120px; " 
+                                                    style=" width: 150px; " 
                                                     variant="outlined"
                                                     bg-color="white"
                                                     :disabled="fornecedorDesabilitado"  
@@ -247,7 +130,7 @@
                                             <div >
                                                 
                                                 <v-text-field
-                                                     
+                                                    class="text-input"
                                                     v-model.trim="this.movimento.notaFiscal" 
                                                     id="notaFiscal"
                                                     label="Documento" 
@@ -273,7 +156,7 @@
                                     <div >
                                         
                                         <v-text-field
-                                            
+                                            class="text-input"
                                             v-model.trim="this.movimento.dataBase" 
                                             id="dataBase"
                                             label="Data Movimento" 
@@ -297,7 +180,7 @@
                                     <div >
                                         
                                         <v-text-field
-                                            
+                                            class="text-input"
                                             v-model.trim="this.movimento.dataEmissao" 
                                             id="dataEmissao"
                                             label="Data Emissão" 
@@ -321,7 +204,7 @@
                                 <div    class="espacoEntreComponentes" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">   
 
                                     <v-autocomplete
-                                         
+                                        class="text-input"
                                         label="Produtor"
                                         :items="produtorItens" 
                                         :disabled="produtorDesabilitado "    
@@ -341,7 +224,7 @@
                                 <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">   
 
                                     <v-autocomplete
-                                          
+                                        class="text-input"
                                         label="Procedencia"
                                         :items="procedenciaItens" 
                                         :disabled="procedenciaDesabilitado"                                           
@@ -358,11 +241,6 @@
 
                                 </div>                                  
 
-                                
-
-
-
-                                
 
                                 <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">   
                                     
@@ -370,9 +248,8 @@
                                     <div >
                                         
                                         <v-text-field
-                                             
+                                            class="text-input"
                                             v-model.trim="this.movimento.pesoTotal" 
-                                            class="text-end"
                                             id="pesoTotal"
                                             label="Peso Liquido" 
                                             ref="pesoTotal"   
@@ -381,26 +258,22 @@
                                             bg-color="white"
                                             :disabled="pesoTotalDesabilitado"                                                                                          
                                             :rules="[campoRequerido]"
-                                            density="compact" 
-                                            inputmode="numeric"  
-                                            @keyup="apiEntraNumero($event,2) "
-                                            @blur="this.calcPesoMedioPeso($event)"
-                                                                                        
-
-
-
+                                            density="compact"
+                                            type="number"
+                                            inputmode="numeric"
+                                            @blur="calcPesoMedio"
                                         ></v-text-field>                                    
                                     </div>
                            
                                 </div>     
-                                <!--@blur="this.movimento.pesoTotal = $event.target.value" -->
+
      
                                 <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
                                             
                                     <div >
                                         
                                         <v-text-field
-                                           
+                                           class="text-input"
                                             v-model.trim="this.movimento.numVolumes" 
                                             id="numVolumes"
                                             label="Núm. Volumes" 
@@ -425,7 +298,7 @@
                                     <div >
                                         
                                         <v-text-field
-                                            
+                                            class="text-input"
                                             v-model.trim="this.movimento.pesoMedio" 
                                             id="pesoMedio"
                                             label="Peso Médio" 
@@ -434,7 +307,7 @@
                                             variant="outlined"
                                             bg-color="white"
                                             disabled
-                                         
+                                            type="number"
                                             inputmode="numeric"
                                             :rules="[campoRequerido]"
                                             density="compact"
@@ -444,10 +317,117 @@
                                     </div>
                            
                                 </div>  
-                                 
+
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                            
+                                            <div >
+                                                
+                                                <v-text-field
+                                                    class="text-input"
+                                                    v-model.trim="this.pPesoDocumento" 
+                                                    id="pesoDocumento"
+                                                    label="Peso Digitado" 
+                                                    ref="pesoDocumento"   
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    disabled
+                                                    type="number"
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]"
+                                                    density="compact" 
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>                                 
+
+
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                            
+                                            <div >
+                                                
+                                                <v-text-field
+                                                    class="text-input"
+                                                    v-model.trim="this.pNumVolumes" 
+                                                    id="qtdeDigitado"
+                                                    label="Num.Vol Digitado" 
+                                                    ref="qtdeDigitado"   
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    disabled
+                                                    type="number"
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]"
+                                                    density="compact" 
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>                                 
+
 
  
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                            
+                                            <div >
+                                                
+                                                <v-text-field
+                                                    class="text-input"
+                                                    v-model.trim="this.pPesoMedio" 
+                                                    id="pesoMDigitado"
+                                                    label="Peso Médio Digitado" 
+                                                    ref="pesoMDigitado"   
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    disabled
+                                                    type="number"
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]"
+                                                    density="compact" 
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>  
+
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.validaPeso() && this.movimento.pesoMedio > 0">    
+                                            
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="green"
+                                                    icon="mdi-check"
+                                                    size="55"
+                                               ></v-icon>                                                 
+                                                                                  
+                                            </div>
+                                   
+                                </div>  
+
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && !this.validaPeso()  && this.movimento.pesoMedio > 0">    
+                                            
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="red"
+                                                    icon="mdi-alert-circle-outline"  
+                                                    size="35"
+                                               ></v-icon>                                                 
+                                                                                  
+                                            </div>
+                                   
+                                </div>                                  
+
  
+
+
+
+
+
+
 <!--
                                 <div    class="espacoEntreComponentes">  
                                      
@@ -576,18 +556,17 @@
                                             
                                             <div   class="espacoEntreComponentesGrid">   
                                             <!-- <label style='font-size:16px'>Item</label>-->
-                                                    
                                                     <div class="input-group">   
-                                                            
+
                                                             <div class="d-flex  justify-content-start">
                                                                 
                                                                 <v-text-field
                                                                     v-model.trim="i.item" 
                                                                     id="item"
-                                                                    label="Item"
+                                                                    label="item"
                                                                     ref="item"  
                                                                     maxlength="7"  
-                                                                    style=" width: 120px; "
+                                                                    style=" width: 150px; "
                                                                     variant="outlined"
                                                                     bg-color="white"
                                                                     :disabled="itemDesabilitado   && i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão'"  
@@ -649,7 +628,7 @@
                                                                             id="idMovimento"
                                                                             label="id" 
                                                                             ref="idMovimento"   
-                                                                            style=" width: 120px; "
+                                                                            style=" width: 150px; "
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -686,7 +665,7 @@
                                                                             id="idMovimento"
                                                                             label="id" 
                                                                             ref="idMovimento"     
-                                                                            style=" width: 120px; "
+                                                                            style=" width: 150px; "
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -721,7 +700,7 @@
                                                                             id="idMovimento"
                                                                             label="id" 
                                                                             ref="idMovimento"     
-                                                                            style=" width: 120px; "
+                                                                            style=" width: 150px; "
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -753,32 +732,6 @@
     
                                         </td>
 
- 
-                                        <td     v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='N'">
-                                            <div   class="espacoEntreComponentesGrid">   
-                                                
-                                                        
-                                                <div >
-                                                     
-                                                    
-                                                    <v-autocomplete
-                                                    
-                                                        label="Produtor"
-                                                        :items="produtorItens" 
-                                                        disabled 
-                                                        v-model="i.produtor"   
-                                                        item-title="descricao" 
-                                                        item-value="codigo"
-                                                        variant="outlined"
-                                                        style="width: 270px; " 
-                                                        bg-color="white"  
-                                                        density="compact"
-                                                    
-                                                   ></v-autocomplete> 
-                                                </div>
-                                    
-                                            </div>                                     
-                                        </td> 
 
 
                                         <td  >   
@@ -792,42 +745,36 @@
                                                         label="Lote" 
                                                         ref="lote"  
                                                         maxlength="10"                                         
-                                                        style=" width: 120px; " 
+                                                        style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
                                                         type="text"                                       
                                                         :rules="[campoRequerido]" 
-                                                        density="compact" 
-                                                        @blur="pesquisaLoteProdutor(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
+                                                        density="compact"                                                        
                                                     ></v-text-field>        
                                                     
                                                 </div>
                                                 
                                             </div> 
-                                        </td>   
-                                        
-                                        
-
-                                        
+                                        </td>            
                                          
 
 
-                                        <td     v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">
+                                        <td     v-if="this.tipoMatP == 'ALGOD'">
                                             <div   class="espacoEntreComponentesGrid">   
                                                 
                                                         
                                                 <div >
-                                                     
                                                     
                                                     <v-text-field
                                                          
                                                         v-model.trim="i.pilha" 
                                                         id="pilha"
-                                                        label="Pilha"
+                                                        label="Pilha" 
                                                         ref="pilha"  
                                                         maxlength="6"                                         
-                                                        style=" width: 100px; "
+                                                        style=" width: 150px; "
                                                         variant="outlined"
                                                         :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
                                                         type="number"
@@ -841,7 +788,7 @@
                                             </div>                                     
                                         </td> 
 
-                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">
+                                        <td    v-if="this.tipoMatP == 'ALGOD'">
                                             <div    class="espacoEntreComponentesGrid">  
 
                                                 <v-autocomplete
@@ -853,7 +800,7 @@
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
-                                                    style=" width: 80px; "
+                                                    style=" width: 150px; "
                                                     bg-color="white"      
                                                     :rules="[campoRequerido]" 
                                                     density="compact"
@@ -890,10 +837,8 @@
                                             </div>  
                                         </td>
 
-                                         
-
                                         
-                                        <td class="d-flex  justify-content-start" v-if="this.movimento.tipoMovimento != 'MIST'">
+                                        <td class="d-flex  justify-content-start">
                                             <div   class="espacoEntreComponentesGrid"> 
                                                         
                                                 <div >
@@ -907,12 +852,11 @@
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="pesoDesabilitado && i.habilitado"   
-                                                        
+                                                        type="number"
                                                         inputmode="numeric"
                                                         :rules="[campoRequerido]" 
                                                         density="compact"
-                                                        @keyup="apiEntraNumero($event,2) " 
-                                                        @blur="calculaPesoMedItem(i,$event)" 
+                                                        @blur="calculaPesoMedItem(i)" 
                                                         
                                                     ></v-text-field>                                    
                                                 </div>
@@ -923,7 +867,7 @@
                                         
                                         
                                         <td>
-                                            <div   class="espacoEntreComponentesGrid" v-if="this.vOperAlteraItem=='S'">   
+                                            <div   class="espacoEntreComponentesGrid">   
                                         
                                                 
                                                 <div >
@@ -933,11 +877,11 @@
                                                         id="um"
                                                         label="UM" 
                                                         ref="um"   
-                                                        style=" width: 80px; "
+                                                        style=" width: 150px; "
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
-                                                       
+                                                        :rules="[campoRequerido]"    
                                                         density="compact"                                     
                                                     ></v-text-field>                                    
                                                 </div>
@@ -949,7 +893,7 @@
 
                                         <td>
     
-                                            <div   class="espacoEntreComponentesGrid" v-if="this.vOperAlteraItem=='S'">    
+                                            <div   class="espacoEntreComponentesGrid">    
                                                 <div >
                                                     
                                                     <v-text-field
@@ -957,14 +901,12 @@
                                                         id="vlUnitario"
                                                         label="Vl. Unit." 
                                                         ref="vlUnitario"   
-                                                        style=" width: 100px; " 
+                                                        style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="vlUnitarioDesabilitado && i.habilitado"  
-                                                        
+                                                        type="number"
                                                         inputmode="numeric"
-                                                        @keyup="apiEntraNumero($event,2) " 
-                                                        @blur="i.vlUnitario = $event.target.value" 
                                                        
                                                         density="compact"
                                                         
@@ -974,7 +916,7 @@
                                             </div>                             
 
                                         </td>
-                                        <td v-if="this.movimento.tipoMovimento != 'MIST'">
+                                        <td>
                                             <div   class="espacoEntreComponentesGrid">    
                                                         
                                                 <div >
@@ -998,8 +940,8 @@
                                             </div>     
                                         </td> 
 
-<!--
-                                        <td  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'"> 
+
+                                        <td  v-if="this.tipoMatP == 'ALGOD'">
                                             <div   class="espacoEntreComponentesGrid">    
                                                         
                                                 <div >
@@ -1014,7 +956,7 @@
                                                         variant="outlined"
                                                         bg-color="white"  
                                                         density="compact"
-                                                         
+                                                        type="number"
                                                         inputmode="numeric"                                                        
                                                         disabled
                                                     ></v-text-field>    
@@ -1023,26 +965,6 @@
                                     
                                             </div>     
                                         </td> 
--->
-
-                                        <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S'">    
-                                            
-                                            <div > 
-                                                <label >Lote Testado</label>
-                                                <div >
-                                                    <v-icon  
-                                                        class="mb-6"
-                                                        color="green"
-                                                        icon="mdi-check"
-                                                        size="25"                                                        
-                                                        ></v-icon>                                                 
-                                                                                    
-                                                </div>
-
-
-                                            </div>
-                                        
-                                        </div>                                         
 
 <!--
  
@@ -1159,7 +1081,7 @@
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px; " accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
                          
 
-                                <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="((tipoOperacao  == 'I' || tipoOperacao  == 'A')  && ( this.movimento.tipoMovimento!='SAIPL' && this.movimento.tipoMovimento!='MIST' && this.movimento.tipoMovimento!='ENTPL')  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                                <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
                                 <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
                                 accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
@@ -1588,277 +1510,100 @@
 
             },
 
-            async pesquisaLoteProdutor(filial,produtor, i){ 
-
-/*
-               console.log('Pesquisa teste lote');
-               console.log(filial); 
-               console.log(produtor); 
-               console.log(i.lote); 
-               console.log(this.vOperAlteraItem); 
-               console.log(this.tipoMatP); 
-*/
-
-                let url;  
-
-
-                if (filial!='' && filial!=null &&
-                    produtor!='' && produtor!=null &&
-                    i.lote!='' && i.lote!=null &&
-                    this.vOperAlteraItem=='S'   &&
-                    this.tipoMatP == 'ALGOD' 
-
-                )  {  
-
-                        url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}`  
-
-                        await this.axios.get(url,this.apiTokenHeader())
-                        .then(response => {
-
-                            //console.log("TipoMovimento");
-                            this.resultado = response.data;  
- 
-                            
-                            if (this.resultado){
-                                if ((this.resultado.mic != null && this.resultado.mic != 0.0 ) ||
-                                    (this.resultado.uhml!= null && this.resultado.uhml != 0.0 ) ||
-                                    (this.resultado.sic!= null && this.resultado.sic != 0.0 ) ||
-                                    (this.resultado.mat!= null && this.resultado.mat != 0.0 ) 
-                                ){
-                                    i.loteJaTestado =  'S' ;  
-                                }else{
-                                    i.loteJaTestado =  'N' ; 
-                                }      
-                            
-                            }else{
-                                i.loteJaTestado =  'N' ;                       
-                            }  
-
-
-                            //console.log('Pesquisa teste lote');
-                            //console.log(this.resultado); 
-                            
-                        })
-                        .catch(error => {  
-                            
-                                console.log("Erro: ", error); 
-                                this.msgProcessamento = '' 
-                                this.apiDisplayMensagem(error ) 
-                                
-                        });   
-                }
-
-            },            
-
             validaPeso(){
 
                  let resultado;
 
-                 if( //Math.floor(this.movimento.pesoTotal)  ==  Math.floor(this.pPesoDocumento ) &&
-                 (
-                 Math.floor(  parseFloat(this.apiConverteNumeroFormatado( this.movimento.numVolumes)).toFixed(0) )  ==
-                 Math.floor(  parseFloat(this.apiConverteNumeroFormatado( this.pNumVolumes)).toFixed(0) )  
-                 ) &&
-
-                 (
-                 Math.floor(  parseFloat(this.apiConverteNumeroFormatado( this.movimento.pesoMedio)).toFixed(0) )  ==
-                 Math.floor(  parseFloat(this.apiConverteNumeroFormatado( this.pPesoMedio)).toFixed(0) )  
-                 )                
-                     
-                  
+                 if( 
+                    this.movimento.numVolumes == this.pNumVolumes  &&
+                    this.movimento.pesoMedio  ==  this.pPesoMedio                
                 ){
                     resultado = true; 
                 }else{
                     resultado = false;  
                 }
 
-                console.log('validaPeso')
-                //console.log(this.apiConverteNumeroFormatado(parseFloat(this.movimento.numVolumes).toFixed(2)))
-                //console.log(this.pNumVolumes)
-                //console.log(this.apiConverteNumeroFormatado(parseFloat(this.movimento.pesoMedio).toFixed(2)))
-                //console.log(this.pPesoMedio)
-
                 return resultado; 
 
             },
 
-            calculaPesoMedItem(pMov,pEvento){
-
-                 
-                pMov.peso = pEvento.target.value;  
+            calculaPesoMedItem(pMov){
 
                 if(this.tipoMatP == 'ALGOD'){
                     if(this.vOperAlteraItem=='S'){
-                        if(pMov.peso != null && parseFloat(pMov.peso) > 0 &&
-                           pMov.quantidade != null && parseFloat(pMov.quantidade) > 0
+                        if(pMov.peso != null && pMov.peso > 0 &&
+                           pMov.quantidade != null && pMov.quantidade > 0
                         ){    
-                            //pMov.pesoMedio =  parseFloat((pMov.peso / pMov.quantidade).toFixed(4));  
-
-                            pMov.pesoMedio =  (parseFloat(this.apiConverteNumeroFormatado( pMov.peso)).toFixed(2) /  pMov.quantidade).toFixed(4)
-                            pMov.pesoMedio = this.apiFormataNumero(pMov.pesoMedio,4) 
-
-
-                            //pMov.pesoMedio =  parseFloat(this.apiConverteNumeroFormatado( pMov.pesoMedio )).toFixed(4)
-                        }   
-                        
-                        this.calculaDadosDocumento();  
-                    } 
-                     
+                            pMov.pesoMedio =  parseFloat((pMov.peso / pMov.quantidade).toFixed(2));  
+                        }    
+                    }    
                 }
                 
 
-                
+                this.calculaDadosDocumento();
 
             },
 
             calculaPesoItem(pMov){
 
-                //console.log('calculaPesoItem')
+
                 if(this.tipoMatP == 'ALGOD'){
-                    //console.log('calculaPesoItem 22222')
-                    if(this.vOperAlteraItem=='S'){  
+                    if(this.vOperAlteraItem=='S'){
                         if(pMov.statusItem == 'Inclusão')     {
-
-                            //console.log('calculaPesoItem 777777')
                             // Pega o peso medio do cabecalho
-                            //pMov.peso =  parseFloat((pMov.quantidade * parseFloat(this.apiConverteNumeroFormatado(this.movimento.pesoMedio) ).toFixed(2) )) ;
-                            pMov.peso =  parseFloat((pMov.quantidade * parseFloat(this.apiConverteNumeroFormatado( this.movimento.pesoMedio)).toFixed(4)) ).toFixed(2) ;
-                            //console.log(pMov.peso)
-
-                            pMov.peso = this.apiFormataNumero(pMov.peso,2)
-                            //console.log(pMov.peso)
-
-                            pMov.pesoMedio =  parseFloat(this.apiConverteNumeroFormatado(this.movimento.pesoMedio)).toFixed(4) ;
-                            //console.log(pMov.pesoMedio)
-                            pMov.pesoMedio = this.apiFormataNumero(parseFloat(pMov.pesoMedio).toFixed(4),4) 
-                            //console.log(pMov.pesoMedio)
-
+                            pMov.peso =  parseFloat((pMov.quantidade * this.movimento.pesoMedio).toFixed(2) ) ;
+                            pMov.pesoMedio =  parseFloat(this.movimento.pesoMedio.toFixed(2) );
                         } else{
-                            //console.log('calculaPesoItem 3232323')  
-                            //console.log(pMov.pesoMedio)
-                            //console.log(this.apiConverteNumeroFormatado( pMov.pesoMedio ))
-                        
-                            pMov.peso =  parseFloat((pMov.quantidade * parseFloat(this.apiConverteNumeroFormatado( pMov.pesoMedio )).toFixed(4)) ).toFixed(2) ;
-                            //console.log('pMov.peso aaaaaaa')
-                            //console.log(pMov.peso)
-                            pMov.peso = this.apiFormataNumero(parseFloat(pMov.peso).toFixed(2),2)
-                            //console.log('pMov.peso bbbbbbb')
-                            //console.log(pMov.peso)
+                            pMov.peso =  parseFloat((pMov.quantidade * pMov.pesoMedio).toFixed(2) ) ;
                         }   
-
-                        this.calculaDadosDocumento();
                     }else{ 
-                            console.log('calculaPesoItem 666666')
                             // Pega o peso medio do item
-                            pMov.peso =  parseFloat((pMov.quantidade * parseFloat(this.apiConverteNumeroFormatado( pMov.pesoMedio )).toFixed(4)) ) ;   
-                            //console.log(pMov.peso)
-                            pMov.peso = this.apiFormataNumero(parseFloat(pMov.peso).toFixed(2),2)
-                            //console.log(pMov.peso)
+                            pMov.peso =  parseFloat((pMov.quantidade * pMov.pesoMedio).toFixed(2) );   
                     }
-                    
                 }
 
-                
+                this.calculaDadosDocumento();
                
 
             },
             calculaDadosDocumento(){
 
-                let ppeso;
-                let pvol;
-                let pmed;
 
                 this.pPesoDocumento =0.00; 
-                this.pNumVolumes =0;
-                this.pPesoMedio =0.0000;
-
-                ppeso = 0.00;
-                pvol = 0;
-                pmed = 0.0000;
-
-                //console.log('this.movimento.pesoTotal 8888')          
-                
-
+                this.pNumVolumes =0.00;
+                this.pPesoMedio =0.00;
 
                 for (let i = 0; i < this.aMovimentoItem.length; i++) {    
                                                     
-                    if(parseFloat(this.aMovimentoItem[i].peso) > 0 && this.aMovimentoItem[i].peso != null   ){
-                        //console.log(this.apiConverteNumeroFormatado( this.aMovimentoItem[i].peso )      )
-                        ppeso += parseFloat(this.apiConverteNumeroFormatado( this.aMovimentoItem[i].peso ))  
-                        
-                        //console.log('ppeso 443322')  
-                        //console.log(ppeso)  
-
-
-                        
+                    if(this.aMovimentoItem[i].peso > 0 && this.aMovimentoItem[i].peso != null   ){
+                        this.pPesoDocumento += parseFloat(this.aMovimentoItem[i].peso ) ; 
                     }
 
                     if(this.aMovimentoItem[i].quantidade > 0 && this.aMovimentoItem[i].quantidade != null   ){
-                        pvol += parseFloat(this.aMovimentoItem[i].quantidade);  
+                        this.pNumVolumes += parseFloat(this.aMovimentoItem[i].quantidade);  
                     }   
 
                 }   
                 
-                if(ppeso > 0 && pvol >0 ){
-                    pmed = parseFloat((ppeso / pvol) ).toFixed(4) ;
-                }       
+                if(this.pPesoDocumento > 0 && this.pNumVolumes >0 ){
+                        this.pPesoMedio = parseFloat((this.pPesoDocumento / this.pNumVolumes).toFixed(2) ) ;
+                }                
                 
-                //console.log('ppeso 1122')                 
-                //console.log(ppeso)                
-                                 
                 
-                this.pPesoDocumento =  this.apiFormataNumero(parseFloat(ppeso).toFixed(2)  ,2) ;    //ppeso.toFixed(2);
-                this.pNumVolumes = pvol;
-                this.pPesoMedio = this.apiFormataNumero(pmed.toString() ,4) ;  //pmed.toFixed(2);
 
 
-
-                //console.log(this.pPesoDocumento)                
-                //console.log(this.pPesoMedio)    
-
-            },
-
-            calcPesoMedioPeso(pEvento){
-                 this.movimento.pesoTotal = pEvento.target.value; 
-
-                //console.log('this.movimento.pesoTotal 4444')
-                //console.log(this.movimento.pesoTotal)
-
-                 this.calcPesoMedio();
             }
+
             ,
             calcPesoMedio(){
 
-                let vPesoTotal;
-                //console.log('this.movimento.pesoTotal 3333')
-                //console.log(this.movimento.pesoTotal)
-
-                if(this.movimento.pesoTotal != null ){
-
-                    vPesoTotal = this.movimento.pesoTotal
-                    //console.log(vPesoTotal)
-
-                    vPesoTotal = vPesoTotal.replaceAll(".", "")
-                    //console.log(vPesoTotal)       
-                    
-                    vPesoTotal = vPesoTotal.replaceAll(",", ".") 
-
-                }
-                //&& this.movimento.pesoTotal
-                if(this.movimento.pesoTotal != null    && vPesoTotal > 0 &&
+                if(this.movimento.pesoTotal != null && this.movimento.pesoTotal > 0 &&
                    this.movimento.numVolumes != null && this.movimento.numVolumes > 0
                 ){
-                    this.movimento.pesoMedio = this.apiFormataNumero(parseFloat((vPesoTotal / this.movimento.numVolumes).toFixed(4)),4) ;
-
+                    this.movimento.pesoMedio = parseFloat((this.movimento.pesoTotal / this.movimento.numVolumes).toFixed(2)) ;
                 }else{
                     this.movimento.pesoMedio = 0;
                 }
-
-
-                //console.log(parseFloat((vPesoTotal / this.movimento.numVolumes).toFixed(4)))
-                //console.log(this.apiFormataNumero(parseFloat((vPesoTotal / this.movimento.numVolumes).toFixed(4))),4)
-
-
                 
             },
 
@@ -2080,9 +1825,6 @@
                     this.movimentoItemTempAux.alteracao = false; 
                     this.movimentoItemTempAux.statusItem = 'Inclusão'
                     this.movimentoItemTempAux.statusItemOriginal = 'Inclusão'
-
-                    this.movimentoItemTempAux.loteJaTestado =  'N' ;
-                    this.movimentoItemTempAux.unidadeMedida = 'KG';
                   
 
                    this.aMovimentoItem.push(this.movimentoItemTempAux); 
@@ -2112,17 +1854,13 @@
                 if(e.tipo == "Lote") {
 
                     this.aMovimentoItem[this.indiceAtual].idMovimento = e.obj.idMov;
-                    this.aMovimentoItem[this.indiceAtual].lote           = e.obj.lote;
-                    this.aMovimentoItem[this.indiceAtual].pilha          = e.obj.pilha;
-                    this.aMovimentoItem[this.indiceAtual].tamanho        = e.obj.tamanho;
-                    this.aMovimentoItem[this.indiceAtual].unidadeMedida  = e.obj.unidadeMedida;
-                    this.aMovimentoItem[this.indiceAtual].pesoMedio      = this.apiFormataNumero(parseFloat(e.obj.pesoMedio).toFixed(4),4);
-                    this.aMovimentoItem[this.indiceAtual].produtor       = e.obj.produtor; 
-                    this.aMovimentoItem[this.indiceAtual].unidadeMedida  = e.obj.unidadeMedida;
-                    this.aMovimentoItem[this.indiceAtual].notaFiscal     = e.obj.nf; 
-                    this.aMovimentoItem[this.indiceAtual].fornecedor     = e.obj.fornecedor; 
-                    this.aMovimentoItem[this.indiceAtual].procedencia    = e.obj.procedencia; 
-                    this.aMovimentoItem[this.indiceAtual].descFio        = e.obj.nomeItem;   
+                    this.aMovimentoItem[this.indiceAtual].lote  = e.obj.lote;
+                    this.aMovimentoItem[this.indiceAtual].pilha  = e.obj.pilha;
+                    this.aMovimentoItem[this.indiceAtual].tamanho  = e.obj.tamanho;
+                    this.aMovimentoItem[this.indiceAtual].unidadeMedida  =      e.obj.unidadeMedida;
+                    this.aMovimentoItem[this.indiceAtual].pesoMedio  =      e.obj.pesoMedio;
+                    
+                  
 
                 }                  
 
@@ -2139,10 +1877,9 @@
                     let objItem ; 
                     let validado;
                     let myMsg;
-                    //let vPesoTotal;
                    
                     this.aMovimentoItemFinal = []; 
-                    this.aMovimentoItemDAO = [];   
+                    this.aMovimentoItemDAO = [];  
                     
                     myMsg = '';
                     validado = true;
@@ -2183,11 +1920,10 @@
                         let idMovto;
                         let vIdMovtoItem;
                         let vIdIt;     
-                        let vIdMovim;        
-                        //let vPesoMedio ; 
-                        let url = `${process.env.VUE_APP_BASE_URL}/movimento`;
+                        let vIdMovim;                                      
 
-                        
+                        let url = `${process.env.VUE_APP_BASE_URL}/movimento` ;  
+
                         if(this.tipoOperacao=="I"){
                                 dataInsercao = dataFormatada;
                                 this.movimento.dataInclusao  = this.$moment(dataAtual).format("DD/MM/YYYY") ;
@@ -2201,13 +1937,6 @@
 
                                     dataAlteracao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
                          }   
-
-                          
-                         //vPesoTotal = this.movimento.pesoTotal.replaceAll(".", "") 
-                         //vPesoTotal = vPesoTotal.replaceAll(",", ".")
-                         //this.apiConverteNumeroFormatado( pMov.peso)
-
-                        // vPesoTotal = parseFloat(vPesoTotal)                          
                        
  
                         if (this.tipoOperacao=="I") {       
@@ -2251,14 +1980,7 @@
                                                         if(this.aMovimentoItem[i].idMovimento == 0) {   
                                                             this.aMovimentoItem[i].idMovimento = vIdMovtoItem; 
                                                         } 
-/*
-                                                        if(this.aMovimentoItem[i].peso == 0 || this.aMovimentoItem[i].quantidade == 0 ) {
-                                                            vPesoMedio = 0
-                                                        }else{
-                                                            vPesoMedio = this.aMovimentoItem[i].peso / this.aMovimentoItem[i].quantidade ;
-                                                        } 
-*/
-                                                        //vPesoMedio = vPesoMedio.toFixed(4);
+
 
                                                         objItem = {  
                                                         
@@ -2279,8 +2001,8 @@
                                                                 movimentoAutomatico:  "N", 
                                                                 movimentoDePilha:     "N",
                                                                 quantidade:           this.aMovimentoItem[i].quantidade, 
-                                                                peso:                 this.apiConverteNumeroFormatado(this.aMovimentoItem[i].peso),   
-                                                                vlUnitario:           this.apiConverteNumeroFormatado(this.aMovimentoItem[i].vlUnitario),  
+                                                                peso:                 this.aMovimentoItem[i].peso,  
+                                                                vlUnitario:           this.aMovimentoItem[i].vlUnitario,  
                                                                 idMovimento:          this.aMovimentoItem[i].idMovimento,  
                                                                 idItem:               vIdIt,
                                                                 
@@ -2302,12 +2024,11 @@
                                                                 uhml:         this.aMovimentoItem[i].uhml, 
                                                                 rs:           this.aMovimentoItem[i].rs, 
                                                                 b:            this.aMovimentoItem[i].b, 
-                                                                trcnt:        this.aMovimentoItem[i].trcnt,
+                                                                trcnt:        this.aMovimentoItem[i].trcnt, 
                                                                 trar:         this.aMovimentoItem[i].trar, 
-                                                                pesoMedio:    this.apiConverteNumeroFormatado(this.aMovimentoItem[i].pesoMedio),
+                                                                pesoMedio:    this.aMovimentoItem[i].pesoMedio,
                                                                 statusItem:   this.aMovimentoItem[i].statusItem,    
-                                                                habilitado: true ,
-                                                                loteJaTestado: this.aMovimentoItem[i].loteJaTestado
+                                                                habilitado: true 
                                                             
 
                                                         } 
@@ -2318,8 +2039,7 @@
                                             
                                     }   
                                   
-                                    if(itensValidos>0){ 
-
+                                    if(itensValidos>0){
 
                                             this.movimentoDAO =
                                             {   
@@ -2333,8 +2053,8 @@
                                                     "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"), 
                                                     //"entradaSaida":  this.movimento.entradaSaida,
                                                     "loteFiacao":  this.movimento.loteFiacao,
-                                                    "pesoMedio":  this.apiConverteNumeroFormatado(this.movimento.pesoMedio),
-                                                    "pesoTotal":  this.apiConverteNumeroFormatado(this.movimento.pesoTotal),
+                                                    "pesoMedio":  this.movimento.pesoMedio,
+                                                    "pesoTotal":  this.movimento.pesoTotal,
                                                     "numVolumes": this.movimento.numVolumes,
                                                     "produtor":  this.movimento.produtor,
                                                     "procedencia":  this.movimento.procedencia, 
@@ -2436,15 +2156,6 @@
 
                                                             }
 
-/*
-                                                            if(this.aMovimentoItem[i].peso == 0 || this.aMovimentoItem[i].quantidade == 0 ) {
-                                                                vPesoMedio = 0
-                                                            }else{
-                                                                vPesoMedio = this.aMovimentoItem[i].peso / this.aMovimentoItem[i].quantidade ;
-                                                            } 
-*/
-                                                            //vPesoMedio = vPesoMedio.toFixed(4);                                                            
-
                                                             
 
                                                             //console.log('Valida iitteemm 7777')
@@ -2469,8 +2180,8 @@
                                                                     movimentoAutomatico:  this.aMovimentoItem[i].movimentoAutomatico, 
                                                                     movimentoDePilha:     this.aMovimentoItem[i].movimentoDePilha, 
                                                                     quantidade:           this.aMovimentoItem[i].quantidade, 
-                                                                    peso:                 this.apiConverteNumeroFormatado(this.aMovimentoItem[i].peso),  
-                                                                    vlUnitario:           this.apiConverteNumeroFormatado(this.aMovimentoItem[i].vlUnitario),  
+                                                                    peso:                 this.aMovimentoItem[i].peso,  
+                                                                    vlUnitario:           this.aMovimentoItem[i].vlUnitario,  
                                                                     idMovimento:          vIdMovim,  
                                                                     idItem:               vIdIt,
                                                                     
@@ -2494,11 +2205,10 @@
                                                                     b:            this.aMovimentoItem[i].b, 
                                                                     trcnt:        this.aMovimentoItem[i].trcnt, 
                                                                     trar:         this.aMovimentoItem[i].trar, 
-                                                                    pesoMedio:    this.apiConverteNumeroFormatado(this.aMovimentoItem[i].pesoMedio),   
+                                                                    pesoMedio:    this.aMovimentoItem[i].pesoMedio,
                                                                     statusItem:   this.aMovimentoItem[i].statusItem,    
                                                                     statusItemOriginal:   this.aMovimentoItem[i].statusItemOriginal, 
-                                                                    habilitado: true,
-                                                                    loteJaTestado: this.aMovimentoItem[i].loteJaTestado
+                                                                    habilitado: true
                                                                 
 
                                                             } 
@@ -2524,8 +2234,8 @@
                                                             "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
                                                             "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"),  
                                                             "loteFiacao":  this.movimento.loteFiacao,
-                                                            "pesoMedio":  this.apiConverteNumeroFormatado(this.movimento.pesoMedio),
-                                                            "pesoTotal":  this.apiConverteNumeroFormatado(this.movimento.pesoTotal),   
+                                                            "pesoMedio":  this.movimento.pesoMedio,
+                                                            "pesoTotal":  this.movimento.pesoTotal,
                                                             "numVolumes": this.movimento.numVolumes,
                                                             "produtor":  this.movimento.produtor,
                                                             "procedencia":  this.movimento.procedencia, 
@@ -2544,7 +2254,7 @@
                                                 
                                                     this.aMovimentoItemFinal.push(this.movimentoDAO);  
  
-                                                    console.log(this.aMovimentoItemFinal);
+                                                    
                                                     await this.axios.put(
                                                         url,
                                                         JSON.stringify(this.aMovimentoItemFinal),
@@ -2635,9 +2345,6 @@
                     this.tipoOperacao = 'I';  
                     this.nomeFornecedor = '';
                     this.tipoMatP = "" ;
-                    this.pPesoDocumento =0.00; 
-                    this.pNumVolumes =0;
-                    this.pPesoMedio =0.0000;
                      
                     this.configuraCampos('I' )  ;
 
@@ -2646,7 +2353,6 @@
                     this.aMovimentoItemDAO = [];       
                     this.vOperAlteraEstoque = '';
                     this.vOperAlteraItem = '';  
-                    this.movimento.pesoTotal = '0';
 
 
                     //console.log('RESETADO');
@@ -2765,12 +2471,7 @@
                                this.umDesabilitado = true; 
                         
                                this.vTmp = 'ZZZZZbbbbb'
-                             } else{
-
-                                //this.quantidadeDesabilitado = true;
-                                this.vTmp = 'ZZZZZMMMMMM'
-
-                             }
+                             } 
 
 
                         }else{
@@ -2819,9 +2520,6 @@
                     let retornoPopForm=false;  
                     let objItem;   
                     let dataFormatada;
-                    let loteTestado;
-                    let vPesoTotal;
-                    let vPesMed;
                     //let parametroCodificado;
                     
 
@@ -2902,29 +2600,14 @@
                                     }    
             
                                     if (this.resultado.pesoMedio != null){
-                                        //this.movimento.pesoMedio = this.resultado.pesoMedio ;  
-                                        
-                                        vPesMed = this.apiFormataNumero(this.resultado.pesoMedio,4)
-                                        this.movimento.pesoMedio = vPesMed ;
-
-
+                                        this.movimento.pesoMedio = this.resultado.pesoMedio ;     
                                     
                                     }else{
                                         this.movimento.pesoMedio = 0 ;                       
                                     }   
                 
                                     if (this.resultado.pesoTotal != null){
-
-
-
-
-                                        //vPesoTotal = this.resultado.pesoTotal ;
-                                        //vPesoTotal = vPesoTotal.toString().replaceAll(".", ",") 
-                                        //this.movimento.pesoTotal = vPesoTotal ;   
-                                        
-
-                                        vPesoTotal = this.apiFormataNumero(this.resultado.pesoTotal,2)
-                                        this.movimento.pesoTotal = vPesoTotal ;
+                                        this.movimento.pesoTotal = this.resultado.pesoTotal ;     
                                     
                                     }else{
                                         this.movimento.pesoTotal = 0 ;                       
@@ -3071,21 +2754,8 @@
                                    // for (let i = 0; i < this.resultado.itemMovimento.length; i++) { 
                                     for (let i = 0; i < aItens.length; i++) { 
                                         
-                                            this.numItem = this.numItem+1; 
-
-                                            if( 
-                                                this.resultado.itemMovimento[i].mat == 0.0 ||
-                                                this.resultado.itemMovimento[i].sic == 0.0 ||
-                                                this.resultado.itemMovimento[i].mic == 0.0 ||
-                                                this.resultado.itemMovimento[i].uhml == 0.0 
-                                             ){
-                                               loteTestado = "N"
-                                            }else{
-                                                loteTestado = "S"
-                                            }
-
-                                            vPesoTotal = this.apiFormataNumero(this.resultado.itemMovimento[i].peso,2)
-                                            vPesMed = this.apiFormataNumero(this.resultado.itemMovimento[i].pesoMedio,4)
+                                        this.numItem = this.numItem+1; 
+            
 
                                             objItem = { 
 
@@ -3109,7 +2779,7 @@
                                                     movimentoAutomatico: this.resultado.itemMovimento[i].movimentoAutomatico, 
                                                     movimentoDePilha: this.resultado.itemMovimento[i].movimentoDePilha, 
                                                     quantidade: this.resultado.itemMovimento[i].quantidade, 
-                                                    peso: vPesoTotal, 
+                                                    peso: this.resultado.itemMovimento[i].peso, 
                                                     idCab: this.resultado.itemMovimento[i].idCab, 
                                                     vlUnitario: this.resultado.itemMovimento[i].vlUnitario,  
                                                     idMovimento:  this.resultado.itemMovimento[i].idMovimento, 
@@ -3135,14 +2805,12 @@
                                                     b:  this.resultado.itemMovimento[i].b, 
                                                     trcnt:  this.resultado.itemMovimento[i].trcnt, 
                                                     trar:  this.resultado.itemMovimento[i].trar, 
-                                                    pesoMedio:  vPesMed,  
-
+                                                    pesoMedio:  this.resultado.itemMovimento[i].pesoMedio,  
                                                     ind: String(this.numItem).padStart(3, '0')    ,
                                                     habilitado: true,
                                                     alteracao:true,
                                                     statusItem: 'Alteração',
-                                                    statusItemOriginal: 'Alteração',
-                                                    loteJaTestado: loteTestado 
+                                                    statusItemOriginal: 'Alteração'
                                                     
 
                                             }  
@@ -3354,9 +3022,7 @@
                 if (!(resposta === true) ){
                     console.log('Erro de cadastro BuscaChave' );      
                 } 
-            } else{
-                  this.movimento.pesoTotal = '0';
-            } 
+            }  
 
         },
         mounted(){  
@@ -3365,10 +3031,6 @@
                 this.populaTipoMP();
                 this.populaProdutor();
                 this.populaProcedencia();
-
-                this.pPesoDocumento =0.00; 
-                this.pNumVolumes =0;
-                this.pPesoMedio =0.0000;
 
                 this.scrollToTop();
 

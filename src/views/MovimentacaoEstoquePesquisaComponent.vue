@@ -16,8 +16,7 @@
                   >  
                     -->
                    <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
-                        <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">                   
-                            
+                        <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
                                 <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Movimentos de Estoque</b></p>                               
                             </div> 

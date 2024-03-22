@@ -262,6 +262,7 @@ export default {
   font-weight: bold;
 }
 
+/*
 .v-input--is-disabled .v-label .v-input__control .v-input__slot {
     color:rgb(9, 29, 247);
     pointer-events: none;
@@ -278,12 +279,38 @@ export default {
     pointer-events: none;
     font-weight:bold; 
     font-size: 30px;
-    white-space: pre-line;
-    
-   
-    
+    white-space: pre-line; 
 
 }
+*/
+ 
+ 
+
+.v-field-label--floating{
+   
+  font-weight: 900;
+   
+   
+}
+ 
+.v-field--disabled  { 
+   
+  font-weight: bolder;
+  
+
+}
+
+
+ 
+
+/*
+.v-theme--light  {
+    color:#07ec39;
+    
+    
+}
+
+*/
 
 .text-input input {
     font-size: 16px;

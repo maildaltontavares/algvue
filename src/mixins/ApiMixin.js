@@ -393,8 +393,37 @@ export default {
                   target.unidadeMedida  = response.data.um;   
               }else{
                   target.unidadeMedida  = '';                      
-              }           
+              }        
+              
+              if ( response.data.pesoMedio  != null &&  response.data.pesoMedio  != ''){
+                target.pesoMedio  = this.apiFormataNumero(response.data.pesoMedio,4);   
+              }else{
+                target.pesoMedio  = 0;                      
+              }  
 
+              if ( response.data.produtor  != null &&  response.data.produtor  != ''){
+                target.produtor  = response.data.produtor; 
+              }else{
+                target.produtor  = 0;                      
+              }                
+              
+              if ( response.data.notaFiscal  != null &&  response.data.notaFiscal  != ''){
+                target.notaFiscal  = response.data.nf;    
+              }else{
+                target.notaFiscal  = 0;                      
+              }                
+        
+              if ( response.data.fornecedor  != null &&  response.data.fornecedor  != ''){
+                target.fornecedor  = response.data.fornecedor;    
+              }else{
+                target.fornecedor  = 0;                      
+              }                
+  
+              if ( response.data.procedencia  != null &&  response.data.procedencia  != ''){
+                target.procedencia  = response.data.procedencia;    
+              }else{
+                target.procedencia  = 0;                      
+              }   
               
 
             }            
@@ -999,7 +1028,7 @@ export default {
       } else{
          this.lotePesquisaDTO.item = '';
       } 
-
+ 
       this.lotePesquisaDTO.idfil = this.$store.state.usuarioSistema.idfil;  
       
        //console.log('this.lotePesquisaDTO') 
@@ -1621,7 +1650,303 @@ export default {
 
         //$('#modalSimNao').modal('show');
 
-      } 
+      } ,
+
+
+      apiEntraNumero(event, decimais) {
+
+        let _decimal = (decimais > 0 ? ',' : '')
+        let _milhar = '.'
+
+        let numeroPuro = (event.target.value.replaceAll(".", "")).replaceAll(",", "")
+
+        let numero = (parseInt(numeroPuro) / (10 ** decimais)).toString()
+
+        let isNegative = numeroPuro.indexOf("-") != -1
+
+        //console.log('Numero : ', numero, '  Puro: ', numeroPuro, event.key)
+
+        if (event.key == 'Tab' || event.key == 'Shift' || event.key == 'ArrowUp' || event.key == 'ArrowDown') {
+            return
+        }
+
+        if (event.key == '0' && decimais > 0) {
+            numero = numero + "0"
+            if (numero != numeroPuro) {
+                numero = numeroPuro
+            }
+        }
+
+        if (isNegative) {
+            numero = '-' + numero
+        }
+
+        //console.log('Numero : ', numero)
+
+        if (_decimal == ',') {
+            numero = numero.replaceAll(',', '.')
+        }
+
+        //console.log(' Event: ', event.target.value, '  Numero : ', numero, '  Key: ', event.key)
+
+        if (event.key == '-') {
+
+            event.target.value = '-'
+
+        } else {
+
+            if ("0123456789".indexOf(event.key) != -1 || (event.key == 'Backspace' && !isNaN(numero))) {
+
+                //console.log('isNegative', isNegative, " Index: ", numero.indexOf("-"), " Numero: ", numero)
+
+                if (isNegative) {
+                    numero = numero.replaceAll("-", "")
+                }
+
+                let newValue = numero.toString()
+
+                newValue = (newValue.toString().replaceAll(_decimal, "")).replaceAll(_milhar, "")
+
+                let tam = newValue.length
+
+                //console.log('NewValue 1: ', newValue, '  Numero : ', numero, ' Tamanho: ', tam)
+
+                if (tam <= decimais + 1) {
+                    newValue = newValue.padStart(decimais + 1, '0')
+                    tam = newValue.length
+                    //console.log('PadStart : ', newValue)
+                }
+
+                //console.log("NewValue: ", newValue, ' Int: ', parseInt(newValue), '  Decimais: ', newValue.substr(0, tam - decimais) + '.' + newValue.substr(tam - decimais, decimais))
+
+                let newFloat = 0
+
+                if (decimais > 0) {
+                    newFloat = parseFloat(newValue.substr(0, tam - (decimais)) + '.' + newValue.substr(tam - decimais, decimais))
+                } else {
+                    newFloat = parseInt(newValue)
+                }
+
+                //console.log('NewFloat : ', newFloat)
+
+                let novoValor = newFloat.toString().replaceAll(".", "")
+
+                if (event.key == '0' && decimais > 0) {
+                    novoValor = novoValor + "0"
+                    //console.log("Novo Valor 1 : ", novoValor)
+                }
+
+                //console.log("Novo Valor 2 : ", novoValor)
+
+                if (newFloat >= 0 && newFloat < 10) {
+                    newValue = novoValor.toString().substr(0, 1) + _decimal + (novoValor.toString().substr(1)).padEnd(decimais, "0")
+                    //console.log("PadEnd : ", novoValor.toString().substr(1), '  ', (novoValor.toString().substr(1)).padEnd(decimais, "0"))
+                }
+
+                if (newFloat >= 10 && newFloat < 100) {
+                    newValue = novoValor.toString().substr(0, 2) + _decimal + (novoValor.toString().substr(2)).padEnd(decimais, "0")
+                }
+
+                if (newFloat >= 100 && newFloat < 1000) {
+                    newValue = novoValor.toString().substr(0, 3) + _decimal + (novoValor.toString().substr(3)).padEnd(decimais, "0")
+                }
+
+                if (newFloat >= 1000 && newFloat < 10000) {
+                    newValue = novoValor.toString().substr(0, 1) + _milhar + novoValor.toString().substr(1, 3) + _decimal + (novoValor.toString().substr(4)).padEnd(decimais, "0")
+                }
+
+                if (newFloat >= 1000 && newFloat < 10000) {
+                    newValue = novoValor.toString().substr(0, 1) + _milhar + novoValor.toString().substr(1, 3) + _decimal + (novoValor.toString().substr(4)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 10000 && newFloat < 100000) {
+                    newValue = novoValor.toString().substr(0, 2) + _milhar + novoValor.toString().substr(2, 3) + _decimal + (novoValor.toString().substr(5)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 100000 && newFloat < 1000000) {
+                    newValue = novoValor.toString().substr(0, 3) + _milhar + novoValor.toString().substr(3, 3) + _decimal + (novoValor.toString().substr(6)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 1000000 && newFloat < 10000000) {
+                    newValue = novoValor.toString().substr(0, 1) + _milhar + novoValor.toString().substr(1, 3) + _milhar + novoValor.toString().substr(4, 3) + _decimal + (novoValor.toString().substr(7)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 10000000 && newFloat < 100000000) {
+                    newValue = novoValor.toString().substr(0, 2) + _milhar + novoValor.toString().substr(2, 3) + _milhar + novoValor.toString().substr(5, 3) + _decimal + (novoValor.toString().substr(8)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 100000000 && newFloat < 1000000000) {
+                    newValue = novoValor.toString().substr(0, 3) + _milhar + novoValor.toString().substr(3, 3) + _milhar + novoValor.toString().substr(6, 3) + _decimal + (novoValor.toString().substr(9)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 1000000000 && newFloat < 10000000000) {
+                    newValue = novoValor.toString().substr(0, 1) + _milhar + novoValor.toString().substr(1, 3) + _milhar + novoValor.toString().substr(4, 3) + _milhar + novoValor.toString().substr(7, 3) + _decimal + (novoValor.toString().substr(10)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 10000000000 && newFloat < 100000000000) {
+                    newValue = novoValor.toString().substr(0, 2) + _milhar + novoValor.toString().substr(2, 3) + _milhar + novoValor.toString().substr(5, 3) + _milhar + novoValor.toString().substr(8, 3) + _decimal + (novoValor.toString().substr(11)).padEnd(decimais, "0")
+                }
+                if (newFloat >= 100000000000 && newFloat < 1000000000000) {
+                    newValue = novoValor.toString().substr(0, 3) + _milhar + novoValor.toString().substr(3, 3) + _milhar + novoValor.toString().substr(6, 3) + _milhar + novoValor.toString().substr(9, 3) + _decimal + (novoValor.toString().substr(12)).padEnd(decimais, "0")
+                }
+
+                event.target.value = (isNegative ? '-' + newValue : newValue)
+
+                //console.log('Final : ', newValue, '  Target : ', event.target.value)
+
+            } else {
+                event.target.value = event.target.value.substr(0, (event.target.value.length) - 1)
+            }
+
+        }
+
+        return
+
+    },
+
+    apiFormataNumero(numero, decimais) {
+
+      let newValue = ''
+      let _decimal = (decimais > 0 ? ',' : '')
+      let _milhar = '.'
+      let posDecimal = 0
+      let partInteira = 0
+      let partDecimal = 0
+      let valorAbsoluto = ''
+      let simboloDecimal = ''
+
+      if (numero == undefined || numero == '') {
+          return numero
+      }
+
+      newValue = numero.toString()
+
+      if (newValue.indexOf(".") != -1 && newValue.indexOf(",") != -1) {
+          newValue = newValue.replaceAll(".", "")
+      }
+
+      simboloDecimal = (newValue.toString().indexOf(".") != -1 ? "." : ",")
+
+      valorAbsoluto = newValue.replace("-", "")
+
+      posDecimal = valorAbsoluto.indexOf(simboloDecimal)
+
+      if (posDecimal != -1) {
+          partInteira = valorAbsoluto.substr(0, posDecimal)
+          partDecimal = valorAbsoluto.substr(posDecimal + 1)
+      } else {
+          partInteira = valorAbsoluto.replace("-", "")
+      }
+
+      if (partDecimal.length < decimais) {
+          partDecimal = partDecimal.padEnd(decimais, "0")
+      }
+
+      if (newValue.trim() != '') {
+
+          let isNegative = newValue.indexOf("-") != -1
+
+          let newFloat = Math.abs(parseInt(partInteira))
+
+          if (newFloat >= 0 && newFloat <= 999) {
+              newValue = partInteira
+          }
+
+          if (newFloat > 999 && newFloat < 9999) {
+              newValue = partInteira.substr(0, 1) + _milhar + partInteira.substr(1)
+          }
+          if (newFloat > 9999 && newFloat < 99999) {
+              newValue = partInteira.substr(0, 2) + _milhar + partInteira.substr(2)
+          }
+
+          if (newFloat > 99999 && newFloat < 999999) {
+              newValue = partInteira.substr(0, 3) + _milhar + partInteira.substr(3)
+          }
+
+          if (newFloat > 999999 && newFloat < 9999999) {
+              newValue = partInteira.substr(0, 1) + _milhar + partInteira.substr(1, 3) + _milhar + partInteira.substr(4)
+          }
+
+          if (newFloat > 9999999 && newFloat < 99999999) {
+              newValue = partInteira.substr(0, 2) + _milhar + partInteira.substr(2, 3) + _milhar + partInteira.substr(5)
+          }
+
+          if (newFloat > 99999999 && newFloat < 999999999) {
+              newValue = partInteira.substr(0, 3) + _milhar + partInteira.substr(3, 3) + _milhar + partInteira.substr(6)
+          }
+
+          if (newFloat > 999999999 && newFloat < 9999999999) {
+              newValue = partInteira.substr(0, 1) + _milhar + partInteira.substr(1, 3) + _milhar + partInteira.substr(4, 3) + _milhar + partInteira.substr(7)
+          }
+
+          if (newFloat > 9999999999 && newFloat < 99999999999) {
+              newValue = partInteira.substr(0, 2) + _milhar + partInteira.substr(2, 3) + _milhar + partInteira.substr(5, 3) + _milhar + partInteira.substr(8)
+          }
+
+          if (newFloat > 99999999999 && newFloat < 999999999999) {
+              newValue = partInteira.substr(0, 3) + _milhar + partInteira.substr(3, 3) + _milhar + partInteira.substr(6, 3) + _milhar + partInteira.substr(9)
+          }
+
+          if (newFloat > 999999999999 && newFloat < 9999999999999) {
+              newValue = partInteira.substr(0, 1) + _milhar + partInteira.substr(1, 3) + _milhar + partInteira.substr(4, 3) + _milhar + partInteira.substr(7, 3) + _milhar + partInteira.substr(10)
+          }
+
+          if (newFloat > 9999999999999 && newFloat < 99999999999999) {
+              newValue = partInteira.substr(0, 2) + _milhar + partInteira.substr(2, 3) + _milhar + partInteira.substr(5, 3) + _milhar + partInteira.substr(8, 3) + _milhar + partInteira.substr(11)
+          }
+
+          if (decimais > 0) {
+              newValue = newValue + _decimal + partDecimal
+          }
+
+          if (isNegative) {
+              newValue = "-" + newValue
+          }
+
+      }
+
+      return newValue
+
+  },
+  apiConverteNumeroFormatado(numero) {
+
+    if (numero == null) {
+        return 0
+    }
+
+    let _decimal = ','
+    let _milhar = '.'
+    let numeroString = numero.toString()
+
+    if (_decimal == ',') {
+        //console.log('apiConverteNumeroFormatado')
+
+        if (numeroString.indexOf(".") != -1 && numeroString.indexOf(",") != -1) {
+
+            numeroString = (numeroString.replaceAll(_milhar, "")).replaceAll(",", ".")
+
+            //console.log('apiConverteNumeroFormatado 222')
+            //console.log(numeroString)
+
+        } else if (numeroString.indexOf(",") != -1) {
+            numeroString = numeroString.replaceAll(_decimal, ".")
+
+            //console.log('apiConverteNumeroFormatado 555')
+            //console.log(numeroString)            
+        }
+
+        return parseFloat(numeroString)
+
+    } else {
+        return parseFloat(numeroString.replaceAll(_milhar, ""))
+    }
+
+ },
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
