@@ -359,6 +359,9 @@ export default {
              
             if (tipo == 'loteItem') {  
               
+              //console.log('ApiParam loteItem');
+              //console.log(response.data);
+              
               if ( response.data.lote  != null &&  response.data.lote  != ''){
                   target.lote  = response.data.lote;   
               }else{
@@ -423,8 +426,56 @@ export default {
                 target.procedencia  = response.data.procedencia;    
               }else{
                 target.procedencia  = 0;                      
-              }   
+              }    
+
+              if ( response.data.tipoQualidade  != null &&  response.data.tipoQualidade  != ''){
+                target.tipoQualidade  = response.data.tipoQualidade;    
+              }else{
+                target.tipoQualidade  = 0;                      
+              }                 
               
+              if ( response.data.classifQualidade  != null &&  response.data.classifQualidade  != ''){
+                target.classifQualidade  = response.data.classifQualidade;    
+              }else{
+                target.classifQualidade  = 0;                      
+              }  
+
+              if ( response.data.coloracao  != null &&  response.data.coloracao  != ''){
+                target.coloracao  = response.data.coloracao;    
+              }else{
+                target.coloracao  = 0;                      
+              }                
+              
+              if ( response.data.loteAdicional  != null &&  response.data.loteAdicional  != ''){
+                target.loteAdicional  = response.data.loteAdicional;    
+              }else{
+                target.loteAdicional  = 0;                      
+              }               
+              
+              if ( response.data.idVolume  != null &&  response.data.idVolume  != ''){
+                target.idVolume  = response.data.idVolume;    
+              }else{
+                target.idVolume  = 0;                      
+              }       
+
+              if ( response.data.tipoMic  != null &&  response.data.tipoMic  != ''){
+                target.tipoMic  = response.data.tipoMic;    
+              }else{
+                target.tipoMic  = 0;                      
+              }                
+
+              if ( response.data.destino  != null &&  response.data.destino  != ''){
+                target.destino  = response.data.destino;    
+              }else{
+                target.destino  = 0;                      
+              }            
+                            
+
+
+
+
+
+
 
             }            
              
@@ -1644,11 +1695,11 @@ export default {
         this.simNaoBotoes = botoes;            
         this.simNaoTipo = tipo;      
         
-        this.$refs.simNao.dialogSimNao = true;  
+        //this.$refs.simNao.dialogSimNao = true;     /// Descomentar para utilizar modal com vuetify
 
         //console.log(this.$refs.simNao.dialogSimNao);        
 
-        //$('#modalSimNao').modal('show');
+        $('#modalSimNao').modal('show');
 
       } ,
 

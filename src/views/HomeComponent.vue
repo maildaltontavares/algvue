@@ -24,8 +24,10 @@
         </v-list>
 
         <v-list  > 
-            <v-list-item prepend-icon="mdi-home" class="item-hover font-menu" style="color:white; " >Home</v-list-item>      
-               
+            <v-list-item prepend-icon="mdi-home" class="item-hover font-menu" style="color:white; " >Home</v-list-item>
+            
+            
+             <!--  
             <v-list-group value="Cadastros" style="color:white" >
 
             <template v-slot:activator="{ props }">                <v-list-item
@@ -41,14 +43,12 @@
             <v-list-item prepend-icon="mdi-tree-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Procedência</v-list-item>   
             <v-list-item prepend-icon="mdi-tree-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Tipo Movimento</v-list-item>   
             <v-list-item prepend-icon="mdi-tree-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Tipo Mat. Prima</v-list-item>   
-            <!--
-            <v-list-item prepend-icon="mdi-book-account-outline">Procedência</v-list-item>            
-            <v-list-item prepend-icon="mdi-account">Tipos de movimentos</v-list-item>   
-            <v-list-item prepend-icon="mdi-account">Tipos de matérias-primas</v-list-item>    
-            -->   
+            
+ 
+               
 
             </v-list-group>   
-
+            -->
             <v-list-group value="Movimentos"  style="color:white" >
 
                 <template v-slot:activator="{ props }">
@@ -61,11 +61,15 @@
 
                 </template> 
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMovimentacaoEstoque">Movimentação de Estoque</v-list-item>   
+                <!--
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Teste Qualidade</v-list-item>   
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Formação de Pilhas</v-list-item>   
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Apontamento Abertura</v-list-item>   
-            </v-list-group>   
+                 -->
 
+
+            </v-list-group>   
+            
             <v-list-group value="Misturas" style="color:white" > 
 
                 <template v-slot:activator="{ props }">
@@ -77,14 +81,14 @@
                     class="item-hover"
                 ></v-list-item>
                 </template> 
-
-                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Mistura Padrão</v-list-item>   
-                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Baixas</v-list-item>   
-                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Exclusão</v-list-item> 
+                
+                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMisturaPadrao">Mistura Padrão</v-list-item>   
                  
 
             </v-list-group>   
+            
 
+            <!--
             <v-list-group value="Autorizações" style="color:white" > 
 
                 <template v-slot:activator="{ props }">
@@ -97,13 +101,13 @@
                 ></v-list-item>
                 </template> 
 
-
+                
                 <v-list-item prepend-icon="mdi-account" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaUsuarios" ><b>Usuários</b></v-list-item>            
                 <v-list-item prepend-icon="mdi-file-account-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaUsuariosLogin">Credenciais</v-list-item>      
                 <v-list-item prepend-icon="mdi-card-account-details-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaTrocarSenha">Trocar Senha</v-list-item>      
-                              
+                          
             </v-list-group> 
-
+            -->
 
 
 
@@ -307,17 +311,15 @@
                     }
 
                     //console.log('this.$store.state.pinOff222')
-                    //console.log(this.$store.state.pinOff)                    
-
-
-
+                    //console.log(this.$store.state.pinOff)   
 
                 },
+                
                 navegarParaUsuarios(){this.$router.push({name:'usuario'   , params : { codigoProps :' ' , operacao : 'I' }}) },
                 navegarParaUsuariosLogin(){this.$router.push({name:'usuarioLogin' , params : {sistemaProps : 4 ,usuarioProps : '0' , operacao : 'I' }} ) },
                 navegarParaTrocarSenha(){this.$router.push({name:'trocarsenha' , params : {sistemaProps : 4 ,usuarioProps :this.$store.state.usuarioSistema.id  }} ) },
                 navegarParaMovimentacaoEstoque(){this.$router.push({name:'movimentacaoestoque' , params : { fornecedorProps : '0' ,  notaFiscalProps : '0' ,operacao : 'I' }} ) },
-
+                navegarParaMisturaPadrao(){this.$router.push({name:'misturapadrao'} ) }, 
             },
             created() {
 
@@ -325,10 +327,19 @@
                 //console.log(this.$store.state.tipoDispositivo)
 
 
-               if(this.$store.state.tipoDispositivo=='desktop' ){
-                  this.tipoTemporario=false;
-                  this.isDrawerOpen=true;
-                  this.exibeMenu=false;               
+               if(this.$store.state.tipoDispositivo=='desktop' ){ 
+
+                  // Para iniciar mostrando o menu
+                  //this.tipoTemporario=false;
+                  //this.isDrawerOpen=true;   /// Exibe menu no inicio
+                  //this.exibeMenu=false;               
+
+                  // Para iniciar sem mostrar o menu
+                  this.tipoTemporario=true;
+                  this.isDrawerOpen=false;   /// Exibe menu no inicio
+                  this.exibeMenu=true;               
+
+
                   this.tipoIconeFixo ="mdi-pin-outline";
                   this.desabilitaPin=false;
                }else{

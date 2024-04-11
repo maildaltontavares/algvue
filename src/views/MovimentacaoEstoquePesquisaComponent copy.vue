@@ -42,7 +42,7 @@
                    </div> 
                    
    
-                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
+                   <div class="flex-linha "  style="margin-left:4%;width:96%;margin-top: 1%;background-color:white" >   
 
                         <div   class="espacoEntreComponentes">     
 
@@ -234,16 +234,14 @@
 
                     </div>                  
  
-                     <div class="container-fluid"  >
+                     <div class="container-fluid"  style=" overflow-y: scroll;">
                             <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
-                                      <th class="col-1">NF</th>
+                                    <th class="col-1">NF</th>
                                       <th class="col-4 text-start">FORNECEDOR</th>
                                       <th class="col-4 text-start">PRODUTOR</th>     
                                       <th class="col-3 text-start">OPER</th>  
-                                
-                                     
                                       
                                   </tr>
                                 </thead> 
@@ -251,7 +249,7 @@
                                 <tbody  v-if="apiDisplayedDadosCRUD" >
                                   <template  v-for="(i,indice) in apiDisplayedDadosCRUD" :key="indice">
  
-                                    <tr>  
+                                    <tr >  
                                   
                                       <td class="col-1 text-start">
                                         {{ i.notaFiscal}}
@@ -271,12 +269,23 @@
                                       </td>      
 
                                                   
-                                       <!----> 
-                                      <td class="col-1  "  >  
-                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'movimentacaoestoque' , params: { fornecedorProps : i.fornecedor,notaFiscalProps : i.notaFiscal,operacao:'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
-                                       </td>  
-                                    
-  
+
+                                      <th class="col-1"> 
+                                            <v-btn  icon="mdi-pencil" text="Editar"   :to="{ name: 'movimentacaoestoque' , params: { fornecedorProps : i.fornecedor,notaFiscalProps : i.notaFiscal,operacao:'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px; ">  </v-btn>
+                                             
+
+                                      </th> 
+
+   <!--
+                                  
+                                      <th class="col-1">
+                                   
+                                        <v-btn  icon="mdi-pencil" text="Editar"  :to="{ name: 'usuario' , params: { codigoProps : i.idUsuario,operacao:'A'}}" style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px; ">  </v-btn>
+                                        
+                                        
+   
+                                      </th> 
+                                   -->
                                     </tr>
  
 
@@ -735,11 +744,8 @@
     th {
       position: sticky;
       top: 0;
-      background: #003366;
-      color:white;
-       
+      background: red;
     }
- 
    
   
   </style>

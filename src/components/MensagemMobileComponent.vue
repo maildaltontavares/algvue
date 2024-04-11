@@ -60,12 +60,12 @@ import { mapState } from 'vuex';
     },
     mounted(){
 
-        console.log('Novo componente')
+       // console.log('Novo componente')
 
-        console.log(this.mensagemSucessoProps)
-        console.log(this.mensagemErroProps)
-        console.log(this.haErrosProps)
-        console.log(this.haSucessoProps)
+        //console.log(this.mensagemSucessoProps)
+        //console.log(this.mensagemErroProps)
+        //console.log(this.haErrosProps)
+        //console.log(this.haSucessoProps)
  
         this.mensagemSucessoMobile = this.mensagemSucessoProps;
         this.mensagemErroMobile    = this.mensagemErroProps; 

@@ -1,7 +1,13 @@
-<template>
+
+
+ 
   <!-- Modal Sim ou Não-->
-  <div class="modal" id="modalSimNao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelSimNao" aria-hidden="true">
+  <!--
+  <div class="modal" id="modalSimNao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelSimNao" aria-hidden="true"   >
+    
+    
     <div class="modal-dialog  modal-dialog-centered modal-sm">
+
       <div class="modal-content">
         <div class="modal-header d-flex justify-content-center" :class="tipo">
             <label class="tituloPergunta" id="staticBackdropLabelSimNao">{{ pergunta }}</label>
@@ -13,13 +19,37 @@
           <button type="button" v-if="botoes.includes('O')" class="btn btn-secondary btn-md me-3" @click="confirmaAcao('O')" data-bs-dismiss="modal"><label class="tituloPergunta">OK</label></button>
         </div>
       </div>
+
+      
     </div>
   </div>
+  --> 
+
+<template>
+  <v-dialog v-model="dialogSimNao" max-width="350"    >
+    <v-card style="height: 130px" tabindex="-1"  >
+      <v-card-title :class="tipo" >              
+        <div class="modal-header d-flex justify-content-center" >
+            <label class="tituloPergunta" id="staticBackdropLabelSimNao">{{ pergunta }}</label>
+        </div>
+        </v-card-title>
+ 
+      <v-card-actions>
+        <div class="modal-body d-flex justify-content-around" style="margin-top: 20px;">
+            <button type="button" v-if="botoes.includes('S')" class="btn btn-primary  botaoSelecao"     @click="confirmaAcao('S')"  ><label class="tituloPergunta">Sim</label></button>
+            <button type="button" v-if="botoes.includes('N')" class="btn btn-secondary botaoSelecao"   @click="confirmaAcao('N')"  ><label class="tituloPergunta">Não</label></button>
+            <button type="button" v-if="botoes.includes('C')" class="btn btn-secondary botaoSelecao" @click="confirmaAcao('C')"  ><label class="tituloPergunta">Cancela</label></button>
+            <button type="button" v-if="botoes.includes('O')" class="btn btn-secondary botaoSelecao" @click="confirmaAcao('O')"  ><label class="tituloPergunta">OK</label></button>
+        </div>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
   export default {
     name: 'SimNao',
+    
     props: {
       pergunta : {
         type: String,
@@ -34,9 +64,18 @@
         required: true,
       },
     },
+    data: () => ({
+      dialogSimNao:false,
+
+    }),
     methods: {
-      confirmaAcao(resposta) {
+        confirmaAcao(resposta) {       
+        this.dialogSimNao = false;  
+
+        //console.log('resposta')
+        //console.log(resposta)
         this.$emit('confirmaAcao',resposta)
+         
       },
     },
   }
@@ -63,5 +102,12 @@
         color:white;
         font-weight: bold;
     }
+
+    .botaoSelecao{
+      min-width: 70px;
+      color:white;
+      font-size: 14px; 
+    }
+     
 
 </style>

@@ -139,7 +139,7 @@
 
                       </div>  
 
-                    <div class="flex-linha"  style="margin-left:2%;width:95%;margin-top: 1%; ">  
+                    <div class="flex-linha"  style="margin-left:6%;width:94%;margin-top: 1%; ">  
                             
                                 <div    class="espacoEntreComponentes">  
                                  
@@ -338,7 +338,7 @@
 
                                 </div> 
                                 
-                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">   
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05'">   
 
                                     <v-autocomplete
                                           
@@ -356,7 +356,45 @@
                                         
                                     ></v-autocomplete> 
 
-                                </div>                                  
+                                </div>                         
+                                
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  this.$store.state.usuarioSistema.idfil=='05' && this.movimento.tipoMovimento =='NFE' ">   
+
+                                    <v-autocomplete
+                                        
+                                        label="Qualid. Compra"
+                                        :items="qualidadeItens" 
+                                        :disabled="qual1Desabilitado"                                           
+                                        v-model="this.movimento.qual1"   
+                                        item-title="descricao" 
+                                        item-value="codigo"
+                                        variant="outlined"
+                                        style="width: 120px; " 
+                                        bg-color="white" 
+                                        density="compact" 
+                                        
+                                    ></v-autocomplete> 
+
+                                </div>   
+                                
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  && this.movimento.tipoMovimento =='NFE' ">   
+
+                                    <v-autocomplete
+                                        
+                                        label="Classfic"
+                                        :items="classificacaoItens" 
+                                        :disabled="qual2Desabilitado"                                           
+                                        v-model="this.movimento.qual2"   
+                                        item-title="descricao" 
+                                        item-value="codigo"
+                                        variant="outlined"
+                                        style="width: 120px; " 
+                                        bg-color="white" 
+                                        density="compact" 
+                                        
+                                    ></v-autocomplete> 
+
+                                </div>                                   
 
                                 
 
@@ -792,7 +830,7 @@
                                                         label="Lote" 
                                                         ref="lote"  
                                                         maxlength="10"                                         
-                                                        style=" width: 120px; " 
+                                                        style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
@@ -806,22 +844,42 @@
                                                 
                                             </div> 
                                         </td>   
-                                        
-                                        
-
-                                        
-                                         
 
 
-                                        <td     v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">
+                                        <td  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05' ">   
+                                            <div   class="espacoEntreComponentesGrid">   
+                                                
+                                                        
+                                                <div > 
+                                                    <v-autocomplete 
+                                                        label="Cor"
+                                                        :items="coloracao"  
+                                                        id="cor"                                         
+                                                        :disabled="(coloracaoDesabilitado   && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
+                                                        v-model="i.coloracao"   
+                                                        item-title="codigo" 
+                                                        item-value="codigo"
+                                                        variant="outlined"
+                                                        style="width: 120px; " 
+                                                        bg-color="white"  
+                                                        density="compact"
+                                                        :rules="[campoRequerido]"  
+
+                                                   ></v-autocomplete> 
+                                                </div>
+                                    
+                                            </div>                                     
+                                        </td> 
+
+   
+                                        <td     v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05' ">
                                             <div   class="espacoEntreComponentesGrid">   
                                                 
                                                         
                                                 <div >
                                                      
                                                     
-                                                    <v-text-field
-                                                         
+                                                    <v-text-field 
                                                         v-model.trim="i.pilha" 
                                                         id="pilha"
                                                         label="Pilha"
@@ -831,17 +889,15 @@
                                                         variant="outlined"
                                                         :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
                                                         type="number"
-                                                        inputmode="numeric"
-                                                        
-                                                        density="compact"
-                                                        
+                                                        inputmode="numeric" 
+                                                        density="compact" 
                                                     ></v-text-field>                                    
                                                 </div>
                                     
                                             </div>                                     
                                         </td> 
 
-                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  ">
                                             <div    class="espacoEntreComponentesGrid">  
 
                                                 <v-autocomplete
@@ -864,6 +920,50 @@
                                         </td>
 
                                     
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">  
+
+                                                <v-autocomplete
+
+                                                    label="Qualid"
+                                                    :items="qualidadeItens"                                                       
+                                                    :disabled="(tipoQualidadeDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.tipoQualidade"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 80px; "
+                                                    bg-color="white"      
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">   
+ 
+                                                <v-autocomplete
+
+                                                    label="Classif"
+                                                    :items="classificacaoItens"                                                        
+                                                    :disabled="(classifQualidadeDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.classifQualidade"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 100px; "
+                                                    bg-color="white"      
+                                                 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>                                        
+
                                         <td  >
                                             <div   class="espacoEntreComponentesGrid">   
 
@@ -974,6 +1074,54 @@
                                             </div>                             
 
                                         </td>
+
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        class="v-input"
+                                                        v-model.trim="i.loteAdicional" 
+                                                        id="loteAdicional"
+                                                        label="Lote Adicional"
+                                                        ref="loteAdicional"   
+                                                        style=" width: 120px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="loteAdicionalDesabilitado && i.habilitado"                                                            
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">  
+
+                                                <v-autocomplete
+
+                                                    label="Destino"
+                                                    :items="destinoItens"                                                        
+                                                    :disabled="(destinoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.destino"   
+                                                    item-title="descricao" 
+                                                    item-value="codigo"
+                                                    variant="outlined"
+                                                    style=" width: 150px; "
+                                                    bg-color="white"      
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>                                        
+
+
                                         <td v-if="this.movimento.tipoMovimento != 'MIST'">
                                             <div   class="espacoEntreComponentesGrid">    
                                                         
@@ -1042,7 +1190,9 @@
 
                                             </div>
                                         
-                                        </div>                                         
+                                        </div>         
+                                        
+                                        
 
 <!--
  
@@ -1239,12 +1389,39 @@
                 descricao:''
             },
 
+            coloracao: [],
+            coloracaoTemp:{ 
+                codigo:'',
+                descricao:''
+            },            
+
             tamanhoItens:[
                 'G',
                 'P'
 
             ],
+            qualidadeItens:[
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F'                
+            ],            
        
+            classificacaoItens:[
+               '   ',
+               '1/2',
+               '1/4',
+               '3/4'
+
+            ],   
+            
+            destinoItens:[
+               {'codigo':'D','descricao':'Denim'},
+               {'codigo':'V','descricao':'Venda'} 
+
+            ],      
 
             tipoMPItens: [],
             tipoMPItensTemp:{ 
@@ -1284,8 +1461,9 @@
             procedenciaDesabilitado:false,
             pesoTotalDesabilitado :false,
             numVolumesDesabilitado:false,
-            pesoMedioDesabilitado:false,    
-
+            pesoMedioDesabilitado:false,   
+            qual1Desabilitado:false, 
+            qual2Desabilitado:false,  
             itemDesabilitado:false,  
             idDesabilitado:false,  
             loteItemDesabilitado:false,   
@@ -1296,7 +1474,15 @@
             umDesabilitado:false,  
             vlUnitarioDesabilitado:false,  
             observacaoDesabilitado:false,   
-    
+            tipoQualidadeDesabilitado:false,   
+            classifQualidadeDesabilitado:false,  
+            coloracaoDesabilitado:false,  
+            loteAdicionalDesabilitado:false,  
+            idVolumeDesabilitado:false,  
+            tipoMicDesabilitado:false,  	 
+            destinoDesabilitado:false,  
+
+
             movimento: {
                 id: 0,
                 idfil: '',
@@ -1325,7 +1511,8 @@
                 dataAlteracao: '',
                 statusItem:'',
                 statusItemOriginal:'',
-                 
+                qual1:'',
+                qual2:'', 
                 itemMovimentoDTO:[]
             } ,
 
@@ -1357,6 +1544,8 @@
                 dataAlteracao: '',
                 statusItem:'',
                 statusItemOriginal:'',
+                qual1:'',
+                qual2:'',                 
                
                 itemMovimentoDTO:[]
             } ,            
@@ -1411,6 +1600,13 @@
                     pesoMedio: 0,
                     statusItem:'',
                     statusItemOriginal:'',
+                    tipoQualidade:'',
+                    classifQualidade:'', 
+                    coloracao:'',
+                    loteAdicional:'', 
+                    idVolume:'', 
+                    tipoMic:'',	 
+                    destino:''                        
 
             }, 
 
@@ -1443,7 +1639,8 @@
                 dataAlteracao: '',
                 statusItem:'',
                 statusItemOriginal:'',
-                
+                qual1:'',
+                qual2:'',  
                 itemMovimentoDTO:[]
             } ,
 
@@ -1497,7 +1694,14 @@
                     trar: 0,
                     pesoMedio: 0,
                     statusItem:'',
-                    statusItemOriginal:'',
+                    statusItemOriginal:'', 
+                    tipoQualidade:'',
+                    classifQualidade:'', 
+                    coloracao:'',
+                    loteAdicional:'', 
+                    idVolume:'', 
+                    tipoMic:'',	 
+                    destino:''                       
 
             },   
         
@@ -1589,15 +1793,7 @@
             },
 
             async pesquisaLoteProdutor(filial,produtor, i){ 
-
-/*
-               console.log('Pesquisa teste lote');
-               console.log(filial); 
-               console.log(produtor); 
-               console.log(i.lote); 
-               console.log(this.vOperAlteraItem); 
-               console.log(this.tipoMatP); 
-*/
+ 
 
                 let url;  
 
@@ -1672,7 +1868,7 @@
                     resultado = false;  
                 }
 
-                console.log('validaPeso')
+                //console.log('validaPeso')
                 //console.log(this.apiConverteNumeroFormatado(parseFloat(this.movimento.numVolumes).toFixed(2)))
                 //console.log(this.pNumVolumes)
                 //console.log(this.apiConverteNumeroFormatado(parseFloat(this.movimento.pesoMedio).toFixed(2)))
@@ -1748,7 +1944,7 @@
 
                         this.calculaDadosDocumento();
                     }else{ 
-                            console.log('calculaPesoItem 666666')
+                           //.log('calculaPesoItem 666666')
                             // Pega o peso medio do item
                             pMov.peso =  parseFloat((pMov.quantidade * parseFloat(this.apiConverteNumeroFormatado( pMov.pesoMedio )).toFixed(4)) ) ;   
                             //console.log(pMov.peso)
@@ -2001,6 +2197,32 @@
                     }            
 
                 }
+
+                if(this.vOperAlteraItem=='S' && this.tipoMatP == 'ALGOD' && this.$store.state.usuarioSistema.idfil == '05' ){  
+                 
+                    if (this.movimento.qual1=='' || this.movimento.qual1==null )  {
+                        this.apiDisplayMensagem('Informe a qualidade.');
+                        validado = false;
+                    } 
+
+                    //if (this.movimento.qual2=='' || this.movimento.qual2==null )  {
+                    //    this.apiDisplayMensagem('Informe a classificação.');
+                    //    validado = false;
+                   // } 
+
+                }
+
+
+                if(
+                    (this.tipoMatP == 'ALGOD'  && this.movimento.tipoMovimento == 'NFFIL')  ||
+                    (this.tipoMatP == 'FILAM'  && this.movimento.tipoMovimento == 'NFE')
+                ){      
+                        this.apiDisplayMensagem('Tipo de material incompatível com tipo de movimento.');
+                        validado = false; 
+                 }                
+
+
+
                 if(validado){
 
                     this.novoItem();  
@@ -2016,6 +2238,8 @@
                     this.pesoTotalDesabilitado=true;
                     this.numVolumesDesabilitado=true;
                     this.pesoMedioDesabilitado=true; 
+                    this.qual1=true;
+                    this.qual2=true;
 
  
                 }
@@ -2064,6 +2288,16 @@
             novoItem(){ 
 
                 let i;
+                //let dataInsercao;
+                //let dataAlteracao;
+                let dataAtual = new Date();
+
+                //let dia = String(dataAtual.getDate()).padStart(2, '0');
+                //let mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // O mês é baseado em zero, portanto, é necessário adicionar 1
+                //let ano = dataAtual.getFullYear();
+                //let dataFormatada = `${dia}/${mes}/${ano}`;  
+
+               //dataInsercao = dataFormatada;  
 
                 for (i = 0; i < 1; i++) {
 
@@ -2082,8 +2316,21 @@
                     this.movimentoItemTempAux.statusItemOriginal = 'Inclusão'
 
                     this.movimentoItemTempAux.loteJaTestado =  'N' ;
-                    this.movimentoItemTempAux.unidadeMedida = 'KG';
-                  
+                    this.movimentoItemTempAux.unidadeMedida = 'KG'; 
+
+                    this.movimentoItemTempAux.dataAlteracao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
+                    this.movimentoItemTempAux.dataInclusao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
+                    this.movimentoItemTempAux.usuarioInclusao = this.$store.state.usuarioSistema.codigo; 
+                    this.movimentoItemTempAux.usuarioAlteracao = this.$store.state.usuarioSistema.codigo; 
+/*
+                    if(this.aMovimentoItem[i].statusItem == 'Inclusão') {
+                                                                            this.aMovimentoItem[i].dataAlteracao = dataInsercao; 
+                                                                            this.aMovimentoItem[i].dataInclusao = dataInsercao; 
+                                                                            this.aMovimentoItem[i].usuarioInclusao  = this.$store.state.usuarioSistema.codigo;
+                                                                            this.aMovimentoItem[i].usuarioAlteracao = this.$store.state.usuarioSistema.codigo;
+
+                                                                        }
+*/
 
                    this.aMovimentoItem.push(this.movimentoItemTempAux); 
                    
@@ -2124,11 +2371,45 @@
                     this.aMovimentoItem[this.indiceAtual].procedencia    = e.obj.procedencia; 
                     this.aMovimentoItem[this.indiceAtual].descFio        = e.obj.nomeItem;   
 
+                    this.aMovimentoItem[this.indiceAtual].tipoQualidade        = e.obj.tipoQualidade;   
+                    this.aMovimentoItem[this.indiceAtual].getClassifQualidade  = e.obj.getClassifQualidade;   
+                    this.aMovimentoItem[this.indiceAtual].coloracao       = e.obj.coloracao;   
+                    this.aMovimentoItem[this.indiceAtual].loteAdicional   = e.obj.loteAdicional;   
+                    this.aMovimentoItem[this.indiceAtual].idVolume        = e.obj.idVolume;   
+                    this.aMovimentoItem[this.indiceAtual].tipoMic         = e.obj.tipoMic;   
+                    this.aMovimentoItem[this.indiceAtual].destino         = e.obj.destino;     
+
                 }                  
 
             },  
  
 
+            validaPilha(pPilha){
+
+                 let validado; 
+                 validado = false;
+                
+                if(pPilha !=null && pPilha != '') {
+
+                    if(pPilha.length==4) {
+
+                        if(parseInt(pPilha, 10) < 9999){ 
+                            validado = true; 
+                        } 
+
+                    }  
+
+                }else{
+                    // Pilha vazia
+                    validado = true;
+                }
+
+
+
+                 return validado;
+
+
+            },
  
             async submitForm() {   
  
@@ -2154,7 +2435,23 @@
                             this.apiDisplayMensagem('Id do lote ' + this.aMovimentoItem[i].lote + ' inválido.');
                             this.haErros = true;
                         }
-                                                        
+                    
+                        if(!this.validaPilha(this.aMovimentoItem[i].pilha)){
+                            validado = false;
+                            myMsg = 'Pilha do lote ' + this.aMovimentoItem[i].lote + ' inválida.'
+                            this.apiDisplayMensagem(myMsg);
+                            this.haErros = true;
+
+                        }
+
+                        if (this.aMovimentoItem[i].descFio=='' || this.aMovimentoItem[i].descFio==null)  {
+                            validado = false;
+                            myMsg = 'Item do lote ' + this.aMovimentoItem[i].lote + ' inválido.'
+                            this.apiDisplayMensagem(myMsg);
+                            this.haErros = true; 
+                        }                
+
+
                     } 
 
                     this.validacao = await this.$refs.formulario.validate();   
@@ -2196,7 +2493,7 @@
                                     if (typeof this.movimento.dataInclusao   === "string") {
                                         dataInsercao  = this.movimento.dataInclusao ;
                                     } else if (this.movimento.dataInclusao  instanceof Date) {
-                                        dataInsercao  = this.$moment(this.movimento.dataInclusao .format("DD/MM/YYYY")  )
+                                        dataInsercao  = this.$moment(this.movimento.dataInclusao.format("DD/MM/YYYY")  )
                                     } 
 
                                     dataAlteracao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
@@ -2231,8 +2528,8 @@
 
                                     for (let i = 0; i < this.aMovimentoItem.length; i++) {    
 
-                                                this.aMovimentoItem[i].alteracao = true;  
-                                               
+                                                       this.aMovimentoItem[i].alteracao = true;  
+                                                       
 
                                                         itensValidos = itensValidos + 1; 
 
@@ -2307,9 +2604,20 @@
                                                                 pesoMedio:    this.apiConverteNumeroFormatado(this.aMovimentoItem[i].pesoMedio),
                                                                 statusItem:   this.aMovimentoItem[i].statusItem,    
                                                                 habilitado: true ,
-                                                                loteJaTestado: this.aMovimentoItem[i].loteJaTestado
-                                                            
+                                                                loteJaTestado: this.aMovimentoItem[i].loteJaTestado,
 
+                                                                tipoQualidade:    this.aMovimentoItem[i].tipoQualidade,
+                                                                classifQualidade: this.aMovimentoItem[i].classifQualidade, 
+                                                                coloracao:        this.aMovimentoItem[i].coloracao,
+                                                                loteAdicional:    this.aMovimentoItem[i].loteAdicional, 
+                                                                idVolume:         this.aMovimentoItem[i].idVolume, 
+                                                                tipoMic:          this.aMovimentoItem[i].tipoMic,	 
+                                                                destino:          this.aMovimentoItem[i].destino, 
+                                                                usuarioInclusao:  this.aMovimentoItem[i].usuarioInclusao ,
+                                                                usuarioAlteracao: this.aMovimentoItem[i].usuarioAlteracao,
+                                                                dataInclusao:     this.aMovimentoItem[i].dataInclusao,
+                                                                dataAlteracao:    this.aMovimentoItem[i].dataAlteracao                                                              
+ 
                                                         } 
 
                                                         this.aMovimentoItemDAO.push(objItem);
@@ -2327,7 +2635,7 @@
                                                     "idfil": this.$store.state.usuarioSistema.idfil,
                                                     "notaFiscal": this.movimento.notaFiscal    ,
                                                     "fornecedor": this.movimento.fornecedor,
-                                                    "tipoMovimento": this.movimento.tipoMovimento,
+                                                    "tipoMovimento": this.movimento.tipoMovimento,  
                                                     "tipoMP":  this.movimento.tipoMP,
                                                     "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
                                                     "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"), 
@@ -2338,19 +2646,23 @@
                                                     "numVolumes": this.movimento.numVolumes,
                                                     "produtor":  this.movimento.produtor,
                                                     "procedencia":  this.movimento.procedencia, 
+                                                    "qual1":  this.movimento.qual1, 
+                                                    "qual2":  this.movimento.qual2,  
+
                                                     "movimentoAutomatico":  "N",
                                                     "movimentoPilha":  "N", 
                                                     "usuarioInclusao":  this.movimento.usuarioInclusao ,
                                                     "usuarioAlteracao":  this.movimento.usuarioInclusao,
                                                     "dataInclusao":  dataInsercao,
-                                                    "dataAlteracao":  dataInsercao,
+                                                    "dataAlteracao":  dataInsercao, 
+
                                                     "itemMovimentoDTO":this.aMovimentoItemDAO    
                                             }   
 
                                             this.aMovimentoItemFinal.push(this.movimentoDAO);  
                                             
-                                            console.log('InclusaO this.aMovimentoItemFinal')
-                                            console.log(this.aMovimentoItemFinal)
+                                            //console.log('InclusaO this.aMovimentoItemFinal')
+                                            //console.log(this.aMovimentoItemFinal)
                                              
                                             await this.axios.post(
                                                 url,
@@ -2370,10 +2682,12 @@
 
                                                 for (let i = 0; i < this.aMovimentoItem.length; i++) {    
                                                     
-                                                    if(this.aMovimentoItem[i].statusItem != 'Exclusão'){  
+                                                    if(this.aMovimentoItem[i].statusItem != 'Exclusão'){   
+                                                        
                                                         this.aMovimentoItem[i].statusItem = 'Alteração';  
                                                         this.aMovimentoItem[i].statusItemOriginal = 'Alteração';  
                                                         this.aMovimentoItem[i].habilitado = true;
+
                                                     }
 
                                                 } 
@@ -2403,7 +2717,16 @@
                                                     this.aMovimentoItem[i].alteracao = true;  
 
                                                     //console.log('this.aMovimentoItem[i]')
-                                                    //console.log(this.aMovimentoItem[i])
+                                                    //console.log(this.aMovimentoItem[i]) 
+
+
+                                                    //if( this.aMovimentoItem[i].statusItem == 'Inclusão' ){
+                                                        // if (typeof this.aMovimentoItem[i].dataInclusao   === "string") {
+                                                         //   dataInsercao  = this.aMovimentoItem[i].dataInclusao 
+                                                        // } else if (this.movimento.dataInclusao  instanceof Date) {
+                                                        //   dataInsercao  = this.$moment(this.aMovimentoItem[i].dataInclusao.format("DD/MM/YYYY")  )
+                                                         //}
+                                                    //}                                                     
 
                                                     if( this.aMovimentoItem[i].statusItem == 'Inclusão' ||  this.aMovimentoItem[i].statusItem == 'Alteração' ||    (this.aMovimentoItem[i].statusItem == 'Exclusão' && this.aMovimentoItem[i].statusItemOriginal == 'Alteração' )   ){
 
@@ -2483,12 +2806,12 @@
                                                                     mat:   this.aMovimentoItem[i].mat, 
                                                                     ui:    this.aMovimentoItem[i].ui, 
                                                                     sf:    this.aMovimentoItem[i].sf, 
-                                                                    str:   this.aMovimentoItem[i].str, 
+                                                                    str:   this.aMovimentoItem[i].str,   
                                                                     elg:   this.aMovimentoItem[i].elg, 
                                                                     tipo:  this.aMovimentoItem[i].tipo, 
                                                                     sic:   this.aMovimentoItem[i].sic, 
 
-                                                                    idAutomatico: this.aMovimentoItem[i].idAutomatico, 
+                                                                    idAutomatico: this.aMovimentoItem[i].idAutomatico,  
                                                                     uhml:         this.aMovimentoItem[i].uhml, 
                                                                     rs:           this.aMovimentoItem[i].rs, 
                                                                     b:            this.aMovimentoItem[i].b, 
@@ -2498,7 +2821,20 @@
                                                                     statusItem:   this.aMovimentoItem[i].statusItem,    
                                                                     statusItemOriginal:   this.aMovimentoItem[i].statusItemOriginal, 
                                                                     habilitado: true,
-                                                                    loteJaTestado: this.aMovimentoItem[i].loteJaTestado
+                                                                    loteJaTestado: this.aMovimentoItem[i].loteJaTestado,
+
+                                                                    tipoQualidade:    this.aMovimentoItem[i].tipoQualidade,
+                                                                    classifQualidade: this.aMovimentoItem[i].classifQualidade, 
+                                                                    coloracao:        this.aMovimentoItem[i].coloracao,
+                                                                    loteAdicional:    this.aMovimentoItem[i].loteAdicional, 
+                                                                    idVolume:         this.aMovimentoItem[i].idVolume, 
+                                                                    tipoMic:          this.aMovimentoItem[i].tipoMic,	 
+                                                                    destino:          this.aMovimentoItem[i].destino,                                                                      
+                                                                    usuarioInclusao:  this.aMovimentoItem[i].usuarioInclusao ,                                                   
+                                                                    dataInclusao:     this.aMovimentoItem[i].dataInclusao ,                                                                      
+                                                                    usuarioAlteracao: this.$store.state.usuarioSistema.codigo       
+                                                                    
+                                                                    // a data da alteração o java grava
                                                                 
 
                                                             } 
@@ -2529,6 +2865,8 @@
                                                             "numVolumes": this.movimento.numVolumes,
                                                             "produtor":  this.movimento.produtor,
                                                             "procedencia":  this.movimento.procedencia, 
+                                                            "qual1":  this.movimento.qual1, 
+                                                            "qual2":  this.movimento.qual2,                                                              
                                                             "movimentoAutomatico":  this.movimento.movimentoAutomatico,
                                                             "movimentoPilha": this.movimento.movimentoPilha,
                                                             "usuarioInclusao":  this.movimento.usuarioInclusao ,
@@ -2538,13 +2876,13 @@
                                                             "itemMovimentoDTO":this.aMovimentoItemDAO    
                                                     } 
 
-                                                    console.log('AlteraCAO')
-                                                    console.log(this.movimentoDAO) 
+                                                    //console.log('AlteraCAO')
+                                                    //console.log(this.aMovimentoItemDAO) 
 
                                                 
                                                     this.aMovimentoItemFinal.push(this.movimentoDAO);  
  
-                                                    console.log(this.aMovimentoItemFinal);
+                                                    //console.log(this.aMovimentoItemFinal);
                                                     await this.axios.put(
                                                         url,
                                                         JSON.stringify(this.aMovimentoItemFinal),
@@ -2567,8 +2905,8 @@
                                                                 
                                                                 this.aMovimentoItemTransitorio = [];
                                                                 this.numItem = 0;
-                                                                for (let i = 0; i < this.aMovimentoItem.length; i++) {    
-                                                                    
+                                                                for (let i = 0; i < this.aMovimentoItem.length; i++) {   
+
                                                                     
                                                                         if(this.aMovimentoItem[i].statusItem != 'Exclusão' ) {
                                                                             this.aMovimentoItem[i].statusItem = 'Alteração';   
@@ -2584,7 +2922,10 @@
                                                                             this.numItem = this.numItem+1;                                                                    
                                                                             this.aMovimentoItem[i].ind =  String(this.numItem).padStart(3, '0')  ;  
                                                                             this.aMovimentoItemTransitorio.push(this.aMovimentoItem[i]);
-                                                                        }
+
+
+                                                                        } 
+
                                                                 
                                                                 } 
 
@@ -2691,7 +3032,9 @@
                         this.procedenciaDesabilitado=false;
                         this.pesoTotalDesabilitado=false;
                         this.numVolumesDesabilitado=false;
-                        this.pesoMedioDesabilitado=false;
+                        this.pesoMedioDesabilitado=false; 
+                        this.qual1Desabilitado=false;
+                        this.qual2Desabilitado=false;
                          
 
                     }else if(oper=='A' || oper=='E'){
@@ -2707,6 +3050,8 @@
                         this.pesoTotalDesabilitado=true;
                         this.numVolumesDesabilitado=true;
                         this.pesoMedioDesabilitado=true;
+                        this.qual1Desabilitado=true;
+                        this.qual2Desabilitado=true;
                     }    
 
                     ///////////// CONFIGURAÇÃO DOS ITENS //////////////
@@ -2715,57 +3060,78 @@
 
 
                         this.itemDesabilitado = false; 
-                        this.loteItemDesabilitado = false;  
+                        //this.loteItemDesabilitado = false;  
                         this.pilhaDesabilitado = false; 
-                        this.tamanhoDesabilitado = false; 
-                        //this.quantidadeDesabilitado = false; 
-                        //this.pesoDesabilitado = false;   
-                        //this.umDesabilitado = false;   
-                        //this.vlUnitarioDesabilitado = false;  
-                        //this.observacaoDesabilitado = false;                      
-                         
+                        //this.tamanhoDesabilitado = false;  
+                          
                         if(this.vOperAlteraItem=='N'){  
                            
                             this.loteItemDesabilitado = true;
-                            this.tamanhoDesabilitado = true; 
+                            this.tamanhoDesabilitado = true;  
+                            this.tipoQualidadeDesabilitado = true; 
+                            this.classifQualidadeDesabilitado = true; 
+                            this.coloracaoDesabilitado = true; 
+                            this.loteAdicionalDesabilitado = true; 
+                            this.idVolumeDesabilitado = true; 
+                            this.tipoMicDesabilitado = true; 	 
+                            this.destinoDesabilitado = true; 
+                            this.umDesabilitado  = true;   
+
+
                             this.vTmp = 'ZZZZZ1111'
                         }else{                 
                             
                             this.loteItemDesabilitado = false;
                             this.tamanhoDesabilitado = false; 
+                            this.tipoQualidadeDesabilitado = false; 
+                            this.classifQualidadeDesabilitado = false; 
+                            this.coloracaoDesabilitado = false; 
+                            this.loteAdicionalDesabilitado = false; 
+                            this.idVolumeDesabilitado = false; 
+                            this.tipoMicDesabilitado = false; 	 
+                            this.destinoDesabilitado = false; 
+                            this.umDesabilitado = false;   
+
                             this.vTmp = 'ZZZZZ2222'
                         } 
-
-                        
-                         
-
-
+ 
                     }else if(oper=='A'){ 
 
                         if(this.vOperAlteraEstoque=='S'){                            
                             
                              
-                            this.itemDesabilitado = true;
-                            ///this.idDesabilitado = true;
+                            this.itemDesabilitado = true;   
                             this.loteItemDesabilitado = true;                             
                             this.pilhaDesabilitado = true; 
                             this.tamanhoDesabilitado = true; 
-                            //this.quantidadeDesabilitado = true; 
-                            //this.pesoDesabilitado = true;   
-                            this.umDesabilitado = true;   
-                            //this.vlUnitarioDesabilitado = true;  
-                            //this.observacaoDesabilitado = true; 
-
+                            this.umDesabilitado  = true;   
+                            this.tipoQualidadeDesabilitado = true; 
+                            this.classifQualidadeDesabilitado = true; 
+                            this.coloracaoDesabilitado = true; 
+                            this.loteAdicionalDesabilitado = true; 
+                            this.idVolumeDesabilitado = true; 
+                            this.tipoMicDesabilitado = true; 	 
+                            this.destinoDesabilitado = true;                             
+  
                             this.vTmp = 'ZZZZZaaaaaaa'
 
                             if(this.vOperAlteraItem=='N'){  
                            
-                               this.loteItemDesabilitado = true;
-                               this.tamanhoDesabilitado = true; 
-                               this.umDesabilitado = true; 
+                                this.loteItemDesabilitado = true;
+                                this.tamanhoDesabilitado = true; 
+                                this.umDesabilitado = true; 
+                                this.tipoQualidadeDesabilitado = true; 
+                                this.classifQualidadeDesabilitado = true; 
+                                this.coloracaoDesabilitado = true; 
+                                this.loteAdicionalDesabilitado = true; 
+                                this.idVolumeDesabilitado = true; 
+                                this.tipoMicDesabilitado = true; 	 
+                                this.destinoDesabilitado = true;                                       
                         
                                this.vTmp = 'ZZZZZbbbbb'
                              } else{
+
+ 
 
                                 //this.quantidadeDesabilitado = true;
                                 this.vTmp = 'ZZZZZMMMMMM'
@@ -2776,15 +3142,21 @@
                         }else{
                             
                             this.itemDesabilitado = true; 
-                            this.loteItemDesabilitado = true; 
-                            
-                            this.pilhaDesabilitado = false; 
-                            this.tamanhoDesabilitado = false; 
-                            //this.quantidadeDesabilitado = false; 
-                            //this.pesoDesabilitado = false;   
-                            //this.umDesabilitado = false;   
-                            //this.vlUnitarioDesabilitado = false;  
+                            this.loteItemDesabilitado = true;    
+                            this.umDesabilitado = true;                          
+                            this.pilhaDesabilitado = true; 
+                            this.tamanhoDesabilitado = true;                             
                             this.observacaoDesabilitado = false;  
+                            this.tipoQualidadeDesabilitado = true; 
+                            this.classifQualidadeDesabilitado = true; 
+                            this.coloracaoDesabilitado = true; 
+                            this.loteAdicionalDesabilitado = true; 
+                            this.idVolumeDesabilitado = true; 
+                            this.tipoMicDesabilitado = true; 	 
+                            this.destinoDesabilitado = true;   
+
+
+
 
                             this.vTmp = 'ZZZZZccccc'
 
@@ -2802,18 +3174,17 @@
                     }          
                     
                     
-                    //console.log('configuraCampos');
-                    //console.log(oper);
-                    //console.log(this.idDesabilitado); 
-                    //console.log(this.aMovimentoItem.Habilitado); 
-                    //console.log(this.vOperAlteraItem);
-                    //console.log(this.vOperAlteraEstoque);   
+                   //console.log('configuraCampos');
+                   //console.log(this.vTmp);
+ 
+
+                  
 
 
             }, 
 
             
-            async populaForm(){   
+            async populaForm(){    
 
                     this.resultado = ""; 
                     let retornoPopForm=false;  
@@ -2985,6 +3356,29 @@
                                         this.movimento.usuarioAlteracao = "" ;                       
                                     }      
 
+                                    if (this.resultado.dataAlteracao != null){
+                                        this.movimento.dataAlteracao = this.resultado.dataAlteracao ;     
+                                    
+                                    }else{
+                                        this.movimento.dataAlteracao = "" ;                       
+                                    }   
+                                    
+                                    
+                                    if (this.resultado.usuarioInclusao != null){
+                                        this.movimento.usuarioInclusao = this.resultado.usuarioInclusao ;     
+                                    
+                                    }else{
+                                        this.movimento.usuarioInclusao = "" ;                       
+                                    }      
+
+                                    if (this.resultado.dataInclusao != null){
+                                        this.movimento.dataInclusao = this.resultado.dataInclusao ;     
+                                    
+                                    }else{
+                                        this.movimento.dataInclusao = "" ;                       
+                                    }    
+
+
                                     if (this.resultado.tipoMovimento != null){
                                         this.movimento.tipoMovimento = this.resultado.tipoMovimento ;     
                                     }else{
@@ -3028,7 +3422,19 @@
                                         this.movimento.procedencia = "" ;                       
                                     }    
 
+                                    if (this.resultado.qual1!= null){
+                                        this.movimento.qual1 = this.resultado.qual1 ;     
+                                    
+                                    }else{
+                                        this.movimento.qual1 = "" ;                       
+                                    }                                      
 
+                                    if (this.resultado.qual2!= null){
+                                        this.movimento.qual2 = this.resultado.qual2 ;     
+                                    
+                                    }else{
+                                        this.movimento.qual2 = "" ;                       
+                                    }  
 
                                     if (this.resultado.fkTipoMovimento!= null){
                                         this.vOperAlteraEstoque = this.resultado.fkTipoMovimento.atualizaEstoque ;     
@@ -3142,11 +3548,25 @@
                                                     alteracao:true,
                                                     statusItem: 'Alteração',
                                                     statusItemOriginal: 'Alteração',
-                                                    loteJaTestado: loteTestado 
+                                                    loteJaTestado: loteTestado ,
+
+                                                    tipoQualidade:  this.resultado.itemMovimento[i].tipoQualidade, 
+                                                    classifQualidade:  this.resultado.itemMovimento[i].classifQualidade,  
+                                                    coloracao:  this.resultado.itemMovimento[i].coloracao,  
+                                                    loteAdicional:  this.resultado.itemMovimento[i].loteAdicional, 
+                                                    idVolume:  this.resultado.itemMovimento[i].idVolume, 
+                                                    tipoMic:  this.resultado.itemMovimento[i].tipoMic, 	 
+                                                    destino:  this.resultado.itemMovimento[i].destino,  
+                                                    usuarioInclusao: this.resultado.itemMovimento[i].usuarioInclusao,  
+                                                    dataInclusao:  this.resultado.itemMovimento[i].dataInclusao   
                                                     
 
                                             }  
                                             
+                                            //console.log('Item XXXX')
+                                            //console.log(objItem)
+                                             
+
                                             this.aMovimentoItem.push(objItem);
                                     }
 
@@ -3365,6 +3785,7 @@
                 this.populaTipoMP();
                 this.populaProdutor();
                 this.populaProcedencia();
+                this.populaColoracao();
 
                 this.pPesoDocumento =0.00; 
                 this.pNumVolumes =0;

@@ -8,6 +8,7 @@ import UsuarioLoginPesquisa  from '@/views/UsuarioLoginPesquisaComponent.vue'
 import TrocarSenha from '@/views/TrocarSenhaComponent.vue'
 import MovimentacaoEstoque from '@/views/MovimentacaoEstoqueComponent.vue'
 import MovimentacaoEstoquePesquisa  from '@/views/MovimentacaoEstoquePesquisaComponent.vue'
+import Mistura  from '@/views/MisturaComponent.vue'
 
 
 import store from '@/store/index'
@@ -101,7 +102,17 @@ const routes =
                     meta: { requerAutorizacao: true, codigoPagina: 'pagMovimentacaoEstoquePesquisa' }    , 
                     name: 'movimentacaoestoquepesquisa' 
                       
-                  }                 
+                  }   ,   
+                   
+  
+                  {
+                    path: 'misturapadrao',
+                    props: true,
+                    component: Mistura,
+                    meta: { requerAutorizacao: false, codigoPagina: 'pagMisturaPadrao' }    , 
+                    name: 'misturapadrao' 
+                      
+                  }          
 
                 ]
         }

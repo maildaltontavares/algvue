@@ -15,7 +15,54 @@ export default {
     pages: [],
   }),
   methods: {
-   
+
+
+    async populaMisturasAbertas(){
+        /* DALTON */
+               this.resultado = ""; 
+               this.tipoMovimentoItens = [];  
+       
+               // Carrega tipo Maquina
+               let url = `${process.env.VUE_APP_BASE_URL}/mp/abertas/${this.$store.state.usuarioSistema.idfil}`; 
+
+               //console.log(url);
+               
+               await this.axios.get(url,this.apiTokenHeader())
+               .then(response => { 
+                   this.resultado = response.data;     
+
+                   //console.log('Misturas abertas');
+                   //console.log(this.resultado );
+
+                
+                   
+                   this.misturasAbertas = [];
+                   this.resultado.forEach((mistA ) => {  
+                   
+                       //console.log('Misturas XXXXX');
+                       //console.log(mistA.mistura );   
+
+                       this.misturasAbertasTemp.codigo = (mistA.mistura != null ? mistA.mistura  : null)  ;  
+
+                       this.misturasAbertas.push({
+                         codigo:this.misturasAbertasTemp.codigo,
+                        
+                        }); 
+
+
+       
+                   });  
+                   //console.log('Misturas Fina l ');
+                   //console.log(this.misturasAbertas );
+                
+       
+               })
+               .catch(error => {
+               console.log("Erro: ", error);
+               this.haErros = true
+               });
+           },
+
        async populaTipoMovimento(){
         /* DALTON */
                this.resultado = ""; 
@@ -187,7 +234,54 @@ export default {
                            console.log("Erro: ", error);
                            this.haErros = true
                            });
-                       },       
+                       },   
+
+                       
+                       async populaColoracao(){
+                        /* DALTON */
+                               this.resultado = ""; 
+                               this.coloracao = []; 
+                       
+                               // Carrega tipo Maquina
+                               let url = `${process.env.VUE_APP_BASE_URL}/coloracao/${this.$store.state.usuarioSistema.idfil}`; 
+                
+                               //console.log(url);
+                               
+                               
+                               await this.axios.get(url,this.apiTokenHeader())
+                               .then(response => { 
+                                   this.resultado = response.data;     
+                
+                                   //console.log('populaColoracao');
+                                   //console.log(this.resultado );
+                                   
+                                   this.coloracao = [];
+                                   this.resultado.forEach((tpMP) => {     
+                 
+                                   
+                                       this.coloracaoTemp.codigo = (tpMP.codigo != null ? tpMP.codigo.trim()  : null)  ;  
+                                       this.coloracaoTemp.descricao = (tpMP.descricao != null ? tpMP.descricao.trim()  : null)  ;  
+                                   
+                
+                                       this.coloracao.push({
+                                         codigo:this.coloracaoTemp.codigo,
+                                         descricao:this.coloracaoTemp.codigo  
+                                        }); 
+                
+                
+                       
+                                   });  
+                                   
+                                   //console.log(this.coloracao);
+                                
+                       
+                               })
+                               .catch(error => {
+                               console.log("Erro: ", error);
+                               this.haErros = true
+                               });
+                           },                       
+
                        
                        
                        async buscaId(){
@@ -206,8 +300,8 @@ export default {
                                .then(response => { 
                                    this.resultado = response.data;  
                                    vId = this.resultado ; 
-                                   console.log(' Funcao vId'); 
-                                   console.log(vId); 
+                                   //console.log(' Funcao vId'); 
+                                   //console.log(vId); 
                        
                                })
                                 .catch(error => {
