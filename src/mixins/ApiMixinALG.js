@@ -17,10 +17,108 @@ export default {
   methods: {
 
 
-    async populaMisturasAbertas(){
+
+    async populaMisturasFull(){
         /* DALTON */
                this.resultado = ""; 
                this.tipoMovimentoItens = [];  
+       
+      
+               let url = `${process.env.VUE_APP_BASE_URL}/mp/full/${this.$store.state.usuarioSistema.idfil}`; 
+
+               //console.log(url);
+               
+               await this.axios.get(url,this.apiTokenHeader())
+               .then(response => { 
+                   this.resultado = response.data;     
+
+                   console.log('Misturas full');
+                   console.log(this.resultado );
+
+                
+                   
+                   this.misturasAbertas = [];
+                   this.resultado.forEach((mistA ) => {  
+                   
+                       //console.log('Misturas XXXXX');
+                       //console.log(mistA.mistura );   
+
+                       this.misturasAbertasTemp.codigo = (mistA.mistura != null ? mistA.mistura  : null)  ;  
+
+                       this.misturasAbertas.push({
+                         codigo:this.misturasAbertasTemp.codigo,
+                        
+                        }); 
+
+
+       
+                   });  
+                   //console.log('Misturas Fina l ');
+                   //console.log(this.misturasAbertas );
+                
+       
+               })
+               .catch(error => {
+               console.log("Erro: ", error);
+               this.haErros = true
+               });
+           },
+
+
+           async populaMisturasABaixar(){
+            /* DALTON */
+                   this.resultado = ""; 
+                   this.misturasABaixar = [];  
+           
+                   // Carrega tipo Maquina
+                   let url = `${process.env.VUE_APP_BASE_URL}/mp/abaixar/${this.$store.state.usuarioSistema.idfil}`; 
+    
+                   //console.log(url);
+                   
+                   await this.axios.get(url,this.apiTokenHeader())
+                   .then(response => { 
+                       this.resultado = response.data;     
+    
+                       //console.log('Misturas abertas');
+                       //console.log(this.resultado );
+    
+                    
+                       
+                       this.misturasABaixar = [];
+                       this.resultado.forEach((mistA ) => {  
+                       
+                           //console.log('Misturas XXXXX');
+                           //console.log(mistA.mistura );   
+    
+                           this.misturasABaixarTemp.codigo = (mistA.mistura != null ? mistA.mistura  : null)  ;  
+    
+                           this.misturasABaixar.push({
+                             codigo:this.misturasABaixarTemp.codigo,
+                            
+                            }); 
+    
+    
+           
+                       });  
+                       //console.log('Misturas Fina l ');
+                       //console.log(this.misturasAbertas );
+                    
+           
+                   })
+                   .catch(error => {
+                   console.log("Erro: ", error);
+                   this.haErros = true
+                   });
+               },
+
+
+
+
+
+    async populaMisturasAbertas(){
+        /* DALTON */
+               this.resultado = ""; 
+               this.misturasAbertas = [];  
        
                // Carrega tipo Maquina
                let url = `${process.env.VUE_APP_BASE_URL}/mp/abertas/${this.$store.state.usuarioSistema.idfil}`; 

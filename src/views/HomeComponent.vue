@@ -83,7 +83,8 @@
                 </template> 
                 
                 <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMisturaPadrao">Mistura Padrão</v-list-item>   
-                 
+                <v-list-item prepend-icon="mdi-arrow-down-bold-box-outline " class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaBaixarMisturaPadrao">Descida</v-list-item>
+            
 
             </v-list-group>   
             
@@ -319,7 +320,9 @@
                 navegarParaUsuariosLogin(){this.$router.push({name:'usuarioLogin' , params : {sistemaProps : 4 ,usuarioProps : '0' , operacao : 'I' }} ) },
                 navegarParaTrocarSenha(){this.$router.push({name:'trocarsenha' , params : {sistemaProps : 4 ,usuarioProps :this.$store.state.usuarioSistema.id  }} ) },
                 navegarParaMovimentacaoEstoque(){this.$router.push({name:'movimentacaoestoque' , params : { fornecedorProps : '0' ,  notaFiscalProps : '0' ,operacao : 'I' }} ) },
-                navegarParaMisturaPadrao(){this.$router.push({name:'misturapadrao'} ) }, 
+                //navegarParaMisturaPadrao(){this.$router.push({name:'misturapadrao'} ) }, 
+                navegarParaMisturaPadrao(){this.$router.push({name:'acessomisturapadrao', params : {tituloProps :'Mistura Padrao' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'I' } } )},
+                navegarParaBaixarMisturaPadrao(){this.$router.push({name:'acessomisturapadrao', params : {tituloProps :'Descida da Mistura' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'B' } } )},
             },
             created() {
 
@@ -716,6 +719,9 @@
  
     width: 350px; 
     flex-grow: 1;
+    height:43px;
+    
+
     } 
     
     .filho51{  

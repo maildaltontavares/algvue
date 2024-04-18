@@ -19,7 +19,7 @@
                         
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>{{this.titulo}}</b></p>                               
+                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Mistura Padrão</b></p>                               
                             </div> 
                         </div>    
 
@@ -48,9 +48,9 @@
                            
                            
                            
-                                <v-btn @click="this.pesquisaDados()"   style="height:47px;width:280px;margin-top: 15px;background-color:rgb(240, 237, 232);"
+                                <v-btn @click="this.pesquisaDados()"  style="height:47px;width:280px;margin-top: 15px;background-color:rgb(240, 237, 232);"
                                 :disabled="acaoDesabilitado"
-                                v-if="this.$store.state.tipoDispositivo == 'desktop' "  >
+                                v-if="this.$store.state.tipoDispositivo == 'desktop'"  >
 
                                     <v-icon left                                               
                                         color="primary"
@@ -58,7 +58,7 @@
                                         size="45"
                                     ></v-icon> 
 
-                                    <span class="my-auto">{{this.labelPesquisarComposicao}}</span>  
+                                    <span class="my-auto">Informar Composicao</span>  
 
                                 </v-btn>  
                         
@@ -66,327 +66,304 @@
                         </div>              
 
                    </div> 
-
-
-                  <template>
-
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->                     
-
+                   
    
-                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
+                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
+                   
+
+                        <div    class="espacoEntreComponentes"    >  
+
+                            <v-autocomplete
+
+                                label="Operacao"
+                                :items="operMistItens"      
+                                v-model.trim="this.operMist"  
+                                item-title="descricao" 
+                                item-value="codigo"
+                                variant="outlined"
+                                style=" width: 160px; "
+                                bg-color="white"   
+                                density="compact"
+                                @blur="trocaOperMist()"
+                                :disabled="operMistDesabilitado"
+                                
+
+                            ></v-autocomplete> 
+
+                        </div>    
+ 
+                        <div   class="espacoEntreComponentes" v-if = "this.operMist=='I'  ">    
+                                        
+                              <v-text-field
+
+                                  v-model.trim="this.mistura.numeroMistura" 
+                                  id="numeroMistura"
+                                  label="Mistura" 
+                                  ref="numeroMistura"  
+                                  maxlength="10"                                            
+                                  style=" width: 180px; " 
+                                  variant="outlined"
+                                  bg-color="white"                                           
+                                  type="number"  
+                                  inputmode="numeric"   
+                                  density="compact"
+                                  :disabled="numeroMisturaDesabilitado"   
+                                   
+                                  @blur="preparaMistura()"
+                                  
+                                  
+                              ></v-text-field>                                    
+                                     
+                           
+                        </div> 
+ 
+                        <div    class="espacoEntreComponentes" v-if = "this.operMist=='A'" >  
+                                 
+                                 <v-autocomplete
+                                     
+                                     :items="misturasAbertas"    
+                                     label="Mistura"          
+                                     v-model="this.mistura.numeroMistura"    
+                                     item-title="codigo" 
+                                     item-value="codigo"
+                                     variant="outlined"
+                                     style="width: 180px;"                                       
+                                     :rules="[campoRequerido]" 
+                                     density="compact"
+                                     @blur="preparaMistura()"
+                                     :disabled="numeroMisturaDesabilitado"  
+                               
+                                     
+                                 ></v-autocomplete> 
+
+                             </div>  
+
+
+
+
+                        <div   class="espacoEntreComponentes">    
+                                        
+                              <v-text-field
+                                    
+                                  v-model.trim="this.mistura.quantidade" 
+                                  class="text-end"
+                                  id="quantidade"
+                                  label="Quantidade" 
+                                  ref="quantidade"   
+                                  style=" width: 170px; " 
+                                  variant="outlined"
+                                  bg-color="white"
+                                  type="number"    
+                                  density="compact" 
+                                  inputmode="numeric"  
+                                  :rules="[campoRequerido]"  
+                                  :disabled="quantidadeDesabilitado"  
+                                  @change="calculaCor(aComposicao)"
+  
+                              ></v-text-field>                                    
+                        </div>                
+                        
                         
 
-                              <div    class="espacoEntreComponentes"    >  
-
-                                  <v-autocomplete
-
-                                      label="Operacao"
-                                      :items="operMistItens"      
-                                      v-model.trim="this.operMist"  
-                                      item-title="descricao" 
-                                      item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 160px; "
-                                      bg-color="white"   
-                                      density="compact"
-                                      @blur="trocaOperMist()"
-                                      :disabled="operMistDesabilitado"
-                                      
-
-                                  ></v-autocomplete> 
-
-                              </div>    
-      
-                              <div   class="espacoEntreComponentes" v-if = "(this.operMist=='I' || this.operMist=='C' )   ">    
-                                              
-                                    <v-text-field
-
-                                        v-model.trim="this.mistura.numeroMistura" 
-                                        id="numeroMistura"
-                                        label="Mistura" 
-                                        ref="numeroMistura"  
-                                        maxlength="10"                                            
-                                        style=" width: 180px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :disabled="numeroMisturaDesabilitado"   
+                        <div   class="espacoEntreComponentes">    
                                         
-                                        @blur="preparaMistura()"
-                                        
-                                        
-                                    ></v-text-field>                                    
-                                          
-                                
-                              </div> 
-      
-                              <div    class="espacoEntreComponentes" v-if = "this.operMist=='A'" >  
-                                      
-                                      <v-autocomplete
-                                          
-                                          :items="misturasAbertas"    
-                                          label="Mistura"          
-                                          v-model="this.mistura.numeroMistura"    
-                                          item-title="codigo" 
-                                          item-value="codigo"
-                                          variant="outlined"
-                                          style="width: 180px;"                                       
-                                          :rules="[campoRequerido]" 
-                                          density="compact"
-                                          @blur="preparaMistura()"
-                                          :disabled="numeroMisturaDesabilitado"  
+                              <v-text-field
                                     
-                                          
-                                      ></v-autocomplete> 
+                                  v-model.trim="this.mistura.totalMisturasUtilizadas" 
+                                  class="text-end"
+                                  id="totalMisturasUtilizadas"
+                                  label="Utilizadas" 
+                                  ref="totalMisturasUtilizadas"   
+                                  style=" width: 150px; " 
+                                  variant="outlined"
+                                  bg-color="white"
+                                  type="number"    
+                                  density="compact" 
+                                  inputmode="numeric"  
+                                  disabled
+  
+                              ></v-text-field>                                    
+                        </div>  
+ 
 
-                                  </div>  
+                        <div   class="espacoEntreComponentes">     
 
-
-
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.quantidade" 
-                                        class="text-end"
-                                        id="quantidade"
-                                        label="Quantidade" 
-                                        ref="quantidade"   
-                                        style=" width: 170px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"    
-                                        density="compact" 
-                                        inputmode="numeric"  
-                                        :rules="[campoRequerido]"  
-                                        :disabled="quantidadeDesabilitado"  
-                                        @change="calculaCor(aComposicao)"
-        
-                                    ></v-text-field>                                    
-                              </div>                
-                              
-                              
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                        class="text-end"
-                                        id="totalMisturasUtilizadas"
-                                        label="Utilizadas" 
-                                        ref="totalMisturasUtilizadas"   
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"    
-                                        density="compact" 
-                                        inputmode="numeric"  
-                                        disabled
-        
-                                    ></v-text-field>                                    
-                              </div>  
-      
-
-                              <div   class="espacoEntreComponentes">     
-
-                                      <v-text-field
-                                          v-model.trim="this.mistura.dataInicial" 
-                                          id="dataInicial"
-                                          label="Data Inicial" 
-                                          ref="dataInicial"  
-                                          style=" width: 150px; " 
-                                          variant="outlined"
-                                          bg-color="white" 
-                                          type="date" 
-                                          :rules="[campoRequerido]" 
-                                          density="compact"
-                                          :disabled="dataInicialDesabilitado"  
-                                          
-                                      ></v-text-field>      
-                          
-                              </div>           
-
-                              <div   class="espacoEntreComponentes">    
-                                          
-                                  
-                                      
-                                      <v-text-field
-                                          v-model.trim="this.mistura.dataFinal" 
-                                          id="dataFinal"
-                                          label="Data Final" 
-                                          ref="dataFinal"  
-                                          style=" width: 150px; " 
-                                          variant="outlined"
-                                          bg-color="white" 
-                                          type="date" 
-                                          :rules="[campoRequerido]" 
-                                          density="compact"
-                                          :disabled="dataFinalDesabilitado"  
-                                          
-                                      ></v-text-field>                                    
-                                  
-                          
-                              </div>         
-                              
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.totalFardos" 
-                                        class="text-end"
-                                        id="totalFardos"
-                                        label="Total de Fardos" 
-                                        ref="totalFardos"   
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"  
-                                        :rules="[campoRequerido]"      
-                                        density="compact" 
-                                        inputmode="numeric" 
-                                        :disabled="totalFardosDesabilitado"    
-        
-                                    ></v-text-field>                                    
-                              </div>  
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.loteFiacao" 
-                                        id="loteFiacao"
-                                        label="Lote Fiação" 
-                                        ref="loteFiacao"  
-                                        maxlength="10"                                            
-                                        style=" width: 170px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :rules="[campoRequerido]" 
-                                        :disabled="loteFiacaoDesabilitado" 
-                                        @blur="buscaLote()"
-                                        
-                                    ></v-text-field>                                    
-                                          
-                                
-                              </div> 
-
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->                        
-
-                              <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
-
-                                  <v-autocomplete
-
-                                      label="Fardos"
-                                      :items="destinoItens"      
-                                      v-model.trim="this.mistura.destino"  
-                                      item-title="descricao" 
-                                      item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 150px; "
-                                      bg-color="white"   
-                                      density="compact"
-                                      :disabled="destinoDesabilitado" 
-
-                                      
+                                <v-text-field
+                                    v-model.trim="this.mistura.dataInicial" 
+                                    id="dataInicial"
+                                    label="Data Inicial" 
+                                    ref="dataInicial"  
+                                    style=" width: 150px; " 
+                                    variant="outlined"
+                                    bg-color="white" 
+                                    type="date" 
+                                    :rules="[campoRequerido]" 
+                                    density="compact"
+                                    :disabled="dataInicialDesabilitado"  
                                     
-                                      
-                                  ></v-autocomplete> 
-
-                              </div>                           
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.observacao" 
-                                        id="observacao"
-                                        label="Observação" 
-                                        ref="observacao"  
-                                        maxlength="150"                                            
-                                        style=" width: 450px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                        :disabled="observacaoDesabilitado" 
-                                        
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div>     
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-
-                                        v-model.trim="this.totalFardosMistura" 
-                                        id="numFardos"
-                                        label="Num. Fardos Selec." 
-                                        ref="numFardos"  
-                                        maxlength="150"                                            
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                        disabled
-                                        
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div> 
-
-
-                              <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                                  
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="green"
-                                                  icon="mdi-check"
-                                                  size="55"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                        
-                              </div>  
-
-                              <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                          
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="red"
-                                                  icon="mdi-alert-circle-outline"  
-                                                  size="35"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                  
-                              </div> 
-        
-                          </div>      
-
-
-                  </template>
+                                ></v-text-field>      
                     
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
+                        </div>           
+
+                        <div   class="espacoEntreComponentes">    
+                                    
+                             
+                                
+                                <v-text-field
+                                    v-model.trim="this.mistura.dataFinal" 
+                                    id="dataFinal"
+                                    label="Data Final" 
+                                    ref="dataFinal"  
+                                    style=" width: 150px; " 
+                                    variant="outlined"
+                                    bg-color="white" 
+                                    type="date" 
+                                    :rules="[campoRequerido]" 
+                                    density="compact"
+                                    :disabled="dataFinalDesabilitado"  
+                                    
+                                ></v-text-field>                                    
+                            
+                    
+                        </div>         
+                        
+                        <div   class="espacoEntreComponentes">    
+                                        
+                              <v-text-field
+                                    
+                                  v-model.trim="this.mistura.totalFardos" 
+                                  class="text-end"
+                                  id="totalFardos"
+                                  label="Total de Fardos" 
+                                  ref="totalFardos"   
+                                  style=" width: 150px; " 
+                                  variant="outlined"
+                                  bg-color="white"
+                                  type="number"  
+                                  :rules="[campoRequerido]"      
+                                  density="compact" 
+                                  inputmode="numeric" 
+                                  :disabled="totalFardosDesabilitado"    
+  
+                              ></v-text-field>                                    
+                        </div>  
+
+                        <div   class="espacoEntreComponentes">    
+                                        
+                              <v-text-field
+                                  v-model.trim="this.mistura.loteFiacao" 
+                                  id="loteFiacao"
+                                  label="Lote Fiação" 
+                                  ref="loteFiacao"  
+                                  maxlength="10"                                            
+                                  style=" width: 170px; " 
+                                  variant="outlined"
+                                  bg-color="white"                                           
+                                  type="number"  
+                                  inputmode="numeric"   
+                                  density="compact"
+                                  :rules="[campoRequerido]" 
+                                  :disabled="loteFiacaoDesabilitado" 
+                                  @blur="buscaLote()"
+                                  
+                              ></v-text-field>                                    
+                                     
+                           
+                        </div> 
+
+                        <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+
+                            <v-autocomplete
+
+                                label="Fardos"
+                                :items="destinoItens"      
+                                v-model.trim="this.mistura.destino"  
+                                item-title="descricao" 
+                                item-value="codigo"
+                                variant="outlined"
+                                style=" width: 150px; "
+                                bg-color="white"   
+                                density="compact"
+                                :disabled="destinoDesabilitado" 
+
+                                
+                              
+                                
+                            ></v-autocomplete> 
+
+                        </div>                           
+
+                        <div   class="espacoEntreComponentes">    
+                                        
+                              <v-text-field
+                                  v-model.trim="this.mistura.observacao" 
+                                  id="observacao"
+                                  label="Observação" 
+                                  ref="observacao"  
+                                  maxlength="150"                                            
+                                  style=" width: 450px; " 
+                                  variant="outlined"
+                                  bg-color="white"                                           
+                                  type="text"     
+                                  density="compact"
+                                  :disabled="observacaoDesabilitado" 
+                                  
+                              ></v-text-field>                                    
+                                      
+                            
+                        </div>     
+
+                        <div   class="espacoEntreComponentes">    
+                                        
+                              <v-text-field
+
+                                  v-model.trim="this.totalFardosMistura" 
+                                  id="numFardos"
+                                  label="Num. Fardos Selec." 
+                                  ref="numFardos"  
+                                  maxlength="150"                                            
+                                  style=" width: 150px; " 
+                                  variant="outlined"
+                                  bg-color="white"                                           
+                                  type="text"     
+                                  density="compact"
+                                  disabled
+                                  
+                              ></v-text-field>                                    
+                                      
+                            
+                        </div> 
 
 
+                        <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                            
+                                    <div >
+                                        <v-icon
+                                            class="mb-6"
+                                            color="green"
+                                            icon="mdi-check"
+                                            size="55"
+                                        ></v-icon>                                                 
+                                                                          
+                                    </div>
+                                   
+                        </div>  
+
+                        <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                    
+                                    <div >
+                                        <v-icon
+                                            class="mb-6"
+                                            color="red"
+                                            icon="mdi-alert-circle-outline"  
+                                            size="35"
+                                        ></v-icon>                                                 
+                                                                          
+                                    </div>
+                            
+                        </div> 
+   
+                    </div>      
 
 
                     <div class="d-flex justify-content-center"  style="margin-left:4%;width:96%;margin-top: 1%;background-color:white" v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' " >  
@@ -403,14 +380,13 @@
                                   size="45"
                               ></v-icon> 
 
-                              <span class="my-auto">{{this.labelPesquisarComposicao}}</span>   
+                              <span class="my-auto">Informar Composicao</span>   
 
                           </v-btn>  
 
                         </div>    
 
-                    </div>   
-
+                    </div>           
 
                
                     <!-- /// Resumo Mistura -->  
@@ -644,165 +620,165 @@
 
                                       </td>      
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.sac !=null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                         {{ ((i.sac)).toFixed(1)}}
                                       </td>   
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.sac ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                                                               
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.trid !=null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                         {{ ((i.trid)).toFixed(1)}}   
                                       </td>  
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.trid ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                        
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.pim !=null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                          
                                         {{ ((i.pim)).toFixed(1)}}   
                                       </td> 
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.pim ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                        
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.sc !=null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                        
                                         {{ ((i.sc)).toFixed(1)}} 
                                       </td>  
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.sc == null">
-                                        {{    }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                        
 
-                                      <td class="col-1 text-start"  :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0  && i.sic !=null">
+                                      <td class="col-1 text-start"  :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                        
                                         {{ ((i.sic)).toFixed(0)}} 
                                       </td>   
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.sic ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                        
 
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.mst !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                        
                                         {{ ((i.mst)).toFixed(1)}} 
                                       </td>   
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.mst ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                                           
 
-                                      <td class="col-1 text-start" style="color:blue" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.mat !=null"> 
+                                      <td class="col-1 text-start" style="color:blue" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0"> 
                                      
                                         {{ ((i.mat)).toFixed(2)}} 
                                       </td> 
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.mat ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.elg !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                    
                                         {{ ((i.elg)).toFixed(1)}} 
                                       </td>        
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.elg ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
 
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.str !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} "  v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                       
                                         {{ ((i.str)).toFixed(1)}} 
                                       </td> 
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0   || i.str ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
  
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " style="min-width:50px;" v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.tipo !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                         {{ String(i.tipo).replace(/\./g, "-")}}
                                 
                                       </td>   
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0   || i.tipo ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                                             
  
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.ui !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                        
                                         {{ ((i.ui)).toFixed(1)}} 
                                       </td>
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0   || i.ui ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" style="color:blue" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.mic !=null">
+                                      <td class="col-1 text-start" style="color:blue" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                    
                                         {{ ((i.mic)).toFixed(2)}} 
                                       </td>   
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0   || i.mic ==null">
-                                        {{   }}
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
+                                        {{  }}
                                       </td>                                       
                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.str !=null && i.sf !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                 
                                         {{ ((i.sf)).toFixed(1)}} 
                                       </td>   
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.sf ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.m4B !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                    
                                         {{ ((i.m4B)).toFixed(1)}} 
                                       </td> 
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.m4B ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.m4RS !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                       
                                         {{ ((i.m4RS)).toFixed(1)}} 
                                       </td>       
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.m4RS ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.m4TRAR !=null">
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                       
                                         {{ ((i.m4TRAR)).toFixed(2)}} 
                                       </td>  
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0 || i.m4TRAR ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
 
                                       
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.m4TRCNT !=null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0">
                                    
                                         {{ ((i.m4TRCNT)).toFixed(1)}} 
                                       </td>  
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.m4TRCNT ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
-                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0 && i.m4UHML !=null"> 
+                                      <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " v-if="i.mic != 0 && i.uhml != 0 && i.mat != 0 && i.sic != 0"> 
                                         {{ (i.m4UHML).toFixed(2)}}
                                        
                                       </td>  
 
-                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.m4UHML ==null">
+                                      <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0">
                                         {{  }}
                                       </td>                                       
                                       
@@ -1639,21 +1615,6 @@
       name: 'MisturaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
       components: {MensagemMobile, SimNao},  
-      props: {
- 
-          tituloProps : {
-          type: String,
-          required: true,
-          },     
-          labelPesquisarComposicaoProps : {
-          type: String,
-          required: true,
-          },                       
-          acaoSelecionadaProps: {
-          type : String,
-          required: true,
-          },
-       },       
       data: () => ({
 
         resultPesquisaCRUD : [] , 
@@ -1674,9 +1635,6 @@
             
         }, 
 
-        titulo:'',
-        labelPesquisarComposicao:'',
-        acaoSelecionada:''        ,
    
         
         mistura:{
@@ -1728,8 +1686,7 @@
 
         operMistItens:[
             {'codigo':'I','descricao':'Incluir'},
-            {'codigo':'A','descricao':'Alterar'} ,
-            {'codigo':'C','descricao':'Consultar'} 
+            {'codigo':'A','descricao':'Alterar'} 
 
         ],         
 
@@ -1842,13 +1799,11 @@
 
         trocaOperMist(){    
 
-              console.log('trocaOperMist')
+             // console.log('trocaOperMist')
 
               this.mistura.numeroMistura = ''; 
-              this.misturasAbertas=[];
-              
 
-              if(this.$store.state.usuarioSistema.idfil=='05' || this.operMist=='C'){
+              if(this.$store.state.usuarioSistema.idfil=='05'){
                     this.numeroMisturaDesabilitado=false;
               }else{
                    if(this.operMist=='I')
@@ -1857,25 +1812,19 @@
                       this.numeroMisturaDesabilitado=false; 
                     } 
               }
-              console.log(this.operMist)
 
               if(this.operMist=='I'){
                 this.simNaoRetorno == 'S';
                 this.acaoDesabilitado=false; 
                 this.resetarForm();
 
-              }else if(this.operMist=='A'){
+              }else{
 
                 this.acaoDesabilitado=true; 
                 this.populaMisturasAbertas();
               }
-/*              
-              else if(this.operMist=='C'){
+              
 
-                this.acaoDesabilitado=true; 
-                this.populaMisturasFull();
-              }
-*/
         }, 
 
 
@@ -2050,7 +1999,7 @@
 
              let retornoPrepForm; 
 
-             if((this.operMist=='I' && this.$store.state.usuarioSistema.idfil== '05') || this.operMist=='C' ){ 
+             if(this.operMist=='I' && this.$store.state.usuarioSistema.idfil== '05'){ 
                       if  (!(this.mistura.numeroMistura==null || this.mistura.numeroMistura=='' || this.mistura.numeroMistura=='0')){
                             this.mistura.numeroMistura = this.mistura.numeroMistura.padStart(10, '0'); 
                       } 
@@ -2060,7 +2009,7 @@
                       } 
              }
 
-             if(this.operMist!='I'){ 
+             if(this.operMist=='A'){ 
                   if(!(this.mistura.numeroMistura==null || this.mistura.numeroMistura=='' || this.mistura.numeroMistura=='0')){
                         let url; 
                         url = `${process.env.VUE_APP_BASE_URL}/mp/calc/${this.$store.state.usuarioSistema.idfil}/${this.mistura.numeroMistura}`   
@@ -3592,10 +3541,6 @@
               
           } // Fim do for principal
 
-
-
-           
-
           if((this.mistura.quantidade!=elemento.total_mist_util) && elemento.qtde  >0 ){ 
               if(( elemento.disponivel - (elemento.qtde * (this.mistura.quantidade-elemento.total_mist_util)) ) >= 0  ){
                 elemento.corLinha ="white";
@@ -4063,7 +4008,7 @@
                   await this.axios.get(url,this.apiTokenHeader()) 
                   .then(response => {
 
-                       console.log("PopulaForm");
+                       //console.log("PopulaForm");
                       this.resultado = response.data;  
                       
                        //console.log(this.resultado);
@@ -4148,7 +4093,7 @@
                             
                   }  
                   
-                  ) 
+                  )
 
                   this.msgProcessamento = ""    
                   this.oper = 'A'               
@@ -4183,24 +4128,7 @@
           this.numeroMisturaDesabilitado = true;
 
        } 
-       this.oper = 'I'
-
-
-       this.titulo= this.tituloProps;
-       this.labelPesquisarComposicao=this.labelPesquisarComposicaoProps;
-       this.acaoSelecionada = this.acaoSelecionadaProps; 
-
-       if(this.acaoSelecionada =='I') {
-           this.oper = 'I'
-       }else{
-           this.oper = 'A'
-           this.acaoDesabilitado=true; 
-           this.populaMisturasAbertas();        
-
-       }     
-
-
-
+        this.oper = 'I'
     }  
     
     }

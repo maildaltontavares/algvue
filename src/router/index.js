@@ -9,6 +9,7 @@ import TrocarSenha from '@/views/TrocarSenhaComponent.vue'
 import MovimentacaoEstoque from '@/views/MovimentacaoEstoqueComponent.vue'
 import MovimentacaoEstoquePesquisa  from '@/views/MovimentacaoEstoquePesquisaComponent.vue'
 import Mistura  from '@/views/MisturaComponent.vue'
+import AcessoManutencaoMistura  from '@/views/AcessoManutencaoMisturaComponent.vue'
 
 
 import store from '@/store/index'
@@ -106,13 +107,42 @@ const routes =
                    
   
                   {
-                    path: 'misturapadrao',
+                    path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
                     props: true,
                     component: Mistura,
                     meta: { requerAutorizacao: false, codigoPagina: 'pagMisturaPadrao' }    , 
                     name: 'misturapadrao' 
                       
-                  }          
+                  }       ,   
+                   
+
+                  {
+                    path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: Mistura,
+                    meta: { requerAutorizacao: false, codigoPagina: 'pagManterMisturaPadrao' }    , 
+                    name: 'mantermisturapadrao' 
+                      
+                  }       ,     
+                  
+                  {
+                    path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: Mistura,
+                    meta: { requerAutorizacao: false, codigoPagina: 'pagBaixarMisturaPadrao' }    , 
+                    name: 'baixarmisturapadrao' 
+                      
+                  }       ,                    
+  
+                  {
+    
+                    path: 'acessomisturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: AcessoManutencaoMistura,
+                    meta: { requerAutorizacao: false, codigoPagina: 'pagAcessoMisturaPadrao' }    , 
+                    name: 'acessomisturapadrao' 
+                      
+                  }       
 
                 ]
         }

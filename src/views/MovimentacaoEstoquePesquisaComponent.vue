@@ -51,7 +51,7 @@
                                     id="dataInicial"
                                     label="Data Inicial" 
                                     ref="dataInicial"  
-                                    style=" width: 150px; " 
+                                    style=" width: 180px; " 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
@@ -72,7 +72,7 @@
                                     id="dataFinal"
                                     label="Data Final" 
                                     ref="dataFinal"  
-                                    style=" width: 150px; " 
+                                    style=" width: 180px; " 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
@@ -128,7 +128,7 @@
                                                     id="nomeFornecedor"   
                                                     disabled 
                                                     class="limitadorMedia"                                                                                                        
-                                                    style="background-color:rgb(210, 210, 246); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                     density="compact"
                                                 ></v-text-field>   
                                             </div>     

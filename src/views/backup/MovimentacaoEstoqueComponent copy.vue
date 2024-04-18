@@ -1,3 +1,11 @@
+<!--
+
+    TipoOperacao = 'X', significa que o documento acabou de ser gravado após uma inserção. Não permite neste momento que sejam inseridos novos itens. E só válido para operações que atualizam estoque.
+
+
+-->
+
+
 <template  >
     
     <v-form  ref="formulario" @submit.stop.prevent="submitForm" style="width:100%;height: 100%;" >    
@@ -30,6 +38,7 @@
                                         :items="tipoMovimentoItens" 
                                         :disabled="tipoMovimentoDesabilitado"                                           
                                         v-model="this.movimento.tipoMovimento"   
+                                        @blur="buscaTipoMovimento"
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
@@ -58,7 +67,7 @@
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
-                                        
+                                        @blur="buscaTipoMatP"
                                     ></v-autocomplete> 
 
                                 </div>   
@@ -86,18 +95,20 @@
                                                     inputmode="numeric"
                                                     :rules="[campoRequerido]" 
                                                     density="compact"
+                                                   
                                                     
                                                 ></v-text-field>    
                                                     
                                                 <v-btn   data-bs-toggle="modal" 
-                                                    data-bs-target="#modalPesquisaUsuario" tabindex="-1"  @click="apiFlushPesquisa" :disabled="codigoDesabilitado" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    tabindex="-1"  @click="apiFlushPesquisa" :disabled="fornecedorDesabilitado" 
                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                     > 
                                                         <v-icon
-                                                        class="mb-6"
-                                                        color="primary"
-                                                        icon="mdi-card-search-outline"
-                                                        size="45"
+                                                            class="mb-6"
+                                                            color="primary"
+                                                            icon="mdi-card-search-outline"
+                                                            size="45"
                                                         ></v-icon>  
                                                 </v-btn>     
 
@@ -108,10 +119,8 @@
                                                     v-model="this.nomeFornecedor" 
                                                     id="nomeFornecedor"   
                                                     disabled 
-                                                    class="limitadorMedia"
-                                                    :rules="[campoRequerido]"                                                     
+                                                    class="limitadorMedia"                                                                                                    
                                                     style="background-color:rgb(210, 210, 246); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
-
                                                     density="compact"
                                                 ></v-text-field>   
                                             </div>     
@@ -194,38 +203,38 @@
 
                     <div class="flex-linha"  style="margin-left:2%;width:95%;margin-top: 1%; ">   -->  
 
-                                <div    class="espacoEntreComponentes">   
+                                <div    class="espacoEntreComponentes" v-if="this.tipoMatP == 'ALGOD'">   
 
                                     <v-autocomplete
                                         label="Produtor"
                                         :items="produtorItens" 
-                                        :disabled="produtorDesabilitado"    
+                                        :disabled="produtorDesabilitado "    
                                         v-model="this.movimento.produtor"   
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
                                         style="width: 270px; " 
                                         bg-color="white"     
-                                        :rules="[campoRequerido]"  
+                                         
                                         density="compact"
                                         
                                     ></v-autocomplete> 
 
                                 </div> 
                                 
-                                <div    class="espacoEntreComponentes">   
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">   
 
                                     <v-autocomplete
                                         label="Procedencia"
                                         :items="procedenciaItens" 
                                         :disabled="procedenciaDesabilitado"                                           
                                         v-model="this.movimento.procedencia"   
-                                        item-title="procedencia" 
-                                        item-value="procedencia"
+                                        item-title="descricao" 
+                                        item-value="codigo"
                                         variant="outlined"
-                                        style="width: 150px; " 
+                                        style="width: 180px; " 
                                         bg-color="white"     
-                                        :rules="[campoRequerido]" 
+                                        
                                         density="compact" 
                                         
                                     ></v-autocomplete> 
@@ -233,7 +242,7 @@
                                 </div>                                  
 
 
-                                <div   class="espacoEntreComponentes">   
+                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">   
                                     
                                             
                                     <div >
@@ -247,7 +256,7 @@
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="pesoTotalDesabilitado"                                                                                          
-                                            :rules="[campoRequerido]" 
+                                            
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -256,7 +265,7 @@
                                 </div>     
 
      
-                                <div   class="espacoEntreComponentes">    
+                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'">    
                                             
                                     <div >
                                         
@@ -271,7 +280,7 @@
                                             :disabled="numVolumesDesabilitado"  
                                             type="number"
                                             inputmode="numeric"
-                                            :rules="[campoRequerido]" 
+                                          
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -280,7 +289,7 @@
                                 </div> 
 
 
-                                <div   class="espacoEntreComponentes">    
+                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'">    
                                             
                                     <div >
                                         
@@ -295,7 +304,7 @@
                                             :disabled="pesoMedioDesabilitado"  
                                             type="number"
                                             inputmode="numeric"
-                                            :rules="[campoRequerido]" 
+                                             
                                             density="compact"
                                             
                                         ></v-text-field>                                    
@@ -303,17 +312,39 @@
                            
                                 </div>  
 
+
+                                <div    class="espacoEntreComponentes">  
+                                     
+                                     <v-autocomplete
+
+                                         label="Id Movimento" 
+                                         disabled                                           
+                                         v-model="this.movimento.id"   
+                                         @blur="buscaTipoMovimento"
+                                         item-title="idCab" 
+                                         item-value="idCab"
+                                         variant="outlined"
+                                         style="width: 160px; font-size:16px;" 
+                                         bg-color="white"   
+                                         density="compact" 
+
+                                     ></v-autocomplete> 
+ 
+                                 </div>  
+
+
                     </div>    <!--  FIM LINHA 0002 -->    
 
-                     <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;">                                    
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                    <div class="d-flex justify-content-end " style="margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    
                         <div style="width:100%;background-color:#c0c0c1; height:50px  ">
                             <p  class="text-white text-center  mt-3  " style=" margin-left:20%;width:60%; font-size: 18px; height:20px "><b>Itens</b></p>                               
                         </div>        
 
                         <v-btn  
                          
-                            style="height:50px;width:160px;background-color:rgb(240, 237, 232); " 
-                            @click="novoItem"
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232); " 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
                             > 
                                 <v-icon
                                 class="mb-6"
@@ -323,7 +354,71 @@
                                 ></v-icon>  
                                 <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
                         </v-btn>  
-                    </div>   
+                    </div>  
+
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                    <div class="d-flex justify-content-end " style=" margin-top: 20px;border-radius:15px 15px 15px 15px;width:100%;background-color:red; height:50px  " >                                    
+                     
+                     
+                            
+
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232); margin-right:8px;" 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232);  margin-right:8px;" 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>  
+                        
+                        <v-btn  
+                         
+                            style="height:49px;width:160px;background-color:rgb(240, 237, 232); " 
+                            @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                            > 
+                                <v-icon
+                                class="mb-6"
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="55"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                        </v-btn>   
+                        
+                        
+
+                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px; margin:5px" accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
+                         
+
+                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                         <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
+
+
+                    </div>                      
+                    
+                    
+                    
 
                     <!------------------------------------------------->
                     <!------------------------------------------------->
@@ -339,7 +434,7 @@
                     </div>  
 
 -->                 <!-- DIV GRID  -->   
-                    <div style="height:700px;overflow: auto; background-color:white;  "> 
+                    <div style="height:2000px;overflow: auto; background-color:white  "> 
                     
                         <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  ">   
 
@@ -357,23 +452,35 @@
                                     </tr>
                                     
                                 </thead>
-                                <tbody  v-for="(i, indice) in aMovimentoItem" :key="indice" style= " width:100% "> 
+                                <tbody  v-for="(i, indice) in aMovimentoItem" :key="indice" style= " width:100% ">   
     
                                     <tr>
                                         <td>
                                             <div class="d-flex justify-content-end " style=" margin-left:5px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
 
-                                                <div style="width:100%;background-color:#003366;; height:20px  ">
+                                                <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">
                                                     <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
                                                 </div>    
 
+                                                <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
+                                                    <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
+                                                </div>   
+                                                
+                                                <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
+                                                    <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20pxborder-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
+                                                </div>                                                   
+
                                                 <v-btn  
                             
-                                                        style="height:20px; background-color:rgb(240, 237, 232); "  
+                                                        style="height:20px; background-color:rgb(240, 237, 232); "    
+                                                        @click="excluirItem(indice)"
                                                         > 
+
+                                                             
+
                                                             <v-icon                                                       
                                                             color="primary"
-                                                            icon="mdi-minus-box-outline"
+                                                            icon="mdi-minus-box-outline"  
                                                             size="23"
                                                             ></v-icon>  
                                                         
@@ -406,16 +513,18 @@
                                                                     style=" width: 150px; " 
                                                                     variant="outlined"
                                                                     bg-color="white"
-                                                                    :disabled="itemDesabilitado"  
+                                                                    :disabled="itemDesabilitado   && i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão'"  
                                                                     type="number"
                                                                     inputmode="numeric"
                                                                     :rules="[campoRequerido]" 
                                                                     density="compact"
+                                                                    @blur="apiPesquisaParam('itemDet', i.item, i)"  
                                                                     
                                                                 ></v-text-field>    
                                                                     
                                                                 <v-btn   data-bs-toggle="modal" 
-                                                                    data-bs-target="#modalPesquisaUsuario" tabindex="-1"  @click="apiFlushPesquisa" :disabled="codigoDesabilitado" 
+                                                                data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa(indice)" tabindex="-1"   :disabled="itemDesabilitado   && i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão'" 
+  
                                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                                     > 
                                                                         <v-icon
@@ -430,11 +539,11 @@
 
                                                             <div class=" backCampoConjugado "  >   
                                                                 <v-text-field
-                                                                    v-model="i.nomeItem" 
-                                                                    id="nomeItem"   
+                                                                    v-model="i.descFio " 
+                                                                    id="descFio"   
                                                                     disabled 
                                                                     class="limitadorMedia"
-                                                                    :rules="[campoRequerido]"  
+                                                                    
                                                                     style="background-color:rgb(210, 210, 246); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                                 ></v-text-field>   
                                                             </div>   
@@ -446,39 +555,135 @@
                                             </div>   
     
                                         </td>
-                                    
-                                        <td  >
 
-                                            <div   class="espacoEntreComponentesGrid">     
-                                                <div >
-                                                    
-                                                    <v-text-field
-                                                        v-model.trim="i.id" 
-                                                        id="id"
-                                                        label="id" 
-                                                        ref="id"   
-                                                        style=" width: 150px; " 
-                                                        variant="outlined"
-                                                        bg-color="white"
-                                                        :disabled="idDesabilitado"  
-                                                        type="number"
-                                                        inputmode="numeric"
-                                                        :rules="[campoRequerido]" 
-                                                        density="compact"
-                                                        
-                                                    ></v-text-field>                                    
-                                                </div>
-                                    
-                                            </div>                              
-                                        </td>
-                                        
+
+
                                         <td  >
+                                            
+                                            <div   class="espacoEntreComponentesGrid">   
+                                            <!-- <label style='font-size:16px'>Item</label>-->
+                                                    <div class="input-group">   
+
+                                                            <div class="d-flex  justify-content-start " v-if="this.vOperAlteraItem=='S'" > 
+                                                                
+                                                                        
+                                                                <v-text-field
+                                                                            v-model.trim="i.idItem" 
+                                                                            id="idItem"
+                                                                            label="id" 
+                                                                            ref="idItem"   
+                                                                            style=" width: 150px; " 
+                                                                            variant="outlined"
+                                                                            bg-color="white" 
+                                                                            type="number"
+                                                                            inputmode="numeric"
+                                                                            disabled 
+                                                                            density="compact" 
+                                                                            
+                                                                ></v-text-field> 
+                                                                    
+
+                                                                <v-btn   @click="validaItem(indice,i.item)" 
+                                                                  tabindex="-1"   disabled  
+  
+                                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                                    > 
+                                                                        <v-icon
+                                                                        class="mb-6"
+                                                                        color="primary"
+                                                                        icon="mdi-card-search-outline"
+                                                                        size="45"
+                                                                        ></v-icon>  
+                                                                </v-btn>     
+
+                                                            </div  >      
+
+
+
+
+                                                            <div class="d-flex  justify-content-start " v-if="this.vOperAlteraItem=='N' && i.alteracao==true" >
+                                                                
+                                                                        
+                                                                <v-text-field
+                                                                v-model.trim="i.idItem" 
+                                                                            id="idItem"
+                                                                            label="id" 
+                                                                            ref="idItem"     
+                                                                            style=" width: 150px; " 
+                                                                            variant="outlined"
+                                                                            bg-color="white" 
+                                                                            type="number"
+                                                                            inputmode="numeric"
+                                                                            disabled 
+                                                                            density="compact"
+                                                                            @blur="apiPesquisaParam('loteItem', i.id.toString() , i)"
+                                                                 ></v-text-field>          
+
+                                                                <v-btn   @click="validaItem(indice,i.item)" 
+                                                                  tabindex="-1"   :disabled="itemDesabilitado && i.habilitado"   
+  
+                                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                                    > 
+                                                                        <v-icon
+                                                                        class="mb-6"
+                                                                        color="primary"
+                                                                        icon="mdi-card-search-outline"
+                                                                        size="45"
+                                                                        ></v-icon>  
+                                                                </v-btn>     
+
+                                                            </div  >   
+
+                                                           
+                                                            <div class="d-flex  justify-content-start   " v-if="this.vOperAlteraItem=='N' && i.alteracao==false" >
+                                                                
+                                                                        
+                                                                <v-text-field
+                                                                v-model.trim="i.idItem" 
+                                                                            id="idItem"
+                                                                            label="id" 
+                                                                            ref="idItem"     
+                                                                            style=" width: 150px; " 
+                                                                            variant="outlined"
+                                                                            bg-color="white" 
+                                                                            type="number"
+                                                                            inputmode="numeric" 
+                                                                            density="compact" 
+                                                                            @blur="apiPesquisaParam('loteItem', i.id.toString() , i)"
+                                                                ></v-text-field>    
+                                                          
+                                                              
+                                                                <v-btn   @click="validaItem(indice,i.item)" 
+                                                                  tabindex="-1"   :disabled="itemDesabilitado && i.habilitado" 
+  
+                                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                                    > 
+                                                                        <v-icon
+                                                                        class="mb-6"
+                                                                        color="primary"
+                                                                        icon="mdi-card-search-outline"
+                                                                        size="45"
+                                                                        ></v-icon>  
+                                                                </v-btn>     
+
+                                                            </div  >       
+
+
+                                                    </div>
+
+                                            </div>   
+    
+                                        </td>
+
+
+
+                                        <td  >   
                                             <div   class="espacoEntreComponentesGrid">   
                                                         
                                                 <div >
                                                     
                                                     <v-text-field
-                                                        v-model.trim=   i.lote  
+                                                        v-model.trim= i.lote  
                                                         id="lote"
                                                         label="Lote" 
                                                         ref="lote"  
@@ -486,19 +691,19 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="loteItemDesabilitado"  
+                                                        :disabled="loteItemDesabilitado  && i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão'"  
                                                         type="text"                                       
                                                         :rules="[campoRequerido]" 
-                                                        density="compact"
-                                                        
-                                                    ></v-text-field>                                    
+                                                        density="compact"                                                        
+                                                    ></v-text-field>        
+                                                    
                                                 </div>
-                                    
+                                                
                                             </div> 
                                         </td>            
 
 
-                                        <td   >
+                                        <td     v-if="this.tipoMatP == 'ALGOD'">
                                             <div   class="espacoEntreComponentesGrid">   
                                                 
                                                         
@@ -513,10 +718,10 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="pilhaDesabilitado"  
+                                                        :disabled="pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') "   
                                                         type="number"
                                                         inputmode="numeric"
-                                                        :rules="[campoRequerido]" 
+                                                        
                                                         density="compact"
                                                         
                                                     ></v-text-field>                                    
@@ -525,21 +730,21 @@
                                             </div>                                     
                                         </td> 
 
-                                        <td  >
+                                        <td    v-if="this.tipoMatP == 'ALGOD'">
                                             <div    class="espacoEntreComponentesGrid">  
 
                                                 <v-autocomplete
 
                                                     label="Tam"
                                                     :items="tamanhoItens" 
-                                                    :disabled="tamanhoDesabilitado"                                       
+                                                    :disabled="tamanhoDesabilitado && i.habilitado"                                        
                                                     v-model="i.tamanho"   
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
                                                     style=" width: 150px; " 
                                                     bg-color="white"      
-                                                    :rules="[campoRequerido]" 
+                                                    
                                                     density="compact"
                                                     
                                                 ></v-autocomplete> 
@@ -562,7 +767,7 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="quantidadeDesabilitado"  
+                                                        :disabled="quantidadeDesabilitado && i.habilitado"   
                                                         type="number"
                                                         inputmode="numeric"
                                                         :rules="[campoRequerido]" 
@@ -576,8 +781,7 @@
 
                                         
                                         <td class="d-flex  justify-content-start">
-                                            <div   class="espacoEntreComponentesGrid">   
-
+                                            <div   class="espacoEntreComponentesGrid"> 
                                                         
                                                 <div >
                                                     
@@ -589,7 +793,7 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="pesoDesabilitado"  
+                                                        :disabled="pesoDesabilitado && i.habilitado"   
                                                         type="number"
                                                         inputmode="numeric"
                                                         :rules="[campoRequerido]" 
@@ -617,7 +821,7 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="umDesabilitado"   
+                                                        :disabled="umDesabilitado && i.habilitado"    
                                                         :rules="[campoRequerido]"    
                                                         density="compact"                                     
                                                     ></v-text-field>                                    
@@ -641,10 +845,10 @@
                                                         style=" width: 150px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="vlUnitarioDesabilitado"  
+                                                        :disabled="vlUnitarioDesabilitado && i.habilitado"  
                                                         type="number"
                                                         inputmode="numeric"
-                                                        :rules="[campoRequerido]" 
+                                                       
                                                         density="compact"
                                                         
                                                     ></v-text-field>                                    
@@ -666,8 +870,8 @@
                                                         style=" width: 250px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="observacaoDesabilitado"   
-                                                        :rules="[campoRequerido]"  
+                                                        :disabled="observacaoDesabilitado && i.habilitado"    
+                                                        
                                                         density="compact"
                                                     ></v-text-field>    
 
@@ -675,7 +879,30 @@
                                     
                                             </div>     
                                         </td> 
+
+<!--
+                                        <td>
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim="i.statusItem" 
+                                                        id="statusItem"
+                                                        label="Status" 
+                                                        ref="statusItem"   
+                                                        style=" width: 250px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        disabled 
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
                                     
+                                            </div>     
+                                        </td>                                         
+-->                                    
     
         
                                     </tr>
@@ -694,18 +921,19 @@
             </div>
         <!--</v-container>-->
 
+
+        
+
        <div style="margin-bottom: 38px; background-color:white; ">
 
-       </div>
- 
+       </div>  
 
        <div style="height:  500px; background-color:white"  v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile'  "  >
 
        </div>       
+ 
 
-        <v-container>   <!--   RODAPE  -->
-
-            <div class="d-flex justify-content-center" > 
+           <div class="d-flex justify-content-center" > 
 
 
                 <MensagemMobile    v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile'  "    class="rodape_mobile"
@@ -714,15 +942,15 @@
                 :mensagemErroProps="mensagemErro"
                 :haErrosProps="haErros"
                 :haSucessoProps= "haSucesso"
-                />  
+                />   
 
-                <v-card rounded="lg" class=" elevation-12 rodape_crud2" 
+                <div   class=" elevation-12 rodape_crud2" 
                         style="position: fixed;background-color:rgb(173, 173, 187);"  :style="{marginLeft:  this.$store.state.configuracaoTela.marginLeftRodape  ,
                                             width:  this.$store.state.configuracaoTela.tamanhoRodape,
-                                            height:  this.$store.state.configuracaoTela.alturaRodape   }" > 
+                                            height:  this.$store.state.configuracaoTela.alturaRodape   }" >  
+<!-- 
                         
-                        
-                        <div class=" d-flex justify-space-between " >  
+                        <div class=" d-flex justify-space-between " style=" margin-bottom:5px" >  
 
                             <div class="col-9 "  >
 
@@ -730,19 +958,17 @@
                                     {{ msgProcessamento }}
                                 </p>       
 
-                                <p v-if="haErros && this.$store.state.tipoDispositivo == 'desktop'" class="mensagem mensagem_erro">
+                                <p v-if="haErros && this.$store.state.tipoDispositivo == 'desktop'" class="mensagem mensagem_erro" style="font-size: 20px;">
                                     {{ mensagemErro }}
                                 </p>
-                                <p v-if="haSucesso && this.$store.state.tipoDispositivo == 'desktop'"  class="mensagem mensagem_sucesso">
+                                <p v-if="haSucesso && this.$store.state.tipoDispositivo == 'desktop'"  class="mensagem mensagem_sucesso" style="font-size: 20px;">
                                     {{ mensagemSucesso }}
                                 </p>
                             </div> 
 
                             <div class="col-3 div_rodape d-flex justify-content-end"   >
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px; " accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
-
-                                <v-btn color="primary" class="botao_rodape" style=" min-width: 70px;"  v-if="tipoOperacao == 'E' || tipoOperacao  == 'A'  "  accesskey="e"  @click="exibeModal('excluir','Confirma exclusão ?',['S','N'],'aviso'  )"><u>E</u>xcluir
-                                </v-btn>              
+                         
 
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
                                 <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
@@ -750,10 +976,76 @@
                             </div> 
 
                         </div>
+                -->
+                    </div>   
 
-                    </v-card>   
+                          
             </div>
-         </v-container>  
+
+
+
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                        <div class="d-flex justify-content-end " style=" margin-top: 20px;border-radius:15px 15px 15px 15px;width:100%;background-color:red; height:50px  " >                                    
+                     
+                     
+                            
+
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232); margin-right:8px;" 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>  
+
+
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232);  margin-right:8px;" 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>  
+                     
+                     <v-btn  
+                      
+                         style="height:49px;width:160px;background-color:rgb(240, 237, 232); " 
+                         @click="validaCabecalho" v-if="(this.vOperAlteraEstoque=='S' && this.tipoOperacao!='X')  ||  this.vOperAlteraEstoque=='N'  "    
+                         > 
+                             <v-icon
+                             class="mb-6"
+                             color="primary"
+                             icon="mdi-plus-box-outline"
+                             size="55"
+                             ></v-icon>  
+                             <span  style="margin-bottom:28px"><b>Novo Item</b></span> <!-- Texto centralizado -->
+                     </v-btn>   
+                     
+                     
+
+                     <v-btn color="primary" class="botao_rodape" style="min-width: 70px; margin:5px" accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
+                      
+
+                      <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="(tipoOperacao  == 'I' || tipoOperacao  == 'A'  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                      <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;margin-right: 5px;"  accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
+
+
+                 </div>               
+      
+
 
 
 
@@ -762,6 +1054,9 @@
      
     
   <PesquisaUsuario @setaPesquisa="setaPesquisa($event)"></PesquisaUsuario>
+  <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>
+  <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
+  <PesquisaLote @setaPesquisa="setaPesquisa($event)" :itemLote="paramItem" ref="pesquisaLote"></PesquisaLote>
   <SimNao @confirmaAcao="confirmaAcao($event)" :pergunta="simNaoPergunta" :botoes="simNaoBotoes" :tipo="simNaoTipo" ref="simNao"></SimNao>    
 </template>
 
@@ -771,6 +1066,11 @@
    import { mapState } from 'vuex'    
    import useValidate from '@vuelidate/core' 
    import PesquisaUsuario from '@/requires/PesquisaUsuario'
+   import PesquisaItem from '@/requires/PesquisaItem'
+   import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
+   import PesquisaLote from '@/requires/PesquisaLote'
+
+
    import SimNao from '@/requires/SimNao.vue' 
    import ApiMixinSEG from '@/mixins/ApiMixinSEG'
    import ApiMixinALG from '@/mixins/ApiMixinALG'
@@ -784,12 +1084,12 @@
         setup: () => (
             { v$: useValidate() }
         ),
-        components: { PesquisaUsuario, SimNao,MensagemMobile},
+        components: { PesquisaUsuario, SimNao,MensagemMobile,PesquisaItem,PesquisaFornecedor,PesquisaLote},
         mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
  
         data: () => ({ 
  
-            
+            paramItem:'',
             resultado : "",             
             simNaoPergunta: '',
             simNaoBotoes: [],
@@ -809,6 +1109,12 @@
                 codigo:'',
                 descricao:''
             },
+
+            tamanhoItens:[
+                'G',
+                'P'
+
+            ],
        
 
             tipoMPItens: [],
@@ -821,12 +1127,23 @@
             produtorItensTemp:{ 
                 codigo:'',
                 descricao:''
-            },           
+            },         
+            
+            
+            procedenciaItens: [],
+            procedenciaItensTemp:{ 
+                codigo:'',
+                descricao:''
+            },              
 
 
             nomeFornecedor:'',            
             items: [],
             numItem:0,
+            movimentoParamDTO:[],
+
+            tmp:'',
+            tipoMatP:'',
 
             tipoMovimentoDesabilitado:false,
             tipoMPDesabilitado:false,
@@ -842,8 +1159,7 @@
 
             itemDesabilitado:false,  
             idDesabilitado:false,  
-            loteItemDesabilitado:false,  
-            loteDesabilitado:false,  
+            loteItemDesabilitado:false,   
             pilhaDesabilitado:false,  
             tamanhoDesabilitado:false,  
             quantidadeDesabilitado:false,  
@@ -878,12 +1194,47 @@
                 usuarioAlteracao: '',
                 dataInclusao: '',
                 dataAlteracao: '',
+                statusItem:'',
+                statusItemOriginal:'',
+                 
                 itemMovimentoDTO:[]
             } ,
 
+            movimentoDAO: {
+                id: 0,
+                idfil: '',
+                notaFiscal: ''    ,
+                fornecedor: '',
+                tipoMovimento: '',
+                tipoMP: '',
+                dataBase: '',
+                dataEmissao: '',
+                entradaSaida: '',
+                loteFiacao: '',
+                pesoMedio: '',
+                pesoTotal: 0,
+                numVolumes:0,
+                produtor: '',
+                procedencia: '',
+                linhaAbertura: '',
+                idAutomatico: '',
+                movimentoAutomatico: '',
+                movimentoPilha: '',
+                mistura: '',
+                sequenciaMistura: '',
+                usuarioInclusao: '',
+                usuarioAlteracao: '',
+                dataInclusao: '',
+                dataAlteracao: '',
+                statusItem:'',
+                statusItemOriginal:'',
+               
+                itemMovimentoDTO:[]
+            } ,            
+
 
             movimentoItem: {
-                    id:  0,
+                    idItem:  0,
                     idfil: '',
                     notaFiscal: ''   ,
                     fornecedor: '',
@@ -928,7 +1279,9 @@
                     b: 0,
                     trcnt: 0,
                     trar: 0,
-                    pesoMedio: 0
+                    pesoMedio: 0,
+                    statusItem:'',
+                    statusItemOriginal:'',
 
             }, 
 
@@ -959,13 +1312,16 @@
                 usuarioAlteracao: '',
                 dataInclusao: '',
                 dataAlteracao: '',
+                statusItem:'',
+                statusItemOriginal:'',
+                
                 itemMovimentoDTO:[]
             } ,
 
 
 
             movimentoItemInicial: {
-                    id:  0,
+                    idItem:  0,
                     idfil: '',
                     notaFiscal: ''   ,
                     fornecedor: '',
@@ -1010,17 +1366,23 @@
                     b: 0,
                     trcnt: 0,
                     trar: 0,
-                    pesoMedio: 0
+                    pesoMedio: 0,
+                    statusItem:'',
+                    statusItemOriginal:'',
 
-            },  
- 
-            movimentoDAO: [],
-            movimentoItemDAO: [],
+            },   
+        
+            aMovimentoItemDAO: [],
+            aMovimentoItemFinal: [],
 
             aMovimentoItem :[ 
 
             ],    
             movimentoItemTempAux:{},
+            vOperAlteraEstoque:'',
+            vOperAlteraItem:'' ,
+            indAtual: 0,
+            
            
         }              
 
@@ -1028,14 +1390,15 @@
         computed: {...mapState(['usuarioSistema']) } ,      
 
         props: {
-            sistemaProps : {
-            type: Number,
-            required: true,
-            },
-            usuarioProps : {
+ 
+            fornecedorProps : {
             type: String,
             required: true,
-            },            
+            },     
+            notaFiscalProps : {
+            type: String,
+            required: true,
+            },                       
             operacao: {
             type : String,
             required: true,
@@ -1044,153 +1407,758 @@
         methods:{    
 
 
-            novoItem(){ 
+            async buscaTipoMovimento(){ 
 
-                let i;
+                    let url; 
 
-                for (i = 0; i < 3; i++) {
 
-                    this.numItem = this.numItem+1; 
-                    this.movimentoItemTempAux = Object.assign({},this.movimentoItemInicial);  
-                    this.movimentoItemTempAux.ind =  String(this.numItem).padStart(3, '0')  ;  
-                    this.aMovimentoItem.push(this.movimentoItemTempAux); 
+                    if (this.movimento.tipoMovimento!='' && this.movimento.tipoMovimento!=null)  {  
 
-                }
+                            url = `${process.env.VUE_APP_BASE_URL}/tipomovto/${this.$store.state.usuarioSistema.idfil}/${this.movimento.tipoMovimento}`  
+
+                            await this.axios.get(url,this.apiTokenHeader())
+                            .then(response => {
+
+                                //console.log("TipoMovimento");
+                                this.resultado = response.data;  
+
+                                if (this.resultado.atualizaEstoque!= null){
+                                    this.vOperAlteraEstoque = this.resultado.atualizaEstoque ;     
+                                
+                                }else{
+                                    this.vOperAlteraEstoque = "" ;                       
+                                }                 
+                                
+                                
+                                if (this.resultado.atualizaItem!= null){
+                                    this.vOperAlteraItem = this.resultado.atualizaItem ;     
+                                
+                                }else{
+                                    this.vOperAlteraItem = "" ;                       
+                                }  
+
+
+                                //console.log(this.vOperAlteraItem);
+                                //console.log(this.vOperAlteraEstoque); 
+                                
+                            })
+                            .catch(error => {  
+                                
+                                    console.log("Erro: ", error); 
+                                    this.msgProcessamento = '' 
+                                    this.apiDisplayMensagem(error ) 
+                                    
+                            });   
+                    }
+
+            },
+
+
+            async buscaTipoMatP(){ 
+
+                    let url; 
+
+                    if (this.movimento.tipoMP!='' && this.movimento.tipoMP!=null)  {        
+
+                            url = `${process.env.VUE_APP_BASE_URL}/tipomp/${this.$store.state.usuarioSistema.idfil}/${this.movimento.tipoMP}`  
+
+                            await this.axios.get(url,this.apiTokenHeader())
+                            .then(response => {
+
+                            
+                                this.resultado = response.data;  
+
+                                if (this.resultado.especieMP!= null){
+                                    this.tipoMatP = this.resultado.especieMP ;     
+                                
+                                }else{
+                                    this.tipoMatP = "" ;                       
+                                }      
+                                //console.log(this.vOperAlteraItem);
+                                //console.log(this.vOperAlteraEstoque); 
+                                
+                            })
+                            .catch(error => {  
+                                
+                                    console.log("Erro: ", error); 
+                                    this.msgProcessamento = '' 
+                                    this.apiDisplayMensagem(error ) 
+                                    
+                            });   
+                    }
+
+            },
+
+
+
+
+            validaItem(ind,pItem){ 
+              
+              let validado;
+
+              validado = true;
+
+              if (this.aMovimentoItem[ind].item=='' || this.aMovimentoItem[ind].item==null)  {
+                  this.apiDisplayMensagem('Informe o item.');
+                  validado = false;
+              }      
+              
+              if (this.aMovimentoItem[ind].descFio=='' || this.aMovimentoItem[ind].descFio==null)  {
+                  this.apiDisplayMensagem('Informe um item válido.');
+                  validado = false;
+              }  
+
+              if(validado){
+                
+                this.indAtual = ind;
+                this.apiFlushPesquisa(ind);  
+                this.exibeModalLote(pItem)    
+                
+                  
+              }  
 
 
             },
 
 
-/*
-            setaPesquisa(e) {  
-             
+            validaCabecalho(){ 
+              
+                let validado;
+
+                validado = true;
+
+                if (this.movimento.fornecedor=='' || this.movimento.fornecedor==null)  {
+                    this.apiDisplayMensagem('Informe o fornecedor.');
+                    validado = false;
+                }      
                 
-                this.codUsuario =  e.obj.idUsuario;
-                this.nomeUsuario=  e.obj.nome; 
+                if (this.movimento.tipoMovimento=='' || this.movimento.tipoMovimento==null)  {
+                    this.apiDisplayMensagem('Informe o tipo de movimento.');
+                    validado = false;
+                }  
+                
+                if (this.movimento.tipoMP=='' || this.movimento.tipoMP==null)  {
+                    this.apiDisplayMensagem('Informe o tipo de materia-prima.');
+                    validado = false;
+                }  
+                
+                if (this.nomeFornecedor=='' || this.nomeFornecedor==null)  {
+                    this.apiDisplayMensagem('Informe um fornecedor válido.');
+                    validado = false;
+                }       
+                
+                
+                if ((this.movimento.notaFiscal!=null && this.movimento.notaFiscal!='')){
+
+
+                    if (this.movimento.notaFiscal.length < 6){
+                        this.apiDisplayMensagem('Documento deve ter mais de 6 dígitos.') 
+                        validado = false;
+                    } 
+
+                }else{ 
+                    this.apiDisplayMensagem('Informe o número do documento.');
+                    validado = false;
+                }                
+
+                          
+                
+                
+                if (this.movimento.dataBase=='' || this.movimento.dataBase==null)  {
+                    this.apiDisplayMensagem('Informe a data do movimento.');
+                    validado = false;
+                }   
+
+                if (this.movimento.dataEmissao=='' || this.movimento.dataEmissao==null)  {
+                    this.apiDisplayMensagem('Informe a data de emissão.');
+                    validado = false;
+                }   
+                
+                if(validado){
+
+                    this.novoItem();  
+
+                    this.tipoMovimentoDesabilitado=true;
+                    this.tipoMPDesabilitado=true;
+                    this.fornecedorDesabilitado=true;
+                    this.notaFiscalDesabilitado=true;
+                    this.dataBaseDesabilitado=true;
+                    this.dataEmissaoDesabilitado=true;
+                    this.produtorDesabilitado=true;
+                    this.procedenciaDesabilitado=true;
+                    this.pesoTotalDesabilitado=true;
+                    this.numVolumesDesabilitado=true;
+                    this.pesoMedioDesabilitado=true; 
+
+ 
+                }
+
+            },
+
+            excluirItem(pInd){
+
+ 
+
+
+                if(this.aMovimentoItem[pInd].statusItemOriginal  == 'Inclusão') {
+                    
+                    if (this.aMovimentoItem[pInd].item == 0 || this.aMovimentoItem[pInd].item == null  || this.aMovimentoItem[pInd].item == 'undefined'   ){
+                        this.aMovimentoItem.splice(pInd,1); 
+                    }else{
+                        this.apiDisplayMensagem('Item já informado.')
+                    }
+
+
+                }else {    
+                      
+                    if(this.aMovimentoItem[pInd].statusItem  == 'Exclusão'){
+
+                        if(this.aMovimentoItem[pInd].statusItemOriginal == 'Exclusão'){
+                            this.apiDisplayMensagem('Item já excluído definitivamente.');
+                        }else{
+                            this.aMovimentoItem[pInd].statusItem = this.aMovimentoItem[pInd].statusItemOriginal;
+                        }
+                        
+                      }else{
+                        this.aMovimentoItem[pInd].statusItem  = 'Exclusão';
+                      } 
+                }
+            }, 
+             
+            novoItem(){ 
+
+                let i;
+
+                for (i = 0; i < 1; i++) {
+
+                    this.numItem = this.numItem+1; 
+                    this.movimentoItemTempAux = Object.assign({},this.movimentoItemInicial);  
+                    this.movimentoItemTempAux.ind =  String(this.numItem).padStart(3, '0')  ;  
+                    this.movimentoItemTempAux.habilitado = false;
+                    this.movimentoItemTempAux.alteracao = false; 
+                    this.movimentoItemTempAux.statusItem = 'Inclusão'
+                    this.movimentoItemTempAux.statusItemOriginal = 'Inclusão'
+                  
+
+/*
+                    if(this.vOperAlteraItem=='S'){
+                       this.idDesabilitado = true;
+                    } else{
+                        this.idDesabilitado = false;
+
+                    }  
+
+*/                    
+/*
+                    this.movimentoItemTempAux.Idhabilitado = false;  
+                    if(this.vOperAlteraItem=='N'){
+                        this.movimentoItemTempAux.Idhabilitado = true; 
+                    }
+
+  */                  this.aMovimentoItem.push(this.movimentoItemTempAux); 
+
+                }
+
+
+                    //console.log('novoItem');
+                
+                    //console.log(this.idDesabilitado); 
+                    //console.log(this.movimentoItemTempAux.Idhabilitado); 
+                    //console.log(this.vOperAlteraItem);
+                    //console.log(this.vOperAlteraEstoque);   
+
+
+
+
+            },
+
+
+ 
+            setaPesquisa(e) {   
+
+                if (e.tipo == "item") {
+                    this.aMovimentoItem[this.indiceAtual].item = e.obj.codigo;
+                    this.aMovimentoItem[this.indiceAtual].descFio = e.obj.material.descricao.substring(0, 40);
+                } 
+
+                if(e.tipo == "fornecedor") {
+
+                    this.movimento.fornecedor = e.obj.codigo;
+                    this.nomeFornecedor = e.obj.descricao;
+                }      
+                
+                if(e.tipo == "Lote") {
+
+                    this.aMovimentoItem[this.indiceAtual].id = e.obj.idMov;
+                    this.aMovimentoItem[this.indiceAtual].lote  = e.obj.lote;
+                    this.aMovimentoItem[this.indiceAtual].pilha  = e.obj.pilha;
+                    this.aMovimentoItem[this.indiceAtual].tamanho  = e.obj.tamanho;
+
+                }                  
 
             },  
+
+/*
+
+            async buscaItem(){
+                
+                //console.log(  'ssss2222' );
+
+                //console.log(  this.producaoFiacao.item );
+                //console.log(this.producaoFiacao.item=='');
+                
+                this.movimento.descFio='';
+                if  (!(this.producaoFiacao.item==null || this.producaoFiacao.item=='')){
+                    this.producaoFiacao.item= this.producaoFiacao.item.padStart(7, '0'); 
+                }                
+                this.apiPesquisaParam('item', this.producaoFiacao.item, this.producaoFiacao)
+                
+                
+                const resposta = await this.buscaFichaTecnica();       
+
+                if (!(resposta === true) ){
+                   console.log('Ficha Técnica não cadastrada.' );      
+                } 
+
+
+            },            
+ */
+
+ 
             async submitForm() {   
 
-                    console.log("submitForm");
+                    //console.log("submitForm");
 
                     this.haErros = false
                     this.haSucesso = false  
                     this.mensagemSucesso = ''
                     this.mensagemErro = '' 
+                    let objItem ; 
+                  
 
-                    ///const isFormCorrect = await this.$refs.form.$validate();    
-                    //const isFormCorrect = await this.v$.$validate()
-
-
-                    this.validacao = await this.$refs.formulario.validate();
-                    console.log("submitForm 11");
-                    console.log(this.validacao);
-                    console.log("submitForm 333");
-                    //console.log(isFormCorrect);
-                    console.log("submitForm 33344");
-
-
+                    this.aMovimentoItemFinal = [];
+                    this.aMovimentoItemDAO = []; 
                     
+                   // limpaItensBranco = false;
+                    /*    
+                    for (let i = this.aMovimentoItem.length - 1; i >= -1; i--) {
+                        
+                        //if(this.tipoOperacao=="I"){
+
+                            if(i>=0){ 
+                            
+                                    if(this.aMovimentoItem[i].item == null || this.aMovimentoItem[i].item == 0 || this.aMovimentoItem[i].item == 'undefined' ){ 
+                                        this.aMovimentoItem.splice(i, 1);  
+                                    }
+                            }else{
+
+                                limpaItensBranco = true;
+                            }
+                           
+                             
+
+                        //}
+  
+                    }             
+                    */
+                    //console.log('this.aMovimentoItem fim');
+                    //console.log(this.aMovimentoItem);       
+
+                    //if (limpaItensBranco){  
+ 
+                    this.validacao = await this.$refs.formulario.validate(); 
 
                     if (!this.validacao.valid) {
                         this.apiDisplayMensagem('Preencha os campos com críticas.');
                         this.haErros = true;
                         return;
-                    } else { 
-                        let url = `${process.env.VUE_APP_BASE_URL}/usuariologin` 
+                    } else {   
+ 
+                        let dataInsercao;
+                        let dataAlteracao;
+                        let dataAtual = new Date();
+                        let dia = String(dataAtual.getDate()).padStart(2, '0');
+                        let mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // O mês é baseado em zero, portanto, é necessário adicionar 1
+                        let ano = dataAtual.getFullYear();
+                        let dataFormatada = `${dia}/${mes}/${ano}`;  
+                        let itensValidos=0;
 
-                        if (this.tipoOperacao=="I") {   
-
-                            this.usuarioDAO =
-                                {
-                                    "id":null,                            
-                                    "idUsuario": this.codUsuario,
-                                    "idSistema": this.codSistema,
-                                    "login":         this.usuario.login, 
-                                    "senha":         this.usuario.senha   
-
-                                }  
-
-                                //console.log("submitForm");
-                                //console.log(url);
-                                //console.log(this.usuarioDAO);
-
-
-
-
-                                await this.axios.post(
-                                    url,
-                                    JSON.stringify(this.usuarioDAO),
-                                    this.apiTokenHeader({ "Content-Type": "application/json" })
-                                )
-                                .then(response => {
-                                     
-
-                                    this.apiDisplayMensagemSucesso('Usuário inserido com sucesso.' ) 
-                                    this.usuario.id = JSON.stringify(response.data);  
-                                    this.usuarioDAO.id = this.usuario.id;
-                                    this.tipoOperacao = 'A'; 
-                                    this.configuraCampos('A' )  ;
-                                
-                                })
-                                .catch(error => {
-                                    console.log("Erro: ", error.response.data.message);
-                                    //this.haErros = true
-                                    //this.mensagemErro = error.response.data.message
-                                    this.apiDisplayMensagem(error.response.data.message ) 
-                                }); 
-
+                        let idMovto;
                         
+                       
+
+                        let url = `${process.env.VUE_APP_BASE_URL}/movimento` ; 
+
+                        if(this.tipoOperacao=="I"){
+                                dataInsercao = dataFormatada;
+                                this.movimento.dataInclusao  = this.$moment(dataAtual).format("DD/MM/YYYY") ;
+                                this.movimento.usuarioInclusao = this.$store.state.usuarioSistema.codigo;
+                        }else{
+                                    if (typeof this.movimento.dataInclusao   === "string") {
+                                        dataInsercao  = this.movimento.dataInclusao ;
+                                    } else if (this.movimento.dataInclusao  instanceof Date) {
+                                        dataInsercao  = this.$moment(this.movimento.dataInclusao .format("DD/MM/YYYY")  )
+                                    } 
+
+                                    dataAlteracao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
+                         }   
+                       
+
+                        if (this.tipoOperacao=="I") {       
+
+                                let vIdMov;
+
+                                // Mesmo sendo inclusão, já possui Id de movimento;
+
+                                if(this.movimento.id==0){
+                                    vIdMov = await this.buscaId();   
+                                }else{
+                                    vIdMov = this.movimento.id; 
+                                }
+ 
+ 
+                                if ((vIdMov != 0 && vIdMov != undefined) ){
+ 
+                                    idMovto = vIdMov 
+                                    this.movimento.id = idMovto;
+
+                                    for (let i = 0; i < this.aMovimentoItem.length; i++) {    
+
+                                                this.aMovimentoItem[i].alteracao = true;  
+                                                //console.log('Valida Exclusao')
+                                                //console.log(this.aMovimentoItem[i].statusItem)
+
+                                                //if(this.aMovimentoItem[i].statusItem != 'Exclusão'){
+
+                                                        itensValidos = itensValidos + 1; 
+                                                        // Gera um id para o item caso ainda não tenha
+                                                        if(this.aMovimentoItem[i].idItem == 0) { 
+
+                                                            console.log('Valida iitteemm 333333')
+                                                            console.log(this.aMovimentoItem[i].idItem)                                                             
+
+                                                            const resposta = await this.buscaId();        
+                                                            if ((resposta != 0 && resposta != undefined) ){
+                                                                idMovto = resposta  
+                                                            }else{
+                                                                idMovto = 99999;
+                                                            }
+
+                                                            this.aMovimentoItem[i].idItem = idMovto 
+                                                        } 
+
+                                                        console.log('Valida iitteemm')
+                                                        console.log(idMovto) 
+
+
+
+                                                        objItem = {  
+                                                        
+                                                                idfil:      this.$store.state.usuarioSistema.idfil,
+                                                                notaFiscal: this.movimento.notaFiscal    ,
+                                                                fornecedor: this.movimento.fornecedor,
+                                                                item: parseInt(this.aMovimentoItem[i].item), 
+                                                                produtor:     this.movimento.produtor,
+                                                                procedencia:  this.movimento.procedencia, 
+                                                                lote:         this.aMovimentoItem[i].lote,    
+                                                                qualidade:    this.aMovimentoItem[i].qualidade,     
+                                                                tamanho:      this.aMovimentoItem[i].tamanho,  
+                                                                descFio:      this.aMovimentoItem[i].descFio,  
+                                                                
+                                                                observacao:          this.aMovimentoItem[i].observacao, 
+                                                                unidadeMedida:       this.aMovimentoItem[i].unidadeMedida, 
+                                                                pilha:               this.aMovimentoItem[i].pilha, 
+                                                                movimentoAutomatico:  "N", 
+                                                                movimentoDePilha:     "N",
+                                                                quantidade:           this.aMovimentoItem[i].quantidade, 
+                                                                peso:                 this.aMovimentoItem[i].peso,  
+                                                                vlUnitario:           this.aMovimentoItem[i].vlUnitario,  
+                                                                idMovimento:          this.aMovimentoItem[i].idItem,  
+                                                                idItem:               this.aMovimentoItem[i].idItem,
+                                                                
+                                                                sac:   this.aMovimentoItem[i].sac, 
+                                                                trid:  this.aMovimentoItem[i].trid, 
+                                                                pim:   this.aMovimentoItem[i].pim, 
+                                                                sc:    this.aMovimentoItem[i].sc, 
+                                                                mst:   this.aMovimentoItem[i].mst, 
+                                                                mic:   this.aMovimentoItem[i].mic, 
+                                                                mat:   this.aMovimentoItem[i].mat, 
+                                                                ui:    this.aMovimentoItem[i].ui, 
+                                                                sf:    this.aMovimentoItem[i].sf, 
+                                                                str:   this.aMovimentoItem[i].str, 
+                                                                elg:   this.aMovimentoItem[i].elg, 
+                                                                tipo:  this.aMovimentoItem[i].tipo, 
+                                                                sic:   this.aMovimentoItem[i].sic, 
+
+                                                                idAutomatico: this.aMovimentoItem[i].idAutomatico, 
+                                                                uhml:         this.aMovimentoItem[i].uhml, 
+                                                                rs:           this.aMovimentoItem[i].rs, 
+                                                                b:            this.aMovimentoItem[i].b, 
+                                                                trcnt:        this.aMovimentoItem[i].trcnt, 
+                                                                trar:         this.aMovimentoItem[i].trar, 
+                                                                pesoMedio:    this.aMovimentoItem[i].pesoMedio,
+                                                                statusItem:   this.aMovimentoItem[i].statusItem,    
+                                                            
+
+                                                        } 
+
+                                                        this.aMovimentoItemDAO.push(objItem);
+                                                 
+                                                //}
+                                            
+                                    }   
+                                    /// É uma inclusão porém todos os itens estão excluídos
+
+
+                                    console.log(itensValidos);
+
+                                    if(itensValidos>0){
+
+                                            this.movimentoDAO =
+                                            {   
+                                                    "id": vIdMov,
+                                                    "idfil": this.$store.state.usuarioSistema.idfil,
+                                                    "notaFiscal": this.movimento.notaFiscal    ,
+                                                    "fornecedor": this.movimento.fornecedor,
+                                                    "tipoMovimento": this.movimento.tipoMovimento,
+                                                    "tipoMP":  this.movimento.tipoMP,
+                                                    "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
+                                                    "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"), 
+                                                    //"entradaSaida":  this.movimento.entradaSaida,
+                                                    "loteFiacao":  this.movimento.loteFiacao,
+                                                    "pesoMedio":  this.movimento.pesoMedio,
+                                                    "pesoTotal":  this.movimento.pesoTotal,
+                                                    "numVolumes": this.movimento.numVolumes,
+                                                    "produtor":  this.movimento.produtor,
+                                                    "procedencia":  this.movimento.procedencia, 
+                                                    "movimentoAutomatico":  "N",
+                                                    "movimentoPilha":  "N", 
+                                                    "usuarioInclusao":  this.movimento.usuarioInclusao ,
+                                                    "usuarioAlteracao":  this.movimento.usuarioInclusao,
+                                                    "dataInclusao":  dataInsercao,
+                                                    "dataAlteracao":  dataInsercao,
+                                                    "itemMovimentoDTO":this.aMovimentoItemDAO    
+                                            }   
+
+                                            this.aMovimentoItemFinal.push(this.movimentoDAO);  
+                                            
+                                            console.log('this.aMovimentoItemFinal')
+                                            console.log(this.aMovimentoItemFinal)
+                                             
+                                            await this.axios.post(
+                                                url,
+                                                JSON.stringify(this.aMovimentoItemFinal),
+                                                this.apiTokenHeader({ "Content-Type": "application/json" })
+                                            )
+                                            .then(response => { 
+
+                                                this.apiDisplayMensagemSucesso('Movimento inserido com sucesso.' ) 
+                                                this.tmp = JSON.stringify(response.data);   
+                                                //if(this.vOperAlteraEstoque=='S'){
+                                                //    this.tipoOperacao = 'X'; 
+                                                //}else{
+                                                    this.tipoOperacao = 'A'; 
+                                                    this.configuraCampos('A' ); 
+                                                //}
+
+                                                for (let i = 0; i < this.aMovimentoItem.length; i++) {    
+                                                    
+                                                    if(this.aMovimentoItem[i].statusItem != 'Exclusão'){  
+                                                        this.aMovimentoItem[i].statusItem = 'Alteração';  
+                                                        this.aMovimentoItem[i].statusItemOriginal = 'Alteração';  
+                                                    }
+
+                                                } 
+                                                 
+                                            })
+                                            .catch(error => {
+                                                console.log("Erro: ", error.response.data.message); 
+                                                this.apiDisplayMensagem(error.response.data.message ) 
+                                            }); 
+                                   } else{
+                                        this.apiDisplayMensagem('Documento sem itens. Não será gravado')
+                                   }  
+                                }      
 
                         } else {
 
-                                    if (this.tipoOperacao == 'A'   ) { 
-                                       
-                                        this.usuarioDAO =
-                                            {
-                                                "id":        this.usuario.id,                            
-                                                "idUsuario": this.codUsuario ,
-                                                "idSistema": this.codSistema,
-                                                "login":     this.usuario.login, 
-                                                "senha":     this.usuario.senha   
+                                    if (this.tipoOperacao == 'A'   ) {  
 
-                                            } 
+                                            itensValidos = 0;
+                                            for (let i = 0; i < this.aMovimentoItem.length; i++) {    
 
-                                            console.log('AlteraCAO')
-                                            console.log(this.usuarioDAO )
+                                                    this.aMovimentoItem[i].alteracao = true;  
+
+                                                    //console.log('this.aMovimentoItem[i]')
+                                                    //console.log(this.aMovimentoItem[i])
+
+                                                    if( this.aMovimentoItem[i].statusItem == 'Inclusão' ||  this.aMovimentoItem[i].statusItem == 'Alteração' ||    (this.aMovimentoItem[i].statusItem == 'Exclusão' && this.aMovimentoItem[i].statusItemOriginal == 'Alteração' )   ){
+
+                                                            itensValidos = itensValidos + 1; 
+                                                            // Gera um id para o item caso ainda não tenha
+                                                            if(this.aMovimentoItem[i].idItem == 0) { 
+
+                                                                //console.log('Valida iitteemm iiii')
+                                                                //console.log(this.aMovimentoItem[i].idItem)                                                             
+
+                                                                const resposta = await this.buscaId();       
+                                                                
+                                                                
+                                                               //console.log('Resposta')
+                                                               //console.log(resposta)  
 
 
-                                            console.log("submitForm");
-                                            console.log(url);
-                                            console.log(this.usuarioDAO);                                            
+                                                                if ((resposta != 0 && resposta != undefined) ){
+                                                                    idMovto = resposta  
+                                                                }else{
+                                                                    idMovto = 99999;
+                                                                }
+
+                                                                this.aMovimentoItem[i].idItem = idMovto 
+                                                            } 
+
+                                                            //console.log('Valida iitteemm 7777')
+                                                            //console.log(idMovto)  
+
+                                                            objItem = {  
+                                                            
+                                                                    idfil:      this.$store.state.usuarioSistema.idfil,
+                                                                    notaFiscal: this.movimento.notaFiscal    ,
+                                                                    fornecedor: this.movimento.fornecedor,
+                                                                    item: parseInt(this.aMovimentoItem[i].item), 
+                                                                    produtor:     this.movimento.produtor,
+                                                                    procedencia:  this.movimento.procedencia, 
+                                                                    lote:         this.aMovimentoItem[i].lote,    
+                                                                    qualidade:    this.aMovimentoItem[i].qualidade,     
+                                                                    tamanho:      this.aMovimentoItem[i].tamanho,  
+                                                                    descFio:      this.aMovimentoItem[i].descFio,  
+                                                                    
+                                                                    observacao:          this.aMovimentoItem[i].observacao, 
+                                                                    unidadeMedida:       this.aMovimentoItem[i].unidadeMedida, 
+                                                                    pilha:               this.aMovimentoItem[i].pilha, 
+                                                                    movimentoAutomatico:  this.aMovimentoItem[i].movimentoAutomatico, 
+                                                                    movimentoDePilha:     this.aMovimentoItem[i].movimentoDePilha, 
+                                                                    quantidade:           this.aMovimentoItem[i].quantidade, 
+                                                                    peso:                 this.aMovimentoItem[i].peso,  
+                                                                    vlUnitario:           this.aMovimentoItem[i].vlUnitario,  
+                                                                    idMovimento:          this.aMovimentoItem[i].idMovimento,  
+                                                                    idItem:               this.aMovimentoItem[i].idItem,
+                                                                    
+                                                                    sac:   this.aMovimentoItem[i].sac, 
+                                                                    trid:  this.aMovimentoItem[i].trid, 
+                                                                    pim:   this.aMovimentoItem[i].pim, 
+                                                                    sc:    this.aMovimentoItem[i].sc, 
+                                                                    mst:   this.aMovimentoItem[i].mst, 
+                                                                    mic:   this.aMovimentoItem[i].mic, 
+                                                                    mat:   this.aMovimentoItem[i].mat, 
+                                                                    ui:    this.aMovimentoItem[i].ui, 
+                                                                    sf:    this.aMovimentoItem[i].sf, 
+                                                                    str:   this.aMovimentoItem[i].str, 
+                                                                    elg:   this.aMovimentoItem[i].elg, 
+                                                                    tipo:  this.aMovimentoItem[i].tipo, 
+                                                                    sic:   this.aMovimentoItem[i].sic, 
+
+                                                                    idAutomatico: this.aMovimentoItem[i].idAutomatico, 
+                                                                    uhml:         this.aMovimentoItem[i].uhml, 
+                                                                    rs:           this.aMovimentoItem[i].rs, 
+                                                                    b:            this.aMovimentoItem[i].b, 
+                                                                    trcnt:        this.aMovimentoItem[i].trcnt, 
+                                                                    trar:         this.aMovimentoItem[i].trar, 
+                                                                    pesoMedio:    this.aMovimentoItem[i].pesoMedio,
+                                                                    statusItem:   this.aMovimentoItem[i].statusItem,    
+                                                                    statusItemOriginal:   this.aMovimentoItem[i].statusItemOriginal, 
+                                                                
+
+                                                            } 
+
+                                                            this.aMovimentoItemDAO.push(objItem);
+                                                    
+                                                    }
+
+                                            }   
+
+                                            console.log(itensValidos);
+
+                                            if(itensValidos>0){
+
+                                                    this.movimentoDAO =
+                                                    {   
+                                                            "id":this.movimento.id ,
+                                                            "idfil": this.$store.state.usuarioSistema.idfil,
+                                                            "notaFiscal": this.movimento.notaFiscal    ,
+                                                            "fornecedor": this.movimento.fornecedor,
+                                                            "tipoMovimento": this.movimento.tipoMovimento,
+                                                            "tipoMP":  this.movimento.tipoMP,
+                                                            "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
+                                                            "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"),  
+                                                            "loteFiacao":  this.movimento.loteFiacao,
+                                                            "pesoMedio":  this.movimento.pesoMedio,
+                                                            "pesoTotal":  this.movimento.pesoTotal,
+                                                            "numVolumes": this.movimento.numVolumes,
+                                                            "produtor":  this.movimento.produtor,
+                                                            "procedencia":  this.movimento.procedencia, 
+                                                            "movimentoAutomatico":  this.movimento.movimentoAutomatico,
+                                                            "movimentoPilha": this.movimento.movimentoPilha,
+                                                            "usuarioInclusao":  this.movimento.usuarioInclusao ,
+                                                            "usuarioAlteracao":  this.$store.state.usuarioSistema.codigo,
+                                                            "dataInclusao":  this.movimento.dataInclusao ,
+                                                            "dataAlteracao":  dataAlteracao,
+                                                            "itemMovimentoDTO":this.aMovimentoItemDAO    
+                                                    } 
+
+                                                    //console.log('AlteraCAO')
+                                                    //console.log(this.usuarioDAO ) 
+
+                                                
+                                                    this.aMovimentoItemFinal.push(this.movimentoDAO);  
+                                                    
+                                                    //console.log('this.aMovimentoItemFinal')
+                                                    //console.log(this.aMovimentoItemFinal)
+                                                    
+                                                    await this.axios.put(
+                                                        url,
+                                                        JSON.stringify(this.aMovimentoItemFinal),
+                                                        this.apiTokenHeader({ "Content-Type": "application/json" })
+                                                    )
+                                                    .then(response => { 
+
+                                                        this.apiDisplayMensagemSucesso('Movimento alterado com sucesso.' ) 
+                                                        this.tmp = JSON.stringify(response.data);    
+
+                                                        for (let i = 0; i < this.aMovimentoItem.length; i++) {    
+                                                            
+                                                            //if(this.aMovimentoItem[i].statusItem == 'Inclusão' ||  this.aMovimentoItem[i].statusItem == 'Alteração' ||    (this.aMovimentoItem[i].statusItem == 'Exclusão' && this.aMovimentoItem[i].statusItemOriginal == 'Alteração' ) ){
+                                                                if(this.aMovimentoItem[i].statusItem == 'Inclusão') {
+                                                                    this.aMovimentoItem[i].statusItem = 'Alteração';   
+                                                                }
+                                                                if(this.aMovimentoItem[i].statusItem == 'Exclusão'   ){
+                                                                    this.aMovimentoItem[i].statusItemOriginal = 'Exclusão';  
+                                                                }
+                                                                
+                                                            //} 
+                                                        } 
+                                                        
+                                                    })
+                                                    .catch(error => {
+                                                        console.log("Erro: ", error.response.data.message); 
+                                                        this.apiDisplayMensagem(error.response.data.message ) 
+                                                    });  
+                                            }
 
 
-                                           
-                                            await this.axios.put(
-                                                url,
-                                                JSON.stringify(this.usuarioDAO),
-                                                this.apiTokenHeader({ "Content-Type": "application/json" })
-                                            )
-                                            .then(response => {  
-                                                console.log(response.data); 
-                                                this.apiDisplayMensagemSucesso('Usuário alterado com sucesso.' ) 
 
-                                            
-                                            })
-                                            .catch(error => { 
-                                                console.log("Erro: ", error.response.data.message);
-                                                //this.haErros = true
-                                                //this.mensagemErro = error.response.data.message
-                                                this.apiDisplayMensagem(error.response.data.message ) 
-                                            });
                                     }  
 
                                 }
 
-                    }  
 
-           },
-*/
+                    }  //////////////////// valid
+
+
+                   // } //////////////////// limpaItensBranco
+
+           }, 
+ 
 
            resetarForm(){
 
@@ -1198,7 +2166,7 @@
 
                 if(this.simNaoRetorno == 'S'){
 
-                    this.movimento = Object.assign({},this.movimentoInicialInicial);  
+                    this.movimento = Object.assign({},this.movimentoInicial);  
                     this.v$.$reset(); 
                     this.numItem = 0;
                     this.ehInclusao = true; 
@@ -1208,27 +2176,135 @@
                     this.haErros= false;      
                     this.haSucesso= false;
                     this.tipoOperacao = 'I';  
+                    this.nomeFornecedor = '';
+                    this.tipoMatP = "" ;
                      
-                    //this.configuraCampos('I' )  ;
-                    this.aMovimentoItem= [];
+                    this.configuraCampos('I' )  ;
+
+                    this.aMovimentoItem= []; 
+                    this.aMovimentoItemFinal = [];
+                    this.aMovimentoItemDAO = [];       
+                    this.vOperAlteraEstoque = '';
+                    this.vOperAlteraItem = '';  
 
                 }  
 
-                },
-                configuraCampos(oper ){
+            },
+
+            configuraCampos(oper ){
+
+
+
  
                     if(oper=='I'){
 
-                        this.sistemaDesabilitado=false;
-                        this.codigoDesabilitado=false;
+                        this.tipoMovimentoDesabilitado=false;
+                        this.tipoMPDesabilitado=false;
+                        this.fornecedorDesabilitado=false;
+                        this.notaFiscalDesabilitado=false;
+                        this.dataBaseDesabilitado=false;
+                        this.dataEmissaoDesabilitado=false;
+                        this.produtorDesabilitado=false;
+                        this.procedenciaDesabilitado=false;
+                        this.pesoTotalDesabilitado=false;
+                        this.numVolumesDesabilitado=false;
+                        this.pesoMedioDesabilitado=false;
                          
 
                     }else if(oper=='A' || oper=='E'){
-                        this.sistemaDesabilitado=true;
-                        this.codigoDesabilitado=true;
+
+                        this.tipoMovimentoDesabilitado=true;
+                        this.tipoMPDesabilitado=true;
+                        this.fornecedorDesabilitado=true;
+                        this.notaFiscalDesabilitado=true;
+                        this.dataBaseDesabilitado=true;
+                        this.dataEmissaoDesabilitado=true;
+                        this.produtorDesabilitado=true;
+                        this.procedenciaDesabilitado=true;
+                        this.pesoTotalDesabilitado=true;
+                        this.numVolumesDesabilitado=true;
+                        this.pesoMedioDesabilitado=true;
                     }    
-                 
-            },
+
+                    ///////////// CONFIGURAÇÃO DOS ITENS //////////////
+ 
+                    if(oper=='I'){
+
+
+                        this.itemDesabilitado = false; 
+                        this.loteItemDesabilitado = false;  
+                        this.pilhaDesabilitado = false; 
+                        this.tamanhoDesabilitado = false; 
+                        this.quantidadeDesabilitado = false; 
+                        this.pesoDesabilitado = false;   
+                        this.umDesabilitado = false;   
+                        this.vlUnitarioDesabilitado = false;  
+                        this.observacaoDesabilitado = false;                      
+                         
+                        if(this.vOperAlteraItem=='N'){  
+                            //this.idDesabilitado = false;
+                            this.loteItemDesabilitado = true;
+                            this.tamanhoDesabilitado = true; 
+                        }else{                 
+                            //this.idDesabilitado = true;
+                            this.loteItemDesabilitado = false;
+                            this.tamanhoDesabilitado = false; 
+                        } 
+                         
+
+
+                    }else if(oper=='A'){ 
+
+                        if(this.vOperAlteraEstoque=='S'){
+                            
+                            this.itemDesabilitado = true;
+                            ///this.idDesabilitado = true;
+                            this.loteItemDesabilitado = true; 
+                            
+                            this.pilhaDesabilitado = true; 
+                            this.tamanhoDesabilitado = true; 
+                            this.quantidadeDesabilitado = true; 
+                            this.pesoDesabilitado = true;   
+                            this.umDesabilitado = true;   
+                            this.vlUnitarioDesabilitado = true;  
+                            this.observacaoDesabilitado = true; 
+
+                        }else{
+                            
+                            this.itemDesabilitado = true; 
+                            this.loteItemDesabilitado = true; 
+                            
+                            this.pilhaDesabilitado = false; 
+                            this.tamanhoDesabilitado = false; 
+                            this.quantidadeDesabilitado = false; 
+                            this.pesoDesabilitado = false;   
+                            this.umDesabilitado = false;   
+                            this.vlUnitarioDesabilitado = false;  
+                            this.observacaoDesabilitado = false;  
+
+                             /*
+                            if(this.vOperAlteraItem=='N'){  
+                                this.idDesabilitado = false;
+                            }else{                 
+                                this.idDesabilitado = true;
+                            } 
+                            */
+
+                        } 
+
+                
+                    }          
+                    
+                    
+                    //console.log('configuraCampos');
+                    //console.log(oper);
+                    //console.log(this.idDesabilitado); 
+                    //console.log(this.aMovimentoItem.Habilitado); 
+                    //console.log(this.vOperAlteraItem);
+                    //console.log(this.vOperAlteraEstoque);   
+
+
+            }, 
 
             
             async populaForm(){   
@@ -1237,237 +2313,303 @@
                     let retornoPopForm=false;  
                     let objItem;   
                     let dataFormatada;
-                    let parametroCodificado;
+                    //let parametroCodificado;
                     
 
-                    parametroCodificado = encodeURIComponent(this.movimento.notaFiscal);
+                    //parametroCodificado = encodeURIComponent(this.movimento.notaFiscal);
 
-                    console.log('parametroCodificado');
-                    console.log(parametroCodificado);
+                    //console.log('parametroCodificado');
+                    //console.log(parametroCodificado); 
 
-
-
-                    let url = `${process.env.VUE_APP_BASE_URL}/movimento/buscadoc/${this.$store.state.usuarioSistema.idfil}/${this.movimento.fornecedor}/${parametroCodificado}`;
+                   // let url = `${process.env.VUE_APP_BASE_URL}/movimento/buscadoc/${this.$store.state.usuarioSistema.idfil}/${this.movimento.fornecedor}/${parametroCodificado}`;
+                   
+                   
+                   let url = `${process.env.VUE_APP_BASE_URL}/movimento/buscadoc`;
  
                     //console.log('url') 
                     //console.log(url)  
 
-                   this.msgProcessamento = "Processando" 
-                   this.apiProcessamento()  
+                   this.numItem = 0; 
+                   this.aMovimentoItem = [];
+                   this.msgProcessamento = "Processando" ;
+                   this.apiProcessamento()  ;
 
-                    await this.axios.get(url,this.apiTokenHeader())
-                    .then(response => {        
+                   this.movimentoParamDTO =  {};
 
-                        console.log("PopulaForm");
-                        this.resultado = response.data;     
+                   this.movimentoParamDTO.idfil      = this.$store.state.usuarioSistema.idfil;
+                   this.movimentoParamDTO.fornecedor = this.movimento.fornecedor;
+                   this.movimentoParamDTO.notaFiscal = this.movimento.notaFiscal;  
+
+                   //console.log('this.movimentoParamDTO'); 
+
+                   //console.log(this.movimentoParamDTO); 
+
+                   await this.axios.post(
+                   url,
+                   JSON.stringify(this.movimentoParamDTO),
+                   //{
+                   //headers: { "Content-Type": "application/json" }
+                   //}
+                    
+                   this.apiTokenHeader({ "Content-Type": "application/json" })
+                    
+                   )
+                    .then(response => {
+
+                       // console.log("PopulaForm");
+                        this.resultado = response.data;  
+                        
+                        //console.log(this.resultado);
 
 
-                        if (this.resultado.id != null){
-                            this.movimento.id = this.resultado.id ;     
-                        
-                        }else{
-                            this.movimento.id = "" ;                       
-                        }  
+                        if(this.resultado){ 
 
-                        if (this.resultado.idfil != null){
-                            this.movimento.idfil = this.resultado.idfil ;     
-                        
-                        }else{
-                            this.movimento.idfil = "" ;                       
-                        }  
+                                    if (this.resultado.id != null){
+                                        this.movimento.id = this.resultado.id ;     
+                                    
+                                    }else{
+                                        this.movimento.id = "" ;                       
+                                    }  
 
-                        if (this.resultado.entradaSaida != null){
-                            this.movimento.entradaSaida = this.resultado.entradaSaida ;     
-                        
-                        }else{
-                            this.movimento.entradaSaida = "" ;                       
-                        }                         
+                                    if (this.resultado.idfil != null){
+                                        this.movimento.idfil = this.resultado.idfil ;     
+                                    
+                                    }else{
+                                        this.movimento.idfil = "" ;                       
+                                    }  
 
-                        if (this.resultado.loteFiacao != null){
-                            this.movimento.loteFiacao = this.resultado.loteFiacao ;     
-                        
-                        }else{
-                            this.movimento.loteFiacao = "" ;                       
-                        }    
- 
-                        if (this.resultado.pesoMedio != null){
-                            this.movimento.pesoMedio = this.resultado.pesoMedio ;     
-                        
-                        }else{
-                            this.movimento.pesoMedio = 0 ;                       
-                        }   
-    
-                        if (this.resultado.pesoTotal != null){
-                            this.movimento.pesoTotal = this.resultado.pesoTotal ;     
-                        
-                        }else{
-                            this.movimento.pesoTotal = 0 ;                       
-                        }   
+                                    if (this.resultado.entradaSaida != null){
+                                        this.movimento.entradaSaida = this.resultado.entradaSaida ;     
+                                    
+                                    }else{
+                                        this.movimento.entradaSaida = "" ;                       
+                                    }                         
 
-                        if (this.resultado.linhaAbertura != null){
-                            this.movimento.linhaAbertura = this.resultado.linhaAbertura ;     
-                        
-                        }else{
-                            this.movimento.linhaAbertura = "" ;                       
-                        }       
-                        
-                        if (this.resultado.idAutomatico != null){
-                            this.movimento.idAutomatico = this.resultado.idAutomatico ;     
-                        
-                        }else{
-                            this.movimento.idAutomatico = 0 ;                       
-                        }    
- 
-                        if (this.resultado.movimentoAutomatico != null){
-                            this.movimento.movimentoAutomatico = this.resultado.movimentoAutomatico ;     
-                        
-                        }else{
-                            this.movimento.movimentoAutomatico = "" ;                       
-                        }  
+                                    if (this.resultado.loteFiacao != null){
+                                        this.movimento.loteFiacao = this.resultado.loteFiacao ;     
+                                    
+                                    }else{
+                                        this.movimento.loteFiacao = "" ;                       
+                                    }    
+            
+                                    if (this.resultado.pesoMedio != null){
+                                        this.movimento.pesoMedio = this.resultado.pesoMedio ;     
+                                    
+                                    }else{
+                                        this.movimento.pesoMedio = 0 ;                       
+                                    }   
+                
+                                    if (this.resultado.pesoTotal != null){
+                                        this.movimento.pesoTotal = this.resultado.pesoTotal ;     
+                                    
+                                    }else{
+                                        this.movimento.pesoTotal = 0 ;                       
+                                    }   
 
-                        if (this.resultado.movimentoPilha != null){
-                            this.movimento.movimentoPilha = this.resultado.movimentoPilha ;     
-                        
-                        }else{
-                            this.movimento.movimentoPilha = "" ;                       
-                        }              
-                        
-                        if (this.resultado.mistura != null){
-                            this.movimento.mistura = this.resultado.mistura ;     
-                        
-                        }else{
-                            this.movimento.mistura = "" ;                       
-                        }                              
-                        
-                        if (this.resultado.sequenciaMistura != null){
-                            this.movimento.sequenciaMistura = this.resultado.sequenciaMistura ;     
-                        
-                        }else{
-                            this.movimento.sequenciaMistura = "" ;                       
-                        }   
+                                    if (this.resultado.linhaAbertura != null){
+                                        this.movimento.linhaAbertura = this.resultado.linhaAbertura ;     
+                                    
+                                    }else{
+                                        this.movimento.linhaAbertura = "" ;                       
+                                    }       
+                                    
+                                    if (this.resultado.idAutomatico != null){
+                                        this.movimento.idAutomatico = this.resultado.idAutomatico ;     
+                                    
+                                    }else{
+                                        this.movimento.idAutomatico = 0 ;                       
+                                    }    
+            
+                                    if (this.resultado.movimentoAutomatico != null){
+                                        this.movimento.movimentoAutomatico = this.resultado.movimentoAutomatico ;     
+                                    
+                                    }else{
+                                        this.movimento.movimentoAutomatico = "" ;                       
+                                    }  
 
-                        if (this.resultado.usuarioAlteracao != null){
-                            this.movimento.usuarioAlteracao = this.resultado.usuarioAlteracao ;     
-                        
-                        }else{
-                            this.movimento.usuarioAlteracao = "" ;                       
-                        }      
+                                    if (this.resultado.movimentoPilha != null){
+                                        this.movimento.movimentoPilha = this.resultado.movimentoPilha ;     
+                                    
+                                    }else{
+                                        this.movimento.movimentoPilha = "" ;                       
+                                    }              
+                                    
+                                    if (this.resultado.mistura != null){
+                                        this.movimento.mistura = this.resultado.mistura ;     
+                                    
+                                    }else{
+                                        this.movimento.mistura = "" ;                       
+                                    }                              
+                                    
+                                    if (this.resultado.sequenciaMistura != null){
+                                        this.movimento.sequenciaMistura = this.resultado.sequenciaMistura ;     
+                                    
+                                    }else{
+                                        this.movimento.sequenciaMistura = "" ;                       
+                                    }   
 
-                        if (this.resultado.tipoMovimento != null){
-                            this.movimento.tipoMovimento = this.resultado.tipoMovimento ;     
-                        
-                        }else{
-                            this.movimento.tipoMovimento = "" ;                       
-                        }   
+                                    if (this.resultado.usuarioAlteracao != null){
+                                        this.movimento.usuarioAlteracao = this.resultado.usuarioAlteracao ;     
+                                    
+                                    }else{
+                                        this.movimento.usuarioAlteracao = "" ;                       
+                                    }      
 
-                        if (this.resultado.tipoMP != null){
-                            this.movimento.tipoMP = this.resultado.tipoMP ;     
-                        
-                        }else{
-                            this.movimento.tipoMP = "" ;                       
-                        }  
+                                    if (this.resultado.tipoMovimento != null){
+                                        this.movimento.tipoMovimento = this.resultado.tipoMovimento ;     
+                                    }else{
+                                        this.movimento.tipoMovimento = "" ;                       
+                                    }   
 
-                        if (this.resultado.dataBase != null){
-                            dataFormatada = this.resultado.dataBase.split('/').reverse().join('-');
-                            this.movimento.dataBase = dataFormatada ;     
-                        
-                        }else{
-                            this.movimento.dataBase = "" ;                       
-                        }    
-                        
-                        if (this.resultado.dataEmissao!= null){
-                            dataFormatada = this.resultado.dataEmissao.split('/').reverse().join('-');
-                            this.movimento.dataEmissao = dataFormatada ;     
-                        
-                        }else{
-                            this.movimento.dataEmissao = "" ;                       
-                        }     
-                        
-                        if (this.resultado.fkProdutor!= null){
-                            this.movimento.produtor = this.resultado.fkProdutor.descricao ;     
-                        
-                        }else{
-                            this.movimento.produtor = "" ;                       
-                        }                          
+                                    if (this.resultado.tipoMP != null){
+                                        this.movimento.tipoMP = this.resultado.tipoMP ;     
+                                        this.buscaTipoMatP();
+                                    }else{
+                                        this.movimento.tipoMP = "" ;                       
+                                    }  
 
-                        if (this.resultado.fkProcedencia!= null){
-                            this.movimento.procedencia = this.resultado.fkProcedencia.descricao ;     
-                        
-                        }else{
-                            this.movimento.procedencia = "" ;                       
-                        }    
+                                    if (this.resultado.dataBase != null){
+                                        dataFormatada = this.resultado.dataBase.split('/').reverse().join('-');
+                                        this.movimento.dataBase = dataFormatada ;     
+                                    
+                                    }else{
+                                        this.movimento.dataBase = "" ;                       
+                                    }    
+                                    
+                                    if (this.resultado.dataEmissao!= null){
+                                        dataFormatada = this.resultado.dataEmissao.split('/').reverse().join('-');
+                                        this.movimento.dataEmissao = dataFormatada ;     
+                                    
+                                    }else{
+                                        this.movimento.dataEmissao = "" ;                       
+                                    }     
+                                    
+                                    if (this.resultado.fkProdutor!= null){
+                                        this.movimento.produtor = this.resultado.fkProdutor.descricao ;     
+                                    
+                                    }else{
+                                        this.movimento.produtor = "" ;                       
+                                    }                          
 
-                        console.log('this.resultado.itemMovimento 2222')
-                        console.log(this.resultado.itemMovimento)
+                                    if (this.resultado.fkProcedencia!= null){
+                                        this.movimento.procedencia = this.resultado.fkProcedencia.descricao ;     
+                                    
+                                    }else{
+                                        this.movimento.procedencia = "" ;                       
+                                    }    
 
-                        
 
-                        for (let i = 0; i < this.resultado.itemMovimento.length; i++) { 
-                            
-                               this.numItem = this.numItem+1; 
-  
 
-                                objItem = { 
+                                    if (this.resultado.fkTipoMovimento!= null){
+                                        this.vOperAlteraEstoque = this.resultado.fkTipoMovimento.atualizaEstoque ;     
+                                    
+                                    }else{
+                                        this.vOperAlteraEstoque = "" ;                       
+                                    }                 
+                                    
+                                    
+                                    if (this.resultado.fkTipoMovimento!= null){
+                                        this.vOperAlteraItem = this.resultado.fkTipoMovimento.atualizaItem ;     
+                                    
+                                    }else{
+                                        this.vOperAlteraItem = "" ;                       
+                                    }           
+                   
+                                                             
 
-                                        id   :   this.resultado.itemMovimento[i].id, 
-                                        idfil:   this.resultado.itemMovimento[i].filial, 
-                                        notaFiscal:   this.resultado.itemMovimento[i].notaFiscal, 
-                                        fornecedor:   this.resultado.itemMovimento[i].fornecedor, 
-                                        item: parseInt(this.resultado.itemMovimento[i].item), 
-                                        produtor: this.resultado.itemMovimento[i].produtor, 
-                                        procedencia: this.resultado.itemMovimento[i].procedencia, 
-                                        lote: this.resultado.itemMovimento[i].lote,    
-                                        qualidade: this.resultado.itemMovimento[i].qualidade, 
-                                        tamanho: this.resultado.itemMovimento[i].tamanho ,
+                                   //console.log('this.vOperAlteraEstoque')
+                                   //console.log(this.vOperAlteraEstoque)
 
-                                        nomeItem: this.resultado.itemMovimento[i].descFio, 
+                                   //console.log('this.vOperAlteraItem')
+                                   //console.log(this.vOperAlteraItem)
 
-                                        pesoCalculadoInformado: this.resultado.itemMovimento[i].pesoCalculadoInformado, 
-                                        observacao: this.resultado.itemMovimento[i].observacao, 
-                                        unidadeMedida: this.resultado.itemMovimento[i].unidadeMedida, 
-                                        pilha: this.resultado.itemMovimento[i].pilha, 
-                                        movimentoAutomatico: this.resultado.itemMovimento[i].movimentoAutomatico, 
-                                        movimentoDePilha: this.resultado.itemMovimento[i].movimentoDePilha, 
-                                        quantidade: this.resultado.itemMovimento[i].quantidade, 
-                                        peso: this.resultado.itemMovimento[i].peso, 
-                                        idCab: this.resultado.itemMovimento[i].idCab, 
-                                        vlUnitario: this.resultado.itemMovimento[i].vlUnitario,  
-                                        idMovimento:  this.resultado.itemMovimento[i].idMovimento, 
+
+                                   
+                                   console.log('this.resultado.itemMovimento');
+                                   console.log(this.resultado.itemMovimento);
+
+                                   let aItens =  this.resultado.itemMovimento;
+
+                                    // Ordena o array de objetos JSON pelo campo 'idItem'
+                                    aItens.sort((a, b) => {
+                                        return a.idItem - b.idItem;
+                                    }); 
+
+                                   console.log('aItens');
+                                   console.log(aItens);
+
+                                   // for (let i = 0; i < this.resultado.itemMovimento.length; i++) { 
+                                    for (let i = 0; i < aItens.length; i++) { 
                                         
-                                        
-                                        sac:  this.resultado.itemMovimento[i].sac, 
-                                        trid:  this.resultado.itemMovimento[i].trid, 
-                                        pim:  this.resultado.itemMovimento[i].pim, 
-                                        sc:  this.resultado.itemMovimento[i].sc, 
-                                        mst:  this.resultado.itemMovimento[i].mst, 
-                                        mic:  this.resultado.itemMovimento[i].mic, 
-                                        mat:  this.resultado.itemMovimento[i].mat, 
-                                        ui:  this.resultado.itemMovimento[i].ui, 
-                                        sf:  this.resultado.itemMovimento[i].sf, 
-                                        str:  this.resultado.itemMovimento[i].str, 
-                                        elg:  this.resultado.itemMovimento[i].elg, 
-                                        tipo:  this.resultado.itemMovimento[i].tipo, 
-                                        sic:  this.resultado.itemMovimento[i].sic, 
+                                        this.numItem = this.numItem+1; 
+            
 
-                                        idAutomatico:  this.resultado.itemMovimento[i].idAutomatico, 
-                                        uhml:  this.resultado.itemMovimento[i].uhml, 
-                                        rs:  this.resultado.itemMovimento[i].rs, 
-                                        b:  this.resultado.itemMovimento[i].b, 
-                                        trcnt:  this.resultado.itemMovimento[i].trcnt, 
-                                        trar:  this.resultado.itemMovimento[i].trar, 
-                                        pesoMedio:  this.resultado.itemMovimento[i].pesoMedio,  
-                                        ind: String(this.numItem).padStart(3, '0')    
+                                            objItem = { 
 
-                                } 
+                                                    idItem   :   this.resultado.itemMovimento[i].idItem, 
+                                                    idfil:   this.resultado.itemMovimento[i].filial, 
+                                                    notaFiscal:   this.resultado.itemMovimento[i].notaFiscal, 
+                                                    fornecedor:   this.resultado.itemMovimento[i].fornecedor, 
+                                                    item: parseInt(this.resultado.itemMovimento[i].item), 
+                                                    produtor: this.resultado.itemMovimento[i].produtor, 
+                                                    procedencia: this.resultado.itemMovimento[i].procedencia, 
+                                                    lote: this.resultado.itemMovimento[i].lote,    
+                                                    qualidade: this.resultado.itemMovimento[i].qualidade, 
+                                                    tamanho: this.resultado.itemMovimento[i].tamanho ,
 
-                                this.aMovimentoItem.push(objItem);
+                                                    descFio: this.resultado.itemMovimento[i].descFio, 
+
+                                                    pesoCalculadoInformado: this.resultado.itemMovimento[i].pesoCalculadoInformado, 
+                                                    observacao: this.resultado.itemMovimento[i].observacao, 
+                                                    unidadeMedida: this.resultado.itemMovimento[i].unidadeMedida, 
+                                                    pilha: this.resultado.itemMovimento[i].pilha, 
+                                                    movimentoAutomatico: this.resultado.itemMovimento[i].movimentoAutomatico, 
+                                                    movimentoDePilha: this.resultado.itemMovimento[i].movimentoDePilha, 
+                                                    quantidade: this.resultado.itemMovimento[i].quantidade, 
+                                                    peso: this.resultado.itemMovimento[i].peso, 
+                                                    idCab: this.resultado.itemMovimento[i].idCab, 
+                                                    vlUnitario: this.resultado.itemMovimento[i].vlUnitario,  
+                                                    idMovimento:  this.resultado.itemMovimento[i].idMovimento, 
+                                                    
+                                                    
+                                                    sac:  this.resultado.itemMovimento[i].sac, 
+                                                    trid:  this.resultado.itemMovimento[i].trid, 
+                                                    pim:  this.resultado.itemMovimento[i].pim, 
+                                                    sc:  this.resultado.itemMovimento[i].sc, 
+                                                    mst:  this.resultado.itemMovimento[i].mst, 
+                                                    mic:  this.resultado.itemMovimento[i].mic, 
+                                                    mat:  this.resultado.itemMovimento[i].mat, 
+                                                    ui:  this.resultado.itemMovimento[i].ui, 
+                                                    sf:  this.resultado.itemMovimento[i].sf, 
+                                                    str:  this.resultado.itemMovimento[i].str, 
+                                                    elg:  this.resultado.itemMovimento[i].elg, 
+                                                    tipo:  this.resultado.itemMovimento[i].tipo, 
+                                                    sic:  this.resultado.itemMovimento[i].sic, 
+
+                                                    idAutomatico:  this.resultado.itemMovimento[i].idAutomatico, 
+                                                    uhml:  this.resultado.itemMovimento[i].uhml, 
+                                                    rs:  this.resultado.itemMovimento[i].rs, 
+                                                    b:  this.resultado.itemMovimento[i].b, 
+                                                    trcnt:  this.resultado.itemMovimento[i].trcnt, 
+                                                    trar:  this.resultado.itemMovimento[i].trar, 
+                                                    pesoMedio:  this.resultado.itemMovimento[i].pesoMedio,  
+                                                    ind: String(this.numItem).padStart(3, '0')    ,
+                                                    habilitado: true,
+                                                    alteracao:true,
+                                                    statusItem: 'Alteração',
+                                                    statusItemOriginal: 'Alteração'
+                                                    
+
+                                            }  
+                                            
+                                            this.aMovimentoItem.push(objItem);
+                                    }
+
                         }
-
-
                         this.msgProcessamento = "" 
 
-                        //console.log('this.aMovimentoItem 333333')
-                        //console.log(this.aMovimentoItem)                        
+                        console.log('this.aMovimentoItem 333333')
+                        console.log(this.aMovimentoItem)                        
 
                          
                      
@@ -1477,9 +2619,9 @@
                         //console.log(this.resultado);
                         //console.log(this.tipoOperacao);
 
-                        /*
+                         
                         if(this.tipoOperacao == 'I' &&  this.resultado!='' ){  
-                            this.tipoOperacao = 'A';   
+                            this.tipoOperacao = 'A';    
                         }
 
                         if(this.resultado==''){
@@ -1489,15 +2631,20 @@
                         }else{
 
                             this.configuraCampos('A' )  ;
+                            this.apiPesquisaParam('fornecedor', this.movimento.fornecedor, this.movimento) 
 
                         }
-                        */
+                        
                         ////// this.apiPesquisaParam('usuarioseg', this.codUsuario, this.usuario) 
+                        
                         retornoPopForm = true;
 
                     })
                     .catch(error => {  
-                        
+                            this.msgProcessamento = "";
+
+                            //console.log("PopulaForm 444444");
+
                             console.log("Erro: ", error);
                             //this.mensagemErro = error; 
                             //this.haErros = true ;
@@ -1505,28 +2652,64 @@
                             retornoPopForm = false;
                     }  
                     ); 
+
+                   
+
                     return retornoPopForm;
 
                 },
 
             async buscaByChave(){ 
 
+                let validado;
+
+                validado = true;
+
                 this.haErros = false
                 this.haSucesso = false  
                 this.mensagemSucesso = ''
-                this.mensagemErro = ''                
+                this.mensagemErro = ''        
 
-                if ((this.movimento.fornecedor!='' && this.movimento.fornecedor!=null)  
-                && (this.movimento.notaFiscal!=null && this.movimento.notaFiscal!='') 
-                 ){  
-                         const resposta = await this.populaForm();     
+                if (this.movimento.fornecedor!='' && this.movimento.fornecedor!=null)  { 
+                    
+                    if (this.movimento.fornecedor.length != 5){
+                        this.apiDisplayMensagem('Fornecedor deve ter 5 dígitos.')
+                        validado = false;
+                    }else{ 
+                        this.apiPesquisaParam('fornecedor', this.movimento.fornecedor, this.movimento)
+                    }   
+
+                }else{
+                    
+                    validado = false;
+                }
+
+
+              
+                   
+
+                if ((this.movimento.notaFiscal!=null && this.movimento.notaFiscal!='')){
+
+
+                    if (this.movimento.notaFiscal.length < 6){
+                        this.apiDisplayMensagem('Documento deve ter mais de 6 dígitos.') 
+                        validado = false;
+                    }
+
+
+                }else{ 
+                    
+                    validado = false;
+                }
+
+                if (validado){  
+                        const resposta = await this.populaForm();     
 
                         if (!(resposta === true) ){
                             console.log('Erro de cadastro BuscaChave' );      
                         }  
 
-                } else{  
-                        this.apiDisplayMensagem("Informe o fornecedor e o num. do documento."   )  
+               
                 }
 
 
@@ -1554,8 +2737,8 @@
                     }
                     else if(this.acao == 'pesquisar')
                     {
-                        this.$router.push( { name: 'movimentacaoestoquepesquisa',params : {sistemaProps : '04'}} )
-                        console.log('pesquisa');
+                        this.$router.push( { name: 'movimentacaoestoquepesquisa' } )
+                        //console.log('pesquisa');
                     }
                     
                 }
@@ -1600,9 +2783,7 @@
                 this.navegarParaLogin();
             }  
             
-           this.populaTipoMovimento(); 
-           this.populaTipoMP();
-           this.populaProdutor();
+
 
             if(this.operacao=='A'){
                 this.tipoOperacao = 'A' 
@@ -1612,9 +2793,10 @@
                 this.tipoOperacao = 'E'  
             }  
 
-            if(this.tipoOperacao == 'A'  || this.tipoOperacao == 'E' ){         
-                //this.codUsuario = this.usuarioProps;
-               // this.codSistema = this.sistemaProps;
+            if(this.tipoOperacao == 'A'  || this.tipoOperacao == 'E' ){      
+
+                this.movimento.fornecedor = this.fornecedorProps;
+                this.movimento.notaFiscal = this.notaFiscalProps;
 
                 const resposta = await this.populaForm();     
 
@@ -1626,6 +2808,11 @@
         },
         mounted(){  
                 //this.codSistema = Number(this.sistemaProps) 
+                this.populaTipoMovimento(); 
+                this.populaTipoMP();
+                this.populaProdutor();
+                this.populaProcedencia();
+
         } ,
        
         

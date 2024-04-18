@@ -66,7 +66,7 @@
     <v-alert v-if="haErros" color="danger" theme="dark" icon="mdi-alert-circle" >{{ erros }}</v-alert>
 
     <div class="d-flex justify-content-center" style="font-size: 9px;" >
-                 <p>Versao 1.00.05</p>
+                 <p>Versao 1.00.08</p>
       </div>  
 
     <v-card-actions>

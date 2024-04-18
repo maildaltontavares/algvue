@@ -55,7 +55,7 @@
                                 </div>                                 
 
 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  parseFloat(this.movimento.pesoMedio) > 0">    
+                                <div   class="espacoEntreComponentes"   v-if="((this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') )  &&  parseFloat(this.movimento.pesoMedio) > 0 ">    
                                             
                                             <div >
                                                 
@@ -106,7 +106,7 @@
                                 </div>                                 
 
 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0 ">    
+                                <div   class="espacoEntreComponentes"   v-if="((this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S')  ) && this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0 ">    
                                             
                                             <div >
                                                 <v-icon
@@ -120,7 +120,7 @@
                                    
                                 </div>  
 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && !this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0   ">    
+                                <div   class="espacoEntreComponentes"   v-if="((this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S')  )  && !this.validaPeso()   &&  parseFloat(this.movimento.pesoMedio) > 0   ">    
                                             
                                             <div >
                                                 <v-icon
@@ -139,7 +139,7 @@
 
                       </div>  
 
-                    <div class="flex-linha"  style="margin-left:6%;width:94%;margin-top: 1%; ">  
+                    <div class="flex-linha"  style="margin-left:6%;width:88%;margin-top: 1%; ">  
                             
                                 <div    class="espacoEntreComponentes">  
                                  
@@ -152,7 +152,7 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 160px;" 
+                                        style="width: 200px;" 
                                         :disabled="tipoMovimentoDesabilitado"  
                                         :rules="[campoRequerido]" 
                                         density="compact"
@@ -174,7 +174,7 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 120px; " 
+                                        style="width: 200px; " 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
@@ -199,7 +199,7 @@
                                                     ref="fornecedor"  
                                                     maxlength="5" 
                                                     @blur="buscaByChave"
-                                                    style=" width: 120px; " 
+                                                    style=" width: 200px; " 
                                                     variant="outlined"
                                                     bg-color="white"
                                                     :disabled="fornecedorDesabilitado"  
@@ -214,7 +214,7 @@
                                                 <v-btn   data-bs-toggle="modal" 
                                                     data-bs-target="#modalPesquisaFornecedor"  
                                                     tabindex="-1"  @click="apiFlushPesquisa" :disabled="fornecedorDesabilitado" 
-                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232);; " 
                                                     > 
                                                         <v-icon
                                                             class="mb-6"
@@ -231,8 +231,8 @@
                                                     v-model="this.nomeFornecedor" 
                                                     id="nomeFornecedor"   
                                                     disabled 
-                                                    class="limitadorMedia"                                                                                                    
-                                                    style="background-color:rgb(210, 210, 246); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    class="limitadorMedia"                                                                                                 
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                     density="compact"
                                                 ></v-text-field>   
                                             </div>     
@@ -254,7 +254,7 @@
                                                     ref="notaFiscal"  
                                                     maxlength="10" 
                                                     @blur="buscaByChave"
-                                                    style=" width: 150px; " 
+                                                    style=" width: 200px; " 
                                                     variant="outlined"
                                                     bg-color="white"
                                                     :disabled="notaFiscalDesabilitado"  
@@ -278,7 +278,7 @@
                                             id="dataBase"
                                             label="Data Movimento" 
                                             ref="dataBase"    
-                                            style=" width: 150px; " 
+                                            style=" width: 200px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataBaseDesabilitado"  
@@ -302,7 +302,7 @@
                                             id="dataEmissao"
                                             label="Data Emissão" 
                                             ref="dataEmissao"  
-                                            style=" width: 150px; " 
+                                            style=" width: 200px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataEmissaoDesabilitado"  
@@ -349,7 +349,7 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 180px; " 
+                                        style="width: 270px; " 
                                         bg-color="white"     
                                         
                                         density="compact" 
@@ -402,7 +402,7 @@
 
                                 
 
-                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'">   
+                                <div   class="espacoEntreComponentes"  v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">   
                                     
                                             
                                     <div >
@@ -433,7 +433,7 @@
                                 </div>     
                                 <!--@blur="this.movimento.pesoTotal = $event.target.value" -->
      
-                                <div   class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                <div   class="espacoEntreComponentes"  v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">    
                                             
                                     <div >
                                         
@@ -458,7 +458,7 @@
                                 </div> 
 
 
-                                <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">    
+                                <div   class="espacoEntreComponentes"   v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">    
                                             
                                     <div >
                                         
@@ -482,6 +482,32 @@
                                     </div>
                            
                                 </div>  
+
+                                <div   class="espacoEntreComponentes"  v-if="this.movimento.tipoMovimento == 'MIST'">    
+                                            
+                                            <div >
+                                                
+                                                <v-text-field
+                                                    
+                                                    v-model.trim="this.movimento.idAutomatico" 
+                                                    id="idAuto"
+                                                    label="Id Movim" 
+                                                    ref="idAuto"   
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    disabled 
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]"
+                                                    density="compact"
+                                                    
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>                                  
+
+                                
                                  
 
  
@@ -612,7 +638,8 @@
                                     
                                         <td  >
                                             
-                                            <div   class="espacoEntreComponentesGrid">   
+                                            <div   class="espacoEntreComponentesGrid"   
+                                            >   
                                             <!-- <label style='font-size:16px'>Item</label>-->
                                                     
                                                     <div class="input-group">   
@@ -643,6 +670,7 @@
                                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                                     > 
                                                                         <v-icon
+                                                                        
                                                                         class="mb-6"
                                                                         color="primary"
                                                                         icon="mdi-card-search-outline"
@@ -659,7 +687,7 @@
                                                                     disabled 
                                                                     class="limitadorMedia"
                                                                     
-                                                                    style="background-color:rgb(210, 210, 246); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                                 ></v-text-field>   
                                                             </div>   
 
@@ -695,8 +723,8 @@
                                                                             disabled 
                                                                             density="compact" 
                                                                             
-                                                                ></v-text-field> 
-                                                                    
+                                                                ></v-text-field>   
+                                                                
 
                                                                 <v-btn   @click="validaItem(indice,i.item)" 
                                                                   tabindex="-1"   disabled  
@@ -737,7 +765,7 @@
                                                                 <v-btn   @click="validaItem(indice,i.item)" 
                                                                   tabindex="-1"   :disabled="itemDesabilitado && i.habilitado"   
   
-                                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232);; " 
                                                                     > 
                                                                         <v-icon
                                                                         class="mb-6"
@@ -808,7 +836,7 @@
                                                         item-title="descricao" 
                                                         item-value="codigo"
                                                         variant="outlined"
-                                                        style="width: 270px; " 
+                                                        style="width: 330px; " 
                                                         bg-color="white"  
                                                         density="compact"
                                                     
@@ -830,7 +858,7 @@
                                                         label="Lote" 
                                                         ref="lote"  
                                                         maxlength="10"                                         
-                                                        style=" width: 150px; " 
+                                                        style=" width: 200px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
@@ -860,7 +888,7 @@
                                                         item-title="codigo" 
                                                         item-value="codigo"
                                                         variant="outlined"
-                                                        style="width: 120px; " 
+                                                        style="width: 150px; " 
                                                         bg-color="white"  
                                                         density="compact"
                                                         :rules="[campoRequerido]"  
@@ -885,7 +913,7 @@
                                                         label="Pilha"
                                                         ref="pilha"  
                                                         maxlength="6"                                         
-                                                        style=" width: 100px; "
+                                                        style=" width: 150px; "
                                                         variant="outlined"
                                                         :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
                                                         type="number"
@@ -909,7 +937,7 @@
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
-                                                    style=" width: 80px; "
+                                                    style=" width: 100px; "
                                                     bg-color="white"      
                                                     :rules="[campoRequerido]" 
                                                     density="compact"
@@ -932,7 +960,7 @@
                                                     item-title="nome" 
                                                     item-value="id"
                                                     variant="outlined"
-                                                    style=" width: 80px; "
+                                                    style=" width: 100px; "
                                                     bg-color="white"      
                                                     :rules="[campoRequerido]" 
                                                     density="compact"
@@ -1033,7 +1061,7 @@
                                                         id="um"
                                                         label="UM" 
                                                         ref="um"   
-                                                        style=" width: 80px; "
+                                                        style=" width: 100px; "
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
@@ -1122,7 +1150,7 @@
                                         </td>                                        
 
 
-                                        <td v-if="this.movimento.tipoMovimento != 'MIST'">
+                                        <td  >
                                             <div   class="espacoEntreComponentesGrid">    
                                                         
                                                 <div >
@@ -1133,7 +1161,7 @@
                                                         id="observacao"
                                                         label="Observação" 
                                                         ref="observacao"   
-                                                        style=" width: 250px; " 
+                                                        style=" width: 350px; " 
                                                         variant="outlined"
                                                         bg-color="white"
                                                         :disabled="observacaoDesabilitado && i.habilitado"    
@@ -1308,7 +1336,7 @@
                             <div class="col-3 div_rodape d-flex justify-content-end"   >
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px; " accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
                          
-
+                                <v-btn color="#4f545c" class="botao_rodape" style="min-width: 120px;" @click="exibeModal('excluirMistura','Confirma exclusao da mistura?',['S','N'] ,'aviso' )" v-if="( tipoOperacao  == 'A' && this.movimento.tipoMovimento=='MIST')"    accesskey="E"><u>E</u>xcluir</v-btn>
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="((tipoOperacao  == 'I' || tipoOperacao  == 'A')  && ( this.movimento.tipoMovimento!='SAIPL' && this.movimento.tipoMovimento!='MIST' && this.movimento.tipoMovimento!='ENTPL')  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
                                 <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
@@ -3704,11 +3732,28 @@
                     {
                         this.$router.push( { name: 'movimentacaoestoquepesquisa' } )
                         //console.log('pesquisa');
+                    }else if(this.acao == 'excluirMistura')
+                    {
+                         this.excluirMistura();
+                        //console.log('pesquisa');
                     }
                     
                 }
 
-            },             
+            }, 
+            excluirMistura(){
+
+                
+                   
+                for (let i = 0; i < this.aMovimentoItem.length; i++) {   
+                        
+                        this.aMovimentoItem[i].statusItem = 'Exclusão';  
+                        this.aMovimentoItem[i].statusItemOriginal = 'Alteração'; 
+
+                }
+
+                this.submitForm();
+            },
 /*
             async exclusao() { 
                 
