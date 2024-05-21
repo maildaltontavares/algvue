@@ -66,7 +66,7 @@ export default {
            checkDispositivo() {  
           
 
-            if(window.innerWidth <= 560){
+            if(window.innerWidth <= 790){
                 this.$store.state.tipoDispositivo= 'mobile';
                 this.$store.state.configuracaoTela.marginBottomTela='120px';
                 this.tamanhoLogin = '360px'
@@ -86,7 +86,7 @@ export default {
                 this.$store.state.tituloPrincipal= 'ALG';                    
                                         
   
-            }else if(window.innerWidth <= 790){
+            }else if(window.innerWidth <= 1400){
                 this.$store.state.tipoDispositivo= 'tablet';
                 this.$store.state.configuracaoTela.marginBottomTela='120px';
                 this.tamanhoLogin = '400px'

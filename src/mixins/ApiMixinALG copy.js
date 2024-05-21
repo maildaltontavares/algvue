@@ -35,8 +35,8 @@ export default {
                .then(response => { 
                    this.resultado = response.data;     
 
-                   //console.log('Misturas full');
-                   //console.log(this.resultado );
+                   console.log('Misturas full');
+                   console.log(this.resultado );
 
                 
                    
@@ -372,7 +372,7 @@ export default {
                 
                        
                                    });  
-                                   //console.log('this.coloracao');
+                                   
                                    //console.log(this.coloracao);
                                 
                        
@@ -444,9 +444,6 @@ export default {
                             let nELG_RT = 0;
                             let nTIPO_RT = 0;
                             let nTrAr_RT = 0;   
-                            let nRS_RT = 0;   
-                            let nB_RT = 0;   
-                            let nTrCnt_RT = 0;    
                   
                             let nSAC_GERAL  = 0;
                             let nTRID_GERAL  = 0;
@@ -462,10 +459,7 @@ export default {
                             let nSTR_GERAL  = 0;
                             let nELG_GERAL  = 0;
                             let nTIPO_GERAL  = 0;
-                            let nTrAr_GERAL  = 0;   
-                            let nRS_GERAL = 0;   
-                            let nB_GERAL = 0;   
-                            let nTrCnt_GERAL = 0;    
+                            let nTrAr_GERAL  = 0;                
                                
                   
                   
@@ -491,7 +485,7 @@ export default {
                             //console.log(elemento);
                   
                             for (let j = 0; j < aFardos.length; j++) {  
-                              
+                               
                                     //console.log(aFardos[j]);
                                     
                                     if(aFardos[j].qtde != null && aFardos[j].qtde > 0 ){
@@ -586,25 +580,14 @@ export default {
                   
                                           if(aFardos[j].tipo){
                                             nTIPO_RT= aFardos[j].tipo * aFardos[j].qtde
-                                          } 
+                                          }
+                  
                   
                   
                                           if(aFardos[j].m4TRAR){
                                             nTrAr_RT= aFardos[j].m4TRAR * aFardos[j].qtde;
                                           }
-
-                                          if(aFardos[j].m4TRCNT){
-                                            nTrCnt_RT= aFardos[j].m4TRCNT * aFardos[j].qtde;
-                                          }    
-                                          
-                                          if(aFardos[j].m4B){
-                                            nB_RT= aFardos[j].m4B * aFardos[j].qtde;
-                                          }                                             
                                             
-
-                                          if(aFardos[j].m4RS){
-                                            nRS_RT= aFardos[j].m4RS * aFardos[j].qtde;
-                                          }                                            
                    
                                     }else{
                   
@@ -623,15 +606,10 @@ export default {
                                           nSTR_RT   = 0;
                                           nELG_RT   = 0;
                                           nTIPO_RT  = 0;
-                                          nTrAr_RT  = 0;   
-                                          nTrCnt_RT = 0;
-                                          nB_RT     = 0;
-                                          nRS_RT    = 0;
-
-                                                                                        
+                                          nTrAr_RT  = 0;  
                   
                                     }  // Final possui quantidade selecionada
-                   
+                  
                                     /// Possui estoque
                                     if(aFardos[j].estoque){
                   
@@ -715,24 +693,13 @@ export default {
                   
                                           if(aFardos[j].tipo){
                                             nTIPO_GERAL= aFardos[j].tipo * aFardos[j].estoque
-                                          } 
+                                          }
+                  
+                  
                   
                                           if(aFardos[j].m4TRAR){
                                             nTrAr_GERAL= aFardos[j].m4TRAR * aFardos[j].estoque;
                                           }		 
-
-                                          if(aFardos[j].m4TRCNT){
-                                            nTrCnt_GERAL= aFardos[j].m4TRCNT * aFardos[j].estoque;
-                                          }    
-                                          
-                                          if(aFardos[j].m4B){
-                                            nB_GERAL= aFardos[j].m4B * aFardos[j].estoque;
-                                          }                                             
-                                            
-
-                                          if(aFardos[j].m4RS){
-                                            nRS_GERAL= aFardos[j].m4RS * aFardos[j].estoque;
-                                          }                                            
                   
                   
                                     }else{
@@ -753,15 +720,12 @@ export default {
                                          nELG_GERAL  =  0; 
                                          nTIPO_GERAL =  0; 
                                          nTrAr_GERAL =  0; 
-                                         nTrCnt_GERAL = 0;
-                                         nB_GERAL     = 0;
-                                         nRS_GERAL    = 0;                                         
                   
                   
                   
                                     } /// Final possui estoque          
                   
-                   
+                  
                   
                                     // Lote Testado
                                     if ((aFardos[j].mic != null && aFardos[j].mic  > 0 ) ||
@@ -819,10 +783,6 @@ export default {
                                                       objEstProd.ELG  += nELG_GERAL;
                                                       objEstProd.TIPO += nTIPO_GERAL;
                                                       objEstProd.TrAr += nTrAr_GERAL;  
-                                                      objEstProd.TrCnt += nTrCnt_GERAL;  
-                                                      objEstProd.B     += nB_GERAL;  
-                                                      objEstProd.RS    += nRS_GERAL;                                                        
-
                                                       objEstProd.TotalTestadoMistura  += aFardos[j].estoque;
                                                       objEstProd.TotFardosEstoque     += aFardos[j].estoque;  
                                                       
@@ -850,9 +810,6 @@ export default {
                                                             ELG	:nELG_GERAL,
                                                             TIPO:nTIPO_GERAL,
                                                             TrAr:nTrAr_GERAL,  
-                                                            TrCnt:nTrCnt_GERAL, 
-                                                            B: nB_GERAL,  
-                                                            RS:nRS_GERAL,                                                              
                                                             TotFardosMistura:   0,
                                                             TotFardos_selec:    0,
                                                             TotalTestadoMistura:aFardos[j].estoque,
@@ -891,11 +848,7 @@ export default {
                                                           objMistura.STR  += nSTR_RT,
                                                           objMistura.ELG  += nELG_RT,
                                                           objMistura.TIPO += nTIPO_RT,
-                                                          objMistura.TrAr += nTrAr_RT;  
-                                                          objMistura.TrCnt += nTrCnt_RT;  
-                                                          objMistura.B     += nB_RT;  
-                                                          objMistura.RS    += nRS_RT; 
-
+                                                          objMistura.TrAr += nTrAr_RT 
                                                           objMistura.TotFardosMistura     += aFardos[j].qtde;
                                                           objMistura.TotFardos_selec      += aFardos[j].qtde;
                                                           objMistura.TotalTestadoMistura  += aFardos[j].qtde;
@@ -924,10 +877,7 @@ export default {
                                                                 STR	:nSTR_RT,
                                                                 ELG	:nELG_RT,
                                                                 TIPO:nTIPO_RT,
-                                                                TrAr:nTrAr_RT,   
-                                                                TrCnt : nTrCnt_RT,  
-                                                                B     : nB_RT,  
-                                                                RS    : nRS_RT,                                                                 
+                                                                TrAr:nTrAr_RT,  
                                                                 TotFardosMistura:   aFardos[j].qtde,
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
@@ -960,9 +910,6 @@ export default {
                                                           objProdutor.ELG  += nELG_RT,
                                                           objProdutor.TIPO += nTIPO_RT,
                                                           objProdutor.TrAr += nTrAr_RT 
-                                                          objProdutor.TrCnt += nTrCnt_RT;  
-                                                          objProdutor.B     += nB_RT;  
-                                                          objProdutor.RS    += nRS_RT;                                                           
                                                           objProdutor.TotFardosMistura     += aFardos[j].qtde;
                                                           objProdutor.TotFardos_selec      += aFardos[j].qtde;
                                                           objProdutor.TotalTestadoMistura  += aFardos[j].qtde;
@@ -992,9 +939,6 @@ export default {
                                                                 ELG	:nELG_RT,
                                                                 TIPO:nTIPO_RT,
                                                                 TrAr:nTrAr_RT,  
-                                                                TrCnt : nTrCnt_RT,  
-                                                                B     : nB_RT,  
-                                                                RS    : nRS_RT,                                                                   
                                                                 TotFardosMistura:   aFardos[j].qtde,
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
@@ -1029,9 +973,6 @@ export default {
                                                           objQualidade.ELG  += nELG_RT,
                                                           objQualidade.TIPO += nTIPO_RT,
                                                           objQualidade.TrAr += nTrAr_RT 
-                                                          objQualidade.TrCnt += nTrCnt_RT;  
-                                                          objQualidade.B     += nB_RT;  
-                                                          objQualidade.RS    += nRS_RT;                                                               
                                                           objQualidade.TotFardosMistura     += aFardos[j].qtde;
                                                           objQualidade.TotFardos_selec      += aFardos[j].qtde;
                                                           objQualidade.TotalTestadoMistura  += aFardos[j].qtde;
@@ -1061,9 +1002,6 @@ export default {
                                                                 ELG	:nELG_RT,
                                                                 TIPO:nTIPO_RT,
                                                                 TrAr:nTrAr_RT,  
-                                                                TrCnt : nTrCnt_RT,  
-                                                                B     : nB_RT,  
-                                                                RS    : nRS_RT,
                                                                 TotFardosMistura:   aFardos[j].qtde,
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
@@ -1113,9 +1051,6 @@ export default {
                                                                     ELG	:0,
                                                                     TIPO:0,
                                                                     TrAr:0,  
-                                                                    TrCnt : 0,  
-                                                                    B     : 0,  
-                                                                    RS    : 0,
                                                                     TotFardosMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
@@ -1156,9 +1091,6 @@ export default {
                                                                     ELG	:0,
                                                                     TIPO:0,
                                                                     TrAr:0,  
-                                                                    TrCnt : 0,  
-                                                                    B     : 0,  
-                                                                    RS    : 0,  
                                                                     TotFardosMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
@@ -1197,9 +1129,6 @@ export default {
                                                                     ELG	:0,
                                                                     TIPO:0,
                                                                     TrAr:0,  
-                                                                    TrCnt : 0,  
-                                                                    B     : 0,  
-                                                                    RS    : 0, 
                                                                     TotFardosMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
@@ -1266,9 +1195,6 @@ export default {
                                                           ELG	:0,
                                                           TIPO:0,
                                                           TrAr:0,  
-                                                          TrCnt : 0,  
-                                                          B     : 0,  
-                                                          RS    : 0,  
                                                           TotFardosMistura:   0,
                                                           TotFardos_selec:    0,
                                                           TotalTestadoMistura:0,
@@ -1318,9 +1244,6 @@ export default {
                                                                    ELG	:0,
                                                                    TIPO:0,
                                                                    TrAr:0,  
-                                                                   TrCnt : 0,  
-                                                                   B     : 0,  
-                                                                   RS    : 0,  
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
@@ -1367,9 +1290,6 @@ export default {
                                                                    ELG	:0,
                                                                    TIPO:0,
                                                                    TrAr:0,  
-                                                                   TrCnt : 0,  
-                                                                   B     : 0,  
-                                                                   RS    : 0,  
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
@@ -1419,9 +1339,6 @@ export default {
                                                                    ELG	:0,
                                                                    TIPO:0,
                                                                    TrAr:0,  
-                                                                   TrCnt : 0,  
-                                                                   B     : 0,  
-                                                                   RS    : 0,  
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
@@ -1467,9 +1384,6 @@ export default {
                                                                       ELG	:0,
                                                                       TIPO:0,
                                                                       TrAr:0,  
-                                                                      TrCnt : 0,  
-                                                                      B     : 0,  
-                                                                      RS    : 0,  
                                                                       TotFardosMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
@@ -1511,9 +1425,6 @@ export default {
                                                                       ELG	:0,
                                                                       TIPO:0,
                                                                       TrAr:0,  
-                                                                      TrCnt : 0,  
-                                                                      B     : 0,  
-                                                                      RS    : 0,  
                                                                       TotFardosMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
@@ -1553,9 +1464,6 @@ export default {
                                                                       ELG	:0,
                                                                       TIPO:0,
                                                                       TrAr:0,  
-                                                                      TrCnt : 0,  
-                                                                      B     : 0,  
-                                                                      RS    : 0,  
                                                                       TotFardosMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
@@ -1575,7 +1483,7 @@ export default {
                    
                                 
                             } // Fim do for principal
-                          
+                  
                   
                   
                             if(elemento.qtde  != 0 ){
@@ -1626,9 +1534,6 @@ export default {
                                       ELG	:0,
                                       TIPO:0,
                                       TrAr:0,  
-                                      TrCnt : 0,  
-                                      B     : 0,  
-                                      RS    : 0,  
                                       TotFardosMistura:   0,
                                       TotFardos_selec:    0,
                                       TotalTestadoMistura:0,
@@ -1662,10 +1567,6 @@ export default {
                                     this.aResumoProdutorTotalizador[0].ELG	  += this.aResumoProdutor[j].ELG   ;
                                     this.aResumoProdutorTotalizador[0].TIPO   += this.aResumoProdutor[j].TIPO  ;
                                     this.aResumoProdutorTotalizador[0].TrAr   += this.aResumoProdutor[j].TrAr  ; 
-
-                                    this.aResumoProdutorTotalizador[0].TrCnt   += this.aResumoProdutor[j].TrCnt  ; 
-                                    this.aResumoProdutorTotalizador[0].B       += this.aResumoProdutor[j].B  ; 
-                                    this.aResumoProdutorTotalizador[0].RS      += this.aResumoProdutor[j].RS  ; 
                   
                                     this.aResumoProdutorTotalizador[0].TotFardosMistura   += this.aResumoProdutor[j].TotFardosMistura  ; 
                                     this.aResumoProdutorTotalizador[0].TotFardos_selec      += this.aResumoProdutor[j].TotFardos_selec  ; 
@@ -1705,9 +1606,6 @@ export default {
                                         ELG	:0,
                                         TIPO:0,
                                         TrAr:0,  
-                                        TrCnt : 0,  
-                                        B     : 0,  
-                                        RS    : 0,  
                                         TotFardosMistura:   0,
                                         TotFardos_selec:    0,
                                         TotalTestadoMistura:0,
@@ -1741,10 +1639,6 @@ export default {
                                       this.aEstoqueProdutorTotalizador[0].ELG	   += this.aEstoqueProdutor[j].ELG   ;
                                       this.aEstoqueProdutorTotalizador[0].TIPO   += this.aEstoqueProdutor[j].TIPO  ;
                                       this.aEstoqueProdutorTotalizador[0].TrAr   += this.aEstoqueProdutor[j].TrAr  ; 
-
-                                      this.aEstoqueProdutorTotalizador[0].TrCnt   += this.aEstoqueProdutor[j].TrCnt  ; 
-                                      this.aEstoqueProdutorTotalizador[0].B       += this.aEstoqueProdutor[j].B  ; 
-                                      this.aEstoqueProdutorTotalizador[0].RS      += this.aEstoqueProdutor[j].RS  ;                                       
                                       this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura   += this.aEstoqueProdutor[j].TotalTestadoMistura  ; 
                                       this.aEstoqueProdutorTotalizador[0].TotFardosEstoque += this.aEstoqueProdutor[j].TotFardosEstoque  ; 
                                 
@@ -1780,9 +1674,6 @@ export default {
                                         ELG	:0,
                                         TIPO:0,
                                         TrAr:0,  
-                                        TrCnt : 0,  
-                                        B     : 0,  
-                                        RS    : 0,  
                                         TotFardosMistura:   0,
                                         TotFardos_selec:    0,
                                         TotalTestadoMistura:0,
@@ -1816,10 +1707,6 @@ export default {
                                       this.aResumoQualidadeTotalizador[0].ELG	  += this.aResumoQualidade[j].ELG   ;
                                       this.aResumoQualidadeTotalizador[0].TIPO   += this.aResumoQualidade[j].TIPO  ;
                                       this.aResumoQualidadeTotalizador[0].TrAr   += this.aResumoQualidade[j].TrAr  ; 
-
-                                      this.aResumoQualidadeTotalizador[0].TrCnt   += this.aResumoQualidade[j].TrCnt  ; 
-                                      this.aResumoQualidadeTotalizador[0].B       += this.aResumoQualidade[j].B  ; 
-                                      this.aResumoQualidadeTotalizador[0].RS      += this.aResumoQualidade[j].RS  ;                                         
                     
                                       this.aResumoQualidadeTotalizador[0].TotFardosMistura   += this.aResumoQualidade[j].TotFardosMistura  ; 
                                       this.aResumoQualidadeTotalizador[0].TotFardos_selec      += this.aResumoQualidade[j].TotFardos_selec  ; 
@@ -1859,9 +1746,6 @@ export default {
                                           ELG	:0,
                                           TIPO:0,
                                           TrAr:0,  
-                                          TrCnt : 0,  
-                                          B     : 0,  
-                                          RS    : 0,  
                                           TotFardosMistura:   0,
                                           TotFardos_selec:    0,
                                           TotalTestadoMistura:0,
@@ -1895,12 +1779,6 @@ export default {
                                         this.aEstoqueQualidadeTotalizador[0].ELG	   += this.aEstoqueQualidade[j].ELG   ;
                                         this.aEstoqueQualidadeTotalizador[0].TIPO   += this.aEstoqueQualidade[j].TIPO  ;
                                         this.aEstoqueQualidadeTotalizador[0].TrAr   += this.aEstoqueQualidade[j].TrAr  ; 
-
-                                        this.aEstoqueQualidadeTotalizador[0].TrCnt   += this.aEstoqueQualidade[j].TrCnt  ; 
-                                        this.aEstoqueQualidadeTotalizador[0].B       += this.aEstoqueQualidade[j].B  ; 
-                                        this.aEstoqueQualidadeTotalizador[0].RS      += this.aEstoqueQualidade[j].RS  ;   
-                                        
-                                        
                                         this.aEstoqueQualidadeTotalizador[0].TotalTestadoMistura   += this.aEstoqueQualidade[j].TotalTestadoMistura  ; 
                                         this.aEstoqueQualidadeTotalizador[0].TotFardosEstoque += this.aEstoqueQualidade[j].TotFardosEstoque  ; 
                                   
@@ -1936,11 +1814,7 @@ export default {
                                     this.aResumoMistura[j].TIPO   = this.aResumoMistura[j].TIPO  / this.aResumoMistura[j].TotalTestadoMistura ;
                                     this.aResumoMistura[j].TrAr   = this.aResumoMistura[j].TrAr  / this.aResumoMistura[j].TotalTestadoMistura ; 
                   
-                                    this.aResumoMistura[j].TrCnt	  = this.aResumoMistura[j].TrCnt   / this.aResumoMistura[j].TotalTestadoMistura ;
-                                    this.aResumoMistura[j].B        = this.aResumoMistura[j].B       / this.aResumoMistura[j].TotalTestadoMistura ;
-                                    this.aResumoMistura[j].RS       = this.aResumoMistura[j].RS      / this.aResumoMistura[j].TotalTestadoMistura ; 
-
-
+                  
                           
                                }    
                             
@@ -1968,10 +1842,6 @@ export default {
                                     this.aResumoProdutor[j].ELG	  = this.aResumoProdutor[j].ELG   / this.aResumoProdutor[j].TotalTestadoMistura ;
                                     this.aResumoProdutor[j].TIPO   = this.aResumoProdutor[j].TIPO  / this.aResumoProdutor[j].TotalTestadoMistura ;
                                     this.aResumoProdutor[j].TrAr   = this.aResumoProdutor[j].TrAr  / this.aResumoProdutor[j].TotalTestadoMistura ; 
-
-                                    this.aResumoProdutor[j].TrCnt	  = this.aResumoProdutor[j].TrCnt   / this.aResumoProdutor[j].TotalTestadoMistura ;
-                                    this.aResumoProdutor[j].B        = this.aResumoProdutor[j].B       / this.aResumoProdutor[j].TotalTestadoMistura ;
-                                    this.aResumoProdutor[j].RS       = this.aResumoProdutor[j].RS      / this.aResumoProdutor[j].TotalTestadoMistura ;                                     
                   
                   
                           
@@ -2001,10 +1871,6 @@ export default {
                                     this.aEstoqueProdutor[j].ELG	  = this.aEstoqueProdutor[j].ELG   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
                                     this.aEstoqueProdutor[j].TIPO   = this.aEstoqueProdutor[j].TIPO  / this.aEstoqueProdutor[j].TotalTestadoMistura ;
                                     this.aEstoqueProdutor[j].TrAr   = this.aEstoqueProdutor[j].TrAr  / this.aEstoqueProdutor[j].TotalTestadoMistura ; 
-
-                                    this.aEstoqueProdutor[j].TrCnt	  = this.aEstoqueProdutor[j].TrCnt   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
-                                    this.aEstoqueProdutor[j].B        = this.aEstoqueProdutor[j].B       / this.aEstoqueProdutor[j].TotalTestadoMistura ;
-                                    this.aEstoqueProdutor[j].RS       = this.aEstoqueProdutor[j].RS      / this.aEstoqueProdutor[j].TotalTestadoMistura ;                                     
                   
                   
                           
@@ -2029,10 +1895,6 @@ export default {
                                   this.aEstoqueProdutorTotalizador[0].ELG	   = this.aEstoqueProdutorTotalizador[0].ELG   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
                                   this.aEstoqueProdutorTotalizador[0].TIPO   = this.aEstoqueProdutorTotalizador[0].TIPO  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
                                   this.aEstoqueProdutorTotalizador[0].TrAr   = this.aEstoqueProdutorTotalizador[0].TrAr  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;   
-
-                                  this.aEstoqueProdutorTotalizador[0].TrCnt	  = this.aEstoqueProdutorTotalizador[0].TrCnt   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;
-                                  this.aEstoqueProdutorTotalizador[0].B        = this.aEstoqueProdutorTotalizador[0].B       / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;
-                                  this.aEstoqueProdutorTotalizador[0].RS       = this.aEstoqueProdutorTotalizador[0].RS      / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;                                                                
                   
                             }    
                             
@@ -2054,11 +1916,6 @@ export default {
                                 this.aResumoProdutorTotalizador[0].ELG	   = this.aResumoProdutorTotalizador[0].ELG   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
                                 this.aResumoProdutorTotalizador[0].TIPO   = this.aResumoProdutorTotalizador[0].TIPO  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
                                 this.aResumoProdutorTotalizador[0].TrAr   = this.aResumoProdutorTotalizador[0].TrAr  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;   
-
-                                this.aResumoProdutorTotalizador[0].TrCnt	  = this.aResumoProdutorTotalizador[0].TrCnt   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;
-                                this.aResumoProdutorTotalizador[0].B        = this.aResumoProdutorTotalizador[0].B       / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;
-                                this.aResumoProdutorTotalizador[0].RS       = this.aResumoProdutorTotalizador[0].RS      / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;                                                                
-
                   
                             }           
                    
@@ -2102,12 +1959,6 @@ export default {
                                           ELG	:objProdutor.ELG,
                                           TIPO:objProdutor.TIPO,
                                           TrAr:objProdutor.TrAr,  
-                                          TrCnt:objProdutor.TrCnt,  
-                                          B:objProdutor.B,  
-                                          RS:objProdutor.RS,  
-
-
-
                                           TotFardosMistura:objProdutor.TotFardosMistura,
                                           TotFardos_selec:objProdutor.TotFardos_selec,
                                           TotalTestadoMistura:objProdutor.TotalTestadoMistura,
@@ -2141,9 +1992,6 @@ export default {
                                               ELG	:this.aResumoProdutor[0].ELG,
                                               TIPO:this.aResumoProdutor[0].TIPO,
                                               TrAr:this.aResumoProdutor[0].TrAr,  
-                                              TrCnt:this.aResumoProdutor[0].TrCnt,  
-                                              B:this.aResumoProdutor[0].B,
-                                              RS:this.aResumoProdutor[0].RS,  
                                               TotFardosMistura:this.aResumoProdutor[0].TotFardosMistura,
                                               TotFardos_selec:this.aResumoProdutor[0].TotFardos_selec,
                                               TotalTestadoMistura:this.aResumoProdutor[0].TotalTestadoMistura,

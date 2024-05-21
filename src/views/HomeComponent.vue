@@ -88,8 +88,40 @@
 
             </v-list-group>   
             
+            <v-list-group value="Pilhas" style="color:white" > 
 
-            <!--
+                <template v-slot:activator="{ props }">
+                <v-list-item
+                prepend-icon="mdi-office-building "
+
+                    v-bind="props"
+                    title="Pilhas"
+                    class="item-hover"
+                ></v-list-item>
+                </template> 
+
+                <v-list-item prepend-icon="mdi-arrange-send-backward" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoUnirPilha">Unir</v-list-item>   
+                <v-list-item prepend-icon="mdi-human-male-height" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoLocalizarPilha">Localizar</v-list-item>  
+
+
+            </v-list-group>   
+
+            <v-list-group value="Consultas" style="color:white" > 
+
+                    <template v-slot:activator="{ props }">
+                        <v-list-item
+                            prepend-icon="mdi-content-paste"  
+                            v-bind="props"
+                            title="Consultas"
+                            class="item-hover"
+                        ></v-list-item>
+                    </template>   
+
+                    <v-list-item prepend-icon="mdi-warehouse" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaConsultaEstoque">Estoque</v-list-item>      
+                            
+            </v-list-group>              
+
+            
             <v-list-group value="Autorizações" style="color:white" > 
 
                 <template v-slot:activator="{ props }">
@@ -103,14 +135,12 @@
                 </template> 
 
                 
-                <v-list-item prepend-icon="mdi-account" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaUsuarios" ><b>Usuários</b></v-list-item>            
+             <!--   <v-list-item prepend-icon="mdi-account" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaUsuarios" ><b>Usuários</b></v-list-item>            
                 <v-list-item prepend-icon="mdi-file-account-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaUsuariosLogin">Credenciais</v-list-item>      
+                 -->
                 <v-list-item prepend-icon="mdi-card-account-details-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaTrocarSenha">Trocar Senha</v-list-item>      
                           
-            </v-list-group> 
-            -->
-
-
+            </v-list-group>  
 
              
 
@@ -320,9 +350,13 @@
                 navegarParaUsuariosLogin(){this.$router.push({name:'usuarioLogin' , params : {sistemaProps : 4 ,usuarioProps : '0' , operacao : 'I' }} ) },
                 navegarParaTrocarSenha(){this.$router.push({name:'trocarsenha' , params : {sistemaProps : 4 ,usuarioProps :this.$store.state.usuarioSistema.id  }} ) },
                 navegarParaMovimentacaoEstoque(){this.$router.push({name:'movimentacaoestoque' , params : { fornecedorProps : '0' ,  notaFiscalProps : '0' ,operacao : 'I' }} ) },
-                //navegarParaMisturaPadrao(){this.$router.push({name:'misturapadrao'} ) }, 
                 navegarParaMisturaPadrao(){this.$router.push({name:'acessomisturapadrao', params : {tituloProps :'Mistura Padrao' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'I' } } )},
-                navegarParaBaixarMisturaPadrao(){this.$router.push({name:'acessomisturapadrao', params : {tituloProps :'Descida da Mistura' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'B' } } )},
+                navegarParaBaixarMisturaPadrao(){this.$router.push({name:'baixarmisturapadrao', params : {tituloProps :'Descida da Mistura' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'B' } } )},
+                navegarParaAcessoUnirPilha(){this.$router.push({name:'acessounirpilha', params : {tituloProps :'Unir Pilha' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
+                navegarParaAcessoLocalizarPilha(){this.$router.push({name:'acessolocalizarpilha', params : {tituloProps :'Localizar Fardos' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
+                navegarParaConsultaEstoque(){this.$router.push({name:'consultaestoque'  })}   ,
+              
+
             },
             created() {
 
@@ -616,6 +650,8 @@
             margin-right: 20px;  
             margin-top:20px;
     }
+
+  
 
     .espacoEntreComponentesGrid{
             margin-right: 10px;  

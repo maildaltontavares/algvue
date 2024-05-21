@@ -79,7 +79,7 @@
                                                     class="limitadorMedia"
                                                     :rules="[campoRequerido]" 
                                                     
-                                                    style="background-color:rgb(210, 210, 246); color:black;height:53px;border-radius:0px 5px 5px 0px;"
+                                                    style="background-color:rgb(247, 247, 247);  color:black;height:53px;border-radius:0px 5px 5px 0px;"
                                                 ></v-text-field>   
                                             </div>   
 
@@ -200,7 +200,7 @@
                 </v-card>   
             </div>
         </v-container>
-
+<!--
         <v-container> 
 
             <div class="d-flex justify-content-center" > 
@@ -249,6 +249,61 @@
             </div>
         </v-container> 
 
+-->
+
+              <div class="d-flex justify-content-center" > 
+
+
+                  <MensagemMobile    v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile'  "    class="rodape_mobile"
+                  style=" margin-bottom:60px"
+                  :mensagemSucessoProps="mensagemSucesso" 
+                  :mensagemErroProps="mensagemErro"
+                  :haErrosProps="haErros"
+                  :haSucessoProps= "haSucesso"
+                  />   
+ 
+
+                      <div   class=" elevation-12 rodape_crud2" style=" background-color:rgb(173, 173, 187);"  > 
+                          
+                          <div class=" d-flex justify-space-between " style=" margin-bottom:5px" >  
+
+                              <div class="col-9 "  >
+ 
+
+                                  <p v-if="msgProcessamento != ''" class=" mensagem mensagem_processando" style="font-size: 16px;">
+                                      {{ msgProcessamento }}
+                                  </p>       
+
+                                  <p v-if="haErros && this.$store.state.tipoDispositivo == 'desktop'" class="mensagem mensagem_erro" style="font-size: 20px;">
+                                      {{ mensagemErro }}
+                                  </p>
+                                  <p v-if="haSucesso && this.$store.state.tipoDispositivo == 'desktop'"  class="mensagem mensagem_sucesso" style="font-size: 20px;">
+                                      {{ mensagemSucesso }}
+                                  </p>
+                              </div>             
+
+                              <div class="col-3 div_rodape d-flex justify-content-end"     >
+                                    <v-btn color="primary"  v-if="senhaAlterada" class="botao_rodape" style="min-width: 120px;" accesskey="n"  @click="navegarParaLogin"><u>N</u>ovo login</v-btn> 
+                                    <v-btn color="primary" type="submit" v-if="senhaAlterada==false"  class="botao_rodape" style="min-width: 70px;" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " accesskey="n"  ><u>S</u>alvar</v-btn> 
+
+                              </div>  
+
+
+
+                        
+  
+                          </div>
+                    
+                      </div>   
+
+                            
+                </div>
+
+               
+
+
+
+
     </v-form>     
 
  
@@ -262,6 +317,7 @@
    import { required, helpers } from '@vuelidate/validators'
    import ApiMixinValidator from '@/mixins/ApiMixinValidator'   
    import MensagemMobile  from '../components/MensagemMobileComponent.vue'
+   import ApiMixinALG from '@/mixins/ApiMixinALG'
  
  
    //import Popper from 'vue3-popper'
@@ -336,7 +392,7 @@
             nomeUsuario: { required: helpers.withMessage('Nome do usuario nao informado', required) }
 
         },   
-       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator],
+       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
  
         data: () => ({
             
@@ -555,7 +611,7 @@
 
         async created(){  
 
-            
+            this.scrollToTop();
             this.populaSistema();  
             this.usuario.codigo = this.usuarioProps;
             this.codSistema = Number(this.sistemaProps) 
@@ -572,8 +628,11 @@
            
 
        },
+       mounted(){ 
+       //this.$refs.dataInicial.focus();     
+       this.scrollToTop();
        
-
+       }
 
    }
 

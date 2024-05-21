@@ -7,15 +7,7 @@
            <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
    
                <div  style="width:100%"  > 
-                <!--
-               <v-card rounded="lg" class=" elevation-12" 
-      
-                  :style="{  minWidth:  this.$store.state.larguraCardPesq,
-                                     height:  this.$store.state.alturaCardPesq }" 
-                  
-                  >  
-                    -->
-                   <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
+                    <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
                         
                         <div    class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
@@ -25,29 +17,7 @@
 
 
                         <div class=" d-flex justify-content-end"   style=" height:45px;margin-right: 10px; "  
-                        v-if="this.$store.state.tipoDispositivo == 'desktop' " > 
-
-
-                           <div   class="espacoEntreComponentes">    
-                                        
-                                <v-text-field
-                                    v-model.trim="this.mistura.statusMistura" 
-                                    id="statusMistura"
-                                    label="Status" 
-                                    ref="statusMistura"  
-                                    maxlength="10"                                            
-                                    style=" width: 150px; " 
-                                    variant="outlined"
-                                    bg-color="white"                                           
-                                    type="text"     
-                                    density="compact" 
-                                    disabled
-                                ></v-text-field>                                    
-                                        
-                              
-                           </div>  
-                           
-                           
+                        v-if="this.$store.state.tipoDispositivo == 'desktop' " >   
                            
                                 <v-btn @click="this.pesquisaDados()"   style="height:47px;width:280px;margin-top: 15px;background-color:rgb(240, 237, 232);"
                                 :disabled="acaoDesabilitado"
@@ -70,10 +40,10 @@
 
 
 
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->
-                  <!-- Inicio Painel Manutencao Mistura -->                     
+                  <!-- Inicio Painel Unir Pilhas -->
+                  <!-- Inicio Painel Unir Pilhas -->
+                  <!-- Inicio Painel Unir Pilhas -->
+                  <!-- Inicio Painel Unir Pilhas -->                    
 
 
                   <template v-if="this.acaoSelecionada=='I'">
@@ -82,27 +52,6 @@
    
                         <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
 
-
-                           
-
-
-                              <div   class="espacoEntreComponentes" v-if="this.$store.state.tipoDispositivo != 'desktop' ">    
-                                            
-                                    <v-text-field
-                                        v-model.trim="this.mistura.statusMistura" 
-                                        id="statusMistura"
-                                        label="Status" 
-                                        ref="statusMistura"  
-                                        maxlength="10"                                            
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact" 
-                                        disabled
-                                    ></v-text-field>     
-                                  
-                              </div>   
                         
 
                               <div    class="espacoEntreComponentes"    >  
@@ -126,101 +75,7 @@
 
                               </div>    
       
-                              <div   class="espacoEntreComponentes" v-if = "(this.operMist=='I' || this.operMist=='C' )   ">    
-                                              
-                                    <v-text-field
-
-                                        v-model.trim="this.mistura.numeroMistura" 
-                                        id="numeroMistura"
-                                        label="Mistura" 
-                                        ref="numeroMistura"  
-                                        maxlength="10"                                            
-                                        style=" width: 180px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :disabled="numeroMisturaDesabilitado"   
-                                        
-                                        @blur="preparaMistura()"
-                                        
-                                        
-                                    ></v-text-field>                                    
-                                          
-                                
-                              </div> 
-      
-                              <div    class="espacoEntreComponentes" v-if = "this.operMist=='A'" >  
-                                      
-                                      <v-autocomplete
-                                          
-                                          :items="misturasAbertas"    
-                                          label="Mistura"          
-                                          v-model="this.mistura.numeroMistura"    
-                                          item-title="codigo" 
-                                          item-value="codigo"
-                                          variant="outlined"
-                                          style="width: 180px;"                                       
-                                          :rules="[campoRequerido]" 
-                                          density="compact"
-                                          @blur="preparaMistura()"
-                                          :disabled="numeroMisturaDesabilitado"  
-                                    
-                                          
-                                      ></v-autocomplete> 
-
-                                  </div>  
-
-
-
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.quantidade" 
-                                        class="text-end"
-                                        id="quantidade"
-                                        label="Quantidade" 
-                                        ref="quantidade"   
-                                        style=" width: 170px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"    
-                                        density="compact" 
-                                        inputmode="numeric"  
-                                        :rules="[campoRequerido]"  
-                                        :disabled="quantidadeDesabilitado"  
-                                        @change="calculaCor(aComposicao)"
-        
-                                    ></v-text-field>                                    
-                              </div>                
-                              
-                              
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                        class="text-end"
-                                        id="totalMisturasUtilizadas"
-                                        label="Utilizadas" 
-                                        ref="totalMisturasUtilizadas"   
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"    
-                                        density="compact" 
-                                        inputmode="numeric"  
-                                        disabled
-        
-                                    ></v-text-field>                                    
-                              </div>  
-      
-
-                              <div   class="espacoEntreComponentes">     
+                               <div   class="espacoEntreComponentes">     
 
                                       <v-text-field
                                           v-model.trim="this.mistura.dataInicial" 
@@ -261,96 +116,7 @@
                           
                               </div>         
                               
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                          
-                                        v-model.trim="this.mistura.totalFardos" 
-                                        class="text-end"
-                                        id="totalFardos"
-                                        label="Total de Fardos" 
-                                        ref="totalFardos"   
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"  
-                                        :rules="[campoRequerido]"      
-                                        density="compact" 
-                                        inputmode="numeric" 
-                                        :disabled="totalFardosDesabilitado"    
-        
-                                    ></v-text-field>                                    
-                              </div>  
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.loteFiacao" 
-                                        id="loteFiacao"
-                                        label="Lote Fiação" 
-                                        ref="loteFiacao"  
-                                        maxlength="10"                                            
-                                        style=" width: 170px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :rules="[campoRequerido]" 
-                                        :disabled="loteFiacaoDesabilitado" 
-                                        @blur="buscaLote()"
-                                        
-                                    ></v-text-field>                                    
-                                          
-                                
-                              </div> 
-
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->                        
-
-                              <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
-
-                                  <v-autocomplete
-
-                                      label="Fardos"
-                                      :items="destinoItens"      
-                                      v-model.trim="this.mistura.destino"  
-                                      item-title="descricao" 
-                                      item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 150px; "
-                                      bg-color="white"   
-                                      density="compact"
-                                      :disabled="destinoDesabilitado" 
-                                      :rules="[campoRequerido]"  
-                                      
-                                  ></v-autocomplete> 
-
-                              </div>                           
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.observacao" 
-                                        id="observacao"
-                                        label="Observação" 
-                                        ref="observacao"  
-                                        maxlength="150"                                            
-                                        style=" width: 450px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                        :disabled="observacaoDesabilitado" 
-                                        
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div>     
-
-                              <div   class="espacoEntreComponentes">    
+                               <div   class="espacoEntreComponentes">    
                                               
                                     <v-text-field
 
@@ -372,378 +138,38 @@
                               </div> 
 
 
-                              <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                                  
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="green"
-                                                  icon="mdi-check"
-                                                  size="55"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                        
-                              </div>  
-
-                              <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                          
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="red"
-                                                  icon="mdi-alert-circle-outline"  
-                                                  size="35"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                  
-                              </div> 
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                              <v-text-field
-          
-                                                  v-model.trim="this.nPesoMovimento" 
-                                                  id="pesoMistura"
-                                                  label="Peso" 
-                                                  ref="pesoMistura"  
-                                                  maxlength="150"                                            
-                                                  style=" width: 150px; " 
-                                                  variant="outlined"
-                                                  bg-color="white"                                           
-                                                  type="text"     
-                                                  density="compact"
-                                                  disabled
-                                                  
-                                              ></v-text-field>                                    
-                                                      
-                             </div>   
         
                           </div>      
 
 
                   </template>
+
+                  <!-- Final Painel Unir Pilhas -->
+                  <!-- Final Painel Unir Pilhas -->
+                  <!-- Final Painel Unir Pilhas -->
+                  <!-- Final Painel Unir Pilhas -->                                      
                     
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
-                    <!-- Final Painel Manutencao Mistura -->
-
-
-                  <!-- Inicio Painel Baixar Mistura -->
-                  <!-- Inicio Painel Baixar Mistura -->
-                  <!-- Inicio Painel Baixar Mistura -->
-                  <!-- Inicio Painel Baixar Mistura -->                     
-
-
-                  <template v-if="this.acaoSelecionada=='B'">
-                   
-
-   
-                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
-                     
- 
- 
-                         <div    class="espacoEntreComponentes"   >  
-                                 
-                                 <v-autocomplete
-                                     
-                                     :items="misturasABaixar"    
-                                     label="Mistura"          
-                                     v-model="this.mistura.numeroMistura"    
-                                     item-title="codigo" 
-                                     item-value="codigo"
-                                     variant="outlined"
-                                     style="width: 180px;"                                       
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     @blur="preparaMistura()" 
-                               
-                                     :disabled="misturasABaixarDesabilitado"  
-                                
-                               
-                                     
-                                 ></v-autocomplete> 
-
-                             </div>  
+                    
 
 
 
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.quantidade" 
-                                   class="text-end"
-                                   id="quantidade"
-                                   label="Quantidade" 
-                                   ref="quantidade"   
-                                   style=" width: 170px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"    
-                                   density="compact" 
-                                   inputmode="numeric"  
-                                   :rules="[campoRequerido]"  
-                                   :disabled="quantidadeDesabilitado"  
-                                   @change="calculaCor(aComposicao)"
-   
-                               ></v-text-field>                                    
-                         </div>                
-                         
-                         
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                   class="text-end"
-                                   id="totalMisturasUtilizadas"
-                                   label="Utilizadas" 
-                                   ref="totalMisturasUtilizadas"   
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"    
-                                   density="compact" 
-                                   inputmode="numeric"  
-                                   disabled
-   
-                               ></v-text-field>                                    
-                         </div>  
- 
-
-                         <div   class="espacoEntreComponentes">     
-
-                                 <v-text-field
-                                     v-model.trim="this.mistura.dataInicial" 
-                                     id="dataInicial"
-                                     label="Data Inicial" 
-                                     ref="dataInicial"  
-                                     style=" width: 150px; " 
-                                     variant="outlined"
-                                     bg-color="white" 
-                                     type="date" 
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     disabled
-                                     
-                                 ></v-text-field>      
-                     
-                         </div>           
-
-                         <div   class="espacoEntreComponentes">    
-                                     
-                             
-                                 
-                                 <v-text-field
-                                     v-model.trim="this.mistura.dataFinal" 
-                                     id="dataFinal"
-                                     label="Data Final" 
-                                     ref="dataFinal"  
-                                     style=" width: 150px; " 
-                                     variant="outlined"
-                                     bg-color="white" 
-                                     type="date" 
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     disabled
-                                     
-                                 ></v-text-field>                                    
-                             
-                     
-                         </div>         
-                         
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.totalFardos" 
-                                   class="text-end"
-                                   id="totalFardos"
-                                   label="Total de Fardos" 
-                                   ref="totalFardos"   
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"  
-                                   :rules="[campoRequerido]"      
-                                   density="compact" 
-                                   inputmode="numeric" 
-                                   disabled
-   
-                               ></v-text-field>                                    
-                         </div>  
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                   v-model.trim="this.mistura.loteFiacao" 
-                                   id="loteFiacao"
-                                   label="Lote Fiação" 
-                                   ref="loteFiacao"  
-                                   maxlength="10"                                            
-                                   style=" width: 170px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="number"  
-                                   inputmode="numeric"   
-                                   density="compact"
-                                   :rules="[campoRequerido]" 
-                                   disabled
-                                   
-                                   
-                               ></v-text-field>                                    
-                                     
-                           
-                         </div> 
-
-                         <!-- Meio Painel Baixar Mistura -->
-                         <!-- Meio Painel Baixar Mistura -->
-                         <!-- Meio Painel Baixar Mistura -->
-                         <!-- Meio Painel Baixar Mistura -->                        
-
-                         <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
-
-                             <v-autocomplete
-
-                                 label="Fardos"
-                                 :items="destinoItens"      
-                                 v-model.trim="this.mistura.destino"  
-                                 item-title="descricao" 
-                                 item-value="codigo"
-                                 variant="outlined"
-                                 style=" width: 150px; "
-                                 bg-color="white"   
-                                 density="compact"
-                                 :disabled="destinoDesabilitado" 
-                                 :rules="[campoRequerido]"  
-                                 
-                             ></v-autocomplete> 
-
-                         </div>                           
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                   v-model.trim="this.mistura.observacao" 
-                                   id="observacao"
-                                   label="Observação" 
-                                   ref="observacao"  
-                                   maxlength="150"                                            
-                                   style=" width: 450px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="text"     
-                                   density="compact"
-                                   :disabled="observacaoDesabilitado" 
-                                   
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div>     
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-
-                                   v-model.trim="this.totalFardosMistura" 
-                                   id="numFardos"
-                                   label="Num. Fardos Selec." 
-                                   ref="numFardos"  
-                                   maxlength="150"                                            
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="text"     
-                                   density="compact"
-                                   disabled
-                                   
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div> 
-
-
-                         <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                             
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="green"
-                                             icon="mdi-check"
-                                             size="55"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                                   
-                         </div>  
-
-                         <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                     
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="red"
-                                             icon="mdi-alert-circle-outline"  
-                                             size="35"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                             
-                         </div> 
-
-
-                         <div   class="espacoEntreComponentes">    
-                                              
-                                <v-text-field
-
-                                    v-model.trim="this.nPesoMovimento" 
-                                    id="pesoMistura"
-                                    label="Peso" 
-                                    ref="pesoMistura"  
-                                    maxlength="150"                                            
-                                    style=" width: 150px; " 
-                                    variant="outlined"
-                                    bg-color="white"                                           
-                                    type="text"     
-                                    density="compact"
-                                    disabled
-                                    
-                                ></v-text-field>                                    
-                                                      
-                             </div>                           
-   
-                     </div>      
-
-
-             </template>
-               
-               <!-- Final Painel Baixar Mistura -->
-               <!-- Final Painel Baixar Mistura -->
-               <!-- Final Painel Baixar Mistura -->
-               <!-- Final Painel Baixar Mistura -->
- 
                     <div class="d-flex justify-content-center"  style="margin-left:4%;width:96%;margin-top: 1%;background-color:white" v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' " >  
 
                         <div class="espacoEntreComponentes "   style=" height:45px;margin-bottom:25px"  > 
 
-                            <v-btn @click="this.pesquisaDados()" style="height:47px;width:280px;margin-top: 15px;background-color:rgb(240, 237, 232);" 
-                              :disabled="acaoDesabilitado"
-                              v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' "  >
+                          <v-btn @click="this.pesquisaDados()" style="height:47px;width:280px;margin-top: 15px;background-color:rgb(240, 237, 232);" 
+                            :disabled="acaoDesabilitado"
+                            v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' "  >
 
-                                <v-icon left                                               
-                                    color="primary"
-                                    icon="mdi-plus-box-outline"
-                                    size="45"
-                                ></v-icon> 
+                              <v-icon left                                               
+                                  color="primary"
+                                  icon="mdi-plus-box-outline"
+                                  size="45"
+                              ></v-icon> 
 
-                                <span class="my-auto">{{this.labelPesquisarComposicao}}</span>   
+                              <span class="my-auto">{{this.labelPesquisarComposicao}}</span>   
 
-                            </v-btn>  
+                          </v-btn>  
 
                         </div>    
 
@@ -751,17 +177,17 @@
 
 
                
-                    <!-- /// Resumo Mistura -->  
-                    <!-- /// Resumo Mistura -->
-                    <!-- /// Resumo Mistura -->
-                    <!-- /// Resumo Mistura -->
+                    <!-- /// Resumo Pilha -->  
+                    <!-- /// Resumo Pilha -->
+                    <!-- /// Resumo Pilha -->
+                    <!-- /// Resumo Pilha -->
                     <div class="d-flex justify-content-center"  style=" background-color:white "   >  
                           <div   style=" width:4%;  "> </div>
                           <div class="container-fluid"  style=" height:200px; width:90%; ">
                                 <table class="table table-sm  ">
                                     <thead   >
                                       <tr  style="background-color:cadetblue; color: white;"> 
-                                          <th  colspan="25" style="background-color:cadetblue; text-align:center;font-size:18px; " >RESUMO DA MISTURA</th> 
+                                          <th  colspan="22" style="background-color:cadetblue; text-align:center;font-size:18px; " >RESUMO DA PILHA</th> 
                                       </tr>                                     
                                       <tr  style="background-color:cadetblue; color: white;"> 
                                           <th class="col-1 text-start tabGrid"  >IND </th>  
@@ -778,139 +204,21 @@
                                           <th class="col-1 text-start tabGrid" >SF</th>  
                                           <th class="col-1 text-start tabGrid" >STR</th> 
                                           <th class="col-1 text-start tabGrid" >ELG</th>  
-                                          <th class="col-1 text-start tabGrid" >+B</th> 
-                                          <th class="col-1 text-start tabGrid" >RD</th>                                           
 <!--                                          
                                           <th class="col-1 text-start tabGrid"  >TIPO</th>  
 -->                                          
                                           <th class="col-1 text-start tabGrid" >TrAr</th>  
-                                          <th class="col-1 text-start tabGrid" >TrCnt</th> 
-                                          <th class="col-1 text-end tabGrid" >Estoque</th>  
-                                          <th class="col-1 text-end tabGrid" >Qtde Selec</th>  
-                                          <th class="col-1 text-end tabGrid" >%M</th>  
-                                          <th class="col-1 text-end tabGrid" >%P</th>  
-                                          <th class="col-1 text-end tabGrid" >Testados</th>  
-                                          <th class="col-1 text-end tabGrid" >Não Testados</th> 
+                                          <th class="col-1 text-start tabGrid" >Estoque</th>  
+                                          <th class="col-1 text-start tabGrid" >Qtde Selec</th>  
+                                          <th class="col-1 text-start tabGrid" >%M</th>  
+                                          <th class="col-1 text-start tabGrid" >%P</th>  
+                                          <th class="col-1 text-start tabGrid" >Testados</th>  
+                                          <th class="col-1 text-start tabGrid" >Não Testados</th> 
 
                                       </tr>
                                     </thead>  
 
-                                    <tbody  v-if=" this.totalFardosMistura >0"  >
-                                      <template  v-for="(i,indice) in aResumoMistura" :key="indice">
-    
-
-                                        <tr v-if="i.TotFardos_selec>0" >  
-
-                                          
-                                            <td class="col-1 text-start tabGridCol"  style="color:blue"  >
-                                              {{ 'MIST '  }} 
-                                            </td> 
-
-
-                                            <td class="col-1 text-start tabGridCol"   >
-                                              {{ (i.SAC ).toFixed(1)}} 
-                                            </td> 
-                                        
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TRID).toFixed(1) }}
-                                            </td>  
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.PIM).toFixed(1) }}
-                                            </td>  
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.SC).toFixed(1) }}
-                                            </td>  
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.SCI).toFixed(0) }}
-                                            </td>  
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.MST).toFixed(1) }}
-                                            </td> 
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.MIC).toFixed(2) }}
-                                            </td>    
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.MAT).toFixed(2) }}
-                                            </td>    
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.UHML).toFixed(2) }}
-                                            </td>  
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.UI).toFixed(1) }}
-                                            </td>                                                
- 
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.SF).toFixed(1) }}
-                                            </td>   
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.STR).toFixed(1) }}
-                                            </td>   
-                                            
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.ELG).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.B).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.RS).toFixed(1) }}
-                                            </td>                                                                                         
-               
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TrAr).toFixed(2) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TrCnt).toFixed(2) }}
-                                            </td>                                               
-
-                                            <td class="col-1 text-end tabGridCol" >
-                                              {{ this.apiFormataNumero(i.TotFardosEstoque ,0)}}
-                                            </td>                                            
-
-                                            <td class="col-1 text-end tabGridCol" style="color:blue"  >
-                                              {{ i.TotFardos_selec }}
-                                            </td>    
-
-                                            <td class="col-1 text-end tabGridCol"   >
-                                              {{ ( ((i.TotFardos_selec / this.totalFardosMistura)*100).toFixed(2)) }}
-                                            </td>                                             
-                                           
-
-                                            <td class="col-1 text-end tabGridCol"  style="color:blue"  >
-                                              {{ ( ((i.TotFardos_selec / i.TotFardosEstoque )*100).toFixed(2)) }}
-                                            </td>                                            
- 
-                                            <td class="col-1 text-end tabGridCol"  >
-                                              {{ i.TotalTestadoMistura }}
-                                            </td>                                   
- 
-                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura>0"  >
-                                              {{ i.TotFardos_selec  - i.TotalTestadoMistura }}
-                                            </td> 
-
-                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura<=0"  >
-                                              {{ i.TotFardos_selec  - i.TotalTestadoMistura }}
-                                            </td>                                                                                             
-
-                                        </tr>  
-                                        <!-- Fim linha 01 resumo Mistura-->
-                                        <!-- Fim linha 01 resumo Mistura-->
-                                        <!-- Fim linha 01 resumo Mistura-->
-                                        <!-- Fim linha 01 resumo Mistura-->
-                                        <!-- Fim linha 01 resumo Mistura-->
-
+                                    <tbody  v-if=" this.totalFardosMistura >0"  >  
 
                                         <template  v-for="(i,indice) in aProdutorSelecionado" :key="indice">
     
@@ -969,16 +277,8 @@
                                                 </td>   
                                                 
                                                 <td class="col-1 text-start tabGridCol"  >
-                                                  {{ (i.ELG).toFixed(1) }}  
+                                                  {{ (i.ELG).toFixed(1) }}
                                                 </td>   
-
-                                                <td class="col-1 text-start tabGridCol"  >
-                                                      {{ (i.B).toFixed(1) }}
-                                                </td>   
-
-                                                <td class="col-1 text-start tabGridCol"  >
-                                                     {{ (i.RS).toFixed(1) }}
-                                                </td>                                                 
                                         <!--
                                                 <td class="col-1 text-start tabGridCol"  >
                                                   {{ (i.TIPO).toFixed(2) }}
@@ -987,10 +287,6 @@
                                                 <td class="col-1 text-start tabGridCol"  >
                                                   {{ (i.TrAr).toFixed(2) }}
                                                 </td>   
-
-                                                <td class="col-1 text-start tabGridCol"  >
-                                                  {{ (i.TrCnt).toFixed(2) }}
-                                                </td>                                                   
 
                                                 <td class="col-1 text-end tabGridCol" >
                                                   {{ this.apiFormataNumero(i.TotFardosEstoque ,0) }}
@@ -1023,16 +319,8 @@
 
                                             </tr>  
 
-                                          </template>
-
-
-
-
-
-
-
-
-                                      </template>
+                                          </template> 
+                                      
 
                                     </tbody> 
 
@@ -1041,10 +329,10 @@
                           <div   style=" width:4%;  "> </div>
                     </div>  
 
-                    <!-- ///Final Resumo Mistura -->  
-                    <!-- ///Final Resumo Mistura -->
-                    <!-- ///Final Resumo Mistura -->
-                    <!-- ///Final Resumo Mistura -->
+                    <!-- ///Final Resumo Pilha -->  
+                    <!-- ///Final Resumo Pilha -->
+                    <!-- ///Final Resumo Pilha -->
+                    <!-- ///Final Resumo Pilha -->
                      
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->  
@@ -1352,7 +640,7 @@
                                 <table class="table table-sm  ">
                                     <thead   >
                                       <tr  style="background-color:cadetblue; color: white;"> 
-                                          <th  colspan="25" style="background-color:cadetblue; text-align:center;font-size:18px; " >RESUMO DA MISTURA POR PRODUTOR</th> 
+                                          <th  colspan="22" style="background-color:cadetblue; text-align:center;font-size:18px; " >RESUMO DA MISTURA POR PRODUTOR</th> 
                                       </tr> 
                                       <tr  style="background-color:cadetblue; color: white;"> 
                                           
@@ -1370,13 +658,11 @@
                                           <th class="col-1 text-start tabGrid" >SF</th>  
                                           <th class="col-1 text-start tabGrid" >STR</th> 
                                           <th class="col-1 text-start tabGrid" >ELG</th>  
-                                          <th class="col-1 text-start tabGrid" >+B</th> 
-                                          <th class="col-1 text-start tabGrid" >RD</th>                                           
 <!--                                          
                                           <th class="col-1 text-start tabGrid"  >TIPO</th>  
--->                                          
+-->
+
                                           <th class="col-1 text-start tabGrid" >TrAr</th>  
-                                          <th class="col-1 text-start tabGrid" >TrCnt</th> 
                                           <th class="col-1 text-start tabGrid" >Estoque</th> 
                                           <th class="col-1 text-end tabGrid" >Qtde Selec</th> 
                                           <th class="col-1 text-end tabGrid" >%M</th>  
@@ -1448,14 +734,6 @@
                                             <td class="col-1 text-start tabGridCol"  >
                                               {{ (i.ELG).toFixed(1) }}
                                             </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.B).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.RS).toFixed(1) }}
-                                            </td>                                               
 <!--
                                             <td class="col-1 text-start tabGridCol"  >
                                               {{ (i.TIPO).toFixed(2) }}
@@ -1464,10 +742,6 @@
                                             <td class="col-1 text-start tabGridCol"  >
                                               {{ (i.TrAr).toFixed(2) }}
                                             </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TrCnt).toFixed(2) }}
-                                            </td>                                             
 
                                             <td class="col-1 text-end tabGridCol" >
                                               {{this.apiFormataNumero(i.TotFardosEstoque ,0)}}
@@ -1568,25 +842,9 @@
                                               {{ (i.TIPO).toFixed(2) }}
                                             </td>                                                                                           
                                           -->                
-                                           <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.B).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.RS).toFixed(1) }}
-                                            </td>                                               
-<!--
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TIPO).toFixed(2) }}
-                                            </td>                                                                                           
-                                          -->                
                                             <td class="col-1 text-start tabGridColTotais"  >
                                               {{ (i.TrAr).toFixed(2) }}
                                             </td>   
-
-                                            <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.TrCnt).toFixed(2) }}
-                                            </td> 
 
                                             <td class="col-1 text-end tabGridColTotais" >
                                               {{ this.apiFormataNumero(i.TotFardosEstoque ,0)}}
@@ -1641,8 +899,8 @@
                                 <table class="table table-sm  ">
                                     <thead   >
                                       <tr  style="background-color:cadetblue; color: white;"> 
-                                          <th  colspan="23" style="background-color:cadetblue; text-align:center;font-size:18px; " v-if="this.$store.state.usuarioSistema.idfil != '05'" >ESTOQUE POR PRODUTOR</th> 
-                                          <th  colspan="23" style="background-color:cadetblue; text-align:center;font-size:18px; " v-if="this.$store.state.usuarioSistema.idfil == '05'"  >ESTOQUE POR PRODUTOR -  {{ this.nomeDestino.descricao  }}</th> 
+                                          <th  colspan="20" style="background-color:cadetblue; text-align:center;font-size:18px; " v-if="this.$store.state.usuarioSistema.idfil != '05'" >ESTOQUE POR PRODUTOR</th> 
+                                          <th  colspan="20" style="background-color:cadetblue; text-align:center;font-size:18px; " v-if="this.$store.state.usuarioSistema.idfil == '05'"  >ESTOQUE POR PRODUTOR -  {{ this.nomeDestino.descricao  }}</th> 
                                       </tr> 
                                       <tr  style="background-color:cadetblue; color: white;"> 
                                           
@@ -1659,14 +917,11 @@
                                           <th class="col-1 text-start tabGrid" >UI</th> 
                                           <th class="col-1 text-start tabGrid" >SF</th>  
                                           <th class="col-1 text-start tabGrid" >STR</th> 
-                                          <th class="col-1 text-start tabGrid" >ELG</th> 
-                                          <th class="col-1 text-start tabGrid" >+B</th> 
-                                          <th class="col-1 text-start tabGrid" >RD</th>                                           
+                                          <th class="col-1 text-start tabGrid" >ELG</th>  
 <!--                                          
                                           <th class="col-1 text-start tabGrid"  >TIPO</th>  
 -->                                          
                                           <th class="col-1 text-start tabGrid" >TrAr</th>  
-                                          <th class="col-1 text-start tabGrid" >TrCnt</th> 
                                           <th class="col-1 text-end tabGrid" >Estoque</th> 
                                           <th class="col-1 text-end tabGrid" >%</th> 
                                           <th class="col-1 text-end tabGrid" >Testados</th>  
@@ -1741,24 +996,8 @@
                                               {{ (i.TIPO).toFixed(2) }}
                                             </td>                                                                                           
                                           -->                
-                                          <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.B).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.RS).toFixed(1) }}
-                                            </td>                                               
-<!--
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TIPO).toFixed(2) }}
-                                            </td>                                                                                           
-                                          -->                
                                             <td class="col-1 text-start tabGridCol"  >
                                               {{ (i.TrAr).toFixed(2) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TrCnt).toFixed(2) }}
                                             </td>   
 
                                             <td class="col-1 text-end tabGridCol" style="color:blue"  >
@@ -1857,24 +1096,8 @@
                                               {{ (i.TIPO).toFixed(2) }}
                                             </td>                                                                                           
                                           -->                
-                                           <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.B).toFixed(1) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.RS).toFixed(1) }}
-                                            </td>                                               
-<!--
-                                            <td class="col-1 text-start tabGridCol"  >
-                                              {{ (i.TIPO).toFixed(2) }}
-                                            </td>                                                                                           
-                                          -->                
                                             <td class="col-1 text-start tabGridColTotais"  >
                                               {{ (i.TrAr).toFixed(2) }}
-                                            </td>   
-
-                                            <td class="col-1 text-start tabGridColTotais"  >
-                                              {{ (i.TrCnt).toFixed(2) }}
                                             </td>   
 
                                             <td class="col-1 text-end tabGridColTotais"   >
@@ -2194,14 +1417,14 @@
  
                               <template v-if="this.acaoSelecionada=='I'">                              
 
-                                    <div class="col-3 div_rodape d-flex justify-content-end"     >
+                                    <div class="col-3 div_rodape d-flex justify-content-end"  v-if="this.$store.state.tipoDispositivo == 'desktop'"  >
    
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="l" v-if=" (this.mistura.statusMistura=='A'  || this.mistura.statusMistura==null ||    this.mistura.statusMistura=='' ) && this.mistura.totalFardos == this.totalFardosMistura && this.mistura.numeroMistura!= null && this.mistura.numeroMistura != '' &&  this.totalFardosMistura >0  && this.operMist != 'C'"  @click="exibeModal('liberarProducao','Mistura será gravada com esta composição e liberada para producao. Confirma?',['S','N'],'aviso'  )"><u>L</u>iberar</v-btn> 
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="l" v-if="this.mistura.statusMistura!='A' &&  this.mistura.statusMistura!=null &&  this.mistura.statusMistura!='' && this.operMist == 'A' &&  this.totalFardosMistura >0 "  @click="exibeModal('reabrir','Mistura será reaberta. Confirma?',['S','N'],'aviso'  )"><u>R</u>eabrir</v-btn> 
                                         <v-btn color="secondary" class="botao_rodape" style=" min-width: 70px;"  v-if="(this.mistura.statusMistura=='A'  || this.mistura.statusMistura==null ||    this.mistura.statusMistura=='' ) && this.mistura.totalMisturasUtilizadas==0 && this.acaoDesabilitado==true   && this.mistura.numeroMistura != ''  && this.totalFardosMistura >0  "  accesskey="e"  @click="exibeModal('excluir','Confirma exclusão ?',['S','N'],'aviso'  )"><u>E</u>xcluir</v-btn> 
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"    accesskey="s" @click="submitForm('S')"  v-if="(this.mistura.statusMistura=='A'  || this.mistura.statusMistura==null ||    this.mistura.statusMistura=='' ) && this.acaoDesabilitado==true   && this.operMist != 'C' &&   this.totalFardosMistura >0 "><u>S</u>alvar</v-btn>
                                         
-                                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
+                                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ova Operação</v-btn>                                   
 
                                     </div> 
 <!--
@@ -2234,7 +1457,7 @@
                                 <div class="col-3 div_rodape d-flex justify-content-end"   > 
                                     <!-- @click="exibeModal('confirmaDescida','Confirma descida da mistura?',['S','N'],'sucesso'  )" -->
                                     <v-btn color="secondary" class="botao_rodape" style="min-width: 70px; "  :disabled="confirmaBaixaDesabilitado" @click="confirmaBaixaMistura()" v-if="this.aComposicao.length>0  && this.totalFardosMistura>0"  accesskey="n"   ><u>C</u>onfirmar</v-btn>                                   
-                                    <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>
+                                    <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ova Operação</v-btn>
 
                                 </div> 
 
@@ -2425,7 +1648,6 @@
         aResult:[],
         nomeDestino:'TODOS',
         nPesoMovimento:0,
-        labelNovo:'',
         
          
       }),
@@ -2735,7 +1957,6 @@
                                                 this.apiDisplayMensagem("Lote de fiação não localizado" );
                                                 this.haErros = true; 
                                                 validacaoOk = false;
-                                                return validacaoOk;
                                               }
                                         }else{
                                           validacaoOk = true; 
@@ -2744,14 +1965,12 @@
                                     this.apiDisplayMensagem("Lote de fiação não localizado" );
                                     this.haErros = true;  
                                     validacaoOk = false; 
-                                    return validacaoOk;
                                   } 
                             }else{
 
                                   this.apiDisplayMensagem("Lote de fiação não localizado" );
                                   this.haErros = true;  
                                   validacaoOk = false; 
-                                  return validacaoOk;
                             } 
             
                         })
@@ -2759,7 +1978,6 @@
                           console.log("Erro: ", error);
                           this.haErros = true
                           validacaoOk = false;
-                          return validacaoOk;
                         });  
                         
                 } 
@@ -2954,7 +2172,6 @@
                    // periodoPreenchido  = false; 
                     validacaoOk = false; 
                     this.acaoDesabilitado=false; 
-                    return validacaoOk;
                 } else {      
                   
                          //console.log('BBBBBB')
@@ -2967,7 +2184,6 @@
                                   this.haErros = true;
                                   validacaoOk = false; 
                                   this.acaoDesabilitado=false; 
-                                  return validacaoOk;
                             }  else{
                                  validacaoOk = true;  
                             } 
@@ -2976,7 +2192,6 @@
 
                                validacaoOk = false;  
                                this.acaoDesabilitado=false; 
-                               return validacaoOk;
                         } 
 
 
@@ -2989,7 +2204,6 @@
                                   this.haErros = true;
                                   validacaoOk = false; 
                                   this.acaoDesabilitado=false; 
-                                  return validacaoOk;
 
                             }
 
@@ -2998,7 +2212,6 @@
                                   this.haErros = true;
                                   validacaoOk = false; 
                                   this.acaoDesabilitado=false; 
-                                  return validacaoOk;
 
                             }                            
 
@@ -3007,7 +2220,6 @@
                                   this.haErros = true;
                                   validacaoOk = false; 
                                   this.acaoDesabilitado=false; 
-                                  return validacaoOk;
 
                             }                         
                             
@@ -3024,13 +2236,11 @@
                             if(resposta==false){ 
                                 validacaoOk = false; 
                                 this.acaoDesabilitado=false; 
-                                return validacaoOk;
                             }
                             
                         }else{
                             validacaoOk = false; 
                             this.acaoDesabilitado=false; 
-                            return validacaoOk;
                         }     
                        
                         if(validacaoOk) {
@@ -3159,32 +2369,7 @@
               this.aMisturaItemFinal=[]; 
 
               result = false; 
-
- 
-              let aFardos =  this.aComposicao;  
-
-              // Valida dados do corpo da mistura
-              for (let j = 0; j < aFardos.length; j++) {
-             
-                    if( aFardos[j].qtde < 0 ){  
-                        this.apiDisplayMensagem("Quantidade do lote " + aFardos[j].lote + " do produtor " + aFardos[j].produt +  " inválida" );
-                        this.haErros = true;
-                        validado = false; 
-                        this.confirmaBaixaDesabilitado=false;
-                        return validado;
-                         
-                    }  
-
-                    if( aFardos[j].qtde > 0 && (aFardos[j].qtde > aFardos[j].estoque )){  
-                        this.apiDisplayMensagem("Quantidade do lote " + aFardos[j].lote + " maior que o estoque." );
-                        this.haErros = true;
-                        validado = false;  
-                        this.confirmaBaixaDesabilitado=false;
-                        return validado;
-                    }   
-
-              }  
- 
+           
                if(validado){ 
 
  
@@ -3258,7 +2443,6 @@
                     .catch(error => {
                         console.log("Erro: ", error.response.data); 
                         this.apiDisplayMensagem(error.response.data ) 
-                        return false;
                     });    
 
 
@@ -3296,11 +2480,8 @@
                         this.apiDisplayMensagem("Quantidade do lote " + aFardos[j].lote + " do produtor " + aFardos[j].produt +  " inválida" );
                         this.haErros = true;
                         validado = false; 
-                        return false; 
                          
                     } 
- 
-
 
               }
 
@@ -3310,7 +2491,7 @@
                   validado = false;  
                   this.apiDisplayMensagem('Preencha os campos com críticas.');
                   this.haErros = true;
-                  return false;                  
+                  return;                  
               }  
 
               if(validado){ 
@@ -3474,13 +2655,11 @@
 
                                     this.operMist='A';
                                     this.configuraCampos('A' );   
-                                    return true
                                         
                                 })
                                 .catch(error => {
                                     console.log("Erro: ", error.response.data); 
                                     this.apiDisplayMensagem(error.response.data ) 
-                                    return false
                                 });   
 
                         }else{
@@ -3503,14 +2682,11 @@
                                        this.apiDisplayMensagemSucesso('Mistura alterada e liberada com sucesso.' ) 
                                     }
 
-                                    return true
-
                                         
                                 })
                                 .catch(error => {
                                     console.log("Erro: ", error.response.data); 
                                     this.apiDisplayMensagem(error.response.data ) 
-                                    return false
                                 });   
 
 
@@ -3571,8 +2747,1603 @@
 
 
           
-        },  
+        },
 
+
+        calculaTotais(pComposicao,elemento ){
+           
+          let aFardos =  pComposicao; 
+          let somaFardosMistura;
+          let somaFardosEstoque;
+          let pesoMovimento;
+           
+
+          pesoMovimento = 0;
+          this.nPesoMovimento = 0;
+
+          // Resumo da Mistura
+          let nSAC_RT = 0;
+          let nTRID_RT = 0;
+          let nPIM_RT = 0;
+          let nSC_RT = 0;
+          let nSCI_RT = 0;
+          let nMST_RT = 0;
+          let nMIC_RT = 0;
+          let nMAT_RT = 0;
+          let nUHML_RT = 0;
+          let nUI_RT = 0;                       
+          let nSF_RT = 0;
+          let nSTR_RT = 0;
+          let nELG_RT = 0;
+          let nTIPO_RT = 0;
+          let nTrAr_RT = 0;   
+
+          let nSAC_GERAL  = 0;
+          let nTRID_GERAL  = 0;
+          let nPIM_GERAL  = 0;
+          let nSC_GERAL  = 0;
+          let nSCI_GERAL  = 0;
+          let nMST_GERAL  = 0;
+          let nMIC_GERAL  = 0;
+          let nMAT_GERAL  = 0;
+          let nUHML_GERAL  = 0;
+          let nUI_GERAL  = 0;                       
+          let nSF_GERAL  = 0;
+          let nSTR_GERAL  = 0;
+          let nELG_GERAL  = 0;
+          let nTIPO_GERAL  = 0;
+          let nTrAr_GERAL  = 0;                
+             
+
+
+                               
+          somaFardosMistura = 0;
+          somaFardosEstoque = 0;
+          this.aResumoMistura = [];
+          this.aResumoProdutor = [];
+          this.aResumoProdutorTotalizador=[];
+          this.aProdutorSelecionado=[];
+          this.aResumoQualidade = [];
+          this.aEstoqueProdutor = [];
+          this.aEstoqueQualidade = [];
+          this.aResumoQualidadeTotalizador=[];
+          this.aEstoqueQualidadeTotalizador=[];  
+
+
+          this.aEstoqueProdutorTotalizador = [];
+          this.aEstoqueQualidadeTotalizador = [];          
+          //console.log('calculaTotais')
+          //console.log(pComposicao);
+          //console.log(this.aComposicao);
+          //console.log(elemento);
+
+          for (let j = 0; j < aFardos.length; j++) {  
+             
+                  //console.log(aFardos[j]);
+                  
+                  if(aFardos[j].qtde != null && aFardos[j].qtde > 0 ){
+                      somaFardosMistura+=aFardos[j].qtde;
+                      pesoMovimento += aFardos[j].qtde * aFardos[j].m4PESMED;
+                  }
+
+                  if(aFardos[j].estoque != null && aFardos[j].estoque > 0 ){
+                      somaFardosEstoque+=aFardos[j].estoque;
+                  }                  
+
+                  /// Fardos Selecionados
+                  if(aFardos[j].qtde){ 
+                              
+                        if(aFardos[j].sac){
+                          nSAC_RT = aFardos[j].sac * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].trid){
+                          nTRID_RT= aFardos[j].trid * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].pim){
+                          nPIM_RT= aFardos[j].pim * aFardos[j].qtde
+                        }
+                                        
+
+
+                        if(aFardos[j].sc){
+                          nSC_RT= aFardos[j].sc * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].sic){
+                          nSCI_RT= aFardos[j].sic * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].mst){
+                          nMST_RT= aFardos[j].mst * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].mic){
+                          nMIC_RT= aFardos[j].mic * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].mat){
+                          nMAT_RT= aFardos[j].mat * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].m4UHML){
+                          nUHML_RT= aFardos[j].m4UHML * aFardos[j].qtde
+                        }
+                                    
+
+                        
+                        if(aFardos[j].ui){
+                          nUI_RT= aFardos[j].ui * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].sf){
+                          nSF_RT= aFardos[j].sf * aFardos[j].qtde
+                        }
+                                      
+
+
+                        if(aFardos[j].str){
+                          nSTR_RT= aFardos[j].str * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].elg){
+                          nELG_RT= aFardos[j].elg * aFardos[j].qtde
+                        }
+                                      
+
+
+                        if(aFardos[j].tipo){
+                          nTIPO_RT= aFardos[j].tipo * aFardos[j].qtde
+                        }
+
+
+
+                        if(aFardos[j].m4TRAR){
+                          nTrAr_RT= aFardos[j].m4TRAR * aFardos[j].qtde;
+                        }
+                          
+ 
+                  }else{
+
+
+                        nSAC_RT   = 0;
+                        nTRID_RT  = 0;
+                        nPIM_RT   = 0;
+                        nSC_RT    = 0;
+                        nSCI_RT   = 0;
+                        nMST_RT   = 0;
+                        nMIC_RT   = 0;
+                        nMAT_RT   = 0;
+                        nUHML_RT  = 0;
+                        nUI_RT    = 0;
+                        nSF_RT    = 0;
+                        nSTR_RT   = 0;
+                        nELG_RT   = 0;
+                        nTIPO_RT  = 0;
+                        nTrAr_RT  = 0;  
+
+                  }  // Final possui quantidade selecionada
+
+                  /// Possui estoque
+                  if(aFardos[j].estoque){
+
+                        if(aFardos[j].sac){
+                          nSAC_GERAL  = aFardos[j].sac * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].trid){
+                          nTRID_GERAL= aFardos[j].trid * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].pim){
+                          nPIM_GERAL= aFardos[j].pim * aFardos[j].estoque
+                        }
+                                        
+
+
+                        if(aFardos[j].sc){
+                          nSC_GERAL= aFardos[j].sc * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].sic){
+                          nSCI_GERAL= aFardos[j].sic * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].mst){
+                          nMST_GERAL= aFardos[j].mst * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].mic){
+                          nMIC_GERAL= aFardos[j].mic * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].mat){
+                          nMAT_GERAL= aFardos[j].mat * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].m4UHML){
+                          nUHML_GERAL= aFardos[j].m4UHML * aFardos[j].estoque
+                        }
+                                    
+
+
+                        if(aFardos[j].ui){
+                          nUI_GERAL= aFardos[j].ui * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].sf){
+                          nSF_GERAL= aFardos[j].sf * aFardos[j].estoque
+                        }
+                                      
+
+
+                        if(aFardos[j].str){
+                          nSTR_GERAL= aFardos[j].str * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].elg){
+                          nELG_GERAL= aFardos[j].elg * aFardos[j].estoque
+                        }
+                                      
+
+
+                        if(aFardos[j].tipo){
+                          nTIPO_GERAL= aFardos[j].tipo * aFardos[j].estoque
+                        }
+
+
+
+                        if(aFardos[j].m4TRAR){
+                          nTrAr_GERAL= aFardos[j].m4TRAR * aFardos[j].estoque;
+                        }		 
+
+
+                  }else{
+
+
+                       nSAC_GERAL  = 0;                      
+                       nTRID_GERAL =  0; 
+                       nPIM_GERAL  =  0; 
+                       nSC_GERAL   =  0; 
+                       nSCI_GERAL  =  0; 
+                       nMST_GERAL  =  0; 
+                       nMIC_GERAL  =  0; 
+                       nMAT_GERAL  =  0; 
+                       nUHML_GERAL =  0; 
+                       nUI_GERAL   =  0; 
+                       nSF_GERAL   =  0; 
+                       nSTR_GERAL  =  0; 
+                       nELG_GERAL  =  0; 
+                       nTIPO_GERAL =  0; 
+                       nTrAr_GERAL =  0; 
+
+
+
+                  } /// Final possui estoque          
+
+
+
+                  // Lote Testado
+                  if ((aFardos[j].mic != null && aFardos[j].mic  > 0 ) ||
+                      (aFardos[j].uhml!= null && aFardos[j].uhml > 0 ) ||
+                      (aFardos[j].sic!= null  && aFardos[j].sic  > 0 ) ||
+                      (aFardos[j].mat!= null  && aFardos[j].mat  > 0 ) 
+                  ){ 
+
+
+                          //// Estoque por Qualidade
+                          let objEstQual = this.aEstoqueQualidade.find(objEstQual => objEstQual.qualidade === aFardos[j].m4QUAL); 
+                           
+
+                          if (objEstQual) { 
+                          
+                                    objEstQual.TotalTestadoMistura     += aFardos[j].estoque;  
+                                    objEstQual.TotFardosEstoque     += aFardos[j].estoque;  
+                          }else{ 
+
+                                  let objEstkQualidade = {
+                                    
+                                          qualidade: aFardos[j].m4QUAL, 
+                                          TotalTestadoMistura:aFardos[j].estoque,
+                                          TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                }
+
+                                this.aEstoqueQualidade.push(objEstkQualidade);  
+                          }  
+
+
+
+
+
+
+
+                          //// Estoque por produtor
+                          let objEstProd = this.aEstoqueProdutor.find(objEstProd => objEstProd.produtor === aFardos[j].produt); 
+                           
+
+                          if (objEstProd) {
+          
+                                    objEstProd.SAC  += nSAC_GERAL;
+                                    objEstProd.TRID += nTRID_GERAL;
+                                    objEstProd.PIM  += nPIM_GERAL;
+                                    objEstProd.SC   += nSC_GERAL; 
+                                    objEstProd.SCI  += nSCI_GERAL;
+                                    objEstProd.MST  += nMST_GERAL;
+                                    objEstProd.MIC  += nMIC_GERAL;
+                                    objEstProd.MAT += nMAT_GERAL,
+                                    objEstProd.UHML += nUHML_GERAL;
+                                    objEstProd.UI   += nUI_GERAL;                       
+                                    objEstProd.SF   += nSF_GERAL;
+                                    objEstProd.STR  += nSTR_GERAL;
+                                    objEstProd.ELG  += nELG_GERAL;
+                                    objEstProd.TIPO += nTIPO_GERAL;
+                                    objEstProd.TrAr += nTrAr_GERAL;  
+                                    objEstProd.TotalTestadoMistura  += aFardos[j].estoque;
+                                    objEstProd.TotFardosEstoque     += aFardos[j].estoque;  
+                                    
+                                    //console.log(this.aResumoMistura); 
+
+  
+                          }else{
+
+
+                                  let objEstkProdutor = {
+                                    
+                                          produtor: aFardos[j].produt,
+                                          SAC:nSAC_GERAL,
+                                          TRID:nTRID_GERAL,
+                                          PIM:nPIM_GERAL,
+                                          SC:nSC_GERAL,
+                                          SCI:nSCI_GERAL,
+                                          MST:nMST_GERAL,
+                                          MIC:nMIC_GERAL,
+                                          MAT:nMAT_GERAL,
+                                          UHML:nUHML_GERAL,
+                                          UI  :nUI_GERAL,                       
+                                          SF	:nSF_GERAL,
+                                          STR	:nSTR_GERAL,
+                                          ELG	:nELG_GERAL,
+                                          TIPO:nTIPO_GERAL,
+                                          TrAr:nTrAr_GERAL,  
+                                          TotFardosMistura:   0,
+                                          TotFardos_selec:    0,
+                                          TotalTestadoMistura:aFardos[j].estoque,
+                                          TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                }
+
+                                this.aEstoqueProdutor.push(objEstkProdutor); 
+
+                          }  
+
+
+
+
+
+    
+                          if(aFardos[j].qtde){
+                                
+                              // Com quantidade seleciona e testado
+                              //// Mistura Completa
+                              let objMistura = this.aResumoMistura.find(objMistura => objMistura.mistura === this.mistura.numeroMistura); 
+
+                              if (objMistura) {
+              
+                                        objMistura.SAC  += nSAC_RT;
+                                        objMistura.TRID += nTRID_RT;
+                                        objMistura.PIM  += nPIM_RT;
+                                        objMistura.SC   += nSC_RT; 
+                                        objMistura.SCI  += nSCI_RT,
+                                        objMistura.MST  += nMST_RT,
+                                        objMistura.MIC  += nMIC_RT,
+                                        objMistura.MAT += nMAT_RT,
+                                        objMistura.UHML += nUHML_RT,
+                                        objMistura.UI   += nUI_RT,                       
+                                        objMistura.SF   += nSF_RT,
+                                        objMistura.STR  += nSTR_RT,
+                                        objMistura.ELG  += nELG_RT,
+                                        objMistura.TIPO += nTIPO_RT,
+                                        objMistura.TrAr += nTrAr_RT 
+                                        objMistura.TotFardosMistura     += aFardos[j].qtde;
+                                        objMistura.TotFardos_selec      += aFardos[j].qtde;
+                                        objMistura.TotalTestadoMistura  += aFardos[j].qtde;
+                                        objMistura.TotFardosEstoque     += aFardos[j].estoque;  
+                                        
+                                        //console.log(this.aResumoMistura); 
+
+      
+                              }else{
+
+
+                                      let objResumoMistura = {
+                                        
+                                              mistura: this.mistura.numeroMistura,
+                                              SAC:nSAC_RT,
+                                              TRID:nTRID_RT,
+                                              PIM:nPIM_RT,
+                                              SC:nSC_RT,
+                                              SCI:nSCI_RT,
+                                              MST:nMST_RT,
+                                              MIC:nMIC_RT,
+                                              MAT:nMAT_RT,
+                                              UHML:nUHML_RT,
+                                              UI  :nUI_RT,                       
+                                              SF	:nSF_RT,
+                                              STR	:nSTR_RT,
+                                              ELG	:nELG_RT,
+                                              TIPO:nTIPO_RT,
+                                              TrAr:nTrAr_RT,  
+                                              TotFardosMistura:   aFardos[j].qtde,
+                                              TotFardos_selec:    aFardos[j].qtde,
+                                              TotalTestadoMistura:aFardos[j].qtde,
+                                              TotFardosEstoque:   aFardos[j].estoque,                                       
+
+                                    }
+
+                                    this.aResumoMistura.push(objResumoMistura); 
+
+                              }  
+
+
+                              //// Produtor
+                              let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  aFardos[j].produt); 
+
+                              if (objProdutor) {
+              
+                                        objProdutor.SAC  += nSAC_RT;
+                                        objProdutor.TRID += nTRID_RT;
+                                        objProdutor.PIM  += nPIM_RT;
+                                        objProdutor.SC   += nSC_RT; 
+                                        objProdutor.SCI  += nSCI_RT,
+                                        objProdutor.MST  += nMST_RT,
+                                        objProdutor.MIC  += nMIC_RT,
+                                        objProdutor.MAT += nMAT_RT,
+                                        objProdutor.UHML += nUHML_RT,
+                                        objProdutor.UI   += nUI_RT,                       
+                                        objProdutor.SF   += nSF_RT,
+                                        objProdutor.STR  += nSTR_RT,
+                                        objProdutor.ELG  += nELG_RT,
+                                        objProdutor.TIPO += nTIPO_RT,
+                                        objProdutor.TrAr += nTrAr_RT 
+                                        objProdutor.TotFardosMistura     += aFardos[j].qtde;
+                                        objProdutor.TotFardos_selec      += aFardos[j].qtde;
+                                        objProdutor.TotalTestadoMistura  += aFardos[j].qtde;
+                                        objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
+                                        
+                                        //console.log(this.aResumoMistura); 
+
+      
+                              }else{
+
+
+                                      let objResumoProdutor = {
+                                        
+                                              produtor: aFardos[j].produt,
+                                              SAC:nSAC_RT,
+                                              TRID:nTRID_RT,
+                                              PIM:nPIM_RT,
+                                              SC:nSC_RT,
+                                              SCI:nSCI_RT,
+                                              MST:nMST_RT,
+                                              MIC:nMIC_RT,
+                                              MAT:nMAT_RT,
+                                              UHML:nUHML_RT,
+                                              UI  :nUI_RT,                       
+                                              SF	:nSF_RT,
+                                              STR	:nSTR_RT,
+                                              ELG	:nELG_RT,
+                                              TIPO:nTIPO_RT,
+                                              TrAr:nTrAr_RT,  
+                                              TotFardosMistura:   aFardos[j].qtde,
+                                              TotFardos_selec:    aFardos[j].qtde,
+                                              TotalTestadoMistura:aFardos[j].qtde,
+                                              TotFardosEstoque:   aFardos[j].estoque,                                       
+
+                                    }
+
+                                    this.aResumoProdutor.push(objResumoProdutor); 
+
+                              }  
+
+
+
+
+                              //// Qualidade
+                              let objQualidade = this.aResumoQualidade.find(objQualidade => objQualidade.qualidade ===  aFardos[j].m4QUAL); 
+
+                              if (objQualidade) {
+              
+                                        objQualidade.SAC  += nSAC_RT;
+                                        objQualidade.TRID += nTRID_RT;
+                                        objQualidade.PIM  += nPIM_RT;
+                                        objQualidade.SC   += nSC_RT; 
+                                        objQualidade.SCI  += nSCI_RT,
+                                        objQualidade.MST  += nMST_RT,
+                                        objQualidade.MIC  += nMIC_RT,
+                                        objQualidade.MAT += nMAT_RT,
+                                        objQualidade.UHML += nUHML_RT,
+                                        objQualidade.UI   += nUI_RT,                       
+                                        objQualidade.SF   += nSF_RT,
+                                        objQualidade.STR  += nSTR_RT,
+                                        objQualidade.ELG  += nELG_RT,
+                                        objQualidade.TIPO += nTIPO_RT,
+                                        objQualidade.TrAr += nTrAr_RT 
+                                        objQualidade.TotFardosMistura     += aFardos[j].qtde;
+                                        objQualidade.TotFardos_selec      += aFardos[j].qtde;
+                                        objQualidade.TotalTestadoMistura  += aFardos[j].qtde;
+                                        objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
+                                        
+                                        //console.log(this.aResumoMistura); 
+
+      
+                              }else{
+
+
+                                      let objResumoQualidade = {
+                                        
+                                              qualidade: aFardos[j].m4QUAL,
+                                              SAC:nSAC_RT,
+                                              TRID:nTRID_RT,
+                                              PIM:nPIM_RT,
+                                              SC:nSC_RT,
+                                              SCI:nSCI_RT,
+                                              MST:nMST_RT,
+                                              MIC:nMIC_RT,
+                                              MAT:nMAT_RT,
+                                              UHML:nUHML_RT,
+                                              UI  :nUI_RT,                       
+                                              SF	:nSF_RT,
+                                              STR	:nSTR_RT,
+                                              ELG	:nELG_RT,
+                                              TIPO:nTIPO_RT,
+                                              TrAr:nTrAr_RT,  
+                                              TotFardosMistura:   aFardos[j].qtde,
+                                              TotFardos_selec:    aFardos[j].qtde,
+                                              TotalTestadoMistura:aFardos[j].qtde,
+                                              TotFardosEstoque:   aFardos[j].estoque,                                       
+
+                                    }
+
+                                    this.aResumoQualidade.push(objResumoQualidade); 
+
+                              }  
+
+
+
+
+
+
+                          
+                          }else {    // Final com/sem quantidade selecionada
+
+                                  
+                                  // // Sem quantidade selecionada e testado
+                                  //// Mistura
+                                  let objMistura = this.aResumoMistura.find(objMistura => objMistura.mistura === this.mistura.numeroMistura); 
+
+                                  if (objMistura) {
+                                            
+                                       objMistura.TotFardosEstoque     += aFardos[j].estoque;  
+          
+                                  }else{
+
+
+                                          let objResumoMistura = {
+                                            
+                                                  mistura: this.mistura.numeroMistura,
+                                                  SAC:0,
+                                                  TRID:0,
+                                                  PIM:0,
+                                                  SC:0,
+                                                  SCI:0,
+                                                  MST:0,
+                                                  MIC:0,
+                                                  MAT:0,
+                                                  UHML:0,
+                                                  UI  :0,                       
+                                                  SF	:0,
+                                                  STR	:0,
+                                                  ELG	:0,
+                                                  TIPO:0,
+                                                  TrAr:0,  
+                                                  TotFardosMistura:   0,
+                                                  TotFardos_selec:    0,
+                                                  TotalTestadoMistura:0,
+                                                  TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                        }
+
+                                        this.aResumoMistura.push(objResumoMistura); 
+
+                                  }  
+
+                                  // // Sem quantidade selecionada e testado
+                                  //// Produtor
+                                  let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  aFardos[j].produt); 
+
+                                  if (objProdutor) {
+                                            
+                                        objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
+          
+                                  }else{
+
+
+                                          let objResumoProdutor = {
+                                            
+                                                  produtor: aFardos[j].produt,
+                                                  SAC:0,
+                                                  TRID:0,
+                                                  PIM:0,
+                                                  SC:0,
+                                                  SCI:0,
+                                                  MST:0,
+                                                  MIC:0,
+                                                  MAT:0,
+                                                  UHML:0,
+                                                  UI  :0,                       
+                                                  SF	:0,
+                                                  STR	:0,
+                                                  ELG	:0,
+                                                  TIPO:0,
+                                                  TrAr:0,  
+                                                  TotFardosMistura:   0,
+                                                  TotFardos_selec:    0,
+                                                  TotalTestadoMistura:0,
+                                                  TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                        }
+
+                                        this.aResumoProdutor.push(objResumoProdutor); 
+
+                                  }                                    
+                                  //// Qualidade
+                                  let objQualidade = this.aResumoQualidade.find(objQualidade => objQualidade.qualidade ===  aFardos[j].m4QUAL); 
+
+                                  if (objQualidade) {
+                                            
+                                         objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
+          
+                                  }else{
+
+
+                                          let objResumoQualidade = {
+                                            
+                                                  qualidade: aFardos[j].m4QUAL,
+                                                  SAC:0,
+                                                  TRID:0,
+                                                  PIM:0,
+                                                  SC:0,
+                                                  SCI:0,
+                                                  MST:0,
+                                                  MIC:0,
+                                                  MAT:0,
+                                                  UHML:0,
+                                                  UI  :0,                       
+                                                  SF	:0,
+                                                  STR	:0,
+                                                  ELG	:0,
+                                                  TIPO:0,
+                                                  TrAr:0,  
+                                                  TotFardosMistura:   0,
+                                                  TotFardos_selec:    0,
+                                                  TotalTestadoMistura:0,
+                                                  TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                        }
+
+                                        this.aResumoQualidade.push(objResumoQualidade); 
+
+                                  }    
+
+                          } // Final com quantidade selecionada
+
+
+                  }else{  //// Nao testados
+
+
+
+                          //// Estoque por qualidade
+                          let objEstQual = this.aEstoqueQualidade.find(objEstQual => objEstQual.qualidade === aFardos[j].m4QUAL); 
+                           
+
+                          if (objEstQual) { 
+                                 objEstQual.TotFardosEstoque     += aFardos[j].estoque;  
+                          }else{ 
+
+                                  let objEstkQualidade = {
+                                    
+                                          qualidade: aFardos[j].m4QUAL, 
+                                          TotalTestadoMistura:0,
+                                          TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                }
+
+                                this.aEstoqueQualidade.push(objEstkQualidade);  
+                          }  
+
+
+
+                          //// Estoque por produtor
+                          let objEstProd = this.aEstoqueProdutor.find(objEstProd => objEstProd.produtor === aFardos[j].produt); 
+                           
+
+                          if (objEstProd) { 
+                                    objEstProd.TotFardosEstoque     += aFardos[j].estoque;   
+                          }else{
+
+
+                                  let objEstkProdutor = {
+                                    
+                                        produtor: aFardos[j].produt,
+                                        SAC:0,
+                                        TRID:0,
+                                        PIM:0,
+                                        SC:0,
+                                        SCI:0,
+                                        MST:0,
+                                        MIC:0,
+                                        MAT:0,
+                                        UHML:0,
+                                        UI  :0,                       
+                                        SF	:0,
+                                        STR	:0,
+                                        ELG	:0,
+                                        TIPO:0,
+                                        TrAr:0,  
+                                        TotFardosMistura:   0,
+                                        TotFardos_selec:    0,
+                                        TotalTestadoMistura:0,
+                                        TotFardosEstoque:   aFardos[j].estoque                                        
+
+                                }
+
+                                this.aEstoqueProdutor.push(objEstkProdutor); 
+
+                          }  
+ 
+
+                          //console.log('Forma Array Produtor 3333')
+                          /// Sem teste
+                           if(aFardos[j].qtde){
+                                
+                                // Com quantidade seleciona e testado
+  
+                                let objMistura = this.aResumoMistura.find(objMistura => objMistura.mistura === this.mistura.numeroMistura); 
+  
+                                if (objMistura) {
+                
+                                      
+                                          objMistura.TotFardosMistura     += aFardos[j].qtde;
+                                          objMistura.TotFardos_selec      += aFardos[j].qtde;                                          
+                                          objMistura.TotFardosEstoque     += aFardos[j].estoque;   
+  
+        
+                                }else{
+  
+  
+                                        let objResumoMistura = {
+
+                                                 mistura: this.mistura.numeroMistura,
+                                                 SAC:0,
+                                                 TRID:0,
+                                                 PIM:0,
+                                                 SC:0,
+                                                 SCI:0,
+                                                 MST:0,
+                                                 MIC:0,
+                                                 MAT:0,
+                                                 UHML:0,
+                                                 UI  :0,                       
+                                                 SF	:0,
+                                                 STR	:0,
+                                                 ELG	:0,
+                                                 TIPO:0,
+                                                 TrAr:0,  
+                                                 TotFardosMistura:   aFardos[j].qtde,
+                                                 TotFardos_selec:    aFardos[j].qtde,
+                                                 TotalTestadoMistura: 0,
+                                                 TotFardosEstoque:   aFardos[j].estoque,                                       
+  
+                                      }
+  
+                                      this.aResumoMistura.push(objResumoMistura); 
+  
+                                }  
+
+                                /// Produtor
+                                let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  aFardos[j].produt); 
+
+                                if (objProdutor) {
+                
+                                          //console.log('Forma Array Produtor 2222')
+                                          objProdutor.TotFardosMistura     += aFardos[j].qtde;
+                                          objProdutor.TotFardos_selec      += aFardos[j].qtde;                                          
+                                          objProdutor.TotFardosEstoque     += aFardos[j].estoque;   
+
+                                          //console.log(this.aResumoProdutor)
+  
+        
+                                }else{
+  
+                                        //console.log('Forma Array Produtor 1111')
+
+                                        let objResumoProdutor = {
+
+                                                 produtor: aFardos[j].produt,
+                                                 SAC:0,
+                                                 TRID:0,
+                                                 PIM:0,
+                                                 SC:0,
+                                                 SCI:0,
+                                                 MST:0,
+                                                 MIC:0,
+                                                 MAT:0,
+                                                 UHML:0,
+                                                 UI  :0,                       
+                                                 SF	:0,
+                                                 STR	:0,
+                                                 ELG	:0,
+                                                 TIPO:0,
+                                                 TrAr:0,  
+                                                 TotFardosMistura:   aFardos[j].qtde,
+                                                 TotFardos_selec:    aFardos[j].qtde,
+                                                 TotalTestadoMistura: 0,
+                                                 TotFardosEstoque:   aFardos[j].estoque,                                       
+  
+                                      }
+  
+                                      this.aResumoProdutor.push(objResumoProdutor); 
+                                      //console.log(this.aResumoProdutor)
+  
+                                }  
+
+
+
+                                /// Qualidade
+                                let objQualidade= this.aResumoQualidade.find(objQualidade => objQualidade.qualidade ===  aFardos[j].m4QUAL); 
+
+                                if (objQualidade) {
+                
+                                          //console.log('Forma Array Produtor 2222')
+                                          objQualidade.TotFardosMistura     += aFardos[j].qtde;
+                                          objQualidade.TotFardos_selec      += aFardos[j].qtde;                                          
+                                          objQualidade.TotFardosEstoque     += aFardos[j].estoque;   
+
+                                          
+  
+        
+                                }else{
+  
+                                       
+
+                                        let objResumoQualidade = {
+
+                                                 qualidade: aFardos[j].m4QUAL,
+                                                 SAC:0,
+                                                 TRID:0,
+                                                 PIM:0,
+                                                 SC:0,
+                                                 SCI:0,
+                                                 MST:0,
+                                                 MIC:0,
+                                                 MAT:0,
+                                                 UHML:0,
+                                                 UI  :0,                       
+                                                 SF	:0,
+                                                 STR	:0,
+                                                 ELG	:0,
+                                                 TIPO:0,
+                                                 TrAr:0,  
+                                                 TotFardosMistura:   aFardos[j].qtde,
+                                                 TotFardos_selec:    aFardos[j].qtde,
+                                                 TotalTestadoMistura: 0,
+                                                 TotFardosEstoque:   aFardos[j].estoque,                                       
+  
+                                      }
+  
+                                      this.aResumoQualidade.push(objResumoQualidade); 
+                            
+  
+                                }  
+
+                            
+                            }else {    // Final com  quantidade selecionada
+  
+                                    
+                                    // // Sem quantidade seleciona e testado
+                                    //// Mistura
+                                    let objMistura = this.aResumoMistura.find(objMistura => objMistura.mistura === this.mistura.numeroMistura); 
+  
+                                    if (objMistura) { 
+   
+                                              objMistura.TotFardosEstoque     += aFardos[j].estoque;  
+            
+                                    }else{
+  
+  
+                                            let objResumoMistura = {
+                                              
+                                                    mistura: this.mistura.numeroMistura,
+                                                    SAC:0,
+                                                    TRID:0,
+                                                    PIM:0,
+                                                    SC:0,
+                                                    SCI:0,
+                                                    MST:0,
+                                                    MIC:0,
+                                                    MAT:0,
+                                                    UHML:0,
+                                                    UI  :0,                       
+                                                    SF	:0,
+                                                    STR	:0,
+                                                    ELG	:0,
+                                                    TIPO:0,
+                                                    TrAr:0,  
+                                                    TotFardosMistura:   0,
+                                                    TotFardos_selec:    0,
+                                                    TotalTestadoMistura:0,
+                                                    TotFardosEstoque:   aFardos[j].estoque                                        
+  
+                                          }
+  
+                                          this.aResumoMistura.push(objResumoMistura); 
+  
+                                    }  
+
+                                    // // Sem quantidade selecionada e testado
+                                
+                                    /// Produtor
+                                    let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  aFardos[j].produt); 
+
+                                    if (objProdutor) {
+   
+                                            objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
+            
+                                    }else{
+  
+  
+                                            let objResumoProdutor = {
+                                              
+                                                    produtor: aFardos[j].produt,
+                                                    SAC:0,
+                                                    TRID:0,
+                                                    PIM:0,
+                                                    SC:0,
+                                                    SCI:0,
+                                                    MST:0,
+                                                    MIC:0,
+                                                    MAT:0,
+                                                    UHML:0,
+                                                    UI  :0,                       
+                                                    SF	:0,
+                                                    STR	:0,
+                                                    ELG	:0,
+                                                    TIPO:0,
+                                                    TrAr:0,  
+                                                    TotFardosMistura:   0,
+                                                    TotFardos_selec:    0,
+                                                    TotalTestadoMistura:0,
+                                                    TotFardosEstoque:   aFardos[j].estoque                                        
+  
+                                          }
+  
+                                          this.aResumoProdutor.push(objResumoProdutor); 
+  
+                                    }                                  
+                                    
+                                    /// Qualidade
+                                    let objQualidade = this.aResumoQualidade.find(objQualidade => objQualidade.produtor ===  aFardos[j].m4QUAL); 
+
+                                    if (objQualidade) {
+   
+                                           objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
+            
+                                    }else{
+  
+  
+                                            let objResumoQualidade = {
+                                              
+                                                    produtor: aFardos[j].produt,
+                                                    SAC:0,
+                                                    TRID:0,
+                                                    PIM:0,
+                                                    SC:0,
+                                                    SCI:0,
+                                                    MST:0,
+                                                    MIC:0,
+                                                    MAT:0,
+                                                    UHML:0,
+                                                    UI  :0,                       
+                                                    SF	:0,
+                                                    STR	:0,
+                                                    ELG	:0,
+                                                    TIPO:0,
+                                                    TrAr:0,  
+                                                    TotFardosMistura:   0,
+                                                    TotFardos_selec:    0,
+                                                    TotalTestadoMistura:0,
+                                                    TotFardosEstoque:   aFardos[j].estoque                                        
+  
+                                          }
+  
+                                          this.aResumoQualidade.push(objResumoQualidade); 
+  
+                                    }                                       
+
+  
+  
+                            } // Final com/sem quantidade selecionada
+
+                  } // Final dos testados/nao testados
+ 
+              
+          } // Fim do for principal
+
+
+
+          if(elemento.qtde  != 0 ){
+                if(this.acaoSelecionada=='B'){
+                      if((this.mistura.quantidade!=elemento.total_mist_util) && elemento.qtde  >0 ){ 
+                            if(( elemento.disponivel -  elemento.qtde) >= 0  ){
+                              elemento.corLinha ="white";
+                            }else{
+                              elemento.corLinha ="AntiqueWhite";
+                            }
+                        }
+
+                }else{  
+                        if((this.mistura.quantidade!=elemento.total_mist_util) && elemento.qtde  >0 ){ 
+                            if(( elemento.disponivel - (elemento.qtde * (this.mistura.quantidade-elemento.total_mist_util)) ) >= 0  ){
+                              elemento.corLinha ="white";
+                            }else{
+                              elemento.corLinha ="AntiqueWhite";
+                            }
+                        }
+                } 
+          }else{
+            elemento.corLinha ="white";
+          }
+
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Produtor
+
+
+            let objResumo  = {
+                                                
+                    produtor: '',
+                    SAC:0,
+                    TRID:0,
+                    PIM:0,
+                    SC:0,
+                    SCI:0,
+                    MST:0,
+                    MIC:0,
+                    MAT:0,
+                    UHML:0,
+                    UI  :0,                       
+                    SF	:0,
+                    STR	:0,
+                    ELG	:0,
+                    TIPO:0,
+                    TrAr:0,  
+                    TotFardosMistura:   0,
+                    TotFardos_selec:    0,
+                    TotalTestadoMistura:0,
+                    TotFardosEstoque:  0                                       
+
+          }
+
+          this.aResumoProdutorTotalizador.push(objResumo);  
+
+
+          for (let j = 0; j < this.aResumoProdutor.length; j++) {  
+              
+              //console.log(aFardos[j]);
+              
+              
+
+                
+                  this.aResumoProdutorTotalizador[0].produtor = 'TOTAIS:';
+                  this.aResumoProdutorTotalizador[0].SAC    += this.aResumoProdutor[j].SAC   ;
+                  this.aResumoProdutorTotalizador[0].TRID   += this.aResumoProdutor[j].TRID  ;
+                  this.aResumoProdutorTotalizador[0].PIM    += this.aResumoProdutor[j].PIM   ;
+                  this.aResumoProdutorTotalizador[0].SC     += this.aResumoProdutor[j].SC    ;
+                  this.aResumoProdutorTotalizador[0].SCI    += this.aResumoProdutor[j].SCI   ;
+                  this.aResumoProdutorTotalizador[0].MST    += this.aResumoProdutor[j].MST   ;
+                  this.aResumoProdutorTotalizador[0].MIC    += this.aResumoProdutor[j].MIC   ;
+                  this.aResumoProdutorTotalizador[0].MAT    += this.aResumoProdutor[j].MAT   ;
+                  this.aResumoProdutorTotalizador[0].UHML   += this.aResumoProdutor[j].UHML  ;
+                  this.aResumoProdutorTotalizador[0].UI     += this.aResumoProdutor[j].UI    ;                       
+                  this.aResumoProdutorTotalizador[0].SF	    += this.aResumoProdutor[j].SF    ;
+                  this.aResumoProdutorTotalizador[0].STR	  += this.aResumoProdutor[j].STR   ;
+                  this.aResumoProdutorTotalizador[0].ELG	  += this.aResumoProdutor[j].ELG   ;
+                  this.aResumoProdutorTotalizador[0].TIPO   += this.aResumoProdutor[j].TIPO  ;
+                  this.aResumoProdutorTotalizador[0].TrAr   += this.aResumoProdutor[j].TrAr  ; 
+
+                  this.aResumoProdutorTotalizador[0].TotFardosMistura   += this.aResumoProdutor[j].TotFardosMistura  ; 
+                  this.aResumoProdutorTotalizador[0].TotFardos_selec      += this.aResumoProdutor[j].TotFardos_selec  ; 
+
+                  this.aResumoProdutorTotalizador[0].TotalTestadoMistura   += this.aResumoProdutor[j].TotalTestadoMistura  ; 
+                  this.aResumoProdutorTotalizador[0].TotFardosEstoque      += this.aResumoProdutor[j].TotFardosEstoque  ;  
+
+
+        
+               
+          
+          } 
+
+
+          /// Totais estoque Produtor
+          /// Totais estoque Produtor
+          /// Totais estoque Produtor
+          /// Totais estoque Produtor
+          /// Totais estoque Produtor
+
+
+           objResumo  = {
+                                              
+                      produtor: '',
+                      SAC:0,
+                      TRID:0,
+                      PIM:0,
+                      SC:0,
+                      SCI:0,
+                      MST:0,
+                      MIC:0,
+                      MAT:0,
+                      UHML:0,
+                      UI  :0,                       
+                      SF	:0,
+                      STR	:0,
+                      ELG	:0,
+                      TIPO:0,
+                      TrAr:0,  
+                      TotFardosMistura:   0,
+                      TotFardos_selec:    0,
+                      TotalTestadoMistura:0,
+                      TotFardosEstoque:  0                                       
+  
+            }
+  
+            this.aEstoqueProdutorTotalizador.push(objResumo);  
+  
+  
+            for (let j = 0; j < this.aEstoqueProdutor.length; j++) {  
+                
+                //console.log(aFardos[j]);
+                
+                
+  
+                  
+                    this.aEstoqueProdutorTotalizador[0].produtor = 'TOTAIS:';
+                    this.aEstoqueProdutorTotalizador[0].SAC    += this.aEstoqueProdutor[j].SAC   ;
+                    this.aEstoqueProdutorTotalizador[0].TRID   += this.aEstoqueProdutor[j].TRID  ;
+                    this.aEstoqueProdutorTotalizador[0].PIM    += this.aEstoqueProdutor[j].PIM   ;
+                    this.aEstoqueProdutorTotalizador[0].SC     += this.aEstoqueProdutor[j].SC    ;
+                    this.aEstoqueProdutorTotalizador[0].SCI    += this.aEstoqueProdutor[j].SCI   ;
+                    this.aEstoqueProdutorTotalizador[0].MST    += this.aEstoqueProdutor[j].MST   ;
+                    this.aEstoqueProdutorTotalizador[0].MIC    += this.aEstoqueProdutor[j].MIC   ;
+                    this.aEstoqueProdutorTotalizador[0].MAT    += this.aEstoqueProdutor[j].MAT   ;
+                    this.aEstoqueProdutorTotalizador[0].UHML   += this.aEstoqueProdutor[j].UHML  ;
+                    this.aEstoqueProdutorTotalizador[0].UI     += this.aEstoqueProdutor[j].UI    ;                       
+                    this.aEstoqueProdutorTotalizador[0].SF	   += this.aEstoqueProdutor[j].SF    ;
+                    this.aEstoqueProdutorTotalizador[0].STR	   += this.aEstoqueProdutor[j].STR   ;
+                    this.aEstoqueProdutorTotalizador[0].ELG	   += this.aEstoqueProdutor[j].ELG   ;
+                    this.aEstoqueProdutorTotalizador[0].TIPO   += this.aEstoqueProdutor[j].TIPO  ;
+                    this.aEstoqueProdutorTotalizador[0].TrAr   += this.aEstoqueProdutor[j].TrAr  ; 
+                    this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura   += this.aEstoqueProdutor[j].TotalTestadoMistura  ; 
+                    this.aEstoqueProdutorTotalizador[0].TotFardosEstoque += this.aEstoqueProdutor[j].TotFardosEstoque  ; 
+              
+  
+  
+          
+                     
+            
+            }   
+
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Produtor
+            /// Totais resumo mistura Qualidade
+            /// Totais resumo mistura Qualidade
+            /// Totais resumo mistura Qualidade
+
+
+           objResumo  = {
+                                                
+                      qualidade: '',
+                      SAC:0,
+                      TRID:0,
+                      PIM:0,
+                      SC:0,
+                      SCI:0,
+                      MST:0,
+                      MIC:0,
+                      MAT:0,
+                      UHML:0,
+                      UI  :0,                       
+                      SF	:0,
+                      STR	:0,
+                      ELG	:0,
+                      TIPO:0,
+                      TrAr:0,  
+                      TotFardosMistura:   0,
+                      TotFardos_selec:    0,
+                      TotalTestadoMistura:0,
+                      TotFardosEstoque:  0                                       
+  
+            }
+  
+            this.aResumoQualidadeTotalizador.push(objResumo);  
+  
+  
+            for (let j = 0; j < this.aResumoQualidade.length; j++) {  
+                
+                //console.log(aFardos[j]);
+                
+                
+  
+                  
+                    this.aResumoQualidadeTotalizador[0].qualidade = 'TOTAIS:';
+                    this.aResumoQualidadeTotalizador[0].SAC    += this.aResumoQualidade[j].SAC   ;
+                    this.aResumoQualidadeTotalizador[0].TRID   += this.aResumoQualidade[j].TRID  ;
+                    this.aResumoQualidadeTotalizador[0].PIM    += this.aResumoQualidade[j].PIM   ;
+                    this.aResumoQualidadeTotalizador[0].SC     += this.aResumoQualidade[j].SC    ;
+                    this.aResumoQualidadeTotalizador[0].SCI    += this.aResumoQualidade[j].SCI   ;
+                    this.aResumoQualidadeTotalizador[0].MST    += this.aResumoQualidade[j].MST   ;
+                    this.aResumoQualidadeTotalizador[0].MIC    += this.aResumoQualidade[j].MIC   ;
+                    this.aResumoQualidadeTotalizador[0].MAT    += this.aResumoQualidade[j].MAT   ;
+                    this.aResumoQualidadeTotalizador[0].UHML   += this.aResumoQualidade[j].UHML  ;
+                    this.aResumoQualidadeTotalizador[0].UI     += this.aResumoQualidade[j].UI    ;                       
+                    this.aResumoQualidadeTotalizador[0].SF	    += this.aResumoQualidade[j].SF    ;
+                    this.aResumoQualidadeTotalizador[0].STR	  += this.aResumoQualidade[j].STR   ;
+                    this.aResumoQualidadeTotalizador[0].ELG	  += this.aResumoQualidade[j].ELG   ;
+                    this.aResumoQualidadeTotalizador[0].TIPO   += this.aResumoQualidade[j].TIPO  ;
+                    this.aResumoQualidadeTotalizador[0].TrAr   += this.aResumoQualidade[j].TrAr  ; 
+  
+                    this.aResumoQualidadeTotalizador[0].TotFardosMistura   += this.aResumoQualidade[j].TotFardosMistura  ; 
+                    this.aResumoQualidadeTotalizador[0].TotFardos_selec      += this.aResumoQualidade[j].TotFardos_selec  ; 
+  
+                    this.aResumoQualidadeTotalizador[0].TotalTestadoMistura   += this.aResumoQualidade[j].TotalTestadoMistura  ; 
+                    this.aResumoQualidadeTotalizador[0].TotFardosEstoque      += this.aResumoQualidade[j].TotFardosEstoque  ;  
+  
+  
+          
+                    
+            
+            } 
+  
+  
+            /// Totais estoque Qualidade
+            /// Totais estoque Qualidade
+            /// Totais estoque Qualidade
+            /// Totais estoque Qualidade
+            /// Totais estoque Qualidade
+  
+  
+              objResumo  = {
+                                                
+                        qualidade: '',
+                        SAC:0,
+                        TRID:0,
+                        PIM:0,
+                        SC:0,
+                        SCI:0,
+                        MST:0,
+                        MIC:0,
+                        MAT:0,
+                        UHML:0,
+                        UI  :0,                       
+                        SF	:0,
+                        STR	:0,
+                        ELG	:0,
+                        TIPO:0,
+                        TrAr:0,  
+                        TotFardosMistura:   0,
+                        TotFardos_selec:    0,
+                        TotalTestadoMistura:0,
+                        TotFardosEstoque:  0                                       
+    
+              }
+    
+              this.aEstoqueQualidadeTotalizador.push(objResumo);  
+    
+    
+              for (let j = 0; j < this.aEstoqueQualidade.length; j++) {  
+                  
+                  //console.log(aFardos[j]);
+                  
+                  
+    
+                    
+                      this.aEstoqueQualidadeTotalizador[0].qualidade = 'TOTAIS:';
+                      this.aEstoqueQualidadeTotalizador[0].SAC    += this.aEstoqueQualidade[j].SAC   ;
+                      this.aEstoqueQualidadeTotalizador[0].TRID   += this.aEstoqueQualidade[j].TRID  ;
+                      this.aEstoqueQualidadeTotalizador[0].PIM    += this.aEstoqueQualidade[j].PIM   ;
+                      this.aEstoqueQualidadeTotalizador[0].SC     += this.aEstoqueQualidade[j].SC    ;
+                      this.aEstoqueQualidadeTotalizador[0].SCI    += this.aEstoqueQualidade[j].SCI   ;
+                      this.aEstoqueQualidadeTotalizador[0].MST    += this.aEstoqueQualidade[j].MST   ;
+                      this.aEstoqueQualidadeTotalizador[0].MIC    += this.aEstoqueQualidade[j].MIC   ;
+                      this.aEstoqueQualidadeTotalizador[0].MAT    += this.aEstoqueQualidade[j].MAT   ;
+                      this.aEstoqueQualidadeTotalizador[0].UHML   += this.aEstoqueQualidade[j].UHML  ;
+                      this.aEstoqueQualidadeTotalizador[0].UI     += this.aEstoqueQualidade[j].UI    ;                       
+                      this.aEstoqueQualidadeTotalizador[0].SF	   += this.aEstoqueQualidade[j].SF    ;
+                      this.aEstoqueQualidadeTotalizador[0].STR	   += this.aEstoqueQualidade[j].STR   ;
+                      this.aEstoqueQualidadeTotalizador[0].ELG	   += this.aEstoqueQualidade[j].ELG   ;
+                      this.aEstoqueQualidadeTotalizador[0].TIPO   += this.aEstoqueQualidade[j].TIPO  ;
+                      this.aEstoqueQualidadeTotalizador[0].TrAr   += this.aEstoqueQualidade[j].TrAr  ; 
+                      this.aEstoqueQualidadeTotalizador[0].TotalTestadoMistura   += this.aEstoqueQualidade[j].TotalTestadoMistura  ; 
+                      this.aEstoqueQualidadeTotalizador[0].TotFardosEstoque += this.aEstoqueQualidade[j].TotFardosEstoque  ; 
+                
+    
+    
+            
+                     
+              
+              }   
+
+
+          // Pondera Mistura
+          for (let j = 0; j < this.aResumoMistura.length; j++) {  
+             
+             //console.log(aFardos[j]);
+             
+             if(this.aResumoMistura[j].TotalTestadoMistura != null && this.aResumoMistura[j].TotalTestadoMistura > 0 ){
+
+                
+                  this.aResumoMistura[j].SAC    = this.aResumoMistura[j].SAC   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].TRID   = this.aResumoMistura[j].TRID  / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].PIM    = this.aResumoMistura[j].PIM   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].SC     = this.aResumoMistura[j].SC    / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].SCI    = this.aResumoMistura[j].SCI   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].MST    = this.aResumoMistura[j].MST   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].MIC    = this.aResumoMistura[j].MIC   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].MAT    = this.aResumoMistura[j].MAT   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].UHML   = this.aResumoMistura[j].UHML  / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].UI     = this.aResumoMistura[j].UI    / this.aResumoMistura[j].TotalTestadoMistura ;                       
+                  this.aResumoMistura[j].SF	    = this.aResumoMistura[j].SF    / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].STR	  = this.aResumoMistura[j].STR   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].ELG	  = this.aResumoMistura[j].ELG   / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].TIPO   = this.aResumoMistura[j].TIPO  / this.aResumoMistura[j].TotalTestadoMistura ;
+                  this.aResumoMistura[j].TrAr   = this.aResumoMistura[j].TrAr  / this.aResumoMistura[j].TotalTestadoMistura ; 
+
+
+        
+             }    
+          
+          }   
+          // Pondera Produtor
+          for (let j = 0; j < this.aResumoProdutor.length; j++) {  
+             
+             //console.log(aFardos[j]);
+             
+             if(this.aResumoProdutor[j].TotalTestadoMistura != null && this.aResumoProdutor[j].TotalTestadoMistura > 0 ){
+
+                
+                  this.aResumoProdutor[j].SAC    = this.aResumoProdutor[j].SAC   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].TRID   = this.aResumoProdutor[j].TRID  / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].PIM    = this.aResumoProdutor[j].PIM   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].SC     = this.aResumoProdutor[j].SC    / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].SCI    = this.aResumoProdutor[j].SCI   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].MST    = this.aResumoProdutor[j].MST   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].MIC    = this.aResumoProdutor[j].MIC   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].MAT    = this.aResumoProdutor[j].MAT   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].UHML   = this.aResumoProdutor[j].UHML  / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].UI     = this.aResumoProdutor[j].UI    / this.aResumoProdutor[j].TotalTestadoMistura ;                       
+                  this.aResumoProdutor[j].SF	    = this.aResumoProdutor[j].SF    / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].STR	  = this.aResumoProdutor[j].STR   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].ELG	  = this.aResumoProdutor[j].ELG   / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].TIPO   = this.aResumoProdutor[j].TIPO  / this.aResumoProdutor[j].TotalTestadoMistura ;
+                  this.aResumoProdutor[j].TrAr   = this.aResumoProdutor[j].TrAr  / this.aResumoProdutor[j].TotalTestadoMistura ; 
+
+
+        
+             }    
+          
+          }                 
+          // Pondera Estoque Produtor
+          for (let j = 0; j < this.aEstoqueProdutor.length; j++) {  
+             
+             //console.log(aFardos[j]);
+             
+             if(this.aEstoqueProdutor[j].TotalTestadoMistura != null && this.aEstoqueProdutor[j].TotalTestadoMistura > 0 ){
+
+                
+                  this.aEstoqueProdutor[j].SAC    = this.aEstoqueProdutor[j].SAC   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].TRID   = this.aEstoqueProdutor[j].TRID  / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].PIM    = this.aEstoqueProdutor[j].PIM   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].SC     = this.aEstoqueProdutor[j].SC    / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].SCI    = this.aEstoqueProdutor[j].SCI   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].MST    = this.aEstoqueProdutor[j].MST   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].MIC    = this.aEstoqueProdutor[j].MIC   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].MAT    = this.aEstoqueProdutor[j].MAT   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].UHML   = this.aEstoqueProdutor[j].UHML  / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].UI     = this.aEstoqueProdutor[j].UI    / this.aEstoqueProdutor[j].TotalTestadoMistura ;                       
+                  this.aEstoqueProdutor[j].SF	    = this.aEstoqueProdutor[j].SF    / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].STR	  = this.aEstoqueProdutor[j].STR   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].ELG	  = this.aEstoqueProdutor[j].ELG   / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].TIPO   = this.aEstoqueProdutor[j].TIPO  / this.aEstoqueProdutor[j].TotalTestadoMistura ;
+                  this.aEstoqueProdutor[j].TrAr   = this.aEstoqueProdutor[j].TrAr  / this.aEstoqueProdutor[j].TotalTestadoMistura ; 
+
+
+        
+             }    
+          
+          }  
+          
+          if(this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura != null && this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura > 0 ){ 
+    
+                this.aEstoqueProdutorTotalizador[0].SAC    = this.aEstoqueProdutorTotalizador[0].SAC   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;    
+                this.aEstoqueProdutorTotalizador[0].TRID   = this.aEstoqueProdutorTotalizador[0].TRID  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;    
+                this.aEstoqueProdutorTotalizador[0].PIM    = this.aEstoqueProdutorTotalizador[0].PIM   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura ;    
+                this.aEstoqueProdutorTotalizador[0].SC     = this.aEstoqueProdutorTotalizador[0].SC    / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].SCI    = this.aEstoqueProdutorTotalizador[0].SCI   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].MST    = this.aEstoqueProdutorTotalizador[0].MST   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].MIC    = this.aEstoqueProdutorTotalizador[0].MIC   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].MAT    = this.aEstoqueProdutorTotalizador[0].MAT   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].UHML   = this.aEstoqueProdutorTotalizador[0].UHML  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].UI     = this.aEstoqueProdutorTotalizador[0].UI    / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;                       
+                this.aEstoqueProdutorTotalizador[0].SF	   = this.aEstoqueProdutorTotalizador[0].SF    / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].STR	   = this.aEstoqueProdutorTotalizador[0].STR   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].ELG	   = this.aEstoqueProdutorTotalizador[0].ELG   / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].TIPO   = this.aEstoqueProdutorTotalizador[0].TIPO  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;
+                this.aEstoqueProdutorTotalizador[0].TrAr   = this.aEstoqueProdutorTotalizador[0].TrAr  / this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura    ;   
+
+          }    
+          
+          
+          if(this.aResumoProdutorTotalizador[0].TotalTestadoMistura != null && this.aResumoProdutorTotalizador[0].TotalTestadoMistura > 0 ){ 
+    
+              this.aResumoProdutorTotalizador[0].SAC    = this.aResumoProdutorTotalizador[0].SAC   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;    
+              this.aResumoProdutorTotalizador[0].TRID   = this.aResumoProdutorTotalizador[0].TRID  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;    
+              this.aResumoProdutorTotalizador[0].PIM    = this.aResumoProdutorTotalizador[0].PIM   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura ;    
+              this.aResumoProdutorTotalizador[0].SC     = this.aResumoProdutorTotalizador[0].SC    / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].SCI    = this.aResumoProdutorTotalizador[0].SCI   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].MST    = this.aResumoProdutorTotalizador[0].MST   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].MIC    = this.aResumoProdutorTotalizador[0].MIC   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].MAT    = this.aResumoProdutorTotalizador[0].MAT   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].UHML   = this.aResumoProdutorTotalizador[0].UHML  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].UI     = this.aResumoProdutorTotalizador[0].UI    / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;                       
+              this.aResumoProdutorTotalizador[0].SF	   = this.aResumoProdutorTotalizador[0].SF    / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].STR	   = this.aResumoProdutorTotalizador[0].STR   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].ELG	   = this.aResumoProdutorTotalizador[0].ELG   / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].TIPO   = this.aResumoProdutorTotalizador[0].TIPO  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;
+              this.aResumoProdutorTotalizador[0].TrAr   = this.aResumoProdutorTotalizador[0].TrAr  / this.aResumoProdutorTotalizador[0].TotalTestadoMistura    ;   
+
+          }           
+ 
+         
+          this.totalFardosMistura = somaFardosMistura;
+          this.totalFardosEstoque = somaFardosEstoque;
+          this.nPesoMovimento =  pesoMovimento.toFixed(2);
+          this.nPesoMovimento = this.apiFormataNumero(this.nPesoMovimento,2);
+
+
+          // Formacao linha resumo mistura/produtor
+          // Formacao linha resumo mistura/produtor          
+          // Formacao linha resumo mistura/produtor
+          // Formacao linha resumo mistura/produtor
+
+          let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  elemento.produt); 
+
+
+          //console.log('DDDDDddddsssaa')
+          //console.log(objProdutor)
+          //console.log(elemento)
+          
+
+          if (objProdutor) { 
+
+             let objResumoProdutor = {
+                                        
+                        produtor: elemento.produt,                        
+                        SAC:objProdutor.SAC ,
+                        TRID:objProdutor.TRID,
+                        PIM:objProdutor.PIM,
+                        SC:objProdutor.SC,
+                        SCI:objProdutor.SCI,
+                        MST:objProdutor.MST,
+                        MIC:objProdutor.MIC,
+                        MAT:objProdutor.MAT,
+                        UHML:objProdutor.UHML,
+                        UI  :objProdutor.UI,                       
+                        SF	:objProdutor.SF,
+                        STR	:objProdutor.STR,
+                        ELG	:objProdutor.ELG,
+                        TIPO:objProdutor.TIPO,
+                        TrAr:objProdutor.TrAr,  
+                        TotFardosMistura:objProdutor.TotFardosMistura,
+                        TotFardos_selec:objProdutor.TotFardos_selec,
+                        TotalTestadoMistura:objProdutor.TotalTestadoMistura,
+                        TotFardosEstoque:  objProdutor.TotFardosEstoque,                                       
+
+              }
+
+              this.aProdutorSelecionado.push(objResumoProdutor); 
+
+              //console.log(this.aProdutorSelecionado)
+
+          } else{
+
+       
+            if(this.aResumoProdutor.length>0){
+                  let objResumoProdutor = {
+                                            
+                            produtor: this.aResumoProdutor[0].produtor,                        
+                            SAC:this.aResumoProdutor[0].SAC ,
+                            TRID:this.aResumoProdutor[0].TRID,
+                            PIM:this.aResumoProdutor[0].PIM,
+                            SC:this.aResumoProdutor[0].SC,
+                            SCI:this.aResumoProdutor[0].SCI,
+                            MST:this.aResumoProdutor[0].MST,
+                            MIC:this.aResumoProdutor[0].MIC,
+                            MAT:this.aResumoProdutor[0].MAT,
+                            UHML:this.aResumoProdutor[0].UHML,
+                            UI  :this.aResumoProdutor[0].UI,                       
+                            SF	:this.aResumoProdutor[0].SF,
+                            STR	:this.aResumoProdutor[0].STR,
+                            ELG	:this.aResumoProdutor[0].ELG,
+                            TIPO:this.aResumoProdutor[0].TIPO,
+                            TrAr:this.aResumoProdutor[0].TrAr,  
+                            TotFardosMistura:this.aResumoProdutor[0].TotFardosMistura,
+                            TotFardos_selec:this.aResumoProdutor[0].TotFardos_selec,
+                            TotalTestadoMistura:this.aResumoProdutor[0].TotalTestadoMistura,
+                            TotFardosEstoque:  this.aResumoProdutor[0].TotFardosEstoque,                                       
+
+                  }
+
+                  this.aProdutorSelecionado.push(objResumoProdutor); 
+            }       
+
+          }
+
+          // Final Formacao linha resumo mistura/produtor
+          // Final Formacao linha resumo mistura/produtor          
+          // Final Formacao linha resumo mistura/produtor
+          // Final Formacao linha resumo mistura/produtor
+
+
+        },
         async populaForm(){    
 
                  this.resultado = ""; 
@@ -3774,12 +4545,6 @@
 
        }     
 
-
-       if(  this.$store.state.tipoDispositivo == 'mobile' ){
-             this.labelNovo = "ova Oper"
-       } else{
-            this.labelNovo = "ova Operação"
-       }       
 
 
     }  

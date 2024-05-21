@@ -568,10 +568,7 @@
             
   
           navegarParaLogin(){this.$router.push({name:'login'  })}   ,
-
-          scrollToTop() {
-              window.scrollTo(0, 0);
-            },          
+       
 
           async pesquisaDados(){    
 

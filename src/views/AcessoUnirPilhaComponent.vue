@@ -2,7 +2,7 @@
 
 export default { 
 
-       name: 'AcessoBaixarMisturaComponent'  ,
+       name: 'AcessoUnirPilhaComponent'  ,
 
        props: {
  
@@ -22,11 +22,15 @@ export default {
        mounted(){ 
 
 
-
-        //console.log('misturapadrao')  
+/*
+        console.log('manterpilha')  
+        console.log(this.tituloProps)  
+        console.log(this.labelPesquisarComposicaoProps)  
+        console.log(this.acaoSelecionadaProps )  
+*/
  
 
-        this.$router.push({name:'mantermisturapadrao', params : {tituloProps:this.tituloProps,labelPesquisarComposicaoProps  : this.labelPesquisarComposicaoProps
+        this.$router.push({name:'manterpilha', params : {tituloProps:this.tituloProps,labelPesquisarComposicaoProps  : this.labelPesquisarComposicaoProps
              , acaoSelecionadaProps: this.acaoSelecionadaProps } } )
 
        }

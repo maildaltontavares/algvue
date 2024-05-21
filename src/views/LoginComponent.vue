@@ -66,7 +66,7 @@
     <v-alert v-if="haErros" color="danger" theme="dark" icon="mdi-alert-circle" >{{ erros }}</v-alert>
 
     <div class="d-flex justify-content-center" style="font-size: 9px;" >
-                 <p>Versao 1.00.08</p>
+                 <p>Versao 1.00.10</p>
       </div>  
 
     <v-card-actions>
@@ -108,8 +108,11 @@ senhaRules: {
   required : value => !!value || 'Informe a senha do usuário.',
 },
 idfil: '01',
-codigo: 'admin',
-senha: 'qwerty',
+//codigo: 'admin',
+//senha: 'qwerty',
+codigo: '',
+senha: '',
+
 isValid: true,
 haErros: false,
 token: '',
@@ -131,15 +134,14 @@ empresas: [
 methods: {
 
   async populaParametros(){ 
-           
-
-           //console.log('Popula parametros' )
+            
            const logou = await this.validaLogin();
  
            if(logou){     
 
                    this.navegarPara()   
            } 
+
      },  
   async validaLogin() { 
         
@@ -157,12 +159,12 @@ methods: {
         }  
         
          
-       //.log('VUE_APP_TOKEN')  
+        //console.log('VUE_APP_TOKEN')  
         //console.log(process.env.VUE_APP_TOKEN)  
         const isFormCorrect = this.v$.$validate()
         if (isFormCorrect) {
            
-           //console.log( url )
+           console.log( url )
            let login = this.codigo.replace(/\s/g, "");  
  
            this.usuarioDAO =  { 

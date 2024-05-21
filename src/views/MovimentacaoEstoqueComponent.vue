@@ -214,7 +214,7 @@
                                                 <v-btn   data-bs-toggle="modal" 
                                                     data-bs-target="#modalPesquisaFornecedor"  
                                                     tabindex="-1"  @click="apiFlushPesquisa" :disabled="fornecedorDesabilitado" 
-                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232);; " 
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                     > 
                                                         <v-icon
                                                             class="mb-6"
@@ -686,7 +686,7 @@
                                                                     id="descFio"   
                                                                     disabled 
                                                                     class="limitadorMedia"
-                                                                    
+                                                                    density="compact"
                                                                     style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                                 ></v-text-field>   
                                                             </div>   
@@ -865,7 +865,7 @@
                                                         type="text"                                       
                                                         :rules="[campoRequerido]" 
                                                         density="compact" 
-                                                        @blur="pesquisaLoteProdutor(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
+                                                        @blur="validaLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
                                                     ></v-text-field>        
                                                     
                                                 </div>
@@ -912,7 +912,7 @@
                                                         id="pilha"
                                                         label="Pilha"
                                                         ref="pilha"  
-                                                        maxlength="6"                                         
+                                                        maxlength="5"                                         
                                                         style=" width: 150px; "
                                                         variant="outlined"
                                                         :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
@@ -1201,6 +1201,31 @@
                                         </td> 
 -->
 
+                                        <td  >
+                                            <div   class="espacoEntreComponentesGrid" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S'">    
+                                                        
+                                                <div > 
+                                                    
+                                                    <v-btn   
+                                                        style="height:45px;width:200px;background-color:rgb(240, 237, 232); margin-bottom: 25px"   
+                                                         @click="this.exibePopUpNotasLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"  
+                                                            
+                                                        > 
+                                                        <v-icon
+                                                        class="mb-6"
+                                                        color="primary"
+                                                        icon="mdi-card-search-outline"
+                                                        size="41"
+                                                        ></v-icon>  
+                                                        <span  style="margin-bottom:18px"><b>Notas do Lote</b></span> <!-- Texto centralizado -->
+                                                    </v-btn>   
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
+
+
                                         <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S'">    
                                             
                                             <div > 
@@ -1218,7 +1243,14 @@
 
                                             </div>
                                         
-                                        </div>         
+                                        </div>     
+                                        
+                                        
+
+
+  
+
+
                                         
                                         
 
@@ -1364,6 +1396,7 @@
   <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>
   <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
   <PesquisaLote @setaPesquisa="setaPesquisa($event)" :itemLote="paramItem" ref="pesquisaLote"></PesquisaLote>
+  <PesquisaNotasLote   :nfLoteProps ="paramDadosNfLote"  :loteProps ="paramLote"  ref="pesquisaNotasLote"></PesquisaNotasLote>
   <SimNao @confirmaAcao="confirmaAcao($event)" :pergunta="simNaoPergunta" :botoes="simNaoBotoes" :tipo="simNaoTipo" ref="simNao"></SimNao>    
 </template>
 
@@ -1376,6 +1409,7 @@
    import PesquisaItem from '@/requires/PesquisaItem'
    import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
    import PesquisaLote from '@/requires/PesquisaLote'
+   import PesquisaNotasLote from '@/requires/PesquisaNotasLote'
 
 
    import SimNao from '@/requires/SimNao.vue' 
@@ -1391,12 +1425,14 @@
         setup: () => (
             { v$: useValidate() }
         ),
-        components: { PesquisaUsuario, SimNao,MensagemMobile,PesquisaItem,PesquisaFornecedor,PesquisaLote},
+        components: { PesquisaUsuario, SimNao,MensagemMobile,PesquisaItem,PesquisaFornecedor,PesquisaLote,PesquisaNotasLote},
         mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
  
         data: () => ({ 
  
-            paramItem:'',
+            paramItem:'', 
+            paramDadosNfLote:[],
+            paramLote:'',
             resultado : "",             
             simNaoPergunta: '',
             simNaoBotoes: [],
@@ -1748,7 +1784,8 @@
             vTmp:'' ,
             pPesoDocumento:0,
             pNumVolumes:0,
-            pPesoMedio:0
+            pPesoMedio:0,
+            dadosNotasLote:[],
             
            
         }              
@@ -1820,10 +1857,99 @@
 
             },
 
+
+            async validaLote(filial,produtor, i){
+                 
+                this.pesquisaLoteProdutor(filial,produtor, i);
+                this.pesquisaLoteLancado(filial,produtor, i,false);
+ 
+            },
+            async exibePopUpNotasLote(filial,produtor, i){
+
+                this.pesquisaLoteLancado(filial,produtor, i,true);
+
+            },
+
+            async pesquisaLoteLancado(filial,produtor, i,chamaPopUp){  
+
+                    let url;  
+                    let result = false;
+
+                    this.dadosNotasLote =[];
+
+                    if(!chamaPopUp){
+                        i.loteJaLancado =  'N' ;  
+                    }
+                    
+
+
+                    if (filial!='' && filial!=null &&
+                        produtor!='' && produtor!=null &&
+                        i.lote!='' && i.lote!=null &&
+                        i.item!='' && i.item!=null &&
+                        this.vOperAlteraItem=='S'   &&
+                        this.tipoMatP == 'ALGOD' 
+
+                    )  {  
+
+                            url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
+
+                            await this.axios.get(url,this.apiTokenHeader())
+                            .then(response => {
+
+                                //console.log("TipoMovimento");
+                                this.resultado = response.data;   
+                                
+                                if (this.resultado){ 
+                                    if(this.resultado.length>0){
+                                       this.dadosNotasLote = this.resultado;
+                                       if(chamaPopUp){
+                                            this.exibeModalNotasLote(this.dadosNotasLote,i.lote)
+                                       }else{
+                                          this.apiDisplayMensagem('Lote já lançado. Consulte as Notas Fiscais.');
+                                          i.loteJaLancado =  'S' ;   
+                                       }
+                                       
+                                       
+                                    }else{
+                                        if(!chamaPopUp){
+                                            i.loteJaLancado =  'N' ;   
+                                        }
+                                    }
+
+                                }else{
+                                    if(!chamaPopUp){
+                                       i.loteJaLancado =  'N' ;   
+                                    }                      
+                                }
+                                
+                                result = true;
+                                
+                            })
+                            .catch(error => {  
+                                
+                                    console.log("Erro: ", error); 
+                                    this.msgProcessamento = '' 
+                                    this.apiDisplayMensagem(error ) 
+                                    
+                            });   
+                    }else{
+                        result = true;
+
+                    }
+                    
+                    return result;
+
+            },            
+
+
             async pesquisaLoteProdutor(filial,produtor, i){ 
  
 
                 let url;  
+                let result = false;
+
+                i.loteJaTestado =  'N' ; 
 
 
                 if (filial!='' && filial!=null &&
@@ -1856,11 +1982,9 @@
                             
                             }else{
                                 i.loteJaTestado =  'N' ;                       
-                            }  
-
-
-                            //console.log('Pesquisa teste lote');
-                            //console.log(this.resultado); 
+                            }
+                            
+                            result = true;
                             
                         })
                         .catch(error => {  
@@ -1870,7 +1994,11 @@
                                 this.apiDisplayMensagem(error ) 
                                 
                         });   
+                }else{
+                    result = true; 
                 }
+
+                return result;
 
             },            
 
@@ -2133,12 +2261,14 @@
 
               if (this.aMovimentoItem[ind].item=='' || this.aMovimentoItem[ind].item==null)  {
                   this.apiDisplayMensagem('Informe o item.');
-                  validado = false;
+                  validado = false; 
+                  return validado;
               }      
               
               if (this.aMovimentoItem[ind].descFio=='' || this.aMovimentoItem[ind].descFio==null)  {
                   this.apiDisplayMensagem('Informe um item válido.');
-                  validado = false;
+                  validado = false; 
+                  return validado;
               }  
 
               if(validado){
@@ -2162,22 +2292,26 @@
 
                 if (this.movimento.fornecedor=='' || this.movimento.fornecedor==null)  {
                     this.apiDisplayMensagem('Informe o fornecedor.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }      
                 
                 if (this.movimento.tipoMovimento=='' || this.movimento.tipoMovimento==null)  {
                     this.apiDisplayMensagem('Informe o tipo de movimento.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }  
                 
                 if (this.movimento.tipoMP=='' || this.movimento.tipoMP==null)  {
                     this.apiDisplayMensagem('Informe o tipo de materia-prima.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }  
                 
                 if (this.nomeFornecedor=='' || this.nomeFornecedor==null)  {
                     this.apiDisplayMensagem('Informe um fornecedor válido.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }       
                 
                 
@@ -2186,12 +2320,14 @@
 
                     if (this.movimento.notaFiscal.length < 6){
                         this.apiDisplayMensagem('Documento deve ter mais de 6 dígitos.') 
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     } 
 
                 }else{ 
                     this.apiDisplayMensagem('Informe o número do documento.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }                
 
                           
@@ -2199,29 +2335,34 @@
                 
                 if (this.movimento.dataBase=='' || this.movimento.dataBase==null)  {
                     this.apiDisplayMensagem('Informe a data do movimento.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }   
 
                 if (this.movimento.dataEmissao=='' || this.movimento.dataEmissao==null)  {
                     this.apiDisplayMensagem('Informe a data de emissão.');
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }   
 
                 if(this.vOperAlteraItem=='S' && this.tipoMatP == 'ALGOD'  ){ 
                  
                     if (this.movimento.pesoTotal=='' || this.movimento.pesoTotal==null || this.movimento.pesoTotal==0)  {
                         this.apiDisplayMensagem('Informe o peso líquido.');
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     }   
                     
                     if (this.movimento.numVolumes=='' || this.movimento.numVolumes==null || this.movimento.numVolumes==0)  {
                         this.apiDisplayMensagem('Informe o número de volumes.');
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     }   
                     
                     if (this.movimento.pesoMedio=='' || this.movimento.pesoMedio==null || this.movimento.pesoMedio==0)  {
                         this.apiDisplayMensagem('Informe o peso medio.');
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     }            
 
                 }
@@ -2230,14 +2371,10 @@
                  
                     if (this.movimento.qual1=='' || this.movimento.qual1==null )  {
                         this.apiDisplayMensagem('Informe a qualidade.');
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     } 
-
-                    //if (this.movimento.qual2=='' || this.movimento.qual2==null )  {
-                    //    this.apiDisplayMensagem('Informe a classificação.');
-                    //    validado = false;
-                   // } 
-
+ 
                 }
 
 
@@ -2247,6 +2384,7 @@
                 ){      
                         this.apiDisplayMensagem('Tipo de material incompatível com tipo de movimento.');
                         validado = false; 
+                        return validado;
                  }                
 
 
@@ -2344,6 +2482,8 @@
                     this.movimentoItemTempAux.statusItemOriginal = 'Inclusão'
 
                     this.movimentoItemTempAux.loteJaTestado =  'N' ;
+                    this.movimentoItemTempAux.loteJaLancado =  'N' ;
+                    
                     this.movimentoItemTempAux.unidadeMedida = 'KG'; 
 
                     this.movimentoItemTempAux.dataAlteracao = this.$moment(dataAtual).format("DD/MM/YYYY") ;
@@ -2419,9 +2559,9 @@
                 
                 if(pPilha !=null && pPilha != '') {
 
-                    if(pPilha.length==4) {
+                    if(pPilha.length==5) {
 
-                        if(parseInt(pPilha, 10) < 9999){ 
+                        if(parseInt(pPilha, 10) < 99999){ 
                             validado = true; 
                         } 
 
@@ -2462,6 +2602,7 @@
                             myMsg = 'Id do lote ' + this.aMovimentoItem[i].lote + ' inválido.'
                             this.apiDisplayMensagem('Id do lote ' + this.aMovimentoItem[i].lote + ' inválido.');
                             this.haErros = true;
+                            return validado;
                         }
                     
                         if(!this.validaPilha(this.aMovimentoItem[i].pilha)){
@@ -2469,6 +2610,7 @@
                             myMsg = 'Pilha do lote ' + this.aMovimentoItem[i].lote + ' inválida.'
                             this.apiDisplayMensagem(myMsg);
                             this.haErros = true;
+                            return validado;
 
                         }
 
@@ -2477,6 +2619,7 @@
                             myMsg = 'Item do lote ' + this.aMovimentoItem[i].lote + ' inválido.'
                             this.apiDisplayMensagem(myMsg);
                             this.haErros = true; 
+                            return validado;
                         }                
 
 
@@ -2487,13 +2630,13 @@
                     if (!this.validacao.valid){
                         validado = false; 
                         myMsg = 'Preencha os campos com críticas.';
+                        this.apiDisplayMensagem(myMsg);
+                        return validado;
                     }
                     
-                    if (validado == false ) {
-               
-                        this.apiDisplayMensagem(myMsg);
-                        this.haErros = true;
-                        return;
+                    if (validado == false ) {  
+                        validado = false; 
+                        return validado;
                     } else {    
 
                         let dataInsercao;
@@ -2556,9 +2699,7 @@
 
                                     for (let i = 0; i < this.aMovimentoItem.length; i++) {    
 
-                                                       this.aMovimentoItem[i].alteracao = true;  
-                                                       
-
+                                                        this.aMovimentoItem[i].alteracao = true;  
                                                         itensValidos = itensValidos + 1; 
 
                                                         // Gera um id para o item caso ainda não tenha
@@ -2601,7 +2742,7 @@
                                                                 observacao:          this.aMovimentoItem[i].observacao, 
                                                                 unidadeMedida:       this.aMovimentoItem[i].unidadeMedida, 
                                                                 pilha:               this.aMovimentoItem[i].pilha, 
-                                                                movimentoAutomatico:  "N", 
+                                                                movimentoAutomatico:  "A", 
                                                                 movimentoDePilha:     "N",
                                                                 quantidade:           this.aMovimentoItem[i].quantidade, 
                                                                 peso:                 this.apiConverteNumeroFormatado(this.aMovimentoItem[i].peso),   
@@ -2633,6 +2774,7 @@
                                                                 statusItem:   this.aMovimentoItem[i].statusItem,    
                                                                 habilitado: true ,
                                                                 loteJaTestado: this.aMovimentoItem[i].loteJaTestado,
+                                                                loteJaLancado: this.aMovimentoItem[i].loteJaLancado,
 
                                                                 tipoQualidade:    this.aMovimentoItem[i].tipoQualidade,
                                                                 classifQualidade: this.aMovimentoItem[i].classifQualidade, 
@@ -2701,12 +2843,10 @@
 
                                                 this.apiDisplayMensagemSucesso('Movimento inserido com sucesso.' ) 
                                                 this.tmp = JSON.stringify(response.data);   
-                                                //if(this.vOperAlteraEstoque=='S'){
-                                                //    this.tipoOperacao = 'X'; 
-                                                //}else{
+                                                
                                                     this.tipoOperacao = 'A'; 
                                                     this.configuraCampos('A' ); 
-                                                //}
+                                             
 
                                                 for (let i = 0; i < this.aMovimentoItem.length; i++) {    
                                                     
@@ -2726,9 +2866,13 @@
                                             .catch(error => {
                                                 console.log("Erro: ", error.response.data); 
                                                 this.apiDisplayMensagem(error.response.data ) 
+                                                validado = false; 
+                                                return validado;
                                             }); 
                                    } else{
                                         this.apiDisplayMensagem('Documento sem itens. Não será gravado')
+                                        validado = false; 
+                                        return validado;                                        
                                    }  
 
 
@@ -2746,15 +2890,7 @@
 
                                                     //console.log('this.aMovimentoItem[i]')
                                                     //console.log(this.aMovimentoItem[i]) 
-
-
-                                                    //if( this.aMovimentoItem[i].statusItem == 'Inclusão' ){
-                                                        // if (typeof this.aMovimentoItem[i].dataInclusao   === "string") {
-                                                         //   dataInsercao  = this.aMovimentoItem[i].dataInclusao 
-                                                        // } else if (this.movimento.dataInclusao  instanceof Date) {
-                                                        //   dataInsercao  = this.$moment(this.aMovimentoItem[i].dataInclusao.format("DD/MM/YYYY")  )
-                                                         //}
-                                                    //}                                                     
+                                                
 
                                                     if( this.aMovimentoItem[i].statusItem == 'Inclusão' ||  this.aMovimentoItem[i].statusItem == 'Alteração' ||    (this.aMovimentoItem[i].statusItem == 'Exclusão' && this.aMovimentoItem[i].statusItemOriginal == 'Alteração' )   ){
 
@@ -2786,18 +2922,7 @@
 
 
                                                             }
-
-/*
-                                                            if(this.aMovimentoItem[i].peso == 0 || this.aMovimentoItem[i].quantidade == 0 ) {
-                                                                vPesoMedio = 0
-                                                            }else{
-                                                                vPesoMedio = this.aMovimentoItem[i].peso / this.aMovimentoItem[i].quantidade ;
-                                                            } 
-*/
-                                                            //vPesoMedio = vPesoMedio.toFixed(4);                                                            
-
-                                                            
-
+ 
                                                             //console.log('Valida iitteemm 7777')
                                                             //console.log(this.movimento)  
 
@@ -2817,6 +2942,9 @@
                                                                     observacao:          this.aMovimentoItem[i].observacao, 
                                                                     unidadeMedida:       this.aMovimentoItem[i].unidadeMedida, 
                                                                     pilha:               this.aMovimentoItem[i].pilha, 
+                                                                  
+                                                                    idAutomatico:this.aMovimentoItem[i].idAutomatico,  
+                                                                    
                                                                     movimentoAutomatico:  this.aMovimentoItem[i].movimentoAutomatico, 
                                                                     movimentoDePilha:     this.aMovimentoItem[i].movimentoDePilha, 
                                                                     quantidade:           this.aMovimentoItem[i].quantidade, 
@@ -2837,9 +2965,8 @@
                                                                     str:   this.aMovimentoItem[i].str,   
                                                                     elg:   this.aMovimentoItem[i].elg, 
                                                                     tipo:  this.aMovimentoItem[i].tipo, 
-                                                                    sic:   this.aMovimentoItem[i].sic, 
-
-                                                                    idAutomatico: this.aMovimentoItem[i].idAutomatico,  
+                                                                    sic:   this.aMovimentoItem[i].sic,  
+                                                                     
                                                                     uhml:         this.aMovimentoItem[i].uhml, 
                                                                     rs:           this.aMovimentoItem[i].rs, 
                                                                     b:            this.aMovimentoItem[i].b, 
@@ -2850,6 +2977,7 @@
                                                                     statusItemOriginal:   this.aMovimentoItem[i].statusItemOriginal, 
                                                                     habilitado: true,
                                                                     loteJaTestado: this.aMovimentoItem[i].loteJaTestado,
+                                                                    loteJaLancado: this.aMovimentoItem[i].loteJaLancado,
 
                                                                     tipoQualidade:    this.aMovimentoItem[i].tipoQualidade,
                                                                     classifQualidade: this.aMovimentoItem[i].classifQualidade, 
@@ -2901,11 +3029,12 @@
                                                             "usuarioAlteracao":  this.$store.state.usuarioSistema.codigo,
                                                             "dataInclusao":  this.movimento.dataInclusao ,
                                                             "dataAlteracao":  dataAlteracao,
-                                                            "itemMovimentoDTO":this.aMovimentoItemDAO    
+                                                            "itemMovimentoDTO":this.aMovimentoItemDAO   ,
+                                                            "idAutomatico":this.movimento.idAutomatico,   
                                                     } 
 
                                                     //console.log('AlteraCAO')
-                                                    //console.log(this.aMovimentoItemDAO) 
+                                                    //console.log(this.movimentoDAO) 
 
                                                 
                                                     this.aMovimentoItemFinal.push(this.movimentoDAO);  
@@ -2968,6 +3097,8 @@
                                                     .catch(error => {
                                                         console.log("Erro: ", error.response.data ); 
                                                         this.apiDisplayMensagem(error.response.data  ) 
+                                                        validado = false; 
+                                                        return validado;
                                                     });  
                                             }
 
@@ -3017,32 +3148,13 @@
                     this.vOperAlteraItem = '';  
                     this.movimento.pesoTotal = '0';
 
-
-                    //console.log('RESETADO');
-                    //console.log('this.aMovimentoItem')
-                    //console.log(this.aMovimentoItem)
-                    //console.log('this.aMovimentoItemFinal')
-                    //console.log(this.aMovimentoItemFinal)
-                    //console.log('this.aMovimentoItemDAO')
-                    //console.log(this.aMovimentoItemDAO)
+                    this.scrollToTop();
+ 
 
                 }  
 
             },
-
-/*
-            configuraNovoItemAtlzItem(){    
-
-                //this.itemDesabilitado = false; 
-
-                this.loteItemDesabilitado = true; 
-                this.pilhaDesabilitado = true; 
-                this.tamanhoDesabilitado = true; 
-                this.umDesabilitado = true;   
-                this.vTmp = 'ZZZZZKKKK'
-                             
-            },
-*/
+ 
             configuraCampos(oper ){
 
 
@@ -3188,13 +3300,7 @@
 
                             this.vTmp = 'ZZZZZccccc'
 
-                             /*
-                            if(this.vOperAlteraItem=='N'){  
-                                this.idDesabilitado = false;
-                            }else{                 
-                                this.idDesabilitado = true;
-                            } 
-                            */
+                          
 
                         } 
 
@@ -3219,6 +3325,7 @@
                     let objItem;   
                     let dataFormatada;
                     let loteTestado;
+                     
                     let vPesoTotal;
                     let vPesMed;
                     //let parametroCodificado;
@@ -3247,6 +3354,8 @@
                    this.movimentoParamDTO.idfil      = this.$store.state.usuarioSistema.idfil;
                    this.movimentoParamDTO.fornecedor = this.movimento.fornecedor;
                    this.movimentoParamDTO.notaFiscal = this.movimento.notaFiscal;  
+
+                  
 
                    //console.log('this.movimentoParamDTO'); 
 
@@ -3503,7 +3612,7 @@
                                    //console.log(aItens);
 
                                    // for (let i = 0; i < this.resultado.itemMovimento.length; i++) { 
-                                    for (let i = 0; i < aItens.length; i++) { 
+                                    for (let i = 0; i < aItens.length; i++) {   
                                         
                                             this.numItem = this.numItem+1; 
 
@@ -3511,9 +3620,13 @@
                                                 this.resultado.itemMovimento[i].mat == 0.0 ||
                                                 this.resultado.itemMovimento[i].sic == 0.0 ||
                                                 this.resultado.itemMovimento[i].mic == 0.0 ||
-                                                this.resultado.itemMovimento[i].uhml == 0.0 
-                                             ){
-                                               loteTestado = "N"
+                                                this.resultado.itemMovimento[i].uhml == 0.0 ||
+                                                this.resultado.itemMovimento[i].mat == null ||
+                                                this.resultado.itemMovimento[i].sic == null ||
+                                                this.resultado.itemMovimento[i].mic == null ||
+                                                this.resultado.itemMovimento[i].uhml == null                                                 
+                                            ){
+                                            loteTestado = "N"
                                             }else{
                                                 loteTestado = "S"
                                             }
@@ -3577,6 +3690,7 @@
                                                     statusItem: 'Alteração',
                                                     statusItemOriginal: 'Alteração',
                                                     loteJaTestado: loteTestado ,
+                                                    loteJaLancado: 'S',
 
                                                     tipoQualidade:  this.resultado.itemMovimento[i].tipoQualidade, 
                                                     classifQualidade:  this.resultado.itemMovimento[i].classifQualidade,  
@@ -3593,20 +3707,17 @@
                                             
                                             //console.log('Item XXXX')
                                             //console.log(objItem)
-                                             
+                                            
 
                                             this.aMovimentoItem.push(objItem);
+                                           
                                     }
 
                         }
                         this.msgProcessamento = "" 
 
                         //console.log('this.aMovimentoItem 333333')
-                        //console.log(this.aMovimentoItem)                        
-
-                         
-                     
- 
+                        //console.log(this.aMovimentoItem)   
 
                         //console.log('this.resultado popula');
                         //console.log(this.resultado);
@@ -3667,14 +3778,16 @@
                     
                     if (this.movimento.fornecedor.length != 5){
                         this.apiDisplayMensagem('Fornecedor deve ter 5 dígitos.')
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     }else{ 
                         this.apiPesquisaParam('fornecedor', this.movimento.fornecedor, this.movimento)
                     }   
 
                 }else{
                     
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }
 
 
@@ -3686,13 +3799,15 @@
 
                     if (this.movimento.notaFiscal.length < 6){
                         this.apiDisplayMensagem('Documento deve ter mais de 6 dígitos.') 
-                        validado = false;
+                        validado = false; 
+                        return validado;
                     }
 
 
                 }else{ 
                     
-                    validado = false;
+                    validado = false; 
+                    return validado;
                 }
 
                 if (validado){  
@@ -3754,36 +3869,7 @@
 
                 this.submitForm();
             },
-/*
-            async exclusao() { 
-                
-                /// EXCLUSAO ////
-
-                let url = `${process.env.VUE_APP_BASE_URL}/usuariologin/usuario/${this.codUsuario}/sistema/${this.codSistema}` 
-                
-                
-                if (this.tipoOperacao == 'E' && this.simNaoRetorno == 'S') {  
-  
-                        this.axios.delete(url,this.apiTokenHeader() )
-                        .then(response => {
-                            this.resetarForm();
-                            this.apiDisplayMensagemSucesso('Código ' + response.data  + ' excluido com sucesso.'  )
-                        })
-                        .catch(error => {
-                            console.log("Erro: ", error.response.data.message);
-                            //this.haErros = true
-                            //this.mensagemErro = error.response.data.message
-                            this.apiDisplayMensagem(error.response.data.message ) 
-                        }); 
-
-                    }
-
-
-            },            
-
-
-*/
-
+ 
             navegarParaLogin(){this.$router.push({name:'login'  })},  
 
 

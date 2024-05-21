@@ -9,8 +9,13 @@ import TrocarSenha from '@/views/TrocarSenhaComponent.vue'
 import MovimentacaoEstoque from '@/views/MovimentacaoEstoqueComponent.vue'
 import MovimentacaoEstoquePesquisa  from '@/views/MovimentacaoEstoquePesquisaComponent.vue'
 import Mistura  from '@/views/MisturaComponent.vue'
+import AcessoBaixarMisturaPadrao from '@/views/AcessoBaixarMisturaComponent.vue'
 import AcessoManutencaoMistura  from '@/views/AcessoManutencaoMisturaComponent.vue'
-
+import Pilha  from '@/views/PilhaComponent.vue'
+import AcessoUnirPilha  from '@/views/AcessoUnirPilhaComponent.vue'
+import AcessoLocalizarPilha  from '@/views/AcessoLocalizarPilhaComponent.vue'
+import ConsultaEstoque  from '@/views/ConsultaEstoqueComponent.vue'
+import LocalizarPilha  from '@/views/LocalizarPilhaComponent.vue'
 
 import store from '@/store/index'
 import axios from 'axios' 
@@ -110,7 +115,7 @@ const routes =
                     path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
                     props: true,
                     component: Mistura,
-                    meta: { requerAutorizacao: false, codigoPagina: 'pagMisturaPadrao' }    , 
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagMisturaPadrao' }    , 
                     name: 'misturapadrao' 
                       
                   }       ,   
@@ -120,16 +125,16 @@ const routes =
                     path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
                     props: true,
                     component: Mistura,
-                    meta: { requerAutorizacao: false, codigoPagina: 'pagManterMisturaPadrao' }    , 
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagManterMisturaPadrao' }    , 
                     name: 'mantermisturapadrao' 
                       
                   }       ,     
                   
                   {
-                    path: 'misturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    path: 'baixarmisturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
                     props: true,
-                    component: Mistura,
-                    meta: { requerAutorizacao: false, codigoPagina: 'pagBaixarMisturaPadrao' }    , 
+                    component: AcessoBaixarMisturaPadrao,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagBaixarMisturaPadrao' }    , 
                     name: 'baixarmisturapadrao' 
                       
                   }       ,                    
@@ -139,10 +144,60 @@ const routes =
                     path: 'acessomisturapadrao/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
                     props: true,
                     component: AcessoManutencaoMistura,
-                    meta: { requerAutorizacao: false, codigoPagina: 'pagAcessoMisturaPadrao' }    , 
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagAcessoMisturaPadrao' }    , 
                     name: 'acessomisturapadrao' 
                       
-                  }       
+                  },
+                  {
+                    path: 'manterapilha/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: Pilha,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagManterPilha' }    , 
+                    name: 'manterpilha' 
+                      
+                  }  ,   
+                  
+                  {
+                    path: 'acessounirpilha/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: AcessoUnirPilha,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagUnirPilha' }    , 
+                    name: 'acessounirpilha' 
+                      
+                  }   
+                  
+                  ,   
+                  
+                  {
+                    path: 'acessolocalizarpilha/:tituloProps/:labelPesquisarComposicaoProps/:acaoSelecionadaProps',
+                    props: true,
+                    component: AcessoLocalizarPilha,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagLocalizarPilha' }    , 
+                    name: 'acessolocalizarpilha' 
+                      
+                  }     
+                  
+                  ,   
+                  
+                  {
+                    path: 'consultaestoque',
+                    props: false,
+                    component: ConsultaEstoque,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagConsultaEstoque' }    , 
+                    name: 'consultaestoque' 
+                      
+                  }    ,   
+                  
+                  {
+                    path: 'localizarpilha',
+                    props: false,
+                    component: LocalizarPilha,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagLocalizarPilha' }    , 
+                    name: 'localizarpilha' 
+                      
+                  }                   
+
+
 
                 ]
         }

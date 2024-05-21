@@ -659,6 +659,8 @@
         } , 
 
         async created(){    
+
+                this.scrollToTop();
  
                 if(this.$store.state.usuarioSistema.empresa=="" || this.$store.state.usuarioSistema.empresa==null){
                     this.navegarParaLogin();
@@ -688,6 +690,8 @@
                 },
         mounted(){ 
 
+
+            this.scrollToTop();
             this.usuario.codigo=this.codigoProps; 
             if(this.tipoOperacao == 'A'  || this.tipoOperacao == 'E' ){  
                 this.$refs.nome.focus();   

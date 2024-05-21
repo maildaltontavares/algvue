@@ -263,7 +263,7 @@ export default {
 
         if(tipo=="classematerial"){
              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/${id}`
-        }else if (tipo=="item" || tipo=="itemDet"   ) {
+        }else if (tipo=="item" || tipo=="itemDet" || tipo=="itemPilha"  ) {
              id = Number(id);
              url = `${process.env.VUE_APP_BASE_URL}/item/${this.$store.state.usuarioSistema.idfil}/${id}`
         }else if (tipo=="operador"  ) {          
@@ -278,7 +278,7 @@ export default {
               url = `${process.env.VUE_APP_BASE_URL}/estoquemp/id/${id}`   
         }
 
-         
+        
         
         //console.log('API Pesquisa Param')
         //console.log(url)
@@ -323,10 +323,8 @@ export default {
               }  
             }   
 
-            if (tipo == 'itemDet') {
-              /// target.nomeItem = response.data.material.descricao.substring(0, 40)
-
-
+            if (tipo == 'itemDet'   ) {
+ 
               target.idMovimento = 0;
               if ( response.data != null &&  response.data  != ''){
                  target.descFio = response.data.material.descricao.substring(0, 40);   
@@ -336,13 +334,25 @@ export default {
                 
               }   
 
-               
-            
-              //console.log('target.descFio')
-              //console.log(target.descFio)
+  
+            }      
+
+            if ( tipo == 'itemPilha' ) {
+  
+                if ( response.data != null &&  response.data  != ''){
+                  target.descFio = response.data.material.descricao.substring(0, 40);   
+                  
+                }else{
+                  target.descFio = '';
+                  
+                }   
 
             }      
             
+
+
+
+
             if (tipo == 'fornecedor') {  
               //this.nomeFornecedor = response.data[0].descricao.substring(0, 40) ;  //response.data[0].descricao.substring(0, 40)
               if ( response.data  != null &&  response.data  != ''){
@@ -1685,6 +1695,14 @@ export default {
         /* DALTON */
                this.paramItem =  pItem  
                 $('#modalPesquisaLote').modal('show');
+       
+      } ,  
+      
+      exibeModalNotasLote(pDadosLoteNf, pLote ){ 
+        /* DALTON */
+               this.paramDadosNfLote =  pDadosLoteNf  ;     
+               this.paramLote = pLote;
+               $('#modalPesquisaNotasLote').modal('show');
        
       } ,      
 
