@@ -139,6 +139,9 @@
 
                       </div>  
 
+                    
+
+
                     <div class="flex-linha"  style="margin-left:6%;width:88%;margin-top: 1%; ">  
                             
                                 <div    class="espacoEntreComponentes">  
@@ -559,7 +562,7 @@
 
                    
                     
-                    
+               
                     
 
                     <!------------------------------------------------->
@@ -1202,7 +1205,7 @@
 -->
 
                                         <td  >
-                                            <div   class="espacoEntreComponentesGrid" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S'">    
+                                            <div   class="espacoEntreComponentesGrid" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">    
                                                         
                                                 <div > 
                                                     
@@ -1217,7 +1220,7 @@
                                                         icon="mdi-card-search-outline"
                                                         size="41"
                                                         ></v-icon>  
-                                                        <span  style="margin-bottom:18px"><b>Notas do Lote</b></span> <!-- Texto centralizado -->
+                                                        <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
                                                     </v-btn>   
 
                                                 </div>
@@ -1226,7 +1229,7 @@
                                         </td> 
 
 
-                                        <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S'">    
+                                        <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">    
                                             
                                             <div > 
                                                 <label >Lote Testado</label>
@@ -1368,7 +1371,8 @@
                             <div class="col-3 div_rodape d-flex justify-content-end"   >
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px; " accesskey="n" @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>ovo</v-btn> 
                          
-                                <v-btn color="#4f545c" class="botao_rodape" style="min-width: 120px;" @click="exibeModal('excluirMistura','Confirma exclusao da mistura?',['S','N'] ,'aviso' )" v-if="( tipoOperacao  == 'A' && this.movimento.tipoMovimento=='MIST')"    accesskey="E"><u>E</u>xcluir</v-btn>
+                                <v-btn color="#4f545c" class="botao_rodape" style="min-width: 120px;" @click="exibeModal('excluirMovimento','Confirma exclusao do movimento?',['S','N'] ,'aviso' )" v-if="( tipoOperacao  == 'A' &&  this.movimento.tipoMovimento=='MIST'   )"    accesskey="E"><u>E</u>xcluir</v-btn>
+                                <v-btn color="#4f545c" class="botao_rodape" style="min-width: 120px;" @click="exibeModal('excluirPilha','Confirma exclusao do movimento?',['S','N'] ,'aviso' )"     v-if="( tipoOperacao  == 'A' &&  (this.movimento.tipoMovimento=='SAIPL' || this.movimento.tipoMovimento=='ENTPL')  )"    accesskey="E"><u>E</u>xcluir</v-btn>
                                 <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"  v-if="((tipoOperacao  == 'I' || tipoOperacao  == 'A')  && ( this.movimento.tipoMovimento!='SAIPL' && this.movimento.tipoMovimento!='MIST' && this.movimento.tipoMovimento!='ENTPL')  )" type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
                                 <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
@@ -1786,6 +1790,12 @@
             pNumVolumes:0,
             pPesoMedio:0,
             dadosNotasLote:[],
+            paramPesqNotasLote:{
+                idfil:'' ,
+                produtor:'' ,
+                lote:'' , 
+                idItem :''
+            }            
             
            
         }              
@@ -1892,9 +1902,21 @@
 
                     )  {  
 
-                            url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
 
-                            await this.axios.get(url,this.apiTokenHeader())
+                           url = `${process.env.VUE_APP_BASE_URL}/movimento/exibemovimentacao`  
+
+                           console.log(url)
+
+                           this.paramPesqNotasLote.idfil = this.$store.state.usuarioSistema.idfil; 
+                           this.paramPesqNotasLote.produtor = produtor;
+                           this.paramPesqNotasLote.lote = i.lote;
+                           this.paramPesqNotasLote.item = i.item; 
+
+                            await this.axios.post(
+                                 url,
+                                 JSON.stringify(this.paramPesqNotasLote),
+                                 this.apiTokenHeader({ "Content-Type": "application/json" })
+                            )  
                             .then(response => {
 
                                 //console.log("TipoMovimento");
@@ -2000,7 +2022,47 @@
 
                 return result;
 
-            },            
+            },     
+            
+            
+            async excluirPilha(){
+
+
+                let url = `${process.env.VUE_APP_BASE_URL}/movimento/excluirpilha/${this.movimento.idAutomatico}`  
+
+                await this.axios.get(url,this.apiTokenHeader())
+                .then(response => {
+
+                    console.log("excluirPilha");
+                    this.resultado = response.data;
+                    console.log(this.resultado);
+
+                    if(this.resultado=="OK"){  
+                        this.simNaoRetorno = 'S'
+                        this.resetarForm();                        
+                        this.apiDisplayMensagem('Movimento excluido com sucesso.');  
+                    }
+                    
+                   
+                    //console.log(this.vOperAlteraItem);
+                    //console.log(this.vOperAlteraEstoque); 
+                    
+                })
+                .catch(error => {  
+                    
+                        console.log("Erro: ", error); 
+                        console.log("Erro: ", error.response.data); 
+                        this.msgProcessamento = '' 
+                        this.apiDisplayMensagem(error.response.data ) 
+                        
+                });  
+                
+
+            },
+
+
+
+
 
             validaPeso(){
 
@@ -3847,18 +3909,20 @@
                     {
                         this.$router.push( { name: 'movimentacaoestoquepesquisa' } )
                         //console.log('pesquisa');
-                    }else if(this.acao == 'excluirMistura')
+                    }else if(this.acao == 'excluirMovimento')
                     {
-                         this.excluirMistura();
+                         this.excluirMovimento();
+                        //console.log('pesquisa');
+                    }else if(this.acao == 'excluirPilha')
+                    {
+                         this.excluirPilha();
                         //console.log('pesquisa');
                     }
                     
                 }
 
             }, 
-            excluirMistura(){
-
-                
+            excluirMovimento(){  
                    
                 for (let i = 0; i < this.aMovimentoItem.length; i++) {   
                         

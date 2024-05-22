@@ -1,31 +1,8 @@
-<template>  
+<template>   
 
+<v-form  ref="formulario" style=" background-color:white;height:100% "  >    
 
-    <MensagemMobile    
-
-class="rodape_mobile"
-style=" margin-bottom:60px;background-color:red;height:700px;color:#ce6d2c"
-
-:mensagemSucessoProps="mensagemSucesso" 
-:mensagemErroProps="mensagemErro"
-:haErrosProps="haErros"
-:haSucessoProps= "haSucesso"
-
-rrrrrrrrrrrrrrrrrrrrrrrr
-
-/>  
-
-
-
-<v-form  ref="formulario" style=" background-color:white; "  >    
-
-   <!-- <v-container style="width:100%;background-color:white"  >-->
-
-
-
-
-
-
+   <!-- <v-container style="width:100%;background-color:white"  >--> 
    
            <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
    
@@ -39,8 +16,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                   >  
                     -->
                    <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
-                        <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">                   
-                            
+                        <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
                                 <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Movimentos de Estoque</b></p>                               
                             </div> 
@@ -71,7 +47,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                         <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
-                                    v-model.trim="this.dataInicial" 
+                                    v-model.trim="this.param.dataInicial" 
                                     id="dataInicial"
                                     label="Data Inicial" 
                                     ref="dataInicial"  
@@ -92,7 +68,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                              
                                 
                                 <v-text-field
-                                    v-model.trim="this.dataFinal" 
+                                    v-model.trim="this.param.dataFinal" 
                                     id="dataFinal"
                                     label="Data Final" 
                                     ref="dataFinal"  
@@ -116,7 +92,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                                             <div class="d-flex  justify-content-start">
                                                 
                                                 <v-text-field
-                                                    v-model.trim="this.fornecedor" 
+                                                    v-model.trim="this.param.fornecedor" 
                                                     label="Fornecedor"
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
@@ -127,11 +103,13 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                                                     type="number"
                                                     inputmode="numeric"                                                   
                                                     density="compact"
+                                                    @blur="apiPesquisaParam('fornecedor', this.param.fornecedor, this.param)"
                                                     
                                                 ></v-text-field>    
                                                     
                                                 <v-btn   data-bs-toggle="modal" 
-                                                    data-bs-target="#modalPesquisaUsuario" tabindex="-1"  @click="apiFlushPesquisa" :disabled="codigoDesabilitado" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    tabindex="-1"  @click="apiFlushPesquisa"  
                                                     style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                     > 
                                                         <v-icon
@@ -163,7 +141,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                         <div   class="espacoEntreComponentes">    
                                         
                                         <v-text-field
-                                            v-model.trim="this.notaFiscal" 
+                                            v-model.trim="this.param.notaFiscal" 
                                             id="notaFiscal"
                                             label="Documento" 
                                             ref="notaFiscal"  
@@ -183,14 +161,30 @@ rrrrrrrrrrrrrrrrrrrrrrrr
 
                     <div class="d-flex justify-content-center"  style="margin-left:2%;width:95%;margin-top: 1%;background-color:white" >      
                     -->   
-                    
+
+                        <div    class="espacoEntreComponentes">  
+                                     
+                                <v-autocomplete
+                                    label="Tipo Movimento"
+                                    :items="tipoMovimentoItens"        
+                                    v-model="this.param.tipoMovimento"   
+                                    item-title="codigo" 
+                                    item-value="codigo"
+                                    variant="outlined"
+                                    style="width: 160px; font-size:16px;" 
+                                    bg-color="white"      
+                                    density="compact"  
+                                ></v-autocomplete> 
+ 
+                        </div>                     
+
                     
                         <div    class="espacoEntreComponentes">   
 
                             <v-autocomplete
                                 label="Produtor"
                                 :items="produtorItens"                              
-                                v-model="this.produtor"   
+                                v-model="this.param.produtor"   
                                 item-title="descricao" 
                                 item-value="codigo"
                                 variant="outlined"
@@ -206,7 +200,7 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                             <v-autocomplete
                                 label="Tipo MP"
                                 :items="tipoMPItens"                                                                       
-                                v-model="this.tipoMP"   
+                                v-model="this.param.tipoMP"   
                                 item-title="codigo" 
                                 item-value="codigo"
                                 variant="outlined"
@@ -240,44 +234,117 @@ rrrrrrrrrrrrrrrrrrrrrrrr
 
                     </div>                  
  
-                     <div class="container-fluid" >
-                            <table class="table table-sm table-striped tabela">
+                     <div class="container-fluid"  style=" overflow-y: scroll;">
+                            <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
-                                    <th class="col-1">#</th>
-                                      <th class="col-4 text-start">NOME</th>
-                                      <th class="col-4 text-start">EMAIL</th>              
+                                    <th class="col-1">NF</th>
+                                      <th class="col-4 text-start">FORNECEDOR</th>
+                                      <th class="col-4 text-start">PRODUTOR</th>     
                                       <th class="col-3 text-start">OPER</th>  
                                       
                                   </tr>
                                 </thead> 
   
-                                <tbody>
-                                  <template v-if="apiDisplayedDadosCRUD">
-  
-                                    <tr v-for="(i,indice) in apiDisplayedDadosCRUD" :key="indice">  
+                                <tbody  v-if="apiDisplayedDadosCRUD" >
+                                  <template  v-for="(i,indice) in apiDisplayedDadosCRUD" :key="indice">
+ 
+                                    <tr >  
                                   
-                                      <td class="col-2 text-start">
-                                        {{ i.idUsuario}}
+                                      <td class="col-1 text-start">
+                                        {{ i.notaFiscal}}
                                       </td> 
   
-                                      <td class="col-2 text-start">
-                                          {{ i.nome }}
+                                      <td class="col-2 text-start"> 
+
+                                          <span v-if="i.fkFornecedor !=null">{{ i.fkFornecedor.descricao.trimRight() + ' (' + (i.fkFornecedor.codigo)  + ')' }}</span>
+                                          <span v-else> </span>                                          
                                       </td>
-  
-                                      <td class="col-2 text-start">
-                                          {{ i.email}}
-                                      </td>                
-  
+
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.fkProdutor !=null">{{ i.fkProdutor.descricao.trimRight() }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>      
+
+                                                  
+
+                                      <th class="col-1"> 
+                                            <v-btn  icon="mdi-pencil" text="Editar"   :to="{ name: 'movimentacaoestoque' , params: { fornecedorProps : i.fornecedor,notaFiscalProps : i.notaFiscal,operacao:'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px; ">  </v-btn>
+                                             
+
+                                      </th> 
+
+   <!--
                                   
                                       <th class="col-1">
                                    
                                         <v-btn  icon="mdi-pencil" text="Editar"  :to="{ name: 'usuario' , params: { codigoProps : i.idUsuario,operacao:'A'}}" style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px; ">  </v-btn>
                                         
+                                        
    
                                       </th> 
-                                  
+                                   -->
                                     </tr>
+ 
+
+
+                                    <tr>
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.dataBase!=null">{{ i.dataBase }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>  
+
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.tipoMovimento!=null">{{ i.tipoMovimento }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>   
+                                      
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.tipoMP!=null">{{ i.tipoMP }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>                                        
+
+                                    </tr>
+
+                                    <tr>
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+                                      
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+                                      
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>                                      
+
+                                    </tr>                                    
+    
                                   </template> 
   
                               </tbody> 
@@ -315,34 +382,24 @@ rrrrrrrrrrrrrrrrrrrrrrrr
    
            <div class="d-flex justify-content-center" > 
    
-
-
-                <div style="height:500px;background-color:green">
-
-                    zzzzzzzzzzzzzzz
-
-
-                </div>
+ 
    
-               <MensagemMobile    
-
-               class="rodape_mobile"
-               style=" margin-bottom:60px;background-color:red;height:700px;color:#ce6d2c"
-
-               :mensagemSucessoProps="mensagemSucesso" 
-               :mensagemErroProps="mensagemErro"
-               :haErrosProps="haErros"
-               :haSucessoProps= "haSucesso"
-
-rrrrrrrrrrrrrrrrrrrrrrrr
-
-               />  
+                <MensagemMobile    v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile'  "    class="rodape_mobile"
+                    style=" margin-bottom:60px"
+                    :mensagemSucessoProps="mensagemSucesso" 
+                    :mensagemErroProps="mensagemErro"
+                    :haErrosProps="haErros"
+                    :haSucessoProps= "haSucesso"
+                />  
    
-               <v-card rounded="lg" class=" elevation-12 rodape_crud2" 
+                <!--
+               <div  class="  rodape_crud2" 
                          style="position: fixed;background-color:rgb(173, 173, 187);"  :style="{marginLeft:  this.$store.state.configuracaoTela.marginLeftRodape  ,
                                              width:  this.$store.state.configuracaoTela.tamanhoRodape,
                                              height:  this.$store.state.configuracaoTela.alturaRodape   }" > 
-                       
+                         -->
+                         
+              <div   class=" elevation-12 rodape_crud2" style=" background-color:rgb(173, 173, 187);"  >                          
                        
                        <div class=" d-flex justify-space-between ">  
    
@@ -361,16 +418,21 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                            </div> 
    
                        
-                           <div class="div_rodape d-flex justify-content-end">
-                               <v-btn color="primary" class="botao_rodape"  style="margin-right: 5px;" accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
+                           <div class="col-3 div_rodape d-flex justify-content-end">
+
+                               <v-btn color="secondary" class="botao_rodape" style="width:170px;min-width: 170px;" accesskey="p"  @click="resetaCampos"><u>L</u>impar pesquisa</v-btn>                               
+                               <v-btn color="primary" class="botao_rodape"  
+                                :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "
+                                 accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
                            </div>   
    
                        </div>    
-               </v-card>   
+                    </div>   
            </div>
        </v-container>                    
    
     </v-form>
+    <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
 </template> 
     
 <script>
@@ -381,21 +443,87 @@ rrrrrrrrrrrrrrrrrrrrrrrr
     import ApiMixinALG from '@/mixins/ApiMixinALG'
     import ApiMixinValidator from '@/mixins/ApiMixinValidator'
     import MensagemMobile  from '@/components/MensagemMobileComponent.vue'
+    import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
 
     //import {VDataTable } from "vuetify/labs/VDataTable";
   
     export default {
       name: 'MovimentacaoEstoquePesquisaComponent',
-      mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG,MensagemMobile],
-      //components: {VDataTable},  
+      mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
+      components: {MensagemMobile,PesquisaFornecedor},  
       data: () => ({
         resultPesquisaCRUD : [] , 
-        dataInicial:'',
-        dataFinal:'' , 
-        fornecedor:'',
+        movimentoDTO:{  
+
+            dataInicial:'',
+            dataFinal:'' , 
+            fornecedor:'',  
+            notaFiscal:'', 
+            tipoMP:'',
+            tipoMovimento:'',
+            idfil:'',
+            produtor:''  
+        }, 
+
+ 
+
+        tipoMovimentoItens: [],
+        tipoMovimentoItensTemp:{ 
+            codigo:'',
+            descricao:''
+        },
+    
+
+        tipoMPItens: [],
+        tipoMPItensTemp:{ 
+            codigo:'',
+            descricao:''
+        },
+
+        produtorItens: [],
+        produtorItensTemp:{ 
+            codigo:'',
+            descricao:''
+        },     
+        
+        param:{
+
+          tipoMovimento: '',
+          tipoMP: '' ,
+          produtor:''    ,     
+          dataInicial:'',
+          dataFinal:'' , 
+          fornecedor:'',
+          nomeFornecedor:'',
+          notaFiscal:'', 
+          idfil:'',
+
+
+        },
         nomeFornecedor:'',
-        notaFiscal:'', 
-        tipoMP:'',
+
+
+        movimentoParamDTO:{
+
+          tipoMovimento: '',
+          tipoMP: '' ,
+          produtor:''    ,     
+          dataInicial:'',
+          dataFinal:'' , 
+          fornecedor:'',
+          nomeFornecedor:'',
+          notaFiscal:'', 
+          idfil:'',
+
+
+        },
+
+
+
+        //tipoMP:'',
+        //tipoMovimento:'',
+        
+
         erros: '',
         mensagemSucesso: '',
         mensagemErro : '', 
@@ -409,14 +537,50 @@ rrrrrrrrrrrrrrrrrrrrrrrr
       methods: {
   
         NavegarParaInclusao( ){ 
-          this.$router.push({name:'movimentacaoestoque'   ,   params : {sistemaProps : 4 ,usuarioProps : '0' , operacao : 'I' }} ) 
+          this.$router.push({name:'movimentacaoestoque'   ,   params : {fornecedorProps : '0' ,  notaFiscalProps : '0', operacao : 'I' }} ) 
         },
        setaPesquisaCRUD(pCursor) {  
               this.resultPesquisaCRUD = pCursor   
   
         } ,
+
+
+        setaPesquisa(e) {    
+
+          this.param.fornecedor = e.obj.codigo;
+          this.nomeFornecedor = e.obj.descricao;
+ 
+        },        
+
+        resetaCampos() {  
+
+            //console.log('Resetar');
+           // this.movimentoDTO.idfil = this.$store.state.usuarioSistema.idfil;  
+
+            this.param.dataInicial='';
+            this.param.dataFinal='' ;
+            this.param.fornecedor='';
+            this.param.nomeFornecedor='';
+            this.nomeFornecedor='';
+            this.param.notaFiscal='';
+
+            this.param.tipoMP='';
+            this.param.tipoMovimento='';  
+            this.param.produtor='';  
+
+            this.resultPesquisaCRUD = [];
+            this.exibePaginador = false;
+
+            //this.populaForm();               
+
+        }  ,   
+            
   
           navegarParaLogin(){this.$router.push({name:'login'  })}   ,
+
+          scrollToTop() {
+              window.scrollTo(0, 0);
+            },          
 
           async pesquisaDados(){    
 
@@ -429,35 +593,31 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                 this.mensagemErro = '' 
 
                 let periodoPreenchido = true;  
-
+                
                 this.validacao = await this.$refs.formulario.validate(); 
                 if (!this.validacao.valid) {
                     this.apiDisplayMensagem('Preencha os campos com críticas.');
                     this.haErros = true;
                     return;
-                } else {                
- 
-                        if (this.dataInicial != null && this.dataInicial != "" && 
-                        this.dataFinal != null && this.dataFinal != "" ){
-                            //this.haErros = true;
-                            //this.mensagemErro = "Informe a data inicial  " + this.producaoFiacaoParams.dataProducaoInicial ; 
-                            
-                          
+                } else {      
+                  
 
-                            if (this.dataFinal < this.dataInicial ){
+                        if (this.param.dataInicial != null && this.param.dataInicial != "" && 
+                            this.param.dataFinal != null && this.param.dataFinal != "" ){
+                         
+                            if (this.param.dataFinal < this.param.dataInicial ){
                                   this.apiDisplayMensagem("Data inicial maior que data final" );
                                   this.haErros = true;
                                  //console.log("Informe a data inicial")  ;
-                                 console.log("Informe a data inicial ddddd")  ;
+                                  //console.log("Informe a data inicial ddddd")  ;
                                   periodoPreenchido  = false; 
-                            }else{
-                                console.log("Informe a data inicial fffff")  ;
+                            } 
 
-                            }
+                           
 
                            
                         }  else{
-
+                           //console.log("Informe a data inicial 5555522dddd")  ;
                             //this.apiDisplayMensagem('Preencha os campos com críticas.');
                             //this.haErros = true;
                             return;
@@ -467,11 +627,11 @@ rrrrrrrrrrrrrrrrrrrrrrrr
                         //console.log('periodoPreenchido 2')
                           
 
-
+                        //console.log("Informe a data inicial d222dddd")  ;
                         if(periodoPreenchido) {
                             this.haErros = false
                             this.exibePaginador = true;
-                            //this.apiPesquisaCRUDByFilial('producao','nome',  this.producaoFiacaoParams )
+                            this.apiPesquisaCRUDByFilial('movimento','nome',  this.param)
                         }
 
                 
@@ -481,16 +641,26 @@ rrrrrrrrrrrrrrrrrrrrrrrr
 
      } , 
       
-    async created(){   
-    
-            console.log('');
+     async created(){   
+
+            if(this.$store.state.usuarioSistema.empresa=="" || this.$store.state.usuarioSistema.empresa==null){
+                this.navegarParaLogin();
+            }  
+
+            this.populaTipoMovimento(); 
+            this.populaTipoMP();
+            this.populaProdutor();
+            //this.populaProcedencia();
+
             this.msgProcessamento = '';
+            this.scrollToTop();
     
       }
   
       ,
     mounted(){ 
        //this.$refs.dataInicial.focus();     
+       this.scrollToTop();
     } 
     
     }
@@ -569,6 +739,12 @@ rrrrrrrrrrrrrrrrrrrrrrrr
   
     .EspacoEntreBotoes{
       margin-right: 15px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: red;
     }
    
   

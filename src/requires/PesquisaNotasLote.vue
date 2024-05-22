@@ -14,9 +14,11 @@
                 <thead> 
 
                   <tr class="cabecalhoPesquisa">
-                    <th scope="col" class="text-center" width="20%">Notas</th>
+                    <th scope="col" class="text-center" width="20%">Tipo Movto</th>
+                    <th scope="col" class="text-center" width="20%">Documento</th>
                     <th scope="col" class="text-center" width="20%">Data</th>
                     <th scope="col" class="text-center" width="40%">Fornecedor</th>
+                    <th scope="col" class="text-center" width="40%">Quantidade</th>
                     <th scope="col" class="text-center" width="20%">Testado em</th>
                   </tr>
                 </thead>
@@ -34,9 +36,11 @@
                     <template v-else>
                         <tr v-for="c in apiDisplayedDadosCRUD" :key="c">
                             <!--<th scope="row" class="text-center" style="color: blue; cursor: pointer;" @click="setaPesquisa({ tipo: 'Lote',obj: c})" data-bs-dismiss="modal">{{ c.idMov }}</th>-->
+                            <td class="text-start">{{ c.tipoMovimento}}</td>
                             <td class="text-start">{{ c.notaFiscal}}</td>
                             <td class="text-start">{{ c.dataBase}}</td>
                             <td class="text-start">{{ c.nomeFornecedor}} </td>
+                            <td class="text-start">{{ c.quantidade}}</td>
                             <td class="text-start">{{ c.dataTeste}}</td>
                         </tr>
                     </template>

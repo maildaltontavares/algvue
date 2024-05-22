@@ -443,6 +443,7 @@
                                       <th class="col-2 text-start" >TrAr</th>  
                                       <th class="col-2 text-start" >TrCnt</th>  
                                       <th class="col-2 text-start" >UHML</th>  
+                                      <th class="col-2 text-start" >Consultar</th> 
                                     
                                     
 
@@ -661,8 +662,15 @@
 
                                       <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.m4UHML ==null">
                                         {{  }}
-                                      </td>                                        
-
+                                      </td>  
+                                      
+                                      
+                                      <td>
+                                        
+                                          <a   class="btn btn-sm btn-primary" style="width:100px" @click="exibeMovimentos(i)"  >
+                                              <span  title="Movimentos" ><i   style="cursor: pointer;"></i>Movim. Lote</span>
+                                          </a>    
+                                     </td>
                                      
                                     </tr>
  
@@ -1171,6 +1179,7 @@
     </v-form>
     <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>
     <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
+    <PesquisaNotasLote   :nfLoteProps ="paramDadosNfLote"  :loteProps ="paramLote"  ref="pesquisaNotasLote"></PesquisaNotasLote>
     <SimNao @confirmaAcao="confirmaAcao($event)" :pergunta="simNaoPergunta" :botoes="simNaoBotoes" :tipo="simNaoTipo" ref="simNao"></SimNao> 
 </template> 
     
@@ -1185,15 +1194,18 @@
     import SimNao from '@/requires/SimNao.vue' 
     import PesquisaItem from '@/requires/PesquisaItem'
     import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
+    import PesquisaNotasLote from '@/requires/PesquisaNotasLote'
   
     export default {
       name: 'PilhaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile, SimNao,PesquisaItem,PesquisaFornecedor},  
+      components: {MensagemMobile, SimNao,PesquisaItem,PesquisaFornecedor,PesquisaNotasLote},  
        
       data: () => ({
 
         resultPesquisaCRUD : [] , 
+        paramDadosNfLote:[],
+        paramLote:'',
 
         produtorItens: [],
         produtorItensTemp:{ 
@@ -1356,6 +1368,14 @@
         tamTela:"",
         labelNovo:"",
         heightNovaPilha:"",
+        dadosNotasLote:[],
+        paramPesqNotasLote:{
+          idfil:'' ,
+          produtor:'' ,
+          lote:'' , 
+          idItem :''
+
+        }
      
 
 
@@ -1383,6 +1403,51 @@
                     } 
               } 
 
+
+         },
+
+
+        async exibeMovimentos(elemento){ 
+
+                let url;  
+                this.dadosNotasLote =[];    
+
+                url = `${process.env.VUE_APP_BASE_URL}/movimento/exibemovimentacao`  
+
+                console.log(url)
+
+                this.paramPesqNotasLote.idfil = this.$store.state.usuarioSistema.idfil; 
+                this.paramPesqNotasLote.produtor = elemento.cod_PROD;
+                this.paramPesqNotasLote.lote = elemento.lote;
+                this.paramPesqNotasLote.item = elemento.m4ITEM; 
+
+                await this.axios.post(
+                    url,
+                    JSON.stringify(this.paramPesqNotasLote),
+                    this.apiTokenHeader({ "Content-Type": "application/json" })
+                )                
+                .then(response => {
+
+               
+                    this.resultado = response.data;   
+                    
+                    if (this.resultado){ 
+                        if(this.resultado.length>0){
+                          this.dadosNotasLote = this.resultado; 
+                          this.exibeModalNotasLote(this.dadosNotasLote,elemento.lote)
+                          }
+                   } 
+                    
+                })
+                .catch(error => {  
+                    
+                        console.log("Erro: ", error); 
+                        this.msgProcessamento = '' 
+                        this.apiDisplayMensagem(error ) 
+                        
+                });    
+
+                
 
          },
          async pesquisaDados(){
