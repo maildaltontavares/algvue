@@ -61,6 +61,7 @@
 
                 </template> 
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMovimentacaoEstoque">Movimentação de Estoque</v-list-item>   
+                <v-list-item   prepend-icon="mdi-tree-outline" class="item-hover font-menu  " style=" margin-left:-40px;color:#ffff02" @click="navegarParaTesteCQ">Testes de CQ</v-list-item>   
                 <!--
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Teste Qualidade</v-list-item>   
                 <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Formação de Pilhas</v-list-item>   
@@ -355,6 +356,7 @@
                 navegarParaAcessoUnirPilha(){this.$router.push({name:'acessounirpilha', params : {tituloProps :'Unir Pilha' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaAcessoLocalizarPilha(){this.$router.push({name:'acessolocalizarpilha', params : {tituloProps :'Localizar Fardos' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaConsultaEstoque(){this.$router.push({name:'consultaestoque'  })}   ,
+                navegarParaTesteCQ(){this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,  itemProps : ' ' ,operacao : 'I' }  })}   ,
               
 
             },

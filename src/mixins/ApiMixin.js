@@ -263,7 +263,7 @@ export default {
 
         if(tipo=="classematerial"){
              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/${id}`
-        }else if (tipo=="item" || tipo=="itemDet" || tipo=="itemPilha"  ) {
+        }else if (tipo=="item" || tipo=="itemDet" || tipo=="itemPilha"  || tipo == 'itemTeste'  ) {
              id = Number(id);
              url = `${process.env.VUE_APP_BASE_URL}/item/${this.$store.state.usuarioSistema.idfil}/${id}`
         }else if (tipo=="operador"  ) {          
@@ -348,9 +348,19 @@ export default {
                 }   
 
             }      
-            
+
+            if ( tipo == 'itemTeste' ) { 
 
 
+              if ( response.data != null &&  response.data  != ''){
+                target.descItem = response.data.material.descricao.substring(0, 40);   
+                
+              }else{
+                target.descItem = '';
+                
+              }   
+
+            }    
 
 
             if (tipo == 'fornecedor') {  
@@ -1001,8 +1011,76 @@ export default {
             });  
 
 
-      }
-      else if(tipo=="usuarioseg"){   
+      }else if(tipo=="testecq"){   
+
+        let dataTesteIni ;
+        let dataTesteFim ;
+
+        this.msgProcessamento = "Processando"
+        this.page = 1
+        this.apiProcessamento()
+
+        //console.log('this.apiPesquisaCRUDByFilial usuloginXXX')
+        //console.log(tipo)  
+        
+        let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisa`; 
+            
+        this.resultPesquisaCRUD = []
+        this.pages = []   
+ 
+        if(procurarPor.dataInicial.length==10){
+          dataTesteIni =  procurarPor.dataInicial.substring(0,4) + procurarPor.dataInicial.substring(5,7) + procurarPor.dataInicial.substring(8,10)  
+        }else{
+          dataTesteIni = ""  
+        }
+
+        if(procurarPor.dataFinal.length==10){
+          dataTesteFim =  procurarPor.dataFinal.substring(0,4) + procurarPor.dataFinal.substring(5,7) + procurarPor.dataFinal.substring(8,10)  
+        }else{
+          dataTesteFim = ""  
+        }          
+
+
+        this.testeDAO={  
+
+            dataInicial:dataTesteIni,
+            dataFinal:dataTesteFim, 
+            lote:procurarPor.lote,  
+            idfil:this.$store.state.usuarioSistema.idfil,
+            produtor:procurarPor.produtor ,
+            item: procurarPor.item ,
+        }  
+         
+
+        await this.axios.post(
+          url,
+          JSON.stringify(this.testeDAO),
+          //{
+          //headers: { "Content-Type": "application/json" }
+         // }
+         this.apiTokenHeader({ "Content-Type": "application/json" })
+          )
+          .then(response => {
+            
+            this.resultPesquisaCRUD = response.data    
+
+            this.msgProcessamento = ''
+
+            this.setaPesquisaCRUD(this.resultPesquisaCRUD)
+            this.apiSetPagesCRUD() 
+
+            this.msgProcessamento = ''
+ 
+          }) 
+          .catch(error => {
+            console.log("Erro: ", error.response.data);
+            this.haErros = true
+            this.mensagemErro = error.response.data
+            this.msgProcessamento = ''
+          });  
+
+
+      }else if(tipo=="usuarioseg"){   
 
         this.msgProcessamento = "Processando"
         this.page = 1

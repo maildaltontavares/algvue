@@ -16,6 +16,8 @@ import AcessoUnirPilha  from '@/views/AcessoUnirPilhaComponent.vue'
 import AcessoLocalizarPilha  from '@/views/AcessoLocalizarPilhaComponent.vue'
 import ConsultaEstoque  from '@/views/ConsultaEstoqueComponent.vue'
 import LocalizarPilha  from '@/views/LocalizarPilhaComponent.vue'
+import TestesCQ  from '@/views/TestesCQComponent.vue'
+import TestesCQPesquisa  from '@/views/TestesCQPesquisaComponent.vue'
 
 import store from '@/store/index'
 import axios from 'axios' 
@@ -195,7 +197,26 @@ const routes =
                     meta: { requerAutorizacao: true, codigoPagina: 'pagLocalizarPilha' }    , 
                     name: 'localizarpilha' 
                       
-                  }                   
+                  } ,   
+                  
+                  {
+                    path: 'testecq/:produtorProps/:loteProps/:itemProps/:operacao',
+                    props: true,
+                    component: TestesCQ,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagTesteCQ' }    , 
+                    name: 'testecq' 
+                      
+                  }  ,   
+                   
+  
+                  {
+                    path: 'testecqpesquisa',
+                    props: false,
+                    component: TestesCQPesquisa,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagTesteCQPesquisa' }    , 
+                    name: 'testecqpesquisa' 
+                      
+                  }                      
 
 
 

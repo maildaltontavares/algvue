@@ -1,20 +1,12 @@
  
 <template  >
     
-    <v-form  ref="formulario" @submit.stop.prevent="submitForm" style="width:100%;height: 100%;" >    
+    <v-form  ref="formulario" @submit.stop.prevent="submitForm" style=" background-color:white;height:100% "  >    
        <!-- <v-container  style="background-color:#3290ce;">-->
-            <div   > 
+        <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
                  
-                <div style="background-color:white; ">
-                <!--  height: 1000px;
-                <v-card rounded="lg" class=" elevation-12" 
-                        
-                    :style="{  minWidth:  this.$store.state.larguraCard,
-                            height:  '20000px'}" 
-                    
-                    >  
-                      -->
-
+                <div style="width:100%" >
+                
                       
                       <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
 
@@ -1977,12 +1969,16 @@
                 if (filial!='' && filial!=null &&
                     produtor!='' && produtor!=null &&
                     i.lote!='' && i.lote!=null &&
+                    i.item!='' && i.item!=null &&
                     this.vOperAlteraItem=='S'   &&
                     this.tipoMatP == 'ALGOD' 
 
                 )  {  
 
-                        url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}`  
+                       // url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}`  
+
+                       url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
+                       
 
                         await this.axios.get(url,this.apiTokenHeader())
                         .then(response => {
@@ -2869,8 +2865,8 @@
                                                     "fornecedor": this.movimento.fornecedor,
                                                     "tipoMovimento": this.movimento.tipoMovimento,  
                                                     "tipoMP":  this.movimento.tipoMP,
-                                                    "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
-                                                    "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"), 
+                                                    "dataBase":  this.$moment(this.movimento.dataBase).format("DD/MM/YYYY"),
+                                                    "dataEmissao":  this.$moment(this.movimento.dataEmissao).format("DD/MM/YYYY"), 
                                                     //"entradaSaida":  this.movimento.entradaSaida,
                                                     "loteFiacao":  this.movimento.loteFiacao,
                                                     "pesoMedio":  this.apiConverteNumeroFormatado(this.movimento.pesoMedio),
@@ -3075,8 +3071,8 @@
                                                             "fornecedor": this.movimento.fornecedor,
                                                             "tipoMovimento": this.movimento.tipoMovimento,
                                                             "tipoMP":  this.movimento.tipoMP,
-                                                            "dataBase":  this.$moment(this.movimento.dataBase,).format("DD/MM/YYYY"),
-                                                            "dataEmissao":  this.$moment(this.movimento.dataEmissao,).format("DD/MM/YYYY"),  
+                                                            "dataBase":  this.$moment(this.movimento.dataBase).format("DD/MM/YYYY"),
+                                                            "dataEmissao":  this.$moment(this.movimento.dataEmissao).format("DD/MM/YYYY"),  
                                                             "loteFiacao":  this.movimento.loteFiacao,
                                                             "pesoMedio":  this.apiConverteNumeroFormatado(this.movimento.pesoMedio),
                                                             "pesoTotal":  this.apiConverteNumeroFormatado(this.movimento.pesoTotal),   

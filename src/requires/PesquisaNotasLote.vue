@@ -4,7 +4,7 @@
     <div class="modal-dialog  modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header" style="background-color: #003366; color:white; font-weight: bold;">
-            <label class="tituloPesquisa fs-5" id="staticBackdropLabelNotasLote">Notas do Lote - {{loteProps}}</label>
+            <label class="tituloPesquisa fs-5" id="staticBackdropLabelNotasLote">Movimentos do Lote - {{loteProps}}</label>
         </div>
         <div class="modal-body" > 
          
