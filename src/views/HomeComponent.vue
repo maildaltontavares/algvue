@@ -101,7 +101,7 @@
                 ></v-list-item>
                 </template> 
 
-                <v-list-item prepend-icon="mdi-arrange-send-backward" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoUnirPilha">Unir</v-list-item>   
+                <v-list-item prepend-icon="mdi-arrange-send-backward" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoUnirPilha">Formar</v-list-item>   
                 <v-list-item prepend-icon="mdi-human-male-height" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoLocalizarPilha">Localizar</v-list-item>  
 
 
@@ -353,7 +353,7 @@
                 navegarParaMovimentacaoEstoque(){this.$router.push({name:'movimentacaoestoque' , params : { fornecedorProps : '0' ,  notaFiscalProps : '0' ,operacao : 'I' }} ) },
                 navegarParaMisturaPadrao(){this.$router.push({name:'acessomisturapadrao', params : {tituloProps :'Mistura Padrao' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaBaixarMisturaPadrao(){this.$router.push({name:'baixarmisturapadrao', params : {tituloProps :'Descida da Mistura' ,labelPesquisarComposicaoProps : 'Informar Composicao' , acaoSelecionadaProps : 'B' } } )},
-                navegarParaAcessoUnirPilha(){this.$router.push({name:'acessounirpilha', params : {tituloProps :'Unir Pilha' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
+                navegarParaAcessoUnirPilha(){this.$router.push({name:'acessounirpilha', params : {tituloProps :'Formar Pilha' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaAcessoLocalizarPilha(){this.$router.push({name:'acessolocalizarpilha', params : {tituloProps :'Localizar Fardos' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaConsultaEstoque(){this.$router.push({name:'consultaestoque'  })}   ,
                 navegarParaTesteCQ(){this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,  itemProps : ' ' ,operacao : 'I' }  })}   ,

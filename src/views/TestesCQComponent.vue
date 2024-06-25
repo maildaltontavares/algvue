@@ -286,8 +286,7 @@
                                             inputmode="numeric"
                                             :rules="[campoRequerido]" 
                                             density="compact"
-                                            @keyup="apiEntraNumero($event,0) " 
-                                            @blur="this.teste.sic = $event.target.value"                                            
+                                            maxlength="3"                                           
                                        
                                            
                                         
@@ -311,6 +310,7 @@
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.mst = $event.target.value"
+                                        maxlength="4"   
                                        
                                 ></v-text-field>  
 
@@ -331,6 +331,7 @@
                                             density="compact"
                                             @keyup="apiEntraNumero($event,2) " 
                                             @blur="this.teste.mic = $event.target.value"
+                                            maxlength="5" 
                                         
                                     ></v-text-field>  
 
@@ -352,6 +353,7 @@
                                             density="compact"
                                             @keyup="apiEntraNumero($event,2) " 
                                             @blur="this.teste.mat = $event.target.value"
+                                            maxlength="5" 
                                         
                                     ></v-text-field>  
 
@@ -371,7 +373,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,3) " 
-                                        @blur="this.teste.uhml = $event.target.value"                                    
+                                        @blur="this.teste.uhml = $event.target.value"  
+                                        maxlength="6"                                  
                                 ></v-text-field>  
 
                             </div>
@@ -391,7 +394,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.ui = $event.target.value"                                    
+                                        @blur="this.teste.ui = $event.target.value"   
+                                        maxlength="5"                                 
                                 ></v-text-field>  
 
                             </div>
@@ -411,7 +415,8 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.sf = $event.target.value"                                    
+                                            @blur="this.teste.sf = $event.target.value"  
+                                            maxlength="5"                                    
                                     ></v-text-field>  
 
                             </div>                            
@@ -431,7 +436,8 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.str = $event.target.value"                                    
+                                            @blur="this.teste.str = $event.target.value" 
+                                            maxlength="5"                                     
                                     ></v-text-field>  
 
                             </div>       
@@ -449,7 +455,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.elg = $event.target.value"                                    
+                                        @blur="this.teste.elg = $event.target.value"  
+                                        maxlength="4"                                    
                                 ></v-text-field>  
 
                             </div>  
@@ -468,7 +475,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.rs = $event.target.value"                                    
+                                        @blur="this.teste.rs = $event.target.value"   
+                                        maxlength="5"                                   
                                 ></v-text-field>  
 
 
@@ -490,7 +498,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.b = $event.target.value"                                    
+                                        @blur="this.teste.b = $event.target.value"  
+                                        maxlength="5"                                    
                                 ></v-text-field>  
 
                             </div>  
@@ -510,7 +519,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.tipo = $event.target.value"                                    
+                                        @blur="this.teste.tipo = $event.target.value" 
+                                        maxlength="5"                                     
                                 ></v-text-field>  
 
                             </div>                              
@@ -529,7 +539,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.trcnt = $event.target.value"                                    
+                                        @blur="this.teste.trcnt = $event.target.value" 
+                                        maxlength="5"                                     
                                 ></v-text-field>  
 
                             </div> 
@@ -549,7 +560,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.trar = $event.target.value"                                    
+                                        @blur="this.teste.trar = $event.target.value"  
+                                        maxlength="5"                                    
                                 ></v-text-field>  
 
                             </div>    
@@ -568,7 +580,8 @@
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
-                                        @blur="this.teste.trid = $event.target.value"                                    
+                                        @blur="this.teste.trid = $event.target.value"  
+                                        maxlength="4"                                    
                                 ></v-text-field>  
 
                             </div>       
@@ -585,7 +598,7 @@
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
-                                        :rules="[campoRequerido]" 
+                                       
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.sac = $event.target.value"                                    
@@ -605,7 +618,7 @@
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
-                                        :rules="[campoRequerido]" 
+                                        
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.pim = $event.target.value"                                    
@@ -624,7 +637,7 @@
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
-                                        :rules="[campoRequerido]" 
+                                      
                                         density="compact"
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.sc = $event.target.value"                                    
@@ -693,6 +706,7 @@
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
+                                        @blur="configuraSelo"
                                         
                                     ></v-autocomplete> 
 
@@ -1094,7 +1108,8 @@
             produtorItens: [],
             produtorItensTemp:{ 
                 codigo:'',
-                descricao:''
+                descricao:'',
+                chave:''
             },   
             
             tipoTesteItens:[
@@ -1145,7 +1160,18 @@
              
             navegarParaLogin(){this.$router.push({name:'login'  })}, 
 
-            async exclusao() { 
+            async exclusao() {  
+
+
+                if (this.teste.produtor==null || this.teste.produtor=='' || 
+                 this.teste.lote==null || this.teste.lote=='' ||
+                 this.teste.item==null || this.teste.item==''|| 
+                 this.teste.descItem==null || this.teste.descItem=='')
+                {  
+                    this.apiDisplayMensagem('Informe um  teste válido' ) 
+                    return false;
+                }    
+
 
                 /// EXCLUSAO ////
 
@@ -1182,9 +1208,39 @@
                  
             }, 
             importarArquivo(){ 
+
+
+                if(this.teste.produtor=='' || this.teste.produtor==null){
+                    this.apiDisplayMensagem('Informe o produtor');
+                    return false 
+                }
+
+
+                if(this.teste.lote=='' || this.teste.lote==null){
+                    this.apiDisplayMensagem('Informe o lote');
+                    return false 
+                }  
+                
+                if(this.teste.item=='' || this.teste.item==null){
+                    this.apiDisplayMensagem('Informe o item');
+                    return false 
+                }  
+                
+                if(this.teste.descItem=='' || this.teste.descItem==null){
+                    this.apiDisplayMensagem('Informe um item válido');
+                    return false 
+                }                 
+
+
+
                 
                 if(this.fileSelecionado!='') {                    
                     this.readFile(this.nomeArquivo); 
+                    this.produtorDesabilitado= true;	 
+                    this.loteDesabilitado= true;
+                    this.itemDesabilitado=true;
+                    this.fileSelecionadoDesabilitado=true;
+
                 }else{
                     
                     this.fileSelecionado='';
@@ -1223,46 +1279,82 @@
 
                 //let linhaLote;
                 let linhaMedia;
+                let dadosArquivo;
+                let erroArquivo = false;
 
-                const lines = content.split('\n');
+                const lines = content.split('\n'); 
 
-                //const headers = lines[0].split(';');                
-                //const values = lines[1] ? lines[1].split(';') : [];
-/*
-                const headers1 = lines[0];                
-                const values1 = lines[1];  
-*/
+                const linhaLote = lines[3].split(';');      
+                dadosArquivo = linhaLote[5].toUpperCase();
 
-                /*
-                // Assumindo que há uma linha de cabeçalhos e uma linha de dados
-                 headers.forEach((header, index) => {
-                    //this.$set(this.formData, header.trim(), values[index] ? values[index].trim() : '');
+                let objDescProdutor = this.produtorItens.find(objDescProdutor => objDescProdutor.codigo === this.teste.produtor);   
 
-                                    
-                    console.log(lines[index])
-                  }) 
+                //console.log(objDescProdutor);
 
-                  */
+                if (!dadosArquivo.includes(objDescProdutor.chave.toUpperCase())) {   
+                    erroArquivo = true;  
+                    this.apiDisplayMensagem('Nome do produtor nao encontrado no arquivo'); 
+                } else if (!dadosArquivo.includes(this.teste.lote)) {  
+                    erroArquivo = true;  
+                    this.apiDisplayMensagem('Lote nao encontrado no arquivo'); 
+                }  
 
-                  //linhaLote = lines[3]; 
 
-                  for(let ind=0;ind<1000;ind++){
- 
-                    if(lines[ind].substring(0, 5)==("M" + String.fromCharCode( lines[ind].substring(1, 2).charCodeAt(0) ) + "dia")){                        
-                        linhaMedia = lines[ind];
-                        ind=1000;
-                    }   
- 
-                  } 
+                if(erroArquivo){
 
-                  //console.log(linhaLote)  ;
-                  //console.log(linhaMedia)  ;
+                        this.teste.sic  = 0;
+                        this.teste.mst  = 0;
+                        this.teste.mic  = 0;
+                        this.teste.mat  = 0;
+                        this.teste.uhml = 0;
 
-                  this.teste.obs = linhaMedia;
-                  this.aDados = linhaMedia.split(';'); 
-                  
-                  //console.log(this.aDados)  ;
+                        this.teste.ui   = 0;
+                        this.teste.sf   = 0;
+                        this.teste.str  = 0;
+                        this.teste.elg  = 0; 
+                        this.teste.rs   = 0;
 
+                        this.teste.b    = 0;
+                        this.teste.tipo = 0;
+                        this.teste.trcnt = 0;
+                        this.teste.trar = 0; 
+                        this.teste.trid = 0;  
+
+                        this.teste.arqImportacao = '';  
+
+                        return false
+                    
+                }else{
+                        this.teste.arqImportacao = linhaLote[5];  
+                        for(let ind=0;ind<1000;ind++){
+        
+                            if(lines[ind].substring(0, 5)==("M" + String.fromCharCode( lines[ind].substring(1, 2).charCodeAt(0) ) + "dia")){                        
+                                linhaMedia = lines[ind];
+                                ind=1000;
+                            }   
+        
+                        } 
+    
+                        this.aDados = linhaMedia.split(';'); 
+        
+                        this.teste.sic  = this.aDados[2];
+                        this.teste.mst  = this.aDados[7];
+                        this.teste.mic  = this.aDados[8];
+                        this.teste.mat  = this.aDados[9];
+                        this.teste.uhml = this.aDados[10];
+
+                        this.teste.ui   = this.aDados[12];
+                        this.teste.sf   = this.aDados[13]; 
+                        this.teste.str  = this.aDados[15]; 
+                        this.teste.elg  = this.aDados[16]; 
+                        this.teste.rs   = this.aDados[17]; 
+
+                        this.teste.b    = this.aDados[19]; 
+                        this.teste.tipo = this.aDados[21].replace("-", ",");
+                        this.teste.trcnt = this.aDados[23]; 
+                        this.teste.trar = this.aDados[25]; 
+                        this.teste.trid = this.aDados[29];    
+                } 
 
 
             },
@@ -1408,6 +1500,15 @@
                         this.fileSelecionado=""
                         this.configuraCampos('I' )  ;
                         this.populaProdutor();
+
+                        if(this.$store.state.usuarioSistema.idfil=="01"){
+                            this.teste.item = '424668'
+                        }else if(this.$store.state.usuarioSistema.idfil=="03"){
+                            this.teste.item = '444944'
+                        }else if(this.$store.state.usuarioSistema.idfil=="05"){
+                            this.teste.item = '523044'
+                        }
+                        this.apiPesquisaParam('itemTeste', this.teste.item  , this.teste)                    
                        
                         this.scrollToTop();
 
@@ -1627,11 +1728,11 @@
                             }   
                             
                             
-                            if (this.resultado.usuarioInclusao != null){
-                                this.teste.usuarioInclusao = this.resultado.usuarioInclusao ;     
+                            if (this.resultado.usarioInclusao != null){
+                                this.teste.usarioInclusao = this.resultado.usarioInclusao ;     
                             
                             }else{
-                                this.teste.usuarioInclusao = "" ;                       
+                                this.teste.usarioInclusao = "" ;                       
                             }      
 
                             if (this.resultado.dataInclusao != null){
@@ -1719,7 +1820,7 @@
                     this.produtorDesabilitado= false;	 
                     this.loteDesabilitado= false;
                     this.itemDesabilitado=false;
-                    //this.fileSelecionadoDesabilitado=false;  
+                    this.fileSelecionadoDesabilitado=false;  
 /*                    
                     this.dataTesteDesabilitado= false; 
                     this.numVolumesDesabilitado= false; 
@@ -1759,7 +1860,7 @@
                     this.produtorDesabilitado= true;	 
                     this.loteDesabilitado= true;
                     this.itemDesabilitado=true;
-                    //this.fileSelecionadoDesabilitado=true;  
+                    this.fileSelecionadoDesabilitado=true;  
                     /*
                     this.dataTesteDesabilitado= false; 
                     this.numVolumesDesabilitado= false; 
@@ -1876,7 +1977,16 @@
  
 
 
-        }, 
+        },  
+
+        configuraSelo(){
+            if (this.teste.possuiSelo=='N')
+            {   
+                    this.teste.tipoSelo='';                   
+                    this.teste.numeroSelo='';   
+            }
+
+        },
 
         async submitForm() {   
 
@@ -1886,6 +1996,53 @@
                 this.haSucesso = false  
                 this.mensagemSucesso = ''
                 this.mensagemErro = '' 
+
+
+
+                if ((this.teste.possuiSelo=='S'))
+                {   
+
+                        if ((this.teste.tipoSelo=='' || this.teste.tipoSelo==null))
+                        {  
+                            this.apiDisplayMensagem('Informe o tipo do selo.' ) 
+                            return false;
+                        }  
+
+                        if ((this.teste.numeroSelo=='' || this.teste.numeroSelo==null))
+                        {  
+                            this.apiDisplayMensagem('Informe o número do selo.' ) 
+                            return false;
+                        }   
+
+                }  
+
+
+                // Obtém a data atual
+                let dataAtual = new Date();
+
+                // Obtém as partes individuais da data atual
+                let ano = dataAtual.getFullYear();
+                let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+                let dia = ("0" + dataAtual.getDate()).slice(-2);
+
+                // Formata a data atual como "yyyy-mm-dd"
+                let dataAtualFormatada = `${ano}-${mes}-${dia}`; 
+
+                 if( this.teste.dataTeste > dataAtualFormatada ){
+                    this.apiDisplayMensagem('Data do teste inválida.' ) 
+                    return false; 
+                 } 
+                 
+                dataAtual.setDate(dataAtual.getDate() - 30); 
+                 
+                const testeDate = new Date(this.teste.dataTeste); 
+                testeDate.setHours(0, 0, 0, 0);
+                dataAtual.setHours(0, 0, 0, 0);
+
+                if( testeDate < dataAtual){
+                    this.apiDisplayMensagem('Data do teste inválida.' ) 
+                    return false;                    
+                } 
 
                 this.validacao = await this.$refs.formulario.validate(); 
                 if (!this.validacao.valid) {
@@ -2097,7 +2254,20 @@
 
                     if (!(resposta === true) ){
                         console.log('Erro de cadastro BuscaChave' );      
-                    } 
+                    }
+
+                }else{
+ 
+
+                     if(this.$store.state.usuarioSistema.idfil=="01"){
+                        this.teste.item = '424668'
+                     }else if(this.$store.state.usuarioSistema.idfil=="03"){
+                        this.teste.item = '444944'
+                     }else if(this.$store.state.usuarioSistema.idfil=="05"){
+                        this.teste.item = '523044'
+                     }
+                     this.apiPesquisaParam('itemTeste', this.teste.item  , this.teste)
+                    
                 }  
 
         },        

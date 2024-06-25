@@ -268,11 +268,14 @@ export default {
                            
                                this.produtorItensTemp.codigo = (prod.codigo != null ? prod.codigo.trim()  : null)  ;  
                                this.produtorItensTemp.descricao = (prod.descricao != null ? prod.descricao.trim()  : null)  ;  
+                               this.produtorItensTemp.chave = (prod.chave != null ? prod.chave.trim()  : null)  ;  
+
                            
         
                                this.produtorItens.push({
                                  codigo:this.produtorItensTemp.codigo,
-                                 descricao:this.produtorItensTemp.descricao  
+                                 descricao:this.produtorItensTemp.descricao ,
+                                 chave: this.produtorItensTemp.descricao 
                                 });  
                 
 
@@ -294,7 +297,7 @@ export default {
                    populaProcedencia(){
                     /* DALTON */
                            this.resultado = ""; 
-                           this.produtorItens = []; 
+                           this.procedenciaItens = []; 
                    
                            // Carrega tipo Maquina
                            let url = `${process.env.VUE_APP_BASE_URL}/procedencia/pesquisa/${this.$store.state.usuarioSistema.idfil}`; 

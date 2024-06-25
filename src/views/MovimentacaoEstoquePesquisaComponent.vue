@@ -476,7 +476,8 @@
         produtorItens: [],
         produtorItensTemp:{ 
             codigo:'',
-            descricao:''
+            descricao:'',
+            chave:''
         },     
         
         param:{

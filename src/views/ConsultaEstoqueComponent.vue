@@ -1210,7 +1210,8 @@
         produtorItens: [],
         produtorItensTemp:{ 
             codigo:'',
-            descricao:''
+            descricao:'',
+            chave:''
         }, 
 
         tamanhoItens:[

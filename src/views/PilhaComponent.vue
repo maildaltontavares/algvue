@@ -920,7 +920,7 @@
                               <template v-if="this.acaoSelecionada=='I'">                              
 
                                     <div class="col-3 div_rodape d-flex justify-content-end"    >
-                                        <v-btn color="secondary" class="botao_rodape" v-if="this.acaoDesabilitado"  :disabled="this.unirPilhaDesabilitado" style="min-width: 70px; "  accesskey="u"  @click="ativaConsulta()"><u>U</u>nir lotes</v-btn>
+                                        <v-btn color="secondary" class="botao_rodape" v-if="this.acaoDesabilitado"  :disabled="this.unirPilhaDesabilitado" style="min-width: 70px; "  accesskey="c"  @click="ativaConsulta()"><u>C</u>onfirmar</v-btn>
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
 
                                     </div>  
@@ -981,7 +981,8 @@
         produtorItens: [],
         produtorItensTemp:{ 
             codigo:'',
-            descricao:''
+            descricao:'',
+            chave:''
         }, 
 
         tamanhoItens:[
