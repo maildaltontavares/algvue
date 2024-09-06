@@ -7,20 +7,13 @@
            <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
    
                <div  style="width:100%"  > 
-                <!--
-               <v-card rounded="lg" class=" elevation-12" 
-      
-                  :style="{  minWidth:  this.$store.state.larguraCardPesq,
-                                     height:  this.$store.state.alturaCardPesq }" 
-                  
-                  >  
-                    -->
+ 
                    <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >  
                     
                     
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de CQ</b></p>                               
+                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Prod. Abertura</b></p>                               
                             </div> 
                         </div>    
 
@@ -43,138 +36,70 @@
 
                    </div> 
                    
-   
-                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%; background-color:white" >   
 
-                         
+                   
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >   
 
-                                <v-text-field
-                                    v-model.trim="this.param.dataInicial" 
-                                    id="dataInicial"
-                                    label="Data Inicial" 
-                                    ref="dataInicial"  
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
-                                    variant="outlined"
-                                    bg-color="white" 
-                                    type="date" 
-                                    :rules="[campoRequerido]" 
-                                    density="compact"
-                                    
-                                ></v-text-field>         
-                                
-                                <v-text-field
-                                    v-model.trim="this.param.dataFinal" 
-                                    id="dataFinal"
-                                    label="Data Final" 
-                                    ref="dataFinal"  
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
-                                    variant="outlined"
-                                    bg-color="white" 
-                                    type="date" 
-                                    :rules="[campoRequerido]" 
-                                    density="compact"
-                                    
-                                ></v-text-field>                                    
-                            
-                    
-                                               
-    
-                    
-                        
-
-                            <v-autocomplete
-                                label="Produtor"
-                                :items="produtorItens"                              
-                                v-model="this.param.produtor"   
-                                item-title="descricao" 
-                                item-value="codigo"
-                                variant="outlined"
-                                style=" width: 10%;min-width: 180px; "  
-                                class="espacoEntreComponentes" 
-                                bg-color="white"   
-                                density="compact"
-                            ></v-autocomplete> 
-
-                        
-                        
-                          
-                                        
-                                <v-text-field
-                                    v-model.trim="this.param.lote" 
-                                    id="lote"
-                                    label="Lote" 
-                                    ref="lote"  
-                                    maxlength="10"                                            
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
-                                    variant="outlined"
-                                    bg-color="white"                                           
-                                    type="text"     
-                                    density="compact"
-                                    
-                                ></v-text-field>                                    
-                                     
-                           
-                             
-                        <div   class="espacoEntreComponentes"  style="width: 40%; min-width: 350px; " >   
-                                        
-                            <div class="input-group">   
-                                
-                                <div class="d-flex  justify-content-start">
-                                    
-                                    <v-text-field
-                                      
-                                        id="item"
-                                        label="Item"
-                                        ref="item"  
-                                        maxlength="7"  
-                                        style=" width: 120px; "
-                                        variant="outlined"
-                                        bg-color="white"
-                                        v-model.trim="this.param.item"
-                                        type="number"                                                     
-                                      
-                                        density="compact" 
-                                        @blur="buscaItem" 
-                                    ></v-text-field>    
-                                        
-                                    <v-btn   data-bs-toggle="modal" 
-                                    data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                          :disabled="this.itemDesabilitado"
-                                        style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                        > 
-                                            <v-icon
-                                            this.
-                                            class="mb-6"
-                                            color="primary"
-                                            icon="mdi-card-search-outline"
-                                            size="45"
-                                            
-                                            ></v-icon>  
-                                    </v-btn>     
-
-                                </div  >      
-
-                                <div style="   flex-grow: 1;height:43px;"  >  
-                                    <v-text-field
-                                      
-                                        id="descFio"   
-                                        disabled 
-                                        class="limitadorMedia"
-                                        density="compact"
-                                        v-model.trim="this.param.descItem"
-                                        style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
-                                    ></v-text-field>   
-                                </div>  
-
-                            </div>
-    
-                        </div>            
  
-  
+                            
+
+                                      <v-text-field
+                                          v-model.trim="this.param.dataInicial" 
+                                          id="dataInicial"
+                                          label="Data Inicial" 
+                                          ref="dataInicial"  
+                                          style=" width: 30%;min-width: 180px; "  
+                                          class="espacoEntreComponentes"  
+                                          variant="outlined"
+                                          bg-color="white" 
+                                          type="date" 
+                                          :rules="[campoRequerido]" 
+                                          density="compact"
+                                          
+                                      ></v-text-field>     
+                                          
+                                  
+                                      
+                                      <v-text-field
+                                          v-model.trim="this.param.dataFinal" 
+                                          id="dataFinal"
+                                          label="Data Final" 
+                                          ref="dataFinal"  
+                                          style=" width: 30%;min-width: 180px; "  
+                                          class="espacoEntreComponentes" 
+                                          variant="outlined"
+                                          bg-color="white" 
+                                          type="date" 
+                                          :rules="[campoRequerido]" 
+                                          density="compact"
+                                          
+                                      ></v-text-field>        
+
+                                 
+                                              
+                                      <v-text-field
+                                          v-model.trim="this.param.mistura" 
+                                          id="mistura"
+                                          label="Mistura" 
+                                          ref="mistura"  
+                                          maxlength="10"                                            
+                                          style=" width: 30%;min-width: 180px; "  
+                                          class="espacoEntreComponentes"
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          @blur="validaMistura()"
+                                      ></v-text-field>                                    
+                                          
+                                
+                             
+
+
                     </div>
+
+
+
 
                     <div class="d-flex justify-content-center"  style="margin-left:4%;width:96%;margin-top: 1%;background-color:white" v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' " >  
 
@@ -194,71 +119,75 @@
                             
                                 </div>    
 
-                    </div>   
-                    
-                    <div class="container-fluid"  >
+                    </div>                  
+ 
+                     <div class="container-fluid"  >
                             <table class="table table-sm  tabela">
+                              
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
                                       <th class="col-1">DATA</th>
-                                      <th class="col-4 text-start">PRODUTOR</th>     
-                                      <th class="col-4 text-start">LOTE</th>                                                             
-                                      <th class="col-4 text-start">ITEM</th>   
-                                      <th class="col-3 text-start">OPER</th>  
-                                
-                                     
+                                      <th class="col-1">HORA</th>
+                                      <th class="col-3 text-start">TURNO</th>  
+                                      <th class="col-4 text-start">MISTURA</th>
+                                   
+                                      <th class="col-3 text-start">MAQUINA</th>  
+                                      <th class="col-3 text-start">LADO</th>   
+                                  
+                                      <th class="col-3 text-start">OPER</th>
                                       
                                   </tr>
-                                </thead> 
-      
+                                </thead>   
+
+
                                 <tbody  v-if="apiDisplayedDadosCRUD" >
+
                                   <template  v-for="(i,indice) in apiDisplayedDadosCRUD" :key="indice">
  
                                     <tr>  
-
-                                      <td class="col-1 text-start">
-                                        {{ i.dataTeste}}
-                                      </td>                                       
                                   
+                                      <td class="col-1 text-start">
+                                        {{ i.dataMovimento}}
+                                      </td> 
 
+                                      <td class="col-1 text-start">
+                                        {{ this.formataHora(i.horaMovimento) }}
+                                      </td>           
+
+                                      <td class="col-2 text-start">  
+                                           {{ i.turno}}                                      
+                                      </td>                                                                     
   
-                                       
-                                      <td class="col-2 text-start" v-if="exibePaginador" >
-                                        
-                                        <span v-if="i.produtor !=null">{{ i.nomeProdutor.trimRight() }} ({{i.produtor}}  )</span>
-                                        <span v-else> </span>
-                                       
-                                      </td>      
-
-                                      <td class="col-1 text-start">
-                                        {{ i.lote}}
-                                      </td>   
+                                      <td class="col-2 text-start">  
+                                           {{ i.mistura + ' / ' + i.seq}}                                      
+                                      </td>
                                       
-                                      <td class="col-1 text-start">
-                                        {{ i.item}}
-                                      </td>                                        
+
+                                      <td class="col-2 text-start">  
+                                           {{ i.localFisico}}                                      
+                                      </td>          
+
+                                      <td class="col-2 text-start">  
+                                           {{ i.lado}}                                      
+                                      </td>    
                                       
                                       <td class="col-1  "  >  
-                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'testecq' , params: { produtorProps : i.produtor ,  loteProps : i.lote ,  itemProps : i.item ,operacao : 'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
-                                       </td>                                        
-                                    
+                                           <v-btn   icon="mdi-pencil" text="Editar"   :to="{name:'producaoabertura', params : {  misturaProps: i.mistura, seqProps:i.seq , operacao : 'A'   }  }"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
+                                      </td>                                         
   
                                     </tr>
  
 
- 
- 
                                   </template> 
   
-                              </tbody> 
-                               
-  
+                              </tbody>  
+                              
                           </table> 
   
   
                       </div>
   
-                      <div class="mt-4" v-if="exibePaginador">
+                      <div class="mt-4" v-if="exibePaginador">  
                             <nav aria-label="Page navigation example">
                               <ul class="pagination pagination-sm justify-content-center">
                                 <li class="page-item">
@@ -272,12 +201,9 @@
                                 </li>
                               </ul>
                             </nav>
-                      </div>                    
-
-
-
- 
-                       <div style="height:80px">   <!--   Libera espaco da barra de botoes no mobile-->
+                      </div>
+  
+                      <div style="height:80px">   <!--   Libera espaco da barra de botoes no mobile-->
   
                       </div>   
                 </div>    
@@ -339,7 +265,7 @@
        </v-container>                    
    
     </v-form>
-  <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>     
+   <!-- <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor> -->
 </template> 
     
 <script>
@@ -350,78 +276,48 @@
     import ApiMixinALG from '@/mixins/ApiMixinALG'
     import ApiMixinValidator from '@/mixins/ApiMixinValidator'
     import MensagemMobile  from '@/components/MensagemMobileComponent.vue'
-    import PesquisaItem from '@/requires/PesquisaItem'
-   
+    
 
     //import {VDataTable } from "vuetify/labs/VDataTable";
   
     export default {
-      name: 'TesteCQPesquisaComponent',
+      name: 'ProducaoAberturaPesquisaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile,PesquisaItem },  
+      components: {MensagemMobile},  
       data: () => ({
         resultPesquisaCRUD : [] , 
-        'testeDTO':{  
+        producaoAberturaDTO:{  
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
+            dataInicialS:'',
+            dataFinalS:'' , 
+            mistura:'',    
             idfil:'',
-            produtor:''  ,
-            item:''  , 
-            descItem:''
+          
         }, 
 
-        'testeDAO':{  
-
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''  
-        },         
-
-  
-
-        produtorItens: [],
-        produtorItensTemp:{ 
-            codigo:'',
-            descricao:''
-        },     
+   
         
         param:{
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
+            dataInicialS:'',
+            dataFinalS:'' , 
+            mistura:'',    
             idfil:'',
-            produtor:'' ,
-            item:''  , 
-            descItem:''  ,
 
 
         }, 
 
-        testeParamDTO:{
+        producaoAberturaParamDTO:{
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
+            dataInicialS:'',
+            dataFinalS:'' , 
+            mistura:'',    
             idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''
 
 
         },
 
-
-
-        //tipoMP:'',
-        //tipoMovimento:'',
-        
+ 
 
         erros: '',
         mensagemSucesso: '',
@@ -436,46 +332,26 @@
       methods: {
   
         NavegarParaInclusao( ){ 
-       
-          this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,itemProps: ' ',operacao : 'I' }  })
+             this.$router.push({name:'producaoabertura', params : {  misturaProps: ' ', seqProps:' ' , operacao : 'I'   }  })  
+
+
+             
+        
         },
        setaPesquisaCRUD(pCursor) {  
               this.resultPesquisaCRUD = pCursor   
   
         } ,
-
-
-        setaPesquisa(e) {   
- 
-            this.param.item = e.obj.codigo;
-            this.param.descItem = e.obj.material.descricao.substring(0, 40);
-            
-      
-        },
-        buscaItem() {
-
-          if(!(this.param.item==null || this.param.item=='')){
-            this.apiPesquisaParam('itemTeste', this.param.item, this.param);
-          }else{
-            this.param.descItem=''
-          }
-          
-        },
-        
-
  
 
         resetaCampos() {  
 
             //console.log('Resetar');
-           // this.movimentoDTO.idfil = this.$store.state.usuarioSistema.idfil;  
+           // this.producaoAberturaDTO.idfil = this.$store.state.usuarioSistema.idfil;  
 
             this.param.dataInicial='';
             this.param.dataFinal='' ;
-            this.param.lote=''; 
-            this.param.produtor='';  
-            this.param.item='';  
-            this.param.descItem='';  
+            this.param.mistura='';  
 
             this.resultPesquisaCRUD = [];
             this.exibePaginador = false;
@@ -488,7 +364,16 @@
           navegarParaLogin(){this.$router.push({name:'login'  })}   ,
        
 
-          async pesquisaDados(){     
+          validaMistura (){
+
+               if (!(this.param.mistura==null || this.param.mistura=='')){   
+                    this.param.mistura = this.param.mistura.padStart(10, '0');
+               }
+          },
+
+
+
+          async pesquisaDados(){      
 
                 this.haErros = false
                 this.haSucesso = false  
@@ -501,7 +386,7 @@
                 if (!this.validacao.valid) {
                     this.apiDisplayMensagem('Preencha os campos com críticas.');
                     this.haErros = true;
-                    return;
+                    return false;
                 } else {      
                   
 
@@ -510,21 +395,32 @@
                          
                             if (this.param.dataFinal < this.param.dataInicial ){
                                   this.apiDisplayMensagem("Data inicial maior que data final" );
-                                  this.haErros = true;  
+                                  this.haErros = true; 
                                   periodoPreenchido  = false; 
-                            }  
+                                  return false;
+                            } else{
+
+                              if (!(this.param.mistura==null || this.param.mistura=='')){   
+                                  this.param.mistura = this.param.mistura.padStart(10, '0');
+                              }
+
+                              if(periodoPreenchido) {
+                                this.haErros = false;
+                                this.exibePaginador = true;
+                                this.apiPesquisaCRUDByFilial('producaoAbertura','nome',  this.param);
+                              }                                 
+
+
+
+                            } 
+
                            
                         }  else{ 
-                            return; 
+                            this.apiDisplayMensagem('Preencha os campos com críticas.');
+                            this.haErros = true;
+                            return false;
+
                         }  
-                        if(periodoPreenchido) {
-                            this.haErros = false
-                            this.exibePaginador = true;
-                            this.apiPesquisaCRUDByFilial('testecq','nome',  this.param)
-                        }
-
-                
-
               }
         },          
 
@@ -535,9 +431,6 @@
             if(this.$store.state.usuarioSistema.empresa=="" || this.$store.state.usuarioSistema.empresa==null){
                 this.navegarParaLogin();
             }   
-          
-            this.populaProdutor();
-            //this.populaProcedencia();
 
             this.msgProcessamento = '';
             this.scrollToTop();

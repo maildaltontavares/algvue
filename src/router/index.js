@@ -18,6 +18,8 @@ import ConsultaEstoque  from '@/views/ConsultaEstoqueComponent.vue'
 import LocalizarPilha  from '@/views/LocalizarPilhaComponent.vue'
 import TestesCQ  from '@/views/TestesCQComponent.vue'
 import TestesCQPesquisa  from '@/views/TestesCQPesquisaComponent.vue'
+import ProducaoAbertura  from '@/views/ProducaoAberturaComponent.vue'
+import ProducaoAberturaPesquisa  from '@/views/ProducaoAberturaPesquisaComponent.vue'
 
 import store from '@/store/index'
 import axios from 'axios' 
@@ -216,8 +218,29 @@ const routes =
                     meta: { requerAutorizacao: true, codigoPagina: 'pagTesteCQPesquisa' }    , 
                     name: 'testecqpesquisa' 
                       
-                  }                      
-
+                  }  ,   
+                   
+  
+                  {
+                    path: 'producaoabertura/:misturaProps/:seqProps/:operacao', 
+                    props: true,
+                    component: ProducaoAbertura,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagProducaoAbertura' }    , 
+                    name: 'producaoabertura' 
+                      
+                  }   ,   
+                   
+  
+                  {
+                    path: 'producaoaberturapesquisa',
+                    props: true,
+                    component: ProducaoAberturaPesquisa,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagProducaoAberturaPesquisa' }    , 
+                    name: 'producaoaberturapesquisa' 
+                      
+                  }                   
+ 
+  
 
 
                 ]

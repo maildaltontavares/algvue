@@ -20,7 +20,7 @@
                     
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de CQ</b></p>                               
+                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Movimentos de Estoque</b></p>                               
                             </div> 
                         </div>    
 
@@ -44,32 +44,37 @@
                    </div> 
                    
    
-                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%; background-color:white" >   
+                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
 
-                         
+                        <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                     v-model.trim="this.param.dataInicial" 
                                     id="dataInicial"
                                     label="Data Inicial" 
                                     ref="dataInicial"  
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 180px; " 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                     
-                                ></v-text-field>         
+                                ></v-text-field>                                    
+                           
+                    
+                        </div>           
+
+                        <div   class="espacoEntreComponentes">    
+                                    
+                             
                                 
                                 <v-text-field
                                     v-model.trim="this.param.dataFinal" 
                                     id="dataFinal"
                                     label="Data Final" 
                                     ref="dataFinal"  
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 180px; " 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
@@ -79,10 +84,104 @@
                                 ></v-text-field>                                    
                             
                     
-                                               
-    
+                        </div>                          
+ 
+ 
+                        <div   class="espacoEntreComponentes">   
+                                
+                                    <div class="input-group">  
+                                        
+                                            <div class="d-flex  justify-content-start">
+                                                
+                                                <v-text-field
+                                                    v-model.trim="this.param.fornecedor" 
+                                                    label="Fornecedor"
+                                                    id="fornecedor"                                                  
+                                                    ref="fornecedor"  
+                                                    maxlength="5"                                                    
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"                                                  
+                                                    type="number"
+                                                    inputmode="numeric"                                                   
+                                                    density="compact"
+                                                    @blur="apiPesquisaParam('fornecedor', this.param.fornecedor, this.param)"
+                                                    
+                                                ></v-text-field>    
+                                                    
+                                                <v-btn   data-bs-toggle="modal" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    tabindex="-1"  @click="apiFlushPesquisa"  
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                    > 
+                                                        <v-icon
+                                                        class="mb-6"
+                                                        color="primary"
+                                                        icon="mdi-card-search-outline"
+                                                        size="45"
+                                                        ></v-icon>  
+                                                </v-btn>     
+
+                                            </div  >      
+
+                                            <div class=" backCampoConjugado "  >   
+                                                <v-text-field
+                                                    v-model="this.nomeFornecedor" 
+                                                    id="nomeFornecedor"   
+                                                    disabled 
+                                                    class="limitadorMedia"                                                                                                        
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    density="compact"
+                                                ></v-text-field>   
+                                            </div>     
+                                    </div>
+
+                        </div>
+
+
+
+                        <div   class="espacoEntreComponentes">    
+                                        
+                                        <v-text-field
+                                            v-model.trim="this.param.notaFiscal" 
+                                            id="notaFiscal"
+                                            label="Documento" 
+                                            ref="notaFiscal"  
+                                            maxlength="10"                                            
+                                            style=" width: 150px; " 
+                                            variant="outlined"
+                                            bg-color="white"                                           
+                                            type="text"     
+                                            density="compact"
+                                            
+                                        ></v-text-field>                                    
+                                     
+                           
+                        </div>   
+                    <!--
+                    </div>
+
+                    <div class="d-flex justify-content-center"  style="margin-left:2%;width:95%;margin-top: 1%;background-color:white" >      
+                    -->   
+
+                        <div    class="espacoEntreComponentes">  
+                                     
+                                <v-autocomplete
+                                    label="Tipo Movimento"
+                                    :items="tipoMovimentoItens"        
+                                    v-model="this.param.tipoMovimento"   
+                                    item-title="codigo" 
+                                    item-value="codigo"
+                                    variant="outlined"
+                                    style="width: 160px; font-size:16px;" 
+                                    bg-color="white"      
+                                    density="compact"  
+                                ></v-autocomplete> 
+ 
+                        </div>                     
+
                     
-                        
+                        <div    class="espacoEntreComponentes">   
 
                             <v-autocomplete
                                 label="Produtor"
@@ -91,87 +190,28 @@
                                 item-title="descricao" 
                                 item-value="codigo"
                                 variant="outlined"
-                                style=" width: 10%;min-width: 180px; "  
-                                class="espacoEntreComponentes" 
+                                style="width: 270px; " 
                                 bg-color="white"   
                                 density="compact"
                             ></v-autocomplete> 
 
-                        
-                        
-                          
-                                        
-                                <v-text-field
-                                    v-model.trim="this.param.lote" 
-                                    id="lote"
-                                    label="Lote" 
-                                    ref="lote"  
-                                    maxlength="10"                                            
-                                    style=" width: 10%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
-                                    variant="outlined"
-                                    bg-color="white"                                           
-                                    type="text"     
-                                    density="compact"
-                                    
-                                ></v-text-field>                                    
-                                     
-                           
-                             
-                        <div   class="espacoEntreComponentes"  style="width: 40%; min-width: 350px; " >   
-                                        
-                            <div class="input-group">   
-                                
-                                <div class="d-flex  justify-content-start">
-                                    
-                                    <v-text-field
-                                      
-                                        id="item"
-                                        label="Item"
-                                        ref="item"  
-                                        maxlength="7"  
-                                        style=" width: 120px; "
-                                        variant="outlined"
-                                        bg-color="white"
-                                        v-model.trim="this.param.item"
-                                        type="number"                                                     
-                                      
-                                        density="compact" 
-                                        @blur="buscaItem" 
-                                    ></v-text-field>    
-                                        
-                                    <v-btn   data-bs-toggle="modal" 
-                                    data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                          :disabled="this.itemDesabilitado"
-                                        style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                        > 
-                                            <v-icon
-                                            this.
-                                            class="mb-6"
-                                            color="primary"
-                                            icon="mdi-card-search-outline"
-                                            size="45"
-                                            
-                                            ></v-icon>  
-                                    </v-btn>     
+                        </div>                             
 
-                                </div  >      
+                        <div    class="espacoEntreComponentes">  
 
-                                <div style="   flex-grow: 1;height:43px;"  >  
-                                    <v-text-field
-                                      
-                                        id="descFio"   
-                                        disabled 
-                                        class="limitadorMedia"
-                                        density="compact"
-                                        v-model.trim="this.param.descItem"
-                                        style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
-                                    ></v-text-field>   
-                                </div>  
+                            <v-autocomplete
+                                label="Tipo MP"
+                                :items="tipoMPItens"                                                                       
+                                v-model="this.param.tipoMP"   
+                                item-title="codigo" 
+                                item-value="codigo"
+                                variant="outlined"
+                                style="width: 160px;font-size:16px " 
+                                bg-color="white"                                    
+                                density="compact"                                
+                            ></v-autocomplete> 
 
-                            </div>
-    
-                        </div>            
+                        </div>    
  
   
                     </div>
@@ -194,64 +234,113 @@
                             
                                 </div>    
 
-                    </div>   
-                    
-                    <div class="container-fluid"  >
+                    </div>                  
+ 
+                     <div class="container-fluid"  >
                             <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
-                                      <th class="col-1">DATA</th>
+                                      <th class="col-1">NF</th>
+                                      <th class="col-4 text-start">FORNECEDOR</th>
                                       <th class="col-4 text-start">PRODUTOR</th>     
-                                      <th class="col-4 text-start">LOTE</th>                                                             
-                                      <th class="col-4 text-start">ITEM</th>   
                                       <th class="col-3 text-start">OPER</th>  
                                 
                                      
                                       
                                   </tr>
                                 </thead> 
-      
+  
                                 <tbody  v-if="apiDisplayedDadosCRUD" >
                                   <template  v-for="(i,indice) in apiDisplayedDadosCRUD" :key="indice">
  
                                     <tr>  
-
-                                      <td class="col-1 text-start">
-                                        {{ i.dataTeste}}
-                                      </td>                                       
                                   
-
+                                      <td class="col-1 text-start">
+                                        {{ i.notaFiscal}}
+                                      </td> 
   
-                                       
-                                      <td class="col-2 text-start" v-if="exibePaginador" >
+                                      <td class="col-2 text-start"> 
+
+                                          <span v-if="i.fkFornecedor !=null">{{ i.fkFornecedor.descricao.trimRight() + ' (' + (i.fkFornecedor.codigo)  + ')' }}</span>
+                                          <span v-else> </span>                                          
+                                      </td>
+
+                                      <td class="col-2 text-start"  >
                                         
-                                        <span v-if="i.produtor !=null">{{ i.nomeProdutor.trimRight() }} ({{i.produtor}}  )</span>
+                                        <span v-if="i.fkProdutor !=null">{{ i.fkProdutor.descricao.trimRight() }}</span>
                                         <span v-else> </span>
                                        
                                       </td>      
 
-                                      <td class="col-1 text-start">
-                                        {{ i.lote}}
-                                      </td>   
-                                      
-                                      <td class="col-1 text-start">
-                                        {{ i.item}}
-                                      </td>                                        
-                                      
+                                                  
+                                       <!----> 
                                       <td class="col-1  "  >  
-                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'testecq' , params: { produtorProps : i.produtor ,  loteProps : i.lote ,  itemProps : i.item ,operacao : 'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
-                                       </td>                                        
+                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'movimentacaoestoque' , params: { fornecedorProps : i.fornecedor,notaFiscalProps : i.notaFiscal,operacao:'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
+                                       </td>  
                                     
   
                                     </tr>
  
 
- 
- 
+
+                                    <tr>
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.dataBase!=null">{{ i.dataBase }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>  
+
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.tipoMovimento!=null">{{ i.tipoMovimento }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>   
+                                      
+                                      <td class="col-2 text-start"  >
+                                        
+                                        <span v-if="i.tipoMP!=null">{{ i.tipoMP }}</span>
+                                        <span v-else> </span>
+                                       
+                                      </td>                                        
+
+                                    </tr>
+
+                                    <tr>
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+                                      
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+                                      
+                                      <td class="col-2 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>                                      
+
+                                    </tr>                                    
+    
                                   </template> 
   
                               </tbody> 
-                               
   
                           </table> 
   
@@ -272,12 +361,9 @@
                                 </li>
                               </ul>
                             </nav>
-                      </div>                    
-
-
-
- 
-                       <div style="height:80px">   <!--   Libera espaco da barra de botoes no mobile-->
+                      </div>
+  
+                      <div style="height:80px">   <!--   Libera espaco da barra de botoes no mobile-->
   
                       </div>   
                 </div>    
@@ -339,7 +425,7 @@
        </v-container>                    
    
     </v-form>
-  <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>     
+    <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
 </template> 
     
 <script>
@@ -350,69 +436,78 @@
     import ApiMixinALG from '@/mixins/ApiMixinALG'
     import ApiMixinValidator from '@/mixins/ApiMixinValidator'
     import MensagemMobile  from '@/components/MensagemMobileComponent.vue'
-    import PesquisaItem from '@/requires/PesquisaItem'
-   
+    import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
 
     //import {VDataTable } from "vuetify/labs/VDataTable";
   
     export default {
-      name: 'TesteCQPesquisaComponent',
+      name: 'MovimentacaoEstoquePesquisaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile,PesquisaItem },  
+      components: {MensagemMobile,PesquisaFornecedor},  
       data: () => ({
         resultPesquisaCRUD : [] , 
-        'testeDTO':{  
+        movimentoDTO:{  
 
             dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
+            dataFinal:'' , 
+            fornecedor:'',  
+            notaFiscal:'', 
+            tipoMP:'',
+            tipoMovimento:'',
             idfil:'',
-            produtor:''  ,
-            item:''  , 
-            descItem:''
+            produtor:''  
         }, 
 
-        'testeDAO':{  
+ 
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''  
-        },         
+        tipoMovimentoItens: [],
+        tipoMovimentoItensTemp:{ 
+            codigo:'',
+            descricao:''
+        },
+    
 
-  
+        tipoMPItens: [],
+        tipoMPItensTemp:{ 
+            codigo:'',
+            descricao:''
+        },
 
         produtorItens: [],
         produtorItensTemp:{ 
             codigo:'',
-            descricao:''
+            descricao:'',
+            chave:''
         },     
         
         param:{
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'' ,
-            item:''  , 
-            descItem:''  ,
+          tipoMovimento: '',
+          tipoMP: '' ,
+          produtor:''    ,     
+          dataInicial:'',
+          dataFinal:'' , 
+          fornecedor:'',
+          nomeFornecedor:'',
+          notaFiscal:'', 
+          idfil:'',
 
 
-        }, 
+        },
+        nomeFornecedor:'',
 
-        testeParamDTO:{
 
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''
+        movimentoParamDTO:{
+
+          tipoMovimento: '',
+          tipoMP: '' ,
+          produtor:''    ,     
+          dataInicial:'',
+          dataFinal:'' , 
+          fornecedor:'',
+          nomeFornecedor:'',
+          notaFiscal:'', 
+          idfil:'',
 
 
         },
@@ -436,8 +531,7 @@
       methods: {
   
         NavegarParaInclusao( ){ 
-       
-          this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,itemProps: ' ',operacao : 'I' }  })
+          this.$router.push({name:'movimentacaoestoque'   ,   params : {fornecedorProps : '0' ,  notaFiscalProps : '0', operacao : 'I' }} ) 
         },
        setaPesquisaCRUD(pCursor) {  
               this.resultPesquisaCRUD = pCursor   
@@ -445,25 +539,12 @@
         } ,
 
 
-        setaPesquisa(e) {   
- 
-            this.param.item = e.obj.codigo;
-            this.param.descItem = e.obj.material.descricao.substring(0, 40);
-            
-      
-        },
-        buscaItem() {
+        setaPesquisa(e) {    
 
-          if(!(this.param.item==null || this.param.item=='')){
-            this.apiPesquisaParam('itemTeste', this.param.item, this.param);
-          }else{
-            this.param.descItem=''
-          }
-          
-        },
-        
-
+          this.param.fornecedor = e.obj.codigo;
+          this.nomeFornecedor = e.obj.descricao;
  
+        },        
 
         resetaCampos() {  
 
@@ -472,10 +553,14 @@
 
             this.param.dataInicial='';
             this.param.dataFinal='' ;
-            this.param.lote=''; 
+            this.param.fornecedor='';
+            this.param.nomeFornecedor='';
+            this.nomeFornecedor='';
+            this.param.notaFiscal='';
+
+            this.param.tipoMP='';
+            this.param.tipoMovimento='';  
             this.param.produtor='';  
-            this.param.item='';  
-            this.param.descItem='';  
 
             this.resultPesquisaCRUD = [];
             this.exibePaginador = false;
@@ -488,7 +573,10 @@
           navegarParaLogin(){this.$router.push({name:'login'  })}   ,
        
 
-          async pesquisaDados(){     
+          async pesquisaDados(){    
+
+                //console.log('pesquisaDados')
+                //console.log(this.producaoFiacaoParams )
 
                 this.haErros = false
                 this.haSucesso = false  
@@ -510,17 +598,31 @@
                          
                             if (this.param.dataFinal < this.param.dataInicial ){
                                   this.apiDisplayMensagem("Data inicial maior que data final" );
-                                  this.haErros = true;  
+                                  this.haErros = true;
+                                 //console.log("Informe a data inicial")  ;
+                                  //console.log("Informe a data inicial ddddd")  ;
                                   periodoPreenchido  = false; 
-                            }  
+                            } 
+
                            
-                        }  else{ 
-                            return; 
-                        }  
+
+                           
+                        }  else{
+                           //console.log("Informe a data inicial 5555522dddd")  ;
+                            //this.apiDisplayMensagem('Preencha os campos com críticas.');
+                            //this.haErros = true;
+                            return;
+
+                        } 
+
+                        //console.log('periodoPreenchido 2')
+                          
+
+                        //console.log("Informe a data inicial d222dddd")  ;
                         if(periodoPreenchido) {
                             this.haErros = false
                             this.exibePaginador = true;
-                            this.apiPesquisaCRUDByFilial('testecq','nome',  this.param)
+                            this.apiPesquisaCRUDByFilial('movimento','nome',  this.param)
                         }
 
                 
@@ -534,8 +636,10 @@
 
             if(this.$store.state.usuarioSistema.empresa=="" || this.$store.state.usuarioSistema.empresa==null){
                 this.navegarParaLogin();
-            }   
-          
+            }  
+
+            this.populaTipoMovimento(); 
+            this.populaTipoMP();
             this.populaProdutor();
             //this.populaProcedencia();
 

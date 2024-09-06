@@ -8,7 +8,7 @@
                 <div style="width:100%" >
                 
                       
-                      <div class="flex-linha-between"  style=" width:100%;background-color:white;margin-top: 1%;" >   
+                      <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
 
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
@@ -129,11 +129,14 @@
                       
                         </div>              
 
-                      </div>   
+                      </div>  
+
+                    
 
 
-                    <div class="flex-linha"  style="margin-left:6%;width:90%;margin-top: 1%; ">   
-                               
+                    <div class="flex-linha"  style="margin-left:6%;width:88%;margin-top: 1%; ">  
+                            
+                                <div    class="espacoEntreComponentes">  
                                  
                                     <v-autocomplete
                                         
@@ -144,15 +147,18 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 200px;" 
                                         :disabled="tipoMovimentoDesabilitado"  
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                   
                                         
-                                    ></v-autocomplete>  
-                                
+                                    ></v-autocomplete> 
+
+                                </div>                        
+
+
+                                <div    class="espacoEntreComponentes">  
 
                                     <v-autocomplete
                                          
@@ -163,96 +169,103 @@
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 200px; " 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @blur="buscaTipoMatP"
-                                    ></v-autocomplete>  
+                                    ></v-autocomplete> 
+
+                                </div>   
+                                
                                 
 
-                                    <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; " >   
-                                    <!-- <label style='font-size:16px'>Fornecedor</label>-->
-                                        <div class="input-group">  
-                                            
-                                                <div class="d-flex  justify-content-start">
+                                <div   class="espacoEntreComponentes">   
+                                   <!-- <label style='font-size:16px'>Fornecedor</label>-->
+                                    <div class="input-group">  
+                                        
+                                            <div class="d-flex  justify-content-start">
+                                                
+                                                <v-text-field
+                                                     
+                                                    v-model.trim="this.movimento.fornecedor" 
+                                                    label="Fornecedor"
+                                                    id="fornecedor"                                                  
+                                                    ref="fornecedor"  
+                                                    maxlength="5" 
+                                                    @blur="buscaByChave"
+                                                    style=" width: 200px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    :disabled="fornecedorDesabilitado"  
+                                                    type="number"
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                   
                                                     
-                                                    <v-text-field
-                                                        
-                                                        v-model.trim="this.movimento.fornecedor" 
-                                                        label="Fornecedor"
-                                                        id="fornecedor"                                                  
-                                                        ref="fornecedor"  
-                                                        maxlength="5" 
-                                                        @blur="buscaByChave"
-                                                        style=" width: 120px; " 
-                                                        variant="outlined"
-                                                        bg-color="white"
-                                                        :disabled="fornecedorDesabilitado"  
-                                                        type="number"
-                                                        inputmode="numeric"
-                                                        :rules="[campoRequerido]" 
-                                                        density="compact"
+                                                ></v-text-field>    
                                                     
-                                                        
-                                                    ></v-text-field>    
-                                                        
-                                                    <v-btn   data-bs-toggle="modal" 
-                                                        data-bs-target="#modalPesquisaFornecedor"  
-                                                        tabindex="-1"  @click="apiFlushPesquisa" :disabled="fornecedorDesabilitado" 
-                                                        style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                                        > 
-                                                            <v-icon
-                                                                class="mb-6"
-                                                                color="primary"
-                                                                icon="mdi-card-search-outline"
-                                                                size="45"
-                                                            ></v-icon>  
-                                                    </v-btn>     
+                                                <v-btn   data-bs-toggle="modal" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    tabindex="-1"  @click="apiFlushPesquisa" :disabled="fornecedorDesabilitado" 
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                    > 
+                                                        <v-icon
+                                                            class="mb-6"
+                                                            color="primary"
+                                                            icon="mdi-card-search-outline"
+                                                            size="45"
+                                                        ></v-icon>  
+                                                </v-btn>     
 
-                                                </div  >      
+                                            </div  >      
 
-                                                <div style="   flex-grow: 1;height:43px;"  >   
-                                                    <v-text-field
-                                                        v-model="this.nomeFornecedor" 
-                                                        id="nomeFornecedor"   
-                                                        disabled 
-                                                        class="limitadorMedia"                                                                                                 
-                                                        style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
-                                                        density="compact"
-                                                    ></v-text-field>   
-                                                </div>     
-                                        </div>
-
+                                            <div class=" backCampoConjugado "  >   
+                                                <v-text-field
+                                                    v-model="this.nomeFornecedor" 
+                                                    id="nomeFornecedor"   
+                                                    disabled 
+                                                    class="limitadorMedia"                                                                                                 
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    density="compact"
+                                                ></v-text-field>   
+                                            </div>     
                                     </div>
 
+                                </div>
 
+
+                                <div   class="espacoEntreComponentes">   
+                                    
+                                            
+                                            <div >
+                                                
+                                                <v-text-field
+                                                     
+                                                    v-model.trim="this.movimento.notaFiscal" 
+                                                    id="notaFiscal"
+                                                    label="Documento" 
+                                                    ref="notaFiscal"  
+                                                    maxlength="10" 
+                                                    @blur="buscaByChave"
+                                                    style=" width: 200px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    :disabled="notaFiscalDesabilitado"  
+                                                    type="text"                                                    
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>     
                                 
+                                <div   class="espacoEntreComponentes">   
                                     
                                             
-                                            
-                                                
-                                        <v-text-field
-                                                
-                                            v-model.trim="this.movimento.notaFiscal" 
-                                            id="notaFiscal"
-                                            label="Documento" 
-                                            ref="notaFiscal"  
-                                            maxlength="10" 
-                                            @blur="buscaByChave"
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled="notaFiscalDesabilitado"  
-                                            type="text"                                                    
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            
-                                        ></v-text-field>            
-                                            
-                                    
+                                    <div >
                                         
                                         <v-text-field
                                             
@@ -260,8 +273,7 @@
                                             id="dataBase"
                                             label="Data Movimento" 
                                             ref="dataBase"    
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 200px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataBaseDesabilitado"  
@@ -269,8 +281,15 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             
-                                        ></v-text-field>    
-                                  
+                                        ></v-text-field>                                    
+                                    </div>
+                           
+                                </div>                                     
+
+                                <div   class="espacoEntreComponentes">   
+                                    
+                                            
+                                    <div >
                                         
                                         <v-text-field
                                             
@@ -278,8 +297,7 @@
                                             id="dataEmissao"
                                             label="Data Emissão" 
                                             ref="dataEmissao"  
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 200px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataEmissaoDesabilitado"  
@@ -288,14 +306,16 @@
                                             density="compact"
                                             
                                         ></v-text-field>                                    
-                               
-                    </div>     
-                       <!--  FIM LINHA 0001 -->  
-                    <div class="flex-linha"  style="margin-left:6%;width:90%; ">    
-
+                                    </div>
                            
+                                </div>    
+                <!--    </div>     FIM LINHA 0001   
 
-                                    <v-autocomplete v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'"
+                    <div class="flex-linha"  style="margin-left:2%;width:95%;margin-top: 1%; ">   -->  
+
+                                <div    class="espacoEntreComponentes" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'">   
+
+                                    <v-autocomplete
                                          
                                         label="Produtor"
                                         :items="produtorItens" 
@@ -304,21 +324,19 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 270px; " 
                                         bg-color="white"     
                                          
                                         density="compact"
                                         
                                     ></v-autocomplete> 
 
-                               
+                                </div> 
                                 
-                               
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05'">   
 
                                     <v-autocomplete
-                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05'"  
-                                         clear-icon=""
+                                          
                                         label="Procedencia"
                                         :items="procedenciaItens" 
                                         :disabled="procedenciaDesabilitado"                                           
@@ -326,20 +344,19 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 270px; " 
                                         bg-color="white"     
                                         
                                         density="compact" 
                                         
                                     ></v-autocomplete> 
 
-                                                    
+                                </div>                         
                                 
-                               
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  this.$store.state.usuarioSistema.idfil=='05' && this.movimento.tipoMovimento =='NFE' ">   
 
                                     <v-autocomplete
-                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  this.$store.state.usuarioSistema.idfil=='05' && this.movimento.tipoMovimento =='NFE' "
+                                        
                                         label="Qualid. Compra"
                                         :items="qualidadeItens" 
                                         :disabled="qual1Desabilitado"                                           
@@ -347,17 +364,18 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 120px; " 
                                         bg-color="white" 
                                         density="compact" 
                                         
-                                    ></v-autocomplete>  
+                                    ></v-autocomplete> 
+
+                                </div>   
                                 
-                              
+                                <div    class="espacoEntreComponentes"  v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  && this.movimento.tipoMovimento =='NFE' ">   
 
                                     <v-autocomplete
-                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  && this.movimento.tipoMovimento =='NFE' "  
+                                        
                                         label="Classfic"
                                         :items="classificacaoItens" 
                                         :disabled="qual2Desabilitado"                                           
@@ -365,23 +383,33 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 120px; " 
                                         bg-color="white" 
                                         density="compact" 
                                         
-                                    ></v-autocomplete>  
+                                    ></v-autocomplete> 
+
+                                </div>                                   
+
+                                
 
 
-                                 
+
+                                
+
+                                <div   class="espacoEntreComponentes"  v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">   
+                                    
+                                            
+                                    <div >
+                                        
                                         <v-text-field
-                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'" 
+                                             
                                             v-model.trim="this.movimento.pesoTotal" 
-                                            class="text-end espacoEntreComponentes"
+                                            class="text-end"
                                             id="pesoTotal"
                                             label="Peso Liquido" 
                                             ref="pesoTotal"   
-                                            style=" width: 10%;min-width: 180px; "   
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="pesoTotalDesabilitado"                                                                                          
@@ -395,19 +423,22 @@
 
 
                                         ></v-text-field>                                    
-            
+                                    </div>
+                           
+                                </div>     
                                 <!--@blur="this.movimento.pesoTotal = $event.target.value" -->
      
-                            
+                                <div   class="espacoEntreComponentes"  v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">    
+                                            
+                                    <div >
                                         
                                         <v-text-field
-                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"
+                                           
                                             v-model.trim="this.movimento.numVolumes" 
                                             id="numVolumes"
                                             label="Núm. Volumes" 
                                             ref="numVolumes"   
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="numVolumesDesabilitado"  
@@ -417,19 +448,22 @@
                                             density="compact"
                                             @blur="calcPesoMedio"
                                         ></v-text-field>                                    
-                            
+                                    </div>
+                           
+                                </div> 
 
 
-                             
+                                <div   class="espacoEntreComponentes"   v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'">    
+                                            
+                                    <div >
                                         
                                         <v-text-field
-                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"    
+                                            
                                             v-model.trim="this.movimento.pesoMedio" 
                                             id="pesoMedio"
                                             label="Peso Médio" 
                                             ref="pesoMedio"   
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white"
                                             disabled
@@ -440,27 +474,37 @@
                                             
                                             
                                         ></v-text-field>                                    
-              
+                                    </div>
+                           
+                                </div>  
 
-                      
+                                <div   class="espacoEntreComponentes"  v-if="this.movimento.tipoMovimento == 'MIST'">    
+                                            
+                                            <div >
                                                 
-                                        <v-text-field
-                                            v-if="this.movimento.tipoMovimento == 'MIST'"
-                                            v-model.trim="this.movimento.idAutomatico" 
-                                            id="idAuto"
-                                            label="Id Movim" 
-                                            ref="idAuto"   
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
-                                            variant="outlined"
-                                            bg-color="white"
-                                            disabled 
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]"
-                                            density="compact"
-                                            
-                                            
-                                        ></v-text-field>        
+                                                <v-text-field
+                                                    
+                                                    v-model.trim="this.movimento.idAutomatico" 
+                                                    id="idAuto"
+                                                    label="Id Movim" 
+                                                    ref="idAuto"   
+                                                    style=" width: 150px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    disabled 
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]"
+                                                    density="compact"
+                                                    
+                                                    
+                                                ></v-text-field>                                    
+                                            </div>
+                                   
+                                </div>                                  
+
+                                
+                                 
+
  
  
 <!--
@@ -508,7 +552,11 @@
                         </v-btn>  
                     </div>  
 
+                   
+                    
                
+                    
+
                     <!------------------------------------------------->
                     <!------------------------------------------------->
                     <!-----------------   Itens  ---------------------->
@@ -528,47 +576,66 @@
                         <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  ">   
 
 
-                           
-                            
-                                <template  v-for="(i, indice) in aMovimentoItem" :key="indice"  >   
+                            <table class="table-responsive table-hover w-auto" style= "width:100% "> 
+                                <thead style= "width:100% ">
+                                    <tr class="tabela_cabecalho">
+                                
+                                <!--
+                                    <th class="text-center">
+                                        <button type="button" class="btn btn-primary btn-sm" @click="adicionaItem(1)"><i
+                                            class="bi bi-plus-square"></i></button>
+                                    </th>
+                                    -->
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody  v-for="(i, indice) in aMovimentoItem" :key="indice" style= " width:100% ">   
     
-                                
-                                    <div class="d-flex justify-content-end " style=" margin-left:1px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex justify-content-end " style=" margin-left:1px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
 
-                                        <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
-                                        <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
-                                            
-                                            <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
-                                        </div>    
+                                              <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
+                                                <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
+                                                 
+                                                    <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
+                                                </div>    
 
-                                        <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
-                                            <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
-                                        </div>   
-                                        
-                                        <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
-                                            <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
-                                        </div>                                                   
-
-                                        <v-btn  
-                                                style="height:20px; background-color:rgb(240, 237, 232); "    
-                                                @click="excluirItem(indice)"
-                                                >   
-                                                    <v-icon                                                       
-                                                    color="primary"
-                                                    icon="mdi-minus-box-outline"  
-                                                    size="23"
-                                                    ></v-icon>  
+                                                <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
+                                                    <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
+                                                </div>   
                                                 
-                                        </v-btn>  
+                                                <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
+                                                    <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
+                                                </div>                                                   
+
+                                                <v-btn  
+                                                        style="height:20px; background-color:rgb(240, 237, 232); "    
+                                                        @click="excluirItem(indice)"
+                                                        >   
+                                                            <v-icon                                                       
+                                                            color="primary"
+                                                            icon="mdi-minus-box-outline"  
+                                                            size="23"
+                                                            ></v-icon>  
+                                                        
+                                                </v-btn>  
 
 
-                                    </div>   
+                                            </div>  
+
+                                            
+                                        </td>
+                                    </tr>
                                 
-                                    <!-- LINHA 0001 -->
-                                    <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  ">
 
-                                            <div   class="espacoEntreComponentes"  style="width: 40%; min-width: 350px;" 
-                                            >  
+                                    <tr class="flex-linha-completa" style="margin-bottom:5px"> 
+                                    
+                                        <td  >
+                                            
+                                            <div   class="espacoEntreComponentesGrid"   
+                                            >   
+                                            <!-- <label style='font-size:16px'>Item</label>-->
                                                     
                                                     <div class="input-group">   
                                                             
@@ -608,7 +675,7 @@
 
                                                             </div  >      
 
-                                                            <div style="   flex-grow: 1;height:43px;"  >  
+                                                            <div class=" backCampoConjugado "  >   
                                                                 <v-text-field
                                                                     v-model="i.descFio " 
                                                                     id="descFio"   
@@ -625,13 +692,13 @@
 
                                             </div>   
     
-                                        
+                                        </td>
 
 
 
-                                      
+                                        <td  >
                                             
-                                            <div   class="espacoEntreComponentes"  style="width: 5%;min-width:180px;   " >   
+                                            <div   class="espacoEntreComponentesGrid">   
                                             <!-- <label style='font-size:16px'>Item</label>-->
                                                     <div class="input-group">   
 
@@ -745,301 +812,435 @@
 
                                             </div>   
     
-                                       
+                                        </td>
 
  
-                                        
+                                        <td     v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='N'">
+                                            <div   class="espacoEntreComponentesGrid">   
+                                                
+                                                        
+                                                <div >
                                                      
                                                     
-                                            <v-autocomplete
-                                                v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='N'"
-                                                label="Produtor"
-                                                :items="produtorItens" 
-                                                disabled 
-                                                v-model="i.produtor"   
-                                                item-title="descricao" 
-                                                item-value="codigo"
-                                                variant="outlined"
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes"   
-                                                bg-color="white"  
-                                                density="compact"
-                                            
-                                            ></v-autocomplete> 
-                                                
-
- 
-                                            
-                                            <v-text-field
-                                                v-model.trim= i.lote  
-                                                id="lote"
-                                                label="Lote" 
-                                                ref="lote"  
-                                                maxlength="10"                                         
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                variant="outlined"
-                                                bg-color="white"
-                                                :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
-                                                type="text"                                       
-                                                :rules="[campoRequerido]" 
-                                                density="compact" 
-                                                @blur="validaLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
-                                            ></v-text-field>  
- 
-                                            <v-autocomplete 
-                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05' "
-                                                label="Cor"
-                                                :items="coloracao"  
-                                                id="cor"                                         
-                                                :disabled="(coloracaoDesabilitado   && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
-                                                v-model="i.coloracao"   
-                                                item-title="codigo" 
-                                                item-value="codigo"
-                                                variant="outlined"
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                bg-color="white"  
-                                                density="compact"
-                                                :rules="[campoRequerido]"  
-
-                                            ></v-autocomplete>  
+                                                    <v-autocomplete
                                                     
-                                            <v-text-field 
-                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05' "
-                                                v-model.trim="i.pilha" 
-                                                id="pilha"
-                                                label="Pilha"
-                                                ref="pilha"  
-                                                maxlength="5"                                         
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                variant="outlined"
-                                                :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
-                                                type="number"
-                                                inputmode="numeric" 
-                                                density="compact" 
-                                            ></v-text-field>                                    
+                                                        label="Produtor"
+                                                        :items="produtorItens" 
+                                                        disabled 
+                                                        v-model="i.produtor"   
+                                                        item-title="descricao" 
+                                                        item-value="codigo"
+                                                        variant="outlined"
+                                                        style="width: 330px; " 
+                                                        bg-color="white"  
+                                                        density="compact"
+                                                    
+                                                   ></v-autocomplete> 
+                                                </div>
+                                    
+                                            </div>                                     
+                                        </td> 
+
+
+                                        <td  >   
+                                            <div   class="espacoEntreComponentesGrid">   
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim= i.lote  
+                                                        id="lote"
+                                                        label="Lote" 
+                                                        ref="lote"  
+                                                        maxlength="10"                                         
+                                                        style=" width: 200px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
+                                                        type="text"                                       
+                                                        :rules="[campoRequerido]" 
+                                                        density="compact" 
+                                                        @blur="validaLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
+                                                    ></v-text-field>        
+                                                    
+                                                </div>
+                                                
+                                            </div> 
+                                        </td>   
+
+
+                                        <td  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05' ">   
+                                            <div   class="espacoEntreComponentesGrid">   
+                                                
+                                                        
+                                                <div > 
+                                                    <v-autocomplete 
+                                                        label="Cor"
+                                                        :items="coloracao"  
+                                                        id="cor"                                         
+                                                        :disabled="(coloracaoDesabilitado   && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
+                                                        v-model="i.coloracao"   
+                                                        item-title="codigo" 
+                                                        item-value="codigo"
+                                                        variant="outlined"
+                                                        style="width: 150px; " 
+                                                        bg-color="white"  
+                                                        density="compact"
+                                                        :rules="[campoRequerido]"  
+
+                                                   ></v-autocomplete> 
+                                                </div>
+                                    
+                                            </div>                                     
+                                        </td> 
+
+   
+                                        <td     v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05' ">
+                                            <div   class="espacoEntreComponentesGrid">   
+                                                
+                                                        
+                                                <div >
+                                                     
+                                                    
+                                                    <v-text-field 
+                                                        v-model.trim="i.pilha" 
+                                                        id="pilha"
+                                                        label="Pilha"
+                                                        ref="pilha"  
+                                                        maxlength="5"                                         
+                                                        style=" width: 150px; "
+                                                        variant="outlined"
+                                                        :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
+                                                        type="number"
+                                                        inputmode="numeric" 
+                                                        density="compact" 
+                                                    ></v-text-field>                                    
+                                                </div>
+                                    
+                                            </div>                                     
+                                        </td> 
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  ">
+                                            <div    class="espacoEntreComponentesGrid">  
+
+                                                <v-autocomplete
+
+                                                    label="Tam"
+                                                    :items="tamanhoItens"                                                        
+                                                    :disabled="(tamanhoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.tamanho"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 100px; "
+                                                    bg-color="white"      
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>
+
+                                    
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">  
+
+                                                <v-autocomplete
+
+                                                    label="Qualid"
+                                                    :items="qualidadeItens"                                                       
+                                                    :disabled="(tipoQualidadeDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.tipoQualidade"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 100px; "
+                                                    bg-color="white"      
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">   
+ 
+                                                <v-autocomplete
+
+                                                    label="Classif"
+                                                    :items="classificacaoItens"                                                        
+                                                    :disabled="(classifQualidadeDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.classifQualidade"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 100px; "
+                                                    bg-color="white"      
                                                  
-
-                          
-
-                                            <v-autocomplete
-                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  "
-                                                label="Tam"
-                                                :items="tamanhoItens"                                                        
-                                                :disabled="(tamanhoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                                v-model="i.tamanho"   
-                                                item-title="nome" 
-                                                item-value="id"
-                                                variant="outlined"
-                                                maxlength="5"                                         
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                bg-color="white"      
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                
-                                            ></v-autocomplete>  
-                
-
-                                            <v-autocomplete
-                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
-                                                label="Qualid"
-                                                :items="qualidadeItens"                                                       
-                                                :disabled="(tipoQualidadeDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                                v-model="i.tipoQualidade"   
-                                                item-title="nome" 
-                                                item-value="id"
-                                                variant="outlined"
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                bg-color="white"      
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                
-                                            ></v-autocomplete>  
-
-                                   
-                                            <v-autocomplete
-                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
-                                                label="Classif"
-                                                :items="classificacaoItens"                                                        
-                                                :disabled="(classifQualidadeDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                                v-model="i.classifQualidade"   
-                                                item-title="nome" 
-                                                item-value="id"
-                                                variant="outlined"
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                bg-color="white"      
-                                                
-                                                density="compact"
-                                                
-                                            ></v-autocomplete> 
-                                 
-
-               
+                                                    density="compact"
                                                     
-                                            <v-text-field
-                                                v-model.trim="i.quantidade" 
-                                                id="quantidade"
-                                                label="Qtde/Num.Vol" 
-                                                ref="quantidade"  
-                                                style=" width: 2%;min-width: 100px; "  
-                                                class="espacoEntreComponentes" 
-                                                variant="outlined"
-                                                bg-color="white"
-                                                :disabled="quantidadeDesabilitado && i.habilitado"   
-                                                type="number"
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                @blur="calculaPesoItem(i)"                                                        
-                                            ></v-text-field>   
+                                                ></v-autocomplete> 
 
-                                    </div>                             
-                                    <!--  FINAL LINHA 0001 -->
+                                            </div>           
+                                        </td>                                        
+
+                                        <td  >
+                                            <div   class="espacoEntreComponentesGrid">   
+
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim="i.quantidade" 
+                                                        id="quantidade"
+                                                        label="Qtde/Num.Vol" 
+                                                        ref="quantidade"  
+                                                        style=" width: 150px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="quantidadeDesabilitado && i.habilitado"   
+                                                        type="number"
+                                                        inputmode="numeric"
+                                                        :rules="[campoRequerido]" 
+                                                        density="compact"
+                                                        @blur="calculaPesoItem(i)"                                                        
+                                                    ></v-text-field>                                    
+                                                </div>
+
+                                            </div>  
+                                        </td>
+
                                          
-                                   <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  "> 
+
+                                        
+                                        <td class="d-flex  justify-content-start" v-if="this.movimento.tipoMovimento != 'MIST'">
+                                            <div   class="espacoEntreComponentesGrid"> 
+                                                        
+                                                <div >
                                                     
-                                        <v-text-field
-                                            v-model.trim="i.peso" 
-                                            id="peso"
-                                            label="Peso Liq." 
-                                            ref="peso"  
-                                            style=" width: 2%;min-width: 100px; " 
-                                            class="espacoEntreComponentes" 
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled="pesoDesabilitado && i.habilitado"    
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,2) " 
-                                            @blur="calculaPesoMedItem(i,$event)" 
-                                            
-                                        ></v-text-field>      
-                                                
+                                                    <v-text-field
+                                                        v-model.trim="i.peso" 
+                                                        id="peso"
+                                                        label="Peso Liq." 
+                                                        ref="peso"  
+                                                        style=" width: 150px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="pesoDesabilitado && i.habilitado"   
                                                         
-                                        <v-text-field
-                                            v-if="this.vOperAlteraItem=='S'"
-                                            v-model.trim="i.unidadeMedida" 
-                                            id="um"
-                                            label="UM" 
-                                            ref="um"   
-                                            style=" width: 2%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
-                                            
-                                            density="compact"                                     
-                                        ></v-text-field>  
+                                                        inputmode="numeric"
+                                                        :rules="[campoRequerido]" 
+                                                        density="compact"
+                                                        @keyup="apiEntraNumero($event,2) " 
+                                                        @blur="calculaPesoMedItem(i,$event)" 
+                                                        
+                                                    ></v-text-field>                                    
+                                                </div>
 
-    
-                                                        
-                                        <v-text-field
-                                            v-if="this.vOperAlteraItem=='S'"
-                                            v-model.trim="i.vlUnitario" 
-                                            id="vlUnitario"
-                                            label="Vl. Unit." 
-                                            ref="vlUnitario"   
-                                            style=" width: 2%;min-width: 100px; "   
-                                            class="espacoEntreComponentes" 
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled="vlUnitarioDesabilitado && i.habilitado"   
-                                            inputmode="numeric"
-                                            @keyup="apiEntraNumero($event,2) " 
-                                            @blur="i.vlUnitario = $event.target.value"  
-                                            density="compact" 
-                                        ></v-text-field>   
-                                                        
-                                        <v-text-field
-                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
-                                            class="v-input espacoEntreComponentes"
-                                            v-model.trim="i.loteAdicional" 
-                                            id="loteAdicional"
-                                            label="Lote Adicional"
-                                            ref="loteAdicional"   
-                                            style=" width: 2%;min-width: 100px; "  
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled="loteAdicionalDesabilitado && i.habilitado"                                                            
-                                            density="compact"
-                                        ></v-text-field>    
-    
-
-                                        <v-autocomplete
-                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05'  "
-                                            label="Destino"
-                                            :items="destinoItens"                                                        
-                                            :disabled="(destinoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                            v-model="i.destino"   
-                                            item-title="descricao" 
-                                            item-value="codigo"
-                                            variant="outlined"
-                                            style=" width: 2%;min-width: 100px; "   
-                                            class="espacoEntreComponentes" 
-                                            bg-color="white"      
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            
-                                        ></v-autocomplete>  
-    
-                                        <v-autocomplete
-                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
-                                            label="Corteza"
-                                            :items="cortezaItens"                                                        
-                                            :disabled="(cortezaDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                            v-model="i.corteza"   
-                                            item-title="nome" 
-                                            item-value="id"
-                                            variant="outlined"
-                                            style=" width: 2%;min-width: 100px; " 
-                                            class="espacoEntreComponentes" 
-                                            bg-color="white" 
-                                            :rules="[campoRequerido]"  
-                                            density="compact"
-                                            
-                                        ></v-autocomplete>  
-    
-                                                        
-                                        <v-text-field
-                                            class="v-input espacoEntreComponentes"
-                                            v-model.trim="i.observacao" 
-                                            id="observacao"
-                                            label="Observação" 
-                                            ref="observacao"   
-                                            style=" width: 15%;min-width: 180px; "  
-                                            
-                                            variant="outlined"
-                                            bg-color="white"
-                                            :disabled="observacaoDesabilitado && i.habilitado"    
-                                            
-                                            density="compact"
-                                        ></v-text-field>   
-
+                                            </div>    
+                                        </td> 
                                 
-                                                        
-                                        <v-btn   
-                                            class="espacoEntreComponentes" 
-                                            v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')"
-                                            style="height:45px;width:200px;background-color:rgb(240, 237, 232); margin-bottom: 25px"   
-                                                @click="this.exibePopUpNotasLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"  
+                                        
+                                        
+                                        <td>
+                                            <div   class="espacoEntreComponentesGrid" v-if="this.vOperAlteraItem=='S'">   
+                                        
                                                 
-                                            > 
-                                            <v-icon
-                                            class="mb-6"
-                                            color="primary"
-                                            icon="mdi-card-search-outline"
-                                            size="41"
-                                            ></v-icon>  
-                                            <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
-                                        </v-btn>   
-
+                                                <div >
                                                     
+                                                    <v-text-field
+                                                        v-model.trim="i.unidadeMedida" 
+                                                        id="um"
+                                                        label="UM" 
+                                                        ref="um"   
+                                                        style=" width: 100px; "
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
+                                                       
+                                                        density="compact"                                     
+                                                    ></v-text-field>                                    
+                                                </div>
+                                    
+                                            </div> 
+                                        </td>
+                                        
+                                        
+
+                                        <td>
+    
+                                            <div   class="espacoEntreComponentesGrid" v-if="this.vOperAlteraItem=='S'">    
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim="i.vlUnitario" 
+                                                        id="vlUnitario"
+                                                        label="Vl. Unit." 
+                                                        ref="vlUnitario"   
+                                                        style=" width: 100px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="vlUnitarioDesabilitado && i.habilitado"  
+                                                        
+                                                        inputmode="numeric"
+                                                        @keyup="apiEntraNumero($event,2) " 
+                                                        @blur="i.vlUnitario = $event.target.value" 
+                                                       
+                                                        density="compact"
+                                                        
+                                                    ></v-text-field>                                    
+                                                </div>
+                                    
+                                            </div>                             
+
+                                        </td>
+
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        class="v-input"
+                                                        v-model.trim="i.loteAdicional" 
+                                                        id="loteAdicional"
+                                                        label="Lote Adicional"
+                                                        ref="loteAdicional"   
+                                                        style=" width: 120px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="loteAdicionalDesabilitado && i.habilitado"                                                            
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
+
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">  
+
+                                                <v-autocomplete
+
+                                                    label="Destino"
+                                                    :items="destinoItens"                                                        
+                                                    :disabled="(destinoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.destino"   
+                                                    item-title="descricao" 
+                                                    item-value="codigo"
+                                                    variant="outlined"
+                                                    style=" width: 150px; "
+                                                    bg-color="white"      
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>     
+                                        
+                                        <td    v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">
+                                            <div    class="espacoEntreComponentesGrid">   
+ 
+                                                <v-autocomplete
+
+                                                    label="Corteza"
+                                                    :items="cortezaItens"                                                        
+                                                    :disabled="(cortezaDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                                    v-model="i.corteza"   
+                                                    item-title="nome" 
+                                                    item-value="id"
+                                                    variant="outlined"
+                                                    style=" width: 120px; "
+                                                    bg-color="white" 
+                                                    :rules="[campoRequerido]"  
+                                                    density="compact"
+                                                    
+                                                ></v-autocomplete> 
+
+                                            </div>           
+                                        </td>                                           
+
+
+                                        <td  >
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        class="v-input"
+                                                        v-model.trim="i.observacao" 
+                                                        id="observacao"
+                                                        label="Observação" 
+                                                        ref="observacao"   
+                                                        style=" width: 350px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        :disabled="observacaoDesabilitado && i.habilitado"    
+                                                        
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
+
+<!--
+                                        <td  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'"> 
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        class="v-input"
+                                                        v-model.trim="i.pesoMedio" 
+                                                        id="pesoMedioItem"
+                                                        label="Peso Médio"
+                                                        ref="pesoMedioItem"   
+                                                        style=" width: 150px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"  
+                                                        density="compact"
+                                                         
+                                                        inputmode="numeric"                                                        
+                                                        disabled
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
+-->
+
+                                        <td  >
+                                            <div   class="espacoEntreComponentesGrid" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">    
+                                                        
+                                                <div > 
+                                                    
+                                                    <v-btn   
+                                                        style="height:45px;width:200px;background-color:rgb(240, 237, 232); margin-bottom: 25px"   
+                                                         @click="this.exibePopUpNotasLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"  
+                                                            
+                                                        > 
+                                                        <v-icon
+                                                        class="mb-6"
+                                                        color="primary"
+                                                        icon="mdi-card-search-outline"
+                                                        size="41"
+                                                        ></v-icon>  
+                                                        <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
+                                                    </v-btn>   
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td> 
 
 
                                         <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">    
@@ -1061,14 +1262,68 @@
                                         
                                         </div>     
                                         
+                                        
 
-   
-                                    </div>
 
-                                    <!--  FINAL LINHA 0002 -->
-                                </template>
+  
 
-                         
+
+                                        
+                                        
+
+<!--
+ 
+                                        <td>
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim="i.statusItem" 
+                                                        id="statusItem"
+                                                        label="Status" 
+                                                        ref="statusItem"   
+                                                        style=" width: 250px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        disabled 
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td>         
+                                        
+                                        
+                                        <td>
+                                            <div   class="espacoEntreComponentesGrid">    
+                                                        
+                                                <div >
+                                                    
+                                                    <v-text-field
+                                                        v-model.trim="i.statusItemOriginal" 
+                                                        id="statusItemOriginal"
+                                                        label="statusItemOriginal" 
+                                                        ref="statusItemOriginal"   
+                                                        style=" width: 250px; " 
+                                                        variant="outlined"
+                                                        bg-color="white"
+                                                        disabled 
+                                                        density="compact"
+                                                    ></v-text-field>    
+
+                                                </div>
+                                    
+                                            </div>     
+                                        </td>                                          
+                                    
+-->
+        
+                                    </tr>
+                                </tbody>
+
+                            </table> 
     
                         </div>  
 

@@ -276,8 +276,11 @@ export default {
               url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisacod/${this.$store.state.usuarioSistema.idfil}/${id}`    
         }else if (tipo=="loteItem"  ) {          
               url = `${process.env.VUE_APP_BASE_URL}/estoquemp/id/${id}`   
+        }else if (tipo=="operadorCpf"  ) {          
+          this.producaoAbertura.operador = this.producaoAbertura.operador.padStart(5, '0');
+          id =  this.producaoAbertura.operador.padStart(5, '0');
+          url = `${process.env.VUE_APP_BASE_URL_CPF}/operador/${this.$store.state.usuarioSistema.idfil}/codigo/${id}`
         }
-
         
         
         //console.log('API Pesquisa Param')
@@ -488,16 +491,19 @@ export default {
                 target.destino  = response.data.destino;    
               }else{
                 target.destino  = 0;                      
-              }            
-                            
+              }        
 
+            }   
+            
+           if (tipo == 'operadorCpf') { 
+         
+              if (response.data.nome != null && response.data.nome != ''){
+                target.nomeOperador = response.data.nome;   
+              }else{
+                target.nomeOperador = '';                      
+              }  
 
-
-
-
-
-
-            }            
+          }
              
              
           })
@@ -513,7 +519,11 @@ export default {
 
             if (tipo == 'operador') {
               target.dsOperador = ' '
-            }   
+            } 
+            
+            if (tipo == 'operadorCpf') {
+              target.nomeOperador = ' '
+            }              
 
             
             setTimeout(() => {
@@ -638,14 +648,7 @@ export default {
           let url = `${process.env.VUE_APP_BASE_URL}/movimento/pesquisa`;
               
           this.resultPesquisaCRUD = []
-          this.pages = []  
-
-          //console.log('this.loteFiacaoParams' );
-          //console.log(this.loteFiacaoParams);    
-
-          //console.log('this.movimentoParamDTO');
-
-
+          this.pages = []   
 
           if  ((this.param.fornecedor!='' && this.param.fornecedor!=null  )){
             this.movimentoParamDTO.fornecedor =  this.param.fornecedor;
@@ -1023,7 +1026,9 @@ export default {
         //console.log('this.apiPesquisaCRUDByFilial usuloginXXX')
         //console.log(tipo)  
         
-        let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisa`; 
+        //let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisa`; 
+        let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisateste`;
+  
             
         this.resultPesquisaCRUD = []
         this.pages = []   
@@ -1133,18 +1138,71 @@ export default {
           });  
 
 
-    } else if(tipo=="lotePesquisa"){   
+    } else if(tipo=="producaoAbertura"){   
 
       this.msgProcessamento = "Processando"
       this.page = 1
-      this.apiProcessamento()
+      this.apiProcessamento()  
+ 
+      let url = `${process.env.VUE_APP_BASE_URL}/producaoabertura/pesquisa`; 
+      this.resultPesquisaCRUD = []
+      this.pages = []  
 
-       
+      if(procurarPor.dataInicial.length==10){
+        this.producaoAberturaParamDTO.dataInicialS =  procurarPor.dataInicial.substring(0,4) + procurarPor.dataInicial.substring(5,7) + procurarPor.dataInicial.substring(8,10) ; 
+      }else{
+        this.producaoAberturaParamDTO.dataInicialS = ""  
+      }
 
-      //console.log('this.apiPesquisaCRUDByFilial itemXX')      
-      //console.log(this.indAtual)  
-      ///console.log(this.aMovimentoItem[z].item)
-      //console.log(z)
+      if(procurarPor.dataFinal.length==10){
+        this.producaoAberturaParamDTO.dataFinalS =  procurarPor.dataFinal.substring(0,4) + procurarPor.dataFinal.substring(5,7) + procurarPor.dataFinal.substring(8,10)  ;
+      }else{
+        this.producaoAberturaParamDTO.dataFinalS = ""  
+      }   
+
+      if  ((this.param.mistura!='' && this.param.mistura!=null  )){
+          this.producaoAberturaParamDTO.mistura =   this.param.mistura;
+      } else{
+          this.producaoAberturaParamDTO.mistura = '';
+      } 
+ 
+      this.producaoAberturaParamDTO.idfil = this.$store.state.usuarioSistema.idfil;  
+      
+       //console.log('this.producaoAberturaParamDTO') 
+       //console.log(this.producaoAberturaParamDTO) 
+
+      await this.axios.post(
+        url,
+        JSON.stringify(this.producaoAberturaParamDTO), 
+        this.apiTokenHeader({ "Content-Type": "application/json" })
+        )
+        .then(response => {
+          
+          this.resultPesquisaCRUD = response.data   
+          this.msgProcessamento = ''
+
+          //console.log(this.resultPesquisaCRUD)   
+
+          this.setaPesquisaCRUD(this.resultPesquisaCRUD)
+          this.apiSetPagesCRUD() 
+
+          this.msgProcessamento = ''
+
+        }) 
+        .catch(error => {
+          console.log("Erro: ", error.response.data);
+          this.haErros = true
+          this.mensagemErro = error.response.data
+          this.msgProcessamento = ''
+        });   
+    } 
+    
+    else if(tipo=="lotePesquisa"){   
+
+      this.msgProcessamento = "Processando"
+      this.page = 1
+      this.apiProcessamento() 
+ 
       
       let url = `${process.env.VUE_APP_BASE_URL}/estoquemp/id`; 
       this.resultPesquisaCRUD = []
@@ -1274,6 +1332,8 @@ export default {
             url = `${process.env.VUE_APP_BASE_URL}/${tipo}/${nomeCampoProcura}/${procurarPor}` 
         } else if (tipo=="fornecedor"  ) {          
             url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisanmred/${this.$store.state.usuarioSistema.idfil}/${procurarPor}` 
+        }else if(  tipo=="operadorCpf"){ 
+          url = `${process.env.VUE_APP_BASE_URL_CPF}/operador/${this.$store.state.usuarioSistema.idfil}/${nomeCampoProcura}/${procurarPor}` 
         } 
         //console.log(url)
           //console.log( this.$store.state._token)
@@ -1567,6 +1627,22 @@ export default {
         }
     }
   },  
+  formataHora(pHora){
+    let hours = Math.floor(pHora / 100);
+
+    // Extrai os minutos obtendo o resto da divisão por 100
+    let minutes = pHora  % 100;
+
+    // Formata as horas e minutos para dois dígitos
+    let formattedHours = hours.toString().padStart(2, '0');
+    let formattedMinutes = minutes.toString().padStart(2, '0');
+
+    // Retorna o tempo formatado no formato HH:MM
+    return `${formattedHours}:${formattedMinutes}`;          
+
+
+
+  },
   
 /*
     apiFlushPesquisa(indice) {
@@ -1707,33 +1783,7 @@ export default {
       const confirmar = window.confirm("Deseja encerrar essa operação?");
       return confirmar;
     } ,
-    populaTipoMaquina(){
- /* DALTON */
-        this.resultado = ""; 
-        this.tipoMaquina = []; 
 
-        // Carrega tipo Maquina
-        let url = `${process.env.VUE_APP_BASE_URL}/tipomaquina/filial/01`; 
-        
-        this.axios.get(url,this.apiTokenHeader())
-        .then(response => { 
-            this.resultado = response.data;     
-            
-            this.tipoMaquina = [];
-            this.resultado.forEach((tpMaq ) => {      
-            
-                this.tipoMaquinaTemp.codigo = (tpMaq.codigo != null ? tpMaq.codigo.trim()  : null)  ; 
-                this.tipoMaquinaTemp.nome = (tpMaq.nome != null ? tpMaq.nome.trim()  : null)  ;   
-                this.tipoMaquina.push({codigo:this.tipoMaquinaTemp.codigo, nome:this.tipoMaquinaTemp.nome }); 
-
-            });   
-
-        })
-        .catch(error => {
-        console.log("Erro: ", error.response.data);
-        this.haErros = true
-        });
-    },
     /*
       volta() {
  

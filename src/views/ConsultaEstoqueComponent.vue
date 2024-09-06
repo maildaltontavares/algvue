@@ -41,9 +41,9 @@
             
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >    
+                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
                         
-                             <div    class="espacoEntreComponentes">   
+                            
 
                                     <v-autocomplete
                                         label="Produtor"
@@ -52,19 +52,20 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style="width: 270px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white"   
                                         density="compact"
                                        
                                         :disabled="this.produtorDesabilitado"
                                     ></v-autocomplete> 
 
-                              </div>     
+                              
  
 
       
   
-                                <div   class="espacoEntreComponentes"   >   
+                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "   >   
                                         
                                     <div class="input-group">   
                                         
@@ -76,7 +77,7 @@
                                                 label="Item"
                                                 ref="item"  
                                                 maxlength="7"  
-                                                style=" width: 200px; "
+                                                style=" width: 120px; "
                                                 variant="outlined"
                                                 bg-color="white"
                                                 v-model.trim="this.estoque.item"
@@ -105,7 +106,7 @@
 
                                         </div  >      
 
-                                        <div class=" backCampoConjugado "  >   
+                                        <div style="   flex-grow: 1;height:43px;"  >  
                                             <v-text-field
                                              
                                                 id="descFio"   
@@ -123,7 +124,7 @@
 
 
 
-                                <div   class="espacoEntreComponentes">    
+                            
                                                     
                                       <v-text-field  
                                           id="lote"
@@ -131,15 +132,16 @@
                                           ref="lote"  
                                           v-model.trim="this.estoque.lote"
                                           maxlength="5"                                         
-                                          style=" width: 200px; "
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes" 
                                           variant="outlined"   
                                           density="compact"  
                                           :disabled="this.loteDesabilitado"
   
                                       ></v-text-field>    
-                                </div> 
+                               
 
-                                <div   class="espacoEntreComponentes">    
+                               
                                                     
                                           <v-text-field  
                                               id="pilha"
@@ -147,7 +149,8 @@
                                               ref="pilha"  
                                               v-model.trim="this.estoque.pilha"
                                               maxlength="5"                                         
-                                              style=" width: 200px; "
+                                              style=" width: 10%;min-width: 180px; "  
+                                              class="espacoEntreComponentes" 
                                               variant="outlined" 
                                               type="number"
                                               inputmode="numeric" 
@@ -158,10 +161,10 @@
     
                                           ></v-text-field>                                    
                                                        
-                                </div>   
+                               
 
 
-                                <div    class="espacoEntreComponentes">   
+                               
                                       <v-autocomplete
                                           
                                           label="Procedencia"
@@ -172,17 +175,18 @@
                                           item-title="descricao" 
                                           item-value="codigo"
                                           variant="outlined"
-                                          style="width: 270px; " 
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes" 
                                           bg-color="white"     
                                           
                                           density="compact" 
                                           
                                       ></v-autocomplete> 
 
-                                 </div>   
+                               
 
 
-                                 <div    class="espacoEntreComponentes"  >    
+                             
 
 
                                             <v-autocomplete
@@ -193,7 +197,8 @@
                                                   item-title="nome" 
                                                   item-value="id"
                                                   variant="outlined"
-                                                  style=" width: 200px; "
+                                                  style=" width: 10%;min-width: 180px; "  
+                                                  class="espacoEntreComponentes" 
                                                   bg-color="white" 
                                                   :disabled="this.tamanhoDesabilitado"     
                                                   
@@ -201,14 +206,15 @@
 
                                           ></v-autocomplete>  
 
+                        </div>
+                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >   
+                               
 
-                                </div>     
 
-
-                                <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'"  >   
+                            
 
                                         <v-autocomplete
-                                            
+                                            v-if="this.$store.state.usuarioSistema.idfil == '05'" 
                                             label="Qualid."
                                             :items="qualidadeItens" 
                                             v-model.trim="this.estoque.qual1" 
@@ -216,18 +222,19 @@
                                             item-title="descricao" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style="width: 200px; " 
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             bg-color="white" 
                                             density="compact" 
                                             
                                         ></v-autocomplete> 
 
-                                </div>   
+                               
 
-                                <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'"  >   
+                             
 
                                         <v-autocomplete
-                                            
+                                            v-if="this.$store.state.usuarioSistema.idfil == '05'" 
                                             label="Classfic"
                                             :items="classificacaoItens" 
                                             v-model.trim="this.estoque.qual2" 
@@ -235,37 +242,36 @@
                                             item-title="descricao" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style="width: 200px; " 
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             bg-color="white" 
                                             density="compact" 
                                             
-                                        ></v-autocomplete> 
+                                        ></v-autocomplete>  
 
-                                </div>      
-
-
-                                <div   class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">   
+                            
                                           
                                         <v-autocomplete 
+                                            v-if="this.$store.state.usuarioSistema.idfil == '05'"
                                             label="Cor"
                                             :items="coloracao"  
                                             id="cor"    
                                             item-title="codigo" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style="width: 200px; " 
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             bg-color="white"  
                                             density="compact"
                                             v-model.trim="this.estoque.coloracao" 
                                             :disabled="this.coloracaoDesabilitado"                                              
 
                                         ></v-autocomplete>  
-                                    
-                                </div>          
+                                  
 
                                 
                                 
-                                <div   class="espacoEntreComponentes">   
+                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "  >   
                                    <!-- <label style='font-size:16px'>Fornecedor</label>-->
                                     <div class="input-group">  
                                         
@@ -277,7 +283,7 @@
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
                                                     maxlength="5"                                                    
-                                                    style=" width: 150px; " 
+                                                    style=" width: 120px; " 
                                                     variant="outlined"
                                                     bg-color="white"                                                  
                                                     type="number"
@@ -304,7 +310,7 @@
 
                                             </div  >      
 
-                                            <div class=" backCampoConjugado "  >   
+                                            <div style="   flex-grow: 1;height:43px;"  >  
                                                 <v-text-field
                                                     v-model.trim="this.nomeFornecedor"
                                                     id="nomeFornecedor"   
@@ -318,27 +324,41 @@
 
                                 </div>   
                                 
-                                <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+                            
 
                                       <v-autocomplete
-
+                                          v-if="this.$store.state.usuarioSistema.idfil == '05'"
                                           label="Destino"
                                           :items="destinoItens"       
                                           v-model.trim="this.estoque.destino" 
                                           item-title="descricao" 
                                           item-value="codigo"
                                           variant="outlined"
-                                          style=" width: 200px; "
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes" 
                                           bg-color="white"      
                                      
                                           density="compact"
                                           :disabled="this.destinoDesabilitado" 
                                           
-                                      ></v-autocomplete> 
+                                      ></v-autocomplete>  
+                                
+                             
+                                      <v-autocomplete
+                                            v-if="this.$store.state.usuarioSistema.idfil == '05'"
+                                            label="Corteza"
+                                            :items="cortezaItens"    
+                                            v-model.trim="this.estoque.corteza"
+                                            item-title="nome" 
+                                            item-value="id"
+                                            variant="outlined"
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
+                                            bg-color="white" 
+                                            density="compact"
+                                            :disabled="this.cortezaDesabilitado" 
 
-                                </div>                                  
-
-
+                                      ></v-autocomplete>     
 
  
                         </div>
@@ -356,10 +376,10 @@
 
             
 
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->      
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->      
 
 
 
@@ -418,6 +438,7 @@
                                       <th class="col-3 text-start">PRODUTOR</th>     
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >DV/COR/ TP MIC</th>  
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >QUAL</th>  
+                                      <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >CORTEZA</th>  
                                       <th class="col-2 text-start"  >PILHA</th>  
                                       <th class="col-2 text-start" >LOTE</th>  
                                       <th class="col-2 text-start" >TAM</th>  
@@ -470,6 +491,10 @@
                                       
                                       <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
                                         {{ i.m4QUAL}}
+                                      </td>       
+                                      
+                                      <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
+                                        {{ i.m4CORTEZ}}
                                       </td>                                         
  
                                       <td class="col-1 text-start"   :style="{backgroundColor: i.corLinha} ">
@@ -1297,6 +1322,7 @@
           descFio:'',
           lote:'',
           destino:'',
+          corteza:'',
           fornecedor:'',
           
           tamanho:'',
@@ -1315,6 +1341,7 @@
           descFio:'',
           lote:'',
           destino:'',
+          corteza:'',
           fornecedor:'', 
           tamanho:'',
           procedencia:'',
@@ -1334,6 +1361,7 @@
         itemDesabilitado:false,  
         loteDesabilitado:false,  
         destinoDesabilitado:false,
+        cortezaDesabilitado:false,
         qual1Desabilitado:false,
         qual2Desabilitado:false,
         coloracaoDesabilitado:false,
@@ -1354,6 +1382,7 @@
         loteFiacao:'',
         observacao:'',
         destino:'' 
+        
         
         },
         aMovimentoItemDAOEnt:[],
@@ -1376,7 +1405,14 @@
           lote:'' , 
           idItem :''
 
-        }
+        },
+
+        cortezaItens:[ 
+               '1',
+               '2',
+               '3'
+
+            ],          
      
 
 
@@ -1482,6 +1518,7 @@
                      procedencia:this.estoque.procedencia, 
                      coloracao:this.estoque.coloracao, 
                      destino:this.estoque.destino, 
+                     corteza:this.estoque.corteza, 
                      tipoQualidade:this.estoque.qual1,  
                      classifQualidade:this.estoque.qual2,  
                      tamanho:this.estoque.tamanho, 
@@ -1507,8 +1544,8 @@
 
                       this.resultado = response.data; 
                       
-                      //console.log('Popula Form');
-                      //console.log(this.resultado );
+                      console.log('Popula Form');
+                      console.log(this.resultado );
 
 
                       let aItens =  this.resultado; 
@@ -1544,6 +1581,7 @@
                                              ui: aItens[i].ui,
                                              tipo: aItens[i].tipo,
                                              m4QUAL: aItens[i].m4QUAL,
+                                             m4CORTEZ: aItens[i].m4CORTEZ,
                                              elg: aItens[i].elg,
                                              mst: aItens[i].mst,
                                              estoque: aItens[i].estoque,
@@ -1651,6 +1689,7 @@
                    this.itemDesabilitado=false;
                    this.loteDesabilitado=false; 
                    this.destinoDesabilitado=false;  
+                   this.cortezaDesabilitado=false;  
                    this.qual1Desabilitado=false;
                    this.qual2Desabilitado=false;
                    this.coloracaoDesabilitado=false;
@@ -1667,6 +1706,7 @@
                    this.itemDesabilitado=true;
                    this.loteDesabilitado=true;
                    this.destinoDesabilitado=true;
+                   this.cortezaDesabilitado=true; 
                    this.qual1Desabilitado=true;
                    this.qual2Desabilitado=true;
                    this.coloracaoDesabilitado=true;

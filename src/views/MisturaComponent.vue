@@ -2,7 +2,7 @@
 
 <v-form  ref="formulario"   style=" background-color:white;height:100% "  >    
 
-   <!-- <v-container style="width:100%;background-color:white"  >--> 
+   <!-- <v-container style="width:100%;background-color:white"  >-->   
    
            <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
    
@@ -68,6 +68,8 @@
 
                    </div> 
 
+                 
+                  
 
 
                   <!-- Inicio Painel Manutencao Mistura -->
@@ -80,32 +82,25 @@
                    
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
-
-
-                           
-
-
-                              <div   class="espacoEntreComponentes" v-if="this.$store.state.tipoDispositivo != 'desktop' ">    
+                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
+                             
                                             
                                     <v-text-field
+                                    v-if="this.$store.state.tipoDispositivo != 'desktop' "
                                         v-model.trim="this.mistura.statusMistura" 
                                         id="statusMistura"
                                         label="Status" 
                                         ref="statusMistura"  
                                         maxlength="10"                                            
-                                        style=" width: 150px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
                                         density="compact" 
                                         disabled
-                                    ></v-text-field>     
-                                  
-                              </div>   
-                        
-
-                              <div    class="espacoEntreComponentes"    >  
+                                    ></v-text-field>      
+                         
 
                                   <v-autocomplete
 
@@ -115,7 +110,8 @@
                                       item-title="descricao" 
                                       item-value="codigo"
                                       variant="outlined"
-                                      style=" width: 160px; "
+                                      style=" width: 10%;min-width: 180px; "  
+                                      class="espacoEntreComponentes" 
                                       bg-color="white"   
                                       density="compact"
                                       @blur="trocaOperMist()"
@@ -124,18 +120,18 @@
 
                                   ></v-autocomplete> 
 
-                              </div>    
-      
-                              <div   class="espacoEntreComponentes" v-if = "(this.operMist=='I' || this.operMist=='C' )   ">    
+                             
+       
                                               
                                     <v-text-field
-
+                                        v-if = "(this.operMist=='I' || this.operMist=='C' ) "
                                         v-model.trim="this.mistura.numeroMistura" 
                                         id="numeroMistura"
                                         label="Mistura" 
                                         ref="numeroMistura"  
                                         maxlength="10"                                            
-                                        style=" width: 180px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="number"  
@@ -149,42 +145,36 @@
                                     ></v-text-field>                                    
                                           
                                 
-                              </div> 
+                            
       
-                              <div    class="espacoEntreComponentes" v-if = "this.operMist=='A'" >  
+                     
                                       
                                       <v-autocomplete
-                                          
+                                          v-if = "this.operMist=='A'"                                          
                                           :items="misturasAbertas"    
                                           label="Mistura"          
                                           v-model="this.mistura.numeroMistura"    
                                           item-title="codigo" 
                                           item-value="codigo"
                                           variant="outlined"
-                                          style="width: 180px;"                                       
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes"                                    
                                           :rules="[campoRequerido]" 
                                           density="compact"
                                           @blur="preparaMistura()"
                                           :disabled="numeroMisturaDesabilitado"  
-                                    
-                                          
-                                      ></v-autocomplete> 
+                                      ></v-autocomplete>  
 
-                                  </div>  
-
-
-
-
-                              <div   class="espacoEntreComponentes">    
+                         
                                               
                                     <v-text-field
                                           
                                         v-model.trim="this.mistura.quantidade" 
-                                        class="text-end"
+                                        class="text-end espacoEntreComponentes"
                                         id="quantidade"
                                         label="Quantidade" 
                                         ref="quantidade"   
-                                        style=" width: 170px; " 
+                                        style=" width: 10%;min-width: 180px; "   
                                         variant="outlined"
                                         bg-color="white"
                                         type="number"    
@@ -195,20 +185,20 @@
                                         @change="calculaCor(aComposicao)"
         
                                     ></v-text-field>                                    
-                              </div>                
+                                          
                               
                               
 
-                              <div   class="espacoEntreComponentes">    
+                             
                                               
                                     <v-text-field
                                           
                                         v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                        class="text-end"
+                                        class="text-end espacoEntreComponentes"
                                         id="totalMisturasUtilizadas"
                                         label="Utilizadas" 
                                         ref="totalMisturasUtilizadas"   
-                                        style=" width: 150px; " 
+                                        style=" width: 10%;min-width: 180px; "  
                                         variant="outlined"
                                         bg-color="white"
                                         type="number"    
@@ -216,18 +206,16 @@
                                         inputmode="numeric"  
                                         disabled
         
-                                    ></v-text-field>                                    
-                              </div>  
-      
-
-                              <div   class="espacoEntreComponentes">     
+                                    ></v-text-field>          
+                        
 
                                       <v-text-field
                                           v-model.trim="this.mistura.dataInicial" 
                                           id="dataInicial"
                                           label="Data Inicial" 
                                           ref="dataInicial"  
-                                          style=" width: 150px; " 
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes"     
                                           variant="outlined"
                                           bg-color="white" 
                                           type="date" 
@@ -235,12 +223,7 @@
                                           density="compact"
                                           :disabled="dataInicialDesabilitado"  
                                           
-                                      ></v-text-field>      
-                          
-                              </div>           
-
-                              <div   class="espacoEntreComponentes">    
-                                          
+                                      ></v-text-field>    
                                   
                                       
                                       <v-text-field
@@ -248,7 +231,8 @@
                                           id="dataFinal"
                                           label="Data Final" 
                                           ref="dataFinal"  
-                                          style=" width: 150px; " 
+                                          style=" width: 10%;min-width: 180px; "  
+                                          class="espacoEntreComponentes"     
                                           variant="outlined"
                                           bg-color="white" 
                                           type="date" 
@@ -257,20 +241,22 @@
                                           :disabled="dataFinalDesabilitado"  
                                           
                                       ></v-text-field>                                    
-                                  
-                          
-                              </div>         
+                        </div>    
+                        
+                        <!-- FINAL LINHA 00001-->
+                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >  
+                             
                               
-                              <div   class="espacoEntreComponentes">    
+                        
                                               
                                     <v-text-field
                                           
                                         v-model.trim="this.mistura.totalFardos" 
-                                        class="text-end"
+                                        class="text-end espacoEntreComponentes"
                                         id="totalFardos"
                                         label="Total de Fardos" 
                                         ref="totalFardos"   
-                                        style=" width: 150px; " 
+                                        style=" width: 10%;min-width: 180px; "   
                                         variant="outlined"
                                         bg-color="white"
                                         type="number"  
@@ -280,9 +266,9 @@
                                         :disabled="totalFardosDesabilitado"    
         
                                     ></v-text-field>                                    
-                              </div>  
+                            
 
-                              <div   class="espacoEntreComponentes">    
+                        
                                               
                                     <v-text-field
                                         v-model.trim="this.mistura.loteFiacao" 
@@ -290,7 +276,8 @@
                                         label="Lote Fiação" 
                                         ref="loteFiacao"  
                                         maxlength="10"                                            
-                                        style=" width: 170px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes"     
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="number"  
@@ -303,34 +290,32 @@
                                     ></v-text-field>                                    
                                           
                                 
-                              </div> 
+                           
 
                               <!-- Meio Painel Manutencao Mistura -->
                               <!-- Meio Painel Manutencao Mistura -->
                               <!-- Meio Painel Manutencao Mistura -->
                               <!-- Meio Painel Manutencao Mistura -->                        
 
-                              <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+                              
 
                                   <v-autocomplete
-
+                                      v-if="this.$store.state.usuarioSistema.idfil == '05'"
                                       label="Fardos"
-                                      :items="destinoItens"      
-                                      v-model.trim="this.mistura.destino"  
+                                      :items="destinoItens"     
+                                      v-model.trim="this.mistura.destino"   
+                                      style=" width: 10%;min-width: 180px; "  
+                                      class="espacoEntreComponentes" 
                                       item-title="descricao" 
                                       item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 150px; "
+                                      variant="outlined" 
                                       bg-color="white"   
                                       density="compact"
                                       :disabled="destinoDesabilitado" 
                                       :rules="[campoRequerido]"  
                                       
-                                  ></v-autocomplete> 
-
-                              </div>                           
-
-                              <div   class="espacoEntreComponentes">    
+                                  ></v-autocomplete>  
+                 
                                               
                                     <v-text-field
                                         v-model.trim="this.mistura.observacao" 
@@ -338,19 +323,17 @@
                                         label="Observação" 
                                         ref="observacao"  
                                         maxlength="150"                                            
-                                        style=" width: 450px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
                                         density="compact"
                                         :disabled="observacaoDesabilitado" 
                                         
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div>     
+                                    ></v-text-field>    
 
-                              <div   class="espacoEntreComponentes">    
+                              
                                               
                                     <v-text-field
 
@@ -359,7 +342,8 @@
                                         label="Num. Fardos Selec." 
                                         ref="numFardos"  
                                         maxlength="150"                                            
-                                        style=" width: 150px; " 
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
@@ -369,7 +353,7 @@
                                     ></v-text-field>                                    
                                             
                                   
-                              </div> 
+                         
 
 
                               <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
@@ -400,7 +384,7 @@
                                   
                               </div> 
 
-                              <div   class="espacoEntreComponentes">    
+                            
                                               
                                               <v-text-field
           
@@ -409,7 +393,8 @@
                                                   label="Peso" 
                                                   ref="pesoMistura"  
                                                   maxlength="150"                                            
-                                                  style=" width: 150px; " 
+                                                  style=" width: 10%;min-width: 180px; "  
+                                                  class="espacoEntreComponentes" 
                                                   variant="outlined"
                                                   bg-color="white"                                           
                                                   type="text"     
@@ -418,7 +403,7 @@
                                                   
                                               ></v-text-field>                                    
                                                       
-                             </div>   
+                            
         
                           </div>      
 
@@ -441,11 +426,8 @@
                    
 
    
-                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
-                     
- 
- 
-                         <div    class="espacoEntreComponentes"   >  
+                   <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
+    
                                  
                                  <v-autocomplete
                                      
@@ -455,32 +437,30 @@
                                      item-title="codigo" 
                                      item-value="codigo"
                                      variant="outlined"
-                                     style="width: 180px;"                                       
+                                     style=" width: 10%;min-width: 180px; "  
+                                     class="espacoEntreComponentes"                                     
                                      :rules="[campoRequerido]" 
                                      density="compact"
                                      @blur="preparaMistura()" 
                                
-                                     :disabled="misturasABaixarDesabilitado"  
-                                
+                                     :disabled="misturasABaixarDesabilitado"   
                                
                                      
-                                 ></v-autocomplete> 
-
-                             </div>  
+                                 ></v-autocomplete>  
 
 
 
-
-                         <div   class="espacoEntreComponentes">    
+                    
                                          
                                <v-text-field
                                      
                                    v-model.trim="this.mistura.quantidade" 
-                                   class="text-end"
+                                   class="text-end espacoEntreComponentes"
                                    id="quantidade"
                                    label="Quantidade" 
                                    ref="quantidade"   
-                                   style=" width: 170px; " 
+                                   style=" width: 10%;min-width: 180px; "  
+                                   append-inner-icon=""
                                    variant="outlined"
                                    bg-color="white"
                                    type="number"    
@@ -491,20 +471,20 @@
                                    @change="calculaCor(aComposicao)"
    
                                ></v-text-field>                                    
-                         </div>                
+                              
                          
                          
 
-                         <div   class="espacoEntreComponentes">    
+                          
                                          
                                <v-text-field
                                      
                                    v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                   class="text-end"
+                                   class="text-end espacoEntreComponentes"
                                    id="totalMisturasUtilizadas"
                                    label="Utilizadas" 
                                    ref="totalMisturasUtilizadas"   
-                                   style=" width: 150px; " 
+                                   style=" width: 10%;min-width: 180px; "  
                                    variant="outlined"
                                    bg-color="white"
                                    type="number"    
@@ -513,17 +493,18 @@
                                    disabled
    
                                ></v-text-field>                                    
-                         </div>  
+                          
  
 
-                         <div   class="espacoEntreComponentes">     
+                     
 
                                  <v-text-field
                                      v-model.trim="this.mistura.dataInicial" 
                                      id="dataInicial"
                                      label="Data Inicial" 
                                      ref="dataInicial"  
-                                     style=" width: 150px; " 
+                                     style=" width: 10%;min-width: 180px; "  
+                                     class="espacoEntreComponentes"  
                                      variant="outlined"
                                      bg-color="white" 
                                      type="date" 
@@ -532,11 +513,6 @@
                                      disabled
                                      
                                  ></v-text-field>      
-                     
-                         </div>           
-
-                         <div   class="espacoEntreComponentes">    
-                                     
                              
                                  
                                  <v-text-field
@@ -544,7 +520,8 @@
                                      id="dataFinal"
                                      label="Data Final" 
                                      ref="dataFinal"  
-                                     style=" width: 150px; " 
+                                     style=" width: 10%;min-width: 180px; "  
+                                     class="espacoEntreComponentes"  
                                      variant="outlined"
                                      bg-color="white" 
                                      type="date" 
@@ -552,21 +529,22 @@
                                      density="compact"
                                      disabled
                                      
-                                 ></v-text-field>                                    
-                             
-                     
-                         </div>         
-                         
-                         <div   class="espacoEntreComponentes">    
+                                 ></v-text-field>         
+
+                   </div>
+
+                   <!-- FINAL LINHA 0001 -->
+                   <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
+                            
                                          
                                <v-text-field
                                      
                                    v-model.trim="this.mistura.totalFardos" 
-                                   class="text-end"
+                                   class="text-end espacoEntreComponentes"
                                    id="totalFardos"
                                    label="Total de Fardos" 
                                    ref="totalFardos"   
-                                   style=" width: 150px; " 
+                                   style=" width: 10%;min-width: 180px; "   
                                    variant="outlined"
                                    bg-color="white"
                                    type="number"  
@@ -576,9 +554,9 @@
                                    disabled
    
                                ></v-text-field>                                    
-                         </div>  
+                        
 
-                         <div   class="espacoEntreComponentes">    
+                         
                                          
                                <v-text-field
                                    v-model.trim="this.mistura.loteFiacao" 
@@ -586,7 +564,8 @@
                                    label="Lote Fiação" 
                                    ref="loteFiacao"  
                                    maxlength="10"                                            
-                                   style=" width: 170px; " 
+                                   style=" width: 10%;min-width: 180px; "  
+                                   class="espacoEntreComponentes"  
                                    variant="outlined"
                                    bg-color="white"                                           
                                    type="number"  
@@ -599,34 +578,32 @@
                                ></v-text-field>                                    
                                      
                            
-                         </div> 
+                         
 
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->                        
 
-                         <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+                        
 
                              <v-autocomplete
-
+                                 v-if="this.$store.state.usuarioSistema.idfil == '05'"
                                  label="Fardos"
                                  :items="destinoItens"      
                                  v-model.trim="this.mistura.destino"  
                                  item-title="descricao" 
                                  item-value="codigo"
                                  variant="outlined"
-                                 style=" width: 150px; "
+                                 style=" width: 10%;min-width: 180px; "  
+                                 class="espacoEntreComponentes" 
                                  bg-color="white"   
                                  density="compact"
                                  :disabled="destinoDesabilitado" 
                                  :rules="[campoRequerido]"  
                                  
-                             ></v-autocomplete> 
-
-                         </div>                           
-
-                         <div   class="espacoEntreComponentes">    
+                             ></v-autocomplete>  
+                   
                                          
                                <v-text-field
                                    v-model.trim="this.mistura.observacao" 
@@ -634,19 +611,16 @@
                                    label="Observação" 
                                    ref="observacao"  
                                    maxlength="150"                                            
-                                   style=" width: 450px; " 
+                                   style=" width: 10%;min-width: 180px; "  
+                                   class="espacoEntreComponentes" 
                                    variant="outlined"
                                    bg-color="white"                                           
                                    type="text"     
                                    density="compact"
                                    :disabled="observacaoDesabilitado" 
                                    
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div>     
-
-                         <div   class="espacoEntreComponentes">    
+                               ></v-text-field>      
+                  
                                          
                                <v-text-field
 
@@ -655,49 +629,44 @@
                                    label="Num. Fardos Selec." 
                                    ref="numFardos"  
                                    maxlength="150"                                            
-                                   style=" width: 150px; " 
+                                   style=" width: 10%;min-width: 180px; "  
+                                   class="espacoEntreComponentes" 
                                    variant="outlined"
                                    bg-color="white"                                           
                                    type="text"     
                                    density="compact"
                                    disabled
                                    
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div> 
+                               ></v-text-field>         
 
 
-                         <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                             
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="green"
-                                             icon="mdi-check"
-                                             size="55"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                                   
-                         </div>  
+                                <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                                    
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="green"
+                                                    icon="mdi-check"
+                                                    size="55"
+                                                ></v-icon>                                                 
+                                                                                  
+                                            </div>
+                                          
+                                </div>  
 
-                         <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                     
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="red"
-                                             icon="mdi-alert-circle-outline"  
-                                             size="35"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                             
-                         </div> 
-
-
-                         <div   class="espacoEntreComponentes">    
+                                <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                            
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="red"
+                                                    icon="mdi-alert-circle-outline"  
+                                                    size="35"
+                                                ></v-icon>                                                 
+                                                                                  
+                                            </div>
+                                    
+                                </div>  
                                               
                                 <v-text-field
 
@@ -706,7 +675,8 @@
                                     label="Peso" 
                                     ref="pesoMistura"  
                                     maxlength="150"                                            
-                                    style=" width: 150px; " 
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -715,7 +685,7 @@
                                     
                                 ></v-text-field>                                    
                                                       
-                             </div>                           
+                                                 
    
                      </div>      
 
@@ -1045,13 +1015,50 @@
                     <!-- ///Final Resumo Mistura -->
                     <!-- ///Final Resumo Mistura -->
                     <!-- ///Final Resumo Mistura -->
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                      <div class="d-flex justify-content-end " style="margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    
+         
+
+                        <v-btn   
+                            style="height:25px;width:15px;background-color:rgb(240, 237, 232); "  @click="alteraTamanhoPainel('subtrair')"   
+                            title="Diminuir painel"
+                            > 
+                                <v-icon 
+                                color="primary"
+                                icon="mdi-minus-box-outline"
+                                size="25"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+
+                        <v-btn   
+                            style="height:25px;width:10px;background-color:rgb(240, 237, 232); "  @click="alteraTamanhoPainel('somar')"  
+                            title="Aumentar painel"  
+                            > 
+                                <v-icon
+                               
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="25"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+                    </div>    
+
+
+
                      
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->                     
  
-                     <div class="container-fluid"  style=" height:800px; overflow-y: scroll; overflow-x: scroll;">
+                     <div class="container-fluid"  style="overflow-y: scroll; overflow-x: scroll;"
+                                :style="{height:  this.alturaPainelPrincipal} "  
+                     >
                             <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
@@ -1060,6 +1067,7 @@
                                       <th class="col-3 text-start">PRODUTOR</th>     
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >DV/COR/ TP MIC</th>  
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >QUAL</th>  
+                                      <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >CORTEZA</th> 
                                       <th class="col-2 text-start"  >PILHA</th>  
                                       <th class="col-2 text-start" >LOTE</th>  
                                       <th class="col-2 text-start" >TAM</th>  
@@ -1112,7 +1120,11 @@
                                       
                                       <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
                                         {{ i.m4QUAL}}
-                                      </td>                                         
+                                      </td>  
+                                      
+                                      <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
+                                        {{ i.m4CORTEZ}}
+                                      </td>                                          
  
                                       <td class="col-1 text-start"   :style="{backgroundColor: i.corLinha} ">
                                         {{ i.pi}}
@@ -1131,9 +1143,10 @@
                                       </td>     
 
  
-                                      <td  class="col-2  "   >    
- 
-                                          <input type="number"
+                                      <td  class="col-2  "   >     
+                                          
+                                          <input type="number" 
+
                                               v-model.trim="i.qtde" 
                                               maxlength="4"                                            
                                               style=" width: 100px;height: 30px;border:solid 1px ;text-align: center;font-size:16px;border-radius:5px 5px 5px 5px; "   
@@ -2132,6 +2145,84 @@
                     <!-- /// Final Estoque por Qualidade --> 
 
 
+                    <!-- /// Baixas Mistura -->  
+                    <!-- /// Baixas Mistura -->  
+                    <!-- /// Baixas Mistura -->  
+                    <!-- /// Baixas Mistura -->  
+                    <div class="d-flex justify-content-center"  style="height:800px; background-color:white ;margin-top:100px;margin-bottom:500px;overflow-y: scroll; overflow-x: scroll;"   >  
+                          <div   style=" width:4%;  "> </div>
+                          <div class="container-fluid"  style=" height:100px; width:20%; ">
+                                <table class="table table-sm  ">
+                                    <thead   >
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          <th  colspan="20" style="background-color:cadetblue; text-align:center;font-size:18px; " >BAIXAS DA MISTURA</th> 
+                                          
+                                      </tr> 
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          
+                                          <th class="col-1 text-start tabGrid"  >MISTURA</th>   
+                                          <th class="col-1 text-end tabGrid" >SEQ</th> 
+                                          <th class="col-1 text-end tabGrid" >DATA</th> 
+                                          <th class="col-1 text-end tabGrid" >HORA</th>  
+                                          <th class="col-1 text-end tabGrid" >TURNO</th>  
+                                          <th class="col-1 text-end tabGrid" >MAQUINA</th>  
+                                          <th class="col-1 text-end tabGrid" >LADO</th>  
+
+                                      </tr>
+                                    </thead>  
+
+                                    <tbody  >
+                                      <template  v-for="(i,indice) in aBaixas" :key="indice">
+    
+                                        <tr   >  
+ 
+                                            <td class="col-1 text-start tabGridCol"   >
+                                              {{ i.mistura }} 
+                                            </td> 
+
+                                             <td class="col-1 text-end tabGridCol"   >
+                                              {{ i.seq }}
+                                            </td>
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ i.dataMovimento }}
+                                            </td>
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ this.formataHora(i.horaMovimento)  }}
+                                            </td>
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ i.turno }}
+                                            </td>
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ i.localFisico }}
+                                            </td>                                            
+
+                                                                                    
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ i.lado }}
+                                            </td>                                                    
+                                                                                  
+                               
+
+                                        </tr>  
+
+                                      </template>
+
+
+                                    </tbody> 
+
+                                </table>  
+                          </div> 
+                          <div   style=" width:4%;  "> </div>
+                    </div>  
+
+                    <!-- /// Final  Baixas Mistura -->  
+                    <!-- /// Final  Baixas Mistura -->  
+                    <!-- /// Final  Baixas Mistura -->  
+                    <!-- /// Final  Baixas Mistura -->   
                                             
    
   
@@ -2426,6 +2517,9 @@
         nomeDestino:'TODOS',
         nPesoMovimento:0,
         labelNovo:'',
+        aBaixas:[] ,
+        alturaPainelPrincipal:'',
+        varAlturaPainel:400
         
          
       }),
@@ -2702,22 +2796,16 @@
                             this.mistura.loteFiacao = '';
                         } 
 
-
+                        /*
                         let url = `${process.env.VUE_APP_BASE_URL}/lotefiacao/buscalote/${this.$store.state.usuarioSistema.idfil}/${this.mistura.loteFiacao}`; 
-
-                        //console.log('BuscaLote');
-                        //console.log(url);
+ 
 
                         await this.axios.get(url,this.apiTokenHeader())
                         .then(response => { 
 
                             this.resultado = response.data; 
                             
-                            if(this.resultado){ 
-
-                                //console.log('valida lote')
-                                //console.log(this.resultado)
-                                
+                            if(this.resultado){  
 
                                 this.aResult = [];
                                 this.resultado.forEach(element => {
@@ -2725,9 +2813,7 @@
                                           lote:      (element.LOTE != null ? element.LOTE : '')   
                                       }) 
 
-                                  }); 
-
-                                  //console.log(this.aResult)
+                                  });  
                       
                                   if(this.aResult.length > 0){
                                         if (this.aResult[0].lote==null || this.aResult[0].lote=='' ){
@@ -2761,6 +2847,9 @@
                           validacaoOk = false;
                           return validacaoOk;
                         });  
+
+
+                        */
                         
                 } 
 
@@ -3601,8 +3690,8 @@
 
                  
 
-                  //console.log('url') 
-                  //console.log(url)  
+                  console.log('url') 
+                  console.log(url)  
 
                   this.numItem = 0; 
                   this.aMisturaItem = [];
@@ -3691,6 +3780,7 @@
                                                 ui: aItens[i].ui,
                                                 tipo: aItens[i].tipo,
                                                 m4QUAL: aItens[i].m4QUAL,
+                                                m4CORTEZ: aItens[i].m4CORTEZ,
                                                 elg: aItens[i].elg,
                                                 mst: aItens[i].mst,
                                                 estoque: aItens[i].estoque,
@@ -3728,9 +3818,69 @@
                   this.configuraCampos('A')  ;
                   retornoPopForm = true;
                   this.calculaTotais(this.aComposicao,0 )
+                  this.pesquisaBaixas();
                   return  retornoPopForm;                 
+        } ,
+
+
+        alteraTamanhoPainel(acao){
+              if(acao=='subtrair'){
+                
+                  if(this.varAlturaPainel >= 200){
+                    this.varAlturaPainel = this.varAlturaPainel  - 100; 
+                  }else{
+                    this.apiDisplayMensagem('Configuração atingiu tamanho minimo') ;
+                  }  
+         
+              }
+
+              if(acao=='somar'){
+                
+                if(this.varAlturaPainel <= 800){
+                  this.varAlturaPainel = this.varAlturaPainel  + 100; 
+                }else{
+                  this.apiDisplayMensagem('Configuração atingiu tamanho maximo') ;
+                }  
+       
+            }              
+              
+              this.alturaPainelPrincipal = this.varAlturaPainel.toString() + "px";
         }
-                            
+
+        ,
+
+        
+        async pesquisaBaixas() {   
+                let url ;
+
+                if(this.operMist == 'I') {
+                    url = `${process.env.VUE_APP_BASE_URL}/producaoabertura/pesquisabaixa/${this.$store.state.usuarioSistema.idfil}/0`    
+                }else{
+                    url = `${process.env.VUE_APP_BASE_URL}/producaoabertura/pesquisabaixa/${this.$store.state.usuarioSistema.idfil}/${this.mistura.numeroMistura}`  
+                } 
+          
+               // let obj;
+
+                this.axios.get(url,this.apiTokenHeader() )
+                .then(response => {
+                    if(response){    
+
+                      this.resultado = response.data;    
+                      this.aBaixas = this.resultado;  
+                        
+                    }
+
+                })
+                .catch(error => {
+                    console.log("Erro: ", error.response.data);
+                
+                    this.apiDisplayMensagem(error.response.data ) 
+                }); 
+
+              
+
+
+        },                         
 
      } , 
       
@@ -3740,6 +3890,7 @@
 
             this.msgProcessamento = '';
             this.scrollToTop();
+            this.alturaPainelPrincipal = "400px";
     
       }
   

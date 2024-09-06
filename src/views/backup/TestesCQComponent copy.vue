@@ -8,7 +8,7 @@
                     
                     
 
-                    <div class="flex-linha-between"  style=" width:100%;background-color:white;margin-top: 1%;" >  
+                    <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >  
                     
                     
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
@@ -20,9 +20,9 @@
 
                    </div>         
                    
-                   <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white;margin-top: 1%; " > 
+                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" > 
 
-                              
+                            <div    class="espacoEntreComponentes">   
 
                                 <v-autocomplete
                                     label="Produtor"
@@ -31,8 +31,7 @@
                                     item-title="descricao" 
                                     item-value="codigo"
                                     variant="outlined"
-                                    style=" width: 7%;min-width: 270px; "  
-                                    class="espacoEntreComponentes" 
+                                    style="width: 270px; " 
                                     bg-color="white"   
                                     density="compact"
                                     :rules="[campoRequerido]" 
@@ -40,10 +39,10 @@
                                     :disabled="produtorDesabilitado"
                                 ></v-autocomplete> 
 
-                             
+                            </div>   
 
 
-                       
+                            <div   class="espacoEntreComponentes">    
                                         
                                 <v-text-field
                                     v-model.trim="this.teste.lote" 
@@ -51,8 +50,7 @@
                                     label="Lote" 
                                     ref="lote"  
                                     maxlength="20"                                            
-                                    style=" width: 7%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 200px; " 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -64,12 +62,12 @@
                                 ></v-text-field>                                  
                                      
                            
-                              
+                            </div>     
 
 
 
 
-                            <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "  >   
+                            <div   class="espacoEntreComponentes"   >   
                                         
                                         <div class="input-group">   
                                             
@@ -81,7 +79,7 @@
                                                     label="Item"
                                                     ref="item"  
                                                     maxlength="7"  
-                                                    style=" width: 120px; "
+                                                    style=" width: 170px; "
                                                     variant="outlined"
                                                     bg-color="white"
                                                     v-model.trim="this.teste.item"
@@ -109,7 +107,7 @@
     
                                             </div  >      
     
-                                            <div style="   flex-grow: 1;height:43px;"  >   
+                                            <div class=" backCampoConjugado "  >   
                                                 <v-text-field
                                                  
                                                     id="descFio"   
@@ -123,19 +121,18 @@
     
                                         </div>
     
-                            </div>                                
+                                    </div>                                
                      
 
 
-                          
+                            <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                         v-model.trim="this.teste.dataTeste" 
                                         id="dataTeste"
                                         label="Data do Teste" 
                                         ref="dataTeste"  
-                                        style=" width: 7%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 200px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         type="date" 
@@ -146,11 +143,10 @@
                                         
                                     ></v-text-field>      
 
-                                                    
-                   </div>
-                   <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white" > 
-
+                            </div>                              
                             
+
+                            <div    class="espacoEntreComponentes">  
 
                                 <v-autocomplete
 
@@ -160,15 +156,17 @@
                                     item-title="nome" 
                                     item-value="codigo"
                                     variant="outlined"
-                                    style=" width: 7%;min-width: 180px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 200px; "  
                                     bg-color="white"      
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                    
                                     
-                                ></v-autocomplete>  
+                                ></v-autocomplete> 
 
+                            </div>     
+                            
+                            <div   class="espacoEntreComponentes" >    
                                               
                                     <v-text-field
 
@@ -177,8 +175,7 @@
                                         label="Num. Fardos Testados" 
                                         ref="numVolumes"  
                                         maxlength="3"                                            
-                                        style=" width: 7%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 200px; " 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="number"  
@@ -189,7 +186,7 @@
                                     ></v-text-field>                                    
                                         
                                 
-                               
+                            </div>   
 
                             <div   class="espacoEntreComponentes"> 
                           
@@ -216,11 +213,11 @@
 
                     </div>     
 
-                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white" v-if="this.$store.state.usuarioSistema.idfil!='05'  ">
+                    <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" v-if="this.$store.state.usuarioSistema.idfil!='05'  ">
                         <div   style="width:64%;   "> 
 
                            <v-file-input   
-                                    style="width:99%; min-width: 350px;   "
+                                    style="width:99%;   "
                                     v-model.trim="fileSelecionado"
                                     label="Selecione o arquivo do HVI" 
                                     variant="outlined"
@@ -272,41 +269,40 @@
                     </div>    
 
 
-                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white;margin-top: 1%;">
+                    <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white">
 
 
 
-                   
+                             <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                             v-model.trim="this.teste.sic" 
                                             id="sci"
                                             label="SCI" 
                                             ref="sci"  
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white"  
                                             inputmode="numeric"
                                             :rules="[campoRequerido]" 
                                             density="compact"
-                                            maxlength="3"       
+                                            maxlength="3"                                           
+                                       
                                            
                                         
                                     ></v-text-field>  
 
-                        
+                            </div> 
 
 
-                            
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.mst" 
                                         id="mst"
                                         label="MST" 
                                         ref="mst"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -318,15 +314,16 @@
                                        
                                 ></v-text-field>  
 
-                        
+                            </div>
+
+                            <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                             v-model.trim="this.teste.mic" 
                                             id="mic"
                                             label="MIC" 
                                             ref="mic"  
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -338,18 +335,17 @@
                                         
                                     ></v-text-field>  
 
-                             
+                            </div>
 
 
-                      
+                            <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                             v-model.trim="this.teste.mat" 
                                             id="mat"
                                             label="MAT" 
                                             ref="mat"  
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -359,16 +355,18 @@
                                             @blur="this.teste.mat = $event.target.value"
                                             maxlength="5" 
                                         
-                                    ></v-text-field>   
-                  
+                                    ></v-text-field>  
+
+                            </div>
+
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.uhml" 
                                         id="uhml"
                                         label="UHML" 
                                         ref="uhml"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -379,18 +377,17 @@
                                         maxlength="6"                                  
                                 ></v-text-field>  
 
-                             
+                            </div>
 
 
-                  
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.ui" 
                                         id="ui"
                                         label="UI" 
                                         ref="ui"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -400,15 +397,18 @@
                                         @blur="this.teste.ui = $event.target.value"   
                                         maxlength="5"                                 
                                 ></v-text-field>  
-   
+
+                            </div>
+
+
+                            <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                             v-model.trim="this.teste.sf" 
                                             id="sf"
                                             label="SF" 
                                             ref="sf"  
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -419,18 +419,17 @@
                                             maxlength="5"                                    
                                     ></v-text-field>  
 
-                                                  
+                            </div>                            
 
 
-                    
+                            <div   class="espacoEntreComponentes">     
 
                                     <v-text-field
                                             v-model.trim="this.teste.str" 
                                             id="str"
                                             label="STR" 
                                             ref="str"  
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; " 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -440,15 +439,16 @@
                                             @blur="this.teste.str = $event.target.value" 
                                             maxlength="5"                                     
                                     ></v-text-field>  
- 
+
+                            </div>       
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.elg" 
                                         id="elg"
                                         label="ELG" 
                                         ref="elg"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -458,20 +458,17 @@
                                         @blur="this.teste.elg = $event.target.value"  
                                         maxlength="4"                                    
                                 ></v-text-field>  
- 
 
-                    </div>
-                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white">                               
+                            </div>  
 
-                            
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.rs" 
                                         id="rd"
                                         label="RD" 
                                         ref="rd"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -484,18 +481,17 @@
 
 
 
-                            
+                            </div>  
  
 
-                            
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.b" 
                                         id="b"
                                         label="+B" 
                                         ref="b"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -505,15 +501,18 @@
                                         @blur="this.teste.b = $event.target.value"  
                                         maxlength="5"                                    
                                 ></v-text-field>  
- 
+
+                            </div>  
+
+
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.tipo" 
                                         id="tipo"
                                         label="Tipo" 
                                         ref="tipo"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -524,17 +523,16 @@
                                         maxlength="5"                                     
                                 ></v-text-field>  
 
-                                                         
+                            </div>                              
 
-                            
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.trcnt" 
                                         id="trcnt"
                                         label="TrCNT" 
                                         ref="trcnt"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -545,18 +543,17 @@
                                         maxlength="5"                                     
                                 ></v-text-field>  
 
-                            
+                            </div> 
 
 
-                          
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.trar" 
                                         id="trar"
                                         label="TrAR" 
                                         ref="trar"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -565,15 +562,18 @@
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.trar = $event.target.value"  
                                         maxlength="5"                                    
-                                ></v-text-field>    
+                                ></v-text-field>  
+
+                            </div>    
+                            
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.trid" 
                                         id="trid"
                                         label="TRID" 
                                         ref="trid"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes"  
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -584,18 +584,17 @@
                                         maxlength="4"                                    
                                 ></v-text-field>  
 
-                               
+                            </div>       
                             
                             
-                              
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.sac" 
                                         id="sac"
                                         label="SAC" 
                                         ref="sac"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -605,14 +604,17 @@
                                         @blur="this.teste.sac = $event.target.value"                                    
                                 ></v-text-field>  
 
-                           
+                            </div>                               
+
+
+                            <div   class="espacoEntreComponentes">     
+
                                 <v-text-field
                                         v-model.trim="this.teste.pim" 
                                         id="pim"
                                         label="PIM" 
                                         ref="pim"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -622,17 +624,16 @@
                                         @blur="this.teste.pim = $event.target.value"                                    
                                 ></v-text-field>  
 
-                           
+                            </div> 
 
-                             
+                            <div   class="espacoEntreComponentes">     
 
                                 <v-text-field
                                         v-model.trim="this.teste.sc" 
                                         id="sc"
                                         label="SC" 
                                         ref="sc"  
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; " 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -641,19 +642,18 @@
                                         @keyup="apiEntraNumero($event,1) " 
                                         @blur="this.teste.sc = $event.target.value"                                    
                                 ></v-text-field>  
- 
-                    </div>
-                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white">
 
-                           
+                            </div> 
+
+
+                            <div   class="espacoEntreComponentes">    
                                                 
                                 <v-text-field
                                     v-model.trim="this.teste.hvi" 
                                     id="hvi"
                                     label="HVI" 
                                     ref="hvi"                               
-                                    style=" width: 7%;min-width: 320px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 320px; " 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -663,27 +663,36 @@
                                 ></v-text-field>                                  
                                         
                             
-                           
+                            </div>     
                               
 
                                                
 
-                            
+                            <div   class="espacoEntreComponentes">    
                                                 
                                 <v-text-field
                                     v-model.trim="this.teste.benef" 
                                     id="benef"
                                     label="Beneficiamento" 
                                     ref="benef"                               
-                                    style=" width: 7%;min-width: 320px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 320px; " 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
                                     density="compact"
                             
                                     
-                                ></v-text-field>          
+                                ></v-text-field>                                  
+                                        
+                            
+                            </div>   
+
+                        </div>
+
+                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white">      
+
+
+                                <div    class="espacoEntreComponentes">  
 
                                     <v-autocomplete
 
@@ -693,8 +702,7 @@
                                         item-title="nome" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 7%;min-width: 100px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 150px; "
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
@@ -702,9 +710,9 @@
                                         
                                     ></v-autocomplete> 
 
-                                     
+                                </div>      
 
-                                
+                                <div    class="espacoEntreComponentes">  
 
                                         <v-autocomplete
 
@@ -714,33 +722,35 @@
                                             item-title="nome" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style=" width: 7%;min-width: 100px; "  
-                                            class="espacoEntreComponentes" 
+                                            style=" width: 150px; "
                                             bg-color="white"      
                                             
                                             density="compact"
                                             
-                                        ></v-autocomplete>  
-                              
+                                        ></v-autocomplete> 
+
+                                </div>      
+
+
+                                <div   class="espacoEntreComponentes">    
                                                 
-                                        <v-text-field
-                                            v-model.trim="this.teste.numeroSelo" 
-                                            id="numeroSelo"
-                                            label="Numero Selo" 
-                                            ref="numeroSelo"                               
-                                            style=" width: 7%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
-                                            maxlength="30"
-                                            variant="outlined"
-                                            bg-color="white"                                           
-                                            type="text"     
-                                            density="compact"
-                                    
+                                                <v-text-field
+                                                    v-model.trim="this.teste.numeroSelo" 
+                                                    id="numeroSelo"
+                                                    label="Numero Selo" 
+                                                    ref="numeroSelo"                               
+                                                    style=" width: 320px; " 
+                                                    maxlength="30"
+                                                    variant="outlined"
+                                                    bg-color="white"                                           
+                                                    type="text"     
+                                                    density="compact"
                                             
-                                        ></v-text-field>                                  
+                                                    
+                                                ></v-text-field>                                  
                                                         
                                             
-                                                            
+                               </div>                                  
 
 
 
@@ -748,17 +758,16 @@
                         </div>                     
 
 
-                        <div class="flex-linha "  style="margin-left:6%;width:90%; ">                            
+                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%; ">                            
 
-                            
+                            <div    style="width: 100%; ">    
                                                 
                                 <v-text-field
                                     v-model.trim="this.teste.obs" 
                                     id="obs"
                                     label="Observacao" 
                                     ref="obs"                               
-                                    style=" width: 100%;min-width: 320px; "  
-                                    class="espacoEntreComponentes" 
+                                    style=" width: 90%;  " 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -768,22 +777,21 @@
                                 ></v-text-field>                                  
                                         
                             
-                             
+                            </div>    
 
 
                         </div>  
                         
-                        <div class="flex-linha "  style="margin-left:6%;width:90%; ">                            
+                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%; ">                            
 
-                                 
+                                <div    style="width: 100%; ">    
                                                     
                                     <v-text-field
                                         v-model.trim="this.teste.arqImportacao" 
                                         id="arq"
                                         label="Arquivo Importado" 
                                         ref="arq"                               
-                                        style=" width: 100%;min-width: 320px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 90%;  " 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
@@ -794,7 +802,7 @@
                                     ></v-text-field>                                  
                                             
 
-                                 
+                                </div>    
 
 
                         </div>                         
@@ -1166,29 +1174,14 @@
                 }    
 
 
-                /// EXCLUSAO //// 
+                /// EXCLUSAO ////
 
-
-                //let url = `${process.env.VUE_APP_BASE_URL}/testecq/delete/${this.$store.state.usuarioSistema.idfil}/${this.teste.produtor}/${this.teste.lote}/${this.teste.item}`    
-                let url = `${process.env.VUE_APP_BASE_URL}/testecq/delete`    
-                
-
-                this.testeDAO =
-                    {
-                        idfil:this.$store.state.usuarioSistema.idfil,
-                        produtor:this.teste.produtor  ,
-                        lote:this.teste.lote  ,  
-                        item:   this.teste.item  
-                    }    
-
+                let url = `${process.env.VUE_APP_BASE_URL}/testecq/delete/${this.$store.state.usuarioSistema.idfil}/${this.teste.produtor}/${this.teste.lote}/${this.teste.item}`    
 
                 if (this.tipoOperacao == 'E' && this.simNaoRetorno == 'S') {  
  
-                        this.axios.put( 
-                        url,
-                        JSON.stringify(this.testeDAO),
-                        this.apiTokenHeader({ "Content-Type": "application/json" }) 
-                        ).then(response => {
+                        this.axios.delete(url,this.apiTokenHeader() )
+                        .then(response => {
                             if(response){                            
                                 this.resetarForm();
                                 this.apiDisplayMensagemSucesso('Registro excluido com sucesso.'  ) 
@@ -1551,27 +1544,13 @@
                     this.resultado = "";
 
                     this.msgProcessamento = "Processando" ;
-                    this.apiProcessamento()  ; 
+                    this.apiProcessamento()  ;
 
-
-                    //url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${this.teste.produtor}/${this.teste.lote}/${this.teste.item}`  
-                    url = `${process.env.VUE_APP_BASE_URL}/testecq/busca`  
+                    url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${this.teste.produtor}/${this.teste.lote}/${this.teste.item}`  
                     //console.log(url)
 
-                    this.testeDAO =
-                    {
-                        idfil:this.$store.state.usuarioSistema.idfil,
-                        produtor:this.teste.produtor  ,
-                        lote:this.teste.lote  ,  
-                        item:   this.teste.item  
-                    }   
-
-                            //console.log(this.testeDAO);
-                    await this.axios.put(
-                        url,
-                        JSON.stringify(this.testeDAO),
-                        this.apiTokenHeader({ "Content-Type": "application/json" })
-                    ).then(response => {
+                    await this.axios.get(url,this.apiTokenHeader())
+                    .then(response => {
 
                         // console.log("PopulaForm");
                             this.resultado = response.data;  

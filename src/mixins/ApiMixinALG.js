@@ -115,6 +115,39 @@ export default {
                },
 
 
+    async populaTipoMaquina(){
+    /* DALTON */
+            this.resultado = ""; 
+            this.tipoMaquinaItens = []; 
+    
+            // Carrega tipo Maquina
+            let url = `${process.env.VUE_APP_BASE_URL_CPF}/tipomaquina/filial/01`; 
+
+
+            //console.log(url)
+            
+            this.axios.get(url,this.apiTokenHeader())
+            .then(response => { 
+                this.resultado = response.data;     
+                
+                this.tipoMaquinaItens = [];
+                this.resultado.forEach((tpMaq ) => {   
+                
+                    this.tipoMaquinaTemp.codigo = (tpMaq.codigo != null ? tpMaq.codigo.trim()  : null)  ; 
+                    this.tipoMaquinaTemp.descricao = (tpMaq.nome != null ? tpMaq.nome.trim()  : null)  ;   
+                    this.tipoMaquinaItens.push({codigo:this.tipoMaquinaTemp.codigo, descricao:this.tipoMaquinaTemp.descricao }); 
+    
+                });   
+
+
+                //console.log(this.tipoMaquinaItens)
+    
+            })
+            .catch(error => {
+            console.log("Erro: ", error.response.data);
+            this.haErros = true
+            });
+    },               
 
 
 
@@ -275,7 +308,7 @@ export default {
                                this.produtorItens.push({
                                  codigo:this.produtorItensTemp.codigo,
                                  descricao:this.produtorItensTemp.descricao ,
-                                 chave: this.produtorItensTemp.descricao 
+                                 chave: this.produtorItensTemp.chave 
                                 });  
                 
 

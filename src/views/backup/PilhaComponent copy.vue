@@ -53,8 +53,9 @@
                    
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
-                          
+                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >    
+                        
+                             <div    class="espacoEntreComponentes">   
 
                                     <v-autocomplete
                                         label="Produtor"
@@ -63,19 +64,18 @@
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style="width: 270px; " 
                                         bg-color="white"   
                                         density="compact"
                                         :rules="[campoRequerido]" 
                                         :disabled="this.produtorDesabilitado"
-                                    ></v-autocomplete>  
+                                    ></v-autocomplete> 
 
-                              
+                              </div>     
  
 
       
-                             
+                              <div   class="espacoEntreComponentes">    
                                                     
                                       <v-text-field  
                                           id="pilha"
@@ -83,8 +83,7 @@
                                           ref="pilha"  
                                           v-model.trim="this.pilha.pilha"
                                           maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          style=" width: 200px; "
                                           variant="outlined" 
                                           type="number"
                                           inputmode="numeric" 
@@ -95,17 +94,16 @@
 
                                       ></v-text-field>                                    
                                          
-                             
+                               </div>   
 
-                               
+                               <div   class="espacoEntreComponentes">    
                                       
                                       <v-text-field  
                                        
                                           label="Fardos na Pilha" 
                                           v-model.trim="this.pilha.numFardosPilha"
                                           maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          style=" width: 200px; "
                                           variant="outlined" 
                                           type="number"
                                           inputmode="numeric" 
@@ -114,13 +112,13 @@
 
                                       ></v-text-field>                                    
                                           
-                                
+                                </div>   
 
 
 
 
 
-                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "   >   
+                                <div   class="espacoEntreComponentes"   >   
                                         
                                     <div class="input-group">   
                                         
@@ -132,7 +130,7 @@
                                                 label="Item"
                                                 ref="item"  
                                                 maxlength="7"  
-                                                style=" width: 120px; "
+                                                style=" width: 170px; "
                                                 variant="outlined"
                                                 bg-color="white"
                                                 v-model.trim="this.pilha.item"
@@ -161,7 +159,7 @@
 
                                         </div  >      
 
-                                        <div style="   flex-grow: 1;height:43px;"  >    
+                                        <div class=" backCampoConjugado "  >   
                                             <v-text-field
                                              
                                                 id="descFio"   
@@ -179,7 +177,7 @@
 
 
 
-                              
+                                <div   class="espacoEntreComponentes">    
                                                     
                                       <v-text-field  
                                           id="lote"
@@ -187,14 +185,36 @@
                                           ref="lote"  
                                           v-model.trim="this.pilha.lote"
                                           maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          style=" width: 200px; "
                                           variant="outlined"   
                                           density="compact"  
                                           :disabled="this.loteDesabilitado"
   
                                       ></v-text-field>    
- 
+                                </div> 
+
+<!--
+                                <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+
+                                      <v-autocomplete
+
+                                          label="Fardos"
+                                          :items="destinoItens"      
+                                          v-model.trim="this.pilha.destino"  
+                                          item-title="descricao" 
+                                          item-value="codigo"
+                                          variant="outlined"
+                                          style=" width: 150px; "
+                                          bg-color="white"   
+                                          density="compact"
+                                          :disabled="destinoDesabilitado" 
+                                          :rules="[campoRequerido]"  
+                                          
+                                      ></v-autocomplete> 
+
+                                </div> 
+                                
+-->
                         </div>
                         <!--
 
@@ -206,9 +226,9 @@
 
 
                         -->
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" > 
+                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" > 
 
-                              
+                                <div   class="espacoEntreComponentes">    
                                          
                                          <v-text-field
           
@@ -217,15 +237,20 @@
                                              label="Num. Fardos Selec." 
                                              ref="numFardos"  
                                              maxlength="150"                                            
-                                             style=" width: 10%;min-width: 180px; "  
-                                             class="espacoEntreComponentes" 
+                                             style=" width: 200px; " 
                                              variant="outlined"
                                              bg-color="white"                                           
                                              type="text"     
                                              density="compact"
                                              disabled
                                              
-                                         ></v-text-field>      
+                                         ></v-text-field>                                    
+                                                 
+                                       
+                                   </div>  
+           
+          
+                                   <div   class="espacoEntreComponentes">    
                                                         
                                           <v-text-field
           
@@ -234,8 +259,7 @@
                                               label="Peso" 
                                               ref="pesoMistura"  
                                               maxlength="150"                                            
-                                              style=" width: 10%;min-width: 180px; "  
-                                              class="espacoEntreComponentes" 
+                                              style=" width: 200px; " 
                                               variant="outlined"
                                               bg-color="white"                                           
                                               type="text"     
@@ -244,7 +268,7 @@
                                               
                                           ></v-text-field>                                    
                                                                 
-                                   
+                                    </div>      
 
 
 
@@ -440,7 +464,7 @@
 
                           <div class="flex-linha " style="margin-left: 2%" >    
                         
-                                
+                                <div    class="espacoEntreComponentes">   
 
                                         <v-autocomplete
 
@@ -450,17 +474,16 @@
                                               item-title="nome" 
                                               item-value="codigo"
                                               variant="outlined"
-                                              style=" width: 10%;min-width: 180px; "  
-                                              class="espacoEntreComponentes" 
+                                              style=" width: 320px; "
                                               bg-color="white"  
                                               density="compact"
                                               @blur="trocaFornecedor"
 
                                       ></v-autocomplete>  
 
-                                 
+                                </div>     
 
-                            
+                                <div   class="espacoEntreComponentes">    
                                                       
                                       <v-text-field  
                                           id="novoLote"
@@ -468,8 +491,7 @@
                                           ref="novoLote"  
                                           v-model.trim="this.pilha.novoLote"
                                           maxlength="10"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          style=" width: 320px; "
                                           variant="outlined"  
                                           bg-color="white"  
                                           density="compact"  
@@ -477,9 +499,9 @@
 
                                       ></v-text-field>    
 
-                                 
+                                </div> 
 
-                            
+                                <div    class="espacoEntreComponentes">   
 
                                   <v-autocomplete
 
@@ -489,13 +511,18 @@
                                         item-title="nome" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        style=" width: 320px; "
                                         bg-color="white"      
                                         density="compact"
                                         @blur="trocaProcedencia"
 
-                                   ></v-autocomplete>   
+                                   ></v-autocomplete>  
+
+                                </div>   
+                                
+                                
+                                <div    class="espacoEntreComponentes"  >    
+
 
                                     <v-autocomplete
 
@@ -505,8 +532,7 @@
                                           item-title="nome" 
                                           item-value="id"
                                           variant="outlined"
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          style=" width: 320px; "
                                           bg-color="white"      
                                           
                                           density="compact"
@@ -515,7 +541,7 @@
 
 
 
-                                  
+                                </div>     
 
 
                           </div>    

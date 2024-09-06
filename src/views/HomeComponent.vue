@@ -106,7 +106,22 @@
 
 
             </v-list-group>   
+ 
+            <v-list-group value="Producao" style="color:white" > 
 
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        prepend-icon="mdi-file-settings-outline"  
+                        v-bind="props"
+                        title="Produção"
+                        class="item-hover"
+                    ></v-list-item>
+                </template>   
+
+                <v-list-item prepend-icon="mdi-keyboard-settings-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaProducaoAbertura">Abertura</v-list-item>      
+                        
+            </v-list-group>             
+ 
             <v-list-group value="Consultas" style="color:white" > 
 
                     <template v-slot:activator="{ props }">
@@ -210,83 +225,6 @@
 
     </v-footer>   
 
-
-<!--
-    <v-container> 
-        <router-view></router-view> 
-    </v-container>
-
-
-    <div class="row cabecalho_principal">
-        <div class="col-4 cabecalho_principal_sistema">
-            <router-link class="navbar-brand" to="/alg/home">ALG</router-link>
-        </div>
-        <div class="col-3 cabecalho_principal_empresa d-flex justify-content-center">
-            <label class="empresa">{{ this.$store.state.usuarioSistema.empresa }}</label>
-        </div>
-        <div class="col-4 d-flex justify-content-end">
-        <label class="cabecalho_principal_usuario">Usuário: {{ this.$store.state.usuarioSistema.nome }}</label> 
-        </div>
-        <div class="col-1 d-flex justify-content-end">
-        <router-link to="/alg"  class="btn btn-sm btn-primary mt-2 mb-2">
-            <span  title="Sair"><i class="bi bi-door-open" style="cursor: pointer;"></i></span>
-        </router-link>
-        </div>
-    </div> 
-
-  <nav class="py-2 bg-light  ">
-    <div class=" d-flex flex-wrap  ">
-      <ul class="nav me-auto">   
-
-                <ul class="navbar-nav"     >
-                    <li class="nav-item dropdown" style="margin-left:20px;margin-right:10px">
-                            <a class="nav-link dropdown-toggle" style="color:black"  href="#"  data-bs-toggle="dropdown" aria-expanded="false">
-                            Cadastros
-                            </a>
-                            <ul class="dropdown-menu"    >   
-                                <li><a class="dropdown-item"  accesskey="t" >Itens</a></li>
-                                <li><hr class="dropdown-divider"></li>   
-                                <li><a class="dropdown-item"  @click="sair" bold><b>Sair</b></a></li>  
-
-                            </ul>
-                    </li>
-                </ul>
-             
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" style="color:black"  href="#"  data-bs-toggle="dropdown" aria-expanded="false">
-                    Interfaces
-                    </a>
-                    <ul class="dropdown-menu">   
-                        
-                        <li><a class="dropdown-item"  @click="navegarParaCargaManual">Movimentação de Materiais </a></li>
-                            
-                    </ul> 
-                </li>        
-     
-
-                <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" style="color:black"  href="#"  data-bs-toggle="dropdown" aria-expanded="false">
-                        Configurações
-                        </a>
-                        <ul class="dropdown-menu"      >   
-                            <li><a class="dropdown-item"    @click="navegarParaUsuarios">Usuários</a></li>                
-                            <li><a class="dropdown-item"    @click="navegarParaUsuariosLogin">Credenciais</a></li>
-                            <li><a class="dropdown-item"    @click="navegarParaTrocarSenha">Trocar senha</a></li>
-                            
-                        </ul>
-                </li>      
-
- 
-
-
-      </ul>
-
- 
-    </div>
-  </nav>
-
-  -->
-     
     </template>
     
     <script>
@@ -357,6 +295,7 @@
                 navegarParaAcessoLocalizarPilha(){this.$router.push({name:'acessolocalizarpilha', params : {tituloProps :'Localizar Fardos' ,labelPesquisarComposicaoProps : 'Filtrar Lotes' , acaoSelecionadaProps : 'I' } } )},
                 navegarParaConsultaEstoque(){this.$router.push({name:'consultaestoque'  })}   ,
                 navegarParaTesteCQ(){this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,  itemProps : ' ' ,operacao : 'I' }  })}   ,
+                navegarParaProducaoAbertura(){this.$router.push({name:'producaoabertura', params : {  misturaProps: ' ', seqProps:' ' , operacao : 'I'   }  })}   ,
               
 
             },

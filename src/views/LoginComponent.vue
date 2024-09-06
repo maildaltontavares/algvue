@@ -17,7 +17,7 @@
   class="px-6 py-6 elevation-12"   >
 
     <v-row>
-      <v-img :src="require('@/assets/logo.svg')" height="100"></v-img>
+      <v-img :src="require('@/assets/logo.jpg')" height="70"></v-img>
       <v-col cols="9">
         <v-toolbar rounded="lg" color="#003366">
           <v-toolbar-title>
@@ -66,7 +66,7 @@
     <v-alert v-if="haErros" color="danger" theme="dark" icon="mdi-alert-circle" >{{ erros }}</v-alert>
 
     <div class="d-flex justify-content-center" style="font-size: 9px;" >
-                 <p>Versao 1.00.11</p>
+                 <p>Versao 1.00.20</p>
       </div>  
 
     <v-card-actions>

@@ -44,28 +44,24 @@
                    </div> 
                    
    
-                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >   
 
-                        <div   class="espacoEntreComponentes">     
+                        
 
                                 <v-text-field
                                     v-model.trim="this.param.dataInicial" 
                                     id="dataInicial"
                                     label="Data Inicial" 
                                     ref="dataInicial"  
-                                    style=" width: 180px; " 
+                                    style=" width: 15%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                     
-                                ></v-text-field>                                    
-                           
-                    
-                        </div>           
-
-                        <div   class="espacoEntreComponentes">    
+                                ></v-text-field>          
                                     
                              
                                 
@@ -74,7 +70,8 @@
                                     id="dataFinal"
                                     label="Data Final" 
                                     ref="dataFinal"  
-                                    style=" width: 180px; " 
+                                    style=" width: 15%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
@@ -84,12 +81,13 @@
                                 ></v-text-field>                                    
                             
                     
-                        </div>                          
+                                                   
  
- 
-                        <div   class="espacoEntreComponentes">   
+                                <div  class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "    >
+                          
                                 
-                                    <div class="input-group">  
+                                    <div class="input-group"    > 
+                                     
                                         
                                             <div class="d-flex  justify-content-start">
                                                 
@@ -99,7 +97,7 @@
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
                                                     maxlength="5"                                                    
-                                                    style=" width: 150px; " 
+                                                    style=" width: 120px; " 
                                                     variant="outlined"
                                                     bg-color="white"                                                  
                                                     type="number"
@@ -124,94 +122,88 @@
 
                                             </div  >      
 
-                                            <div class=" backCampoConjugado "  >   
+                                            <div style="   flex-grow: 1;height:43px;"  >   
                                                 <v-text-field
                                                     v-model="this.nomeFornecedor" 
                                                     id="nomeFornecedor"   
-                                                    disabled 
-                                                    class="limitadorMedia"                                                                                                        
-                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    disabled      
+                                                    class="limitadorMedia"                                                                                  
+                                                    style=" background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
                                                     density="compact"
                                                 ></v-text-field>   
-                                            </div>     
-                                    </div>
+                                            </div>  
 
-                        </div>
+                                    </div> 
+                                  
+
+                                </div> 
 
 
+                                <v-text-field
+                                      v-model.trim="this.param.notaFiscal" 
+                                      id="notaFiscal"
+                                      label="Documento" 
+                                      ref="notaFiscal"  
+                                      maxlength="10"                                            
+                                      style=" width: 20%;min-width: 180px; "  
+                                      class="espacoEntreComponentes" 
+                                      variant="outlined"
+                                      bg-color="white"                                           
+                                      type="text"     
+                                      density="compact"
+                                      
+                               ></v-text-field> 
 
-                        <div   class="espacoEntreComponentes">    
-                                        
-                                        <v-text-field
-                                            v-model.trim="this.param.notaFiscal" 
-                                            id="notaFiscal"
-                                            label="Documento" 
-                                            ref="notaFiscal"  
-                                            maxlength="10"                                            
-                                            style=" width: 150px; " 
-                                            variant="outlined"
-                                            bg-color="white"                                           
-                                            type="text"     
-                                            density="compact"
-                                            
-                                        ></v-text-field>                                    
-                                     
                            
-                        </div>   
-                    <!--
-                    </div>
+                         
+                    </div> 
+                    <div class="flex-linha "  style="margin-left:6%;width:90%; background-color:white" >   
+                  
+                                
+                          <v-autocomplete
+                              label="Tipo Movimento"
+                              :items="tipoMovimentoItens"        
+                              v-model="this.param.tipoMovimento"   
+                              item-title="codigo" 
+                              item-value="codigo"
+                              variant="outlined"
+                              style=" width: 20%;min-width: 180px; font-size:16px;"  
+                              class="espacoEntreComponentes"      
+                              bg-color="white"      
+                              density="compact"  
+                          ></v-autocomplete>  
+              
 
-                    <div class="d-flex justify-content-center"  style="margin-left:2%;width:95%;margin-top: 1%;background-color:white" >      
-                    -->   
+                      <v-autocomplete
+                          label="Produtor"
+                          :items="produtorItens"                              
+                          v-model="this.param.produtor"   
+                          item-title="descricao" 
+                          item-value="codigo"
+                          variant="outlined"
+                          style=" width: 20%;min-width: 180px; "  
+                          class="espacoEntreComponentes" 
+                          bg-color="white"   
+                          density="compact"
+                      ></v-autocomplete> 
 
-                        <div    class="espacoEntreComponentes">  
-                                     
-                                <v-autocomplete
-                                    label="Tipo Movimento"
-                                    :items="tipoMovimentoItens"        
-                                    v-model="this.param.tipoMovimento"   
-                                    item-title="codigo" 
-                                    item-value="codigo"
-                                    variant="outlined"
-                                    style="width: 160px; font-size:16px;" 
-                                    bg-color="white"      
-                                    density="compact"  
-                                ></v-autocomplete> 
+                                
+
+                  
+
+                      <v-autocomplete
+                          label="Tipo MP"
+                          :items="tipoMPItens"                                                                       
+                          v-model="this.param.tipoMP"   
+                          item-title="codigo" 
+                          item-value="codigo"
+                          variant="outlined"
+                          style=" width: 20%;min-width: 180px; font-size:16px "  
+                          class="espacoEntreComponentes"  
+                          bg-color="white"                                    
+                          density="compact"                                
+                      ></v-autocomplete> 
  
-                        </div>                     
-
-                    
-                        <div    class="espacoEntreComponentes">   
-
-                            <v-autocomplete
-                                label="Produtor"
-                                :items="produtorItens"                              
-                                v-model="this.param.produtor"   
-                                item-title="descricao" 
-                                item-value="codigo"
-                                variant="outlined"
-                                style="width: 270px; " 
-                                bg-color="white"   
-                                density="compact"
-                            ></v-autocomplete> 
-
-                        </div>                             
-
-                        <div    class="espacoEntreComponentes">  
-
-                            <v-autocomplete
-                                label="Tipo MP"
-                                :items="tipoMPItens"                                                                       
-                                v-model="this.param.tipoMP"   
-                                item-title="codigo" 
-                                item-value="codigo"
-                                variant="outlined"
-                                style="width: 160px;font-size:16px " 
-                                bg-color="white"                                    
-                                density="compact"                                
-                            ></v-autocomplete> 
-
-                        </div>    
  
   
                     </div>
@@ -347,7 +339,7 @@
   
                       </div>
   
-                      <div class="mt-4">
+                      <div class="mt-4" v-if="exibePaginador">
                             <nav aria-label="Page navigation example">
                               <ul class="pagination pagination-sm justify-content-center">
                                 <li class="page-item">
