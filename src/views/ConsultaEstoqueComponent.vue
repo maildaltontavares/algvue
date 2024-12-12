@@ -1,4 +1,4 @@
-<template>   
+<template>    
 
 <v-form  ref="formulario"   style=" background-color:white;height:100% "  >    
 
@@ -41,32 +41,30 @@
             
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
-                        
-                            
+                  <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
+                        <v-row>
 
+                              <v-col class="campoPadrao"  >  
+                                   <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>     
                                     <v-autocomplete
-                                        label="Produtor"
+                                        id="produtor"  
                                         :items="produtorItens"                              
                                         v-model.trim="this.estoque.produtor" 
                                         item-title="descricao" 
                                         item-value="codigo"
-                                        variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
+                                        variant="outlined"  
                                         bg-color="white"   
                                         density="compact"
                                        
                                         :disabled="this.produtorDesabilitado"
                                     ></v-autocomplete> 
-
-                              
- 
-
+                              </v-col> 
       
   
-                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "   >   
-                                        
+                              <v-col class="campoConjugado" cols="3"  >  
+                                      
+                                 <div  >   
+                                    <label for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>    
                                     <div class="input-group">   
                                         
                                         <div class="d-flex  justify-content-start">
@@ -74,7 +72,7 @@
                                             <v-text-field
                                              
                                                 id="item"
-                                                label="Item"
+                                               
                                                 ref="item"  
                                                 maxlength="7"  
                                                 style=" width: 120px; "
@@ -106,7 +104,7 @@
 
                                         </div  >      
 
-                                        <div style="   flex-grow: 1;height:43px;"  >  
+                                        <div class="descricaoCampoConjugado" > 
                                             <v-text-field
                                              
                                                 id="descFio"   
@@ -120,166 +118,170 @@
 
                                     </div>
 
-                                </div>    
+                                </div> 
+                              </v-col>   
 
 
-
-                            
-                                                    
-                                      <v-text-field  
-                                          id="lote"
-                                          label="Lote"
-                                          ref="lote"  
-                                          v-model.trim="this.estoque.lote"
-                                          maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
-                                          variant="outlined"   
-                                          density="compact"  
-                                          :disabled="this.loteDesabilitado"
-  
-                                      ></v-text-field>    
-                               
-
-                               
-                                                    
+                              <v-col class="campoPadrao"  >  
+                                        <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>     
+                                
+                                                        
                                           <v-text-field  
-                                              id="pilha"
-                                              label="Pilha"
-                                              ref="pilha"  
-                                              v-model.trim="this.estoque.pilha"
-                                              maxlength="5"                                         
-                                              style=" width: 10%;min-width: 180px; "  
-                                              class="espacoEntreComponentes" 
-                                              variant="outlined" 
-                                              type="number"
-                                              inputmode="numeric" 
-                                              density="compact" 
+                                              id="lote" 
+                                              ref="lote"  
+                                              v-model.trim="this.estoque.lote"
+                                              maxlength="5"   
+                                              variant="outlined"   
+                                              density="compact"  
+                                              :disabled="this.loteDesabilitado"
+      
+                                          ></v-text-field>    
+                            </v-col>
+
+                            <v-col class="campoPadrao"  >  
+                                    <label  for="pilha" class="col-form-label labelCampoPadrao"><b>Pilha</b></label><br>                                    
                                               
-                                              @blur="configuraPilha() "
-                                              :disabled="this.pilhaDesabilitado"
-    
-                                          ></v-text-field>                                    
-                                                       
-                               
+                                    <v-text-field  
+                                        id="pilha" 
+                                        ref="pilha"  
+                                        v-model.trim="this.estoque.pilha"
+                                        maxlength="5"  
+                                        variant="outlined" 
+                                        type="number"
+                                        inputmode="numeric" 
+                                        density="compact" 
+                                        
+                                        @blur="configuraPilha() "
+                                        :disabled="this.pilhaDesabilitado"
+
+                                    ></v-text-field>                                    
+                                                          
+                                  
+                          </v-col>
+
+                          <v-col class="campoPadrao"  >  
+                              <label  for="procedencia" class="col-form-label labelCampoPadrao"><b>Procedencia</b></label><br>                                 
+                                <v-autocomplete
+                                    id="procedencia"
+                                
+                                    :items="procedenciaItens" 
+                                    v-model.trim="this.estoque.procedencia"   
+                                    :disabled="this.procedenciaDesabilitado"               
+                                  
+                                    item-title="descricao" 
+                                    item-value="codigo"
+                                    variant="outlined" 
+                                    bg-color="white"     
+                                    
+                                    density="compact" 
+                                    
+                                ></v-autocomplete> 
+                        </v-col>
+
+                                  
 
 
-                               
-                                      <v-autocomplete
-                                          
-                                          label="Procedencia"
-                                          :items="procedenciaItens" 
-                                          v-model.trim="this.estoque.procedencia"   
-                                          :disabled="this.procedenciaDesabilitado"               
-                                         
-                                          item-title="descricao" 
-                                          item-value="codigo"
-                                          variant="outlined"
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
-                                          bg-color="white"     
-                                          
-                                          density="compact" 
-                                          
-                                      ></v-autocomplete> 
+                        <v-col class="campoPadrao"  >  
+                                  <label  for="tamanho" class="col-form-label labelCampoPadrao"><b>Tamanho</b></label><br>  
+                                  <v-autocomplete
+                                        id="tamanho"
+                                        base-color=""
+                                        :items="tamanhoItens"  
+                                        v-model.trim="this.estoque.tamanho" 
+                                        item-title="nome" 
+                                        item-value="id"
+                                        variant="outlined" 
+                                        bg-color="white" 
+                                        :disabled="this.tamanhoDesabilitado"     
+                                        
+                                        density="compact"
 
-                               
+                                ></v-autocomplete>  
+                          </v-col>
+                      </v-row>
 
+                  </div>
 
-                             
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->                    
 
+                  <div class="flex-linha linhaPadrao"     >  
+                        <v-row>
 
-                                            <v-autocomplete
-
-                                                  label="Tamanho"
-                                                  :items="tamanhoItens"  
-                                                  v-model.trim="this.estoque.tamanho" 
-                                                  item-title="nome" 
-                                                  item-value="id"
-                                                  variant="outlined"
-                                                  style=" width: 10%;min-width: 180px; "  
-                                                  class="espacoEntreComponentes" 
-                                                  bg-color="white" 
-                                                  :disabled="this.tamanhoDesabilitado"     
-                                                  
-                                                  density="compact"
-
-                                          ></v-autocomplete>  
-
-                        </div>
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >   
-                               
-
-
-                            
+                              <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                       <label  for="qualid" class="col-form-label labelCampoPadrao"><b>Qualid</b></label><br>    
 
                                         <v-autocomplete
-                                            v-if="this.$store.state.usuarioSistema.idfil == '05'" 
-                                            label="Qualid."
+                                            id="qualid" 
+                                            
                                             :items="qualidadeItens" 
                                             v-model.trim="this.estoque.qual1" 
                                             :disabled="this.qual1Desabilitado" 
                                             item-title="descricao" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                             
                                             bg-color="white" 
                                             density="compact" 
                                             
                                         ></v-autocomplete> 
+                              </v-col>
 
                                
-
-                             
-
+                              <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                       <label  for="classfic" class="col-form-label labelCampoPadrao"><b>Classfic</b></label><br>    
                                         <v-autocomplete
-                                            v-if="this.$store.state.usuarioSistema.idfil == '05'" 
-                                            label="Classfic"
+                                   
+                                            id="classfic"
                                             :items="classificacaoItens" 
                                             v-model.trim="this.estoque.qual2" 
                                             :disabled="this.qual2Desabilitado"    
                                             item-title="descricao" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                             
                                             bg-color="white" 
                                             density="compact" 
                                             
                                         ></v-autocomplete>  
+                            </v-col>
 
+                            <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                        <label  for="cor" class="col-form-label labelCampoPadrao"><b>Cor</b></label><br>   
                             
                                           
-                                        <v-autocomplete 
-                                            v-if="this.$store.state.usuarioSistema.idfil == '05'"
-                                            label="Cor"
+                                        <v-autocomplete  
+                                   
                                             :items="coloracao"  
                                             id="cor"    
                                             item-title="codigo" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                             
                                             bg-color="white"  
                                             density="compact"
                                             v-model.trim="this.estoque.coloracao" 
                                             :disabled="this.coloracaoDesabilitado"                                              
 
                                         ></v-autocomplete>  
+                            </v-col>
                                   
 
                                 
                                 
-                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "  >   
-                                   <!-- <label style='font-size:16px'>Fornecedor</label>-->
+ 
+                            <v-col class="campoConjugado" cols="3"  >  
+                                       
+                                 <div  >   
+                                     <label for="fornecedor" class="col-form-label labelCampoPadrao"><b>Fornecedor</b></label><br>  
                                     <div class="input-group">  
                                         
                                             <div class="d-flex  justify-content-start">
                                                 
                                               <v-text-field
-                                                    v-model.trim="this.estoque.fornecedor" 
-                                                    label="Fornecedor"
+                                                    v-model.trim="this.estoque.fornecedor"  
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
                                                     maxlength="5"                                                    
@@ -310,7 +312,7 @@
 
                                             </div  >      
 
-                                            <div style="   flex-grow: 1;height:43px;"  >  
+                                            <div class="descricaoCampoConjugado" > 
                                                 <v-text-field
                                                     v-model.trim="this.nomeFornecedor"
                                                     id="nomeFornecedor"   
@@ -322,56 +324,60 @@
                                             </div>     
                                     </div>
 
-                                </div>   
+                                </div>  
+                            </v-col> 
                                 
-                            
+                            <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                      <label  for="destino" class="col-form-label labelCampoPadrao"><b>Destino</b></label><br>                               
 
                                       <v-autocomplete
-                                          v-if="this.$store.state.usuarioSistema.idfil == '05'"
-                                          label="Destino"
+                                      
+                                          id="destino"
                                           :items="destinoItens"       
                                           v-model.trim="this.estoque.destino" 
                                           item-title="descricao" 
                                           item-value="codigo"
-                                          variant="outlined"
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          variant="outlined"  
                                           bg-color="white"      
                                      
                                           density="compact"
                                           :disabled="this.destinoDesabilitado" 
                                           
                                       ></v-autocomplete>  
-                                
+                           </v-col>
+
+                           <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                      <label  for="corteza" class="col-form-label labelCampoPadrao"><b>Corteza</b></label><br>                            
                              
                                       <v-autocomplete
-                                            v-if="this.$store.state.usuarioSistema.idfil == '05'"
-                                            label="Corteza"
+                                          
+                                            id="corteza"
                                             :items="cortezaItens"    
                                             v-model.trim="this.estoque.corteza"
                                             item-title="nome" 
                                             item-value="id"
                                             variant="outlined"
-                                            style=" width: 10%;min-width: 180px; "  
-                                            class="espacoEntreComponentes" 
+                                             
                                             bg-color="white" 
                                             density="compact"
                                             :disabled="this.cortezaDesabilitado" 
 
                                       ></v-autocomplete>     
 
+                           </v-col>
+                        </v-row>
  
-                        </div>
-                        <!--
+                    </div>
+                    <!--
 
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
 
 
-                        -->
+                    -->
 
 
             
@@ -443,6 +449,8 @@
                                       <th class="col-2 text-start" >LOTE</th>  
                                       <th class="col-2 text-start" >TAM</th>  
                                       <th class="col-2 text-start"  >ESTOQUE</th>  
+                                      <th class="col-2 text-start"  >PESO</th> 
+                                      <th class="col-2 text-start"  >PESO MED</th> 
                                       
                                       <th class="col-2 text-start" >SAC</th>  
                                       <th class="col-2 text-start" >TRID</th>  
@@ -511,6 +519,14 @@
 
                                       <td class="text-center"  :style="{backgroundColor: i.corLinha} " style="color:blue">
                                         {{ i.estoque}}
+                                      </td>  
+
+                                      <td class="col-1 text-end" :style="{backgroundColor: i.corLinha} ">
+                                          {{  this.apiFormataNumero(i.totalPesoEstoqueComp ,0)  }}
+                                      </td>  
+
+                                      <td class="col-1 text-end" :style="{backgroundColor: i.corLinha} ">
+                                          {{   ((i.m4PESMED)).toFixed(1) }}
                                       </td>  
 
                                      
@@ -759,6 +775,7 @@
                                           <th class="col-1 text-start tabGrid" >TrAr</th>  
                                           <th class="col-1 text-start tabGrid" >TrCnt</th> 
                                           <th class="col-1 text-end tabGrid" >Estoque</th> 
+                                          <th class="col-1 text-end tabGrid" >Peso</th> 
                                           <th class="col-1 text-end tabGrid" >%</th> 
                                           <th class="col-1 text-end tabGrid" >Testados</th>  
                                           <th class="col-1 text-end tabGrid" >Não Testados</th> 
@@ -854,22 +871,26 @@
 
                                             <td class="col-1 text-end tabGridCol" style="color:blue"  >
                                               {{ this.apiFormataNumero(i.TotFardosEstoque ,0) }}
-                                            </td>     
+                                            </td>
+                                            
+                                            <td class="col-1 text-end tabGridCol" style="color:blue"  >
+                                              {{  this.apiFormataNumero(i.TotPesoEstoque ,0)  }}
+                                            </td>  
 
                                             <td class="col-1 text-end tabGridCol"   >
                                               {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2)}}
                                             </td>       
  
                                             <td class="col-1 text-end tabGridCol"  >
-                                              {{ i.TotalTestadoMistura }}
+                                              {{ this.apiFormataNumero(i.TotalTestadoMistura ,0)  }}
                                             </td>                                   
  
                                             <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura>0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{ this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)   }}
                                             </td> 
 
                                             <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura<=0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{ this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura,0)    }}
                                             </td>                                                                                             
 
                                              
@@ -973,21 +994,25 @@
                                             </td>     
 
                                             <td class="col-1 text-end tabGridColTotais"   >
+                                              {{ this.apiFormataNumero(i.TotPesoEstoque ,0)}}
+                                            </td> 
+
+                                            <td class="col-1 text-end tabGridColTotais"   >
                                               {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2)}}
                                             </td>                                              
                                                                                      
 
  
                                             <td class="col-1 text-end tabGridColTotais" >
-                                              {{ i.TotalTestadoMistura }}
+                                              {{  this.apiFormataNumero(i.TotalTestadoMistura ,0)  }}
                                             </td>                                   
  
                                             <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura>0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{   this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)  }}
                                             </td> 
 
                                             <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura<=0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{ this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)   }}
                                             </td>                                                                                             
 
                                              
@@ -1034,6 +1059,7 @@
                                           
                                           <th class="col-1 text-start tabGrid"  >QUALIDADE</th>   
                                           <th class="col-1 text-end tabGrid" >Estoque</th> 
+                                          <th class="col-1 text-end tabGrid" >Peso</th> 
                                           <th class="col-1 text-end tabGrid" >%</th> 
                                           <th class="col-1 text-end tabGrid" >Testados</th>  
                                           <th class="col-1 text-end tabGrid" >Não Testados</th> 
@@ -1057,20 +1083,24 @@
                                               {{this.apiFormataNumero(i.TotFardosEstoque ,0)}}
                                             </td>   
 
+                                            <td class="col-1 text-end tabGridCol" style="color:blue"  >
+                                              {{  this.apiFormataNumero(i.TotPesoEstoque ,0)}}
+                                            </td> 
+
                                             <td class="col-1 text-end tabGridCol"   >
                                               {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2) }}
                                             </td>   
 
                                             <td class="col-1 text-end tabGridCol" >
-                                              {{ i.TotalTestadoMistura }}
+                                              {{  this.apiFormataNumero(i.TotalTestadoMistura ,0)   }}
                                             </td>                                   
  
                                             <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura>0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)     }}
                                             </td> 
 
                                             <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura<=0"  >
-                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                              {{this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura,0)     }}
                                             </td>  
 
                                         </tr>  
@@ -1089,20 +1119,24 @@
                                                   {{ this.apiFormataNumero(i.TotFardosEstoque ,0) }}
                                                 </td>   
 
+                                                <td class="col-1 text-end tabGridColTotais"    >
+                                                  {{     this.apiFormataNumero(i.TotPesoEstoque ,0)     }}
+                                                </td>   
+
                                                 <td class="col-1 text-end tabGridColTotais"   >
                                                   {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2) }}
                                                 </td>   
 
                                                 <td class="col-1 text-end tabGridColTotais" >
-                                                  {{ i.TotalTestadoMistura }}
+                                                  {{ this.apiFormataNumero(i.TotalTestadoMistura ,0) }}
                                                 </td>                                   
 
                                                 <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura>0"  >
-                                                  {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                                  {{ this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)  }}
                                                 </td> 
 
                                                 <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura<=0"  >
-                                                  {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                                  {{ this.apiFormataNumero(i.TotFardosEstoque  - i.TotalTestadoMistura ,0)  }}
                                                 </td>  
 
                                             </tr>  
@@ -1184,7 +1218,7 @@
 
                               <div class="col-3 div_rodape d-flex justify-content-end"    > 
                                   <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
-
+                                  <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                               </div>  
 
 
@@ -1306,6 +1340,8 @@
         resultadoPesquisa:[],        
         totalFardosMistura:0, 
         totalFardosEstoque:0, 
+        totalPesoMistura:0, 
+        totalPesoEstoque:0, 
         simNaoTipo: 'sucesso',
         simNaoPergunta: '',
         simNaoBotoes: [],
@@ -1527,8 +1563,8 @@
                   }   
 
 
-                  console.log('objPesquisa')
-                  console.log(obj)
+                  //console.log('objPesquisa')
+                  //console.log(obj)
                  
                   url = `${process.env.VUE_APP_BASE_URL}/estoquemp/estoque`     
             
@@ -1544,8 +1580,8 @@
 
                       this.resultado = response.data; 
                       
-                      console.log('Popula Form');
-                      console.log(this.resultado );
+                      //console.log('Popula Form');
+                      //console.log(this.resultado );
 
 
                       let aItens =  this.resultado; 
@@ -1600,7 +1636,9 @@
                                              cod_PROD: aItens[i].cod_PROD,
                                              lote: aItens[i].lote, 
                                              m7DESC: aItens[i].m7DESC,
-                                             corLinha: "white"                                           
+                                             corLinha: "white" ,
+                                             totalPesoEstoqueComp:   aItens[i].m4PESMED * aItens[i].estoque,    
+                                             totalPesoMisturaComp:   aItens[i].m4PESMED * aItens[i].qtde,                                     
                                              
 
 
@@ -1622,6 +1660,11 @@
                   this.configuraCampos('A')  ;
                   retornoPopForm = true;
                   this.calculaTotais(this.aComposicao,0 )
+                  console.log('this.aComposicao')
+
+                  console.log(this.aComposicao)
+
+
                   return  retornoPopForm;   
 
 
@@ -1634,6 +1677,8 @@
                   this.configuraCampos('I')
                   this.totalFardosMistura=0;
                   this.totalFardosEstoque=0;
+                  this.totalPesoMistura=0;
+                  this.totalPesoEstoque=0;
                   this.nPesoMovimento =0;
                   this.aComposicao=[];
                   this.aResumoMistura=[];

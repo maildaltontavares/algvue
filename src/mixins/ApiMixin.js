@@ -257,15 +257,22 @@ export default {
       let url; 
  
       //console.log('apiPesquisaParam')
-      //console.log( id)  
+      //console.log( tipo)   
+      //console.log(id.length)   
+   
 
       if (id.length>0) {
 
         if(tipo=="classematerial"){
              url = `${process.env.VUE_APP_BASE_URL}/${tipo}/${id}`
-        }else if (tipo=="item" || tipo=="itemDet" || tipo=="itemPilha"  || tipo == 'itemTeste'  ) {
+        }else if (tipo=="item" || tipo=="itemDet" || tipo=="itemPilha"  || tipo == 'itemTeste'     ) { 
              id = Number(id);
-             url = `${process.env.VUE_APP_BASE_URL}/item/${this.$store.state.usuarioSistema.idfil}/${id}`
+             url = `${process.env.VUE_APP_BASE_URL}/item/${this.$store.state.usuarioSistema.idfil}/${id}` 
+        }else if (  tipo == 'itemCqFio'    ) { 
+             if(id.length == 6){
+                id = '0' + id; 
+             }
+          url = `${process.env.VUE_APP_BASE_URL}/item/pesquisa/${this.$store.state.usuarioSistema.idfil}/codigo/${id}` 
         }else if (tipo=="operador"  ) {          
               this.producaoFiacao.operador = this.producaoFiacao.operador.padStart(5, '0');
               id =  this.producaoFiacao.operador.padStart(5, '0');
@@ -280,10 +287,15 @@ export default {
           this.producaoAbertura.operador = this.producaoAbertura.operador.padStart(5, '0');
           id =  this.producaoAbertura.operador.padStart(5, '0');
           url = `${process.env.VUE_APP_BASE_URL_CPF}/operador/${this.$store.state.usuarioSistema.idfil}/codigo/${id}`
+        }else if (tipo=="operadorCpfFio"  ) {          
+          this.testeCqFio.operador = this.testeCqFio.operador.padStart(5, '0');
+          id =  this.testeCqFio.operador.padStart(5, '0');
+          url = `${process.env.VUE_APP_BASE_URL_CPF}/operador/${this.$store.state.usuarioSistema.idfil}/codigo/${id}`
         }
         
         
         //console.log('API Pesquisa Param')
+        //console.log('YYYYYYYYYYY')
         //console.log(url)
 
         await this.axios.get(url, this.apiTokenHeader())
@@ -350,9 +362,9 @@ export default {
                   
                 }   
 
-            }      
+            }    
 
-            if ( tipo == 'itemTeste' ) { 
+            if ( tipo == 'itemTeste'   ) { 
 
 
               if ( response.data != null &&  response.data  != ''){
@@ -363,7 +375,24 @@ export default {
                 
               }   
 
-            }    
+            }  
+            
+            if (   tipo == 'itemCqFio' ) { 
+
+
+              //console.log('DATA')
+              //console.log(response.data)
+
+              if ( response.data != null &&  response.data  != ''){
+                target.descItem = response.data[0].descricao.substring(0, 40); 
+                this.tituloFioAtual =   response.data[0].titulo;
+                
+              }else{
+                target.descItem = '';
+                
+              }   
+
+            }            
 
 
             if (tipo == 'fornecedor') {  
@@ -504,6 +533,16 @@ export default {
               }  
 
           }
+
+          if (tipo == 'operadorCpfFio') { 
+         
+            if (response.data.nome != null && response.data.nome != ''){
+              target.nomeOperador = response.data.nome;   
+            }else{
+              target.nomeOperador = '';                      
+            }  
+
+        }          
              
              
           })
@@ -1013,76 +1052,145 @@ export default {
               this.msgProcessamento = ''
             });  
 
+          }else if(tipo=="testecq"){   
 
-      }else if(tipo=="testecq"){   
-
-        let dataTesteIni ;
-        let dataTesteFim ;
-
-        this.msgProcessamento = "Processando"
-        this.page = 1
-        this.apiProcessamento()
-
-        //console.log('this.apiPesquisaCRUDByFilial usuloginXXX')
-        //console.log(tipo)  
+            let dataTesteIni ;
+            let dataTesteFim ;
+    
+            this.msgProcessamento = "Processando"
+            this.page = 1
+            this.apiProcessamento()
+    
+            //console.log('this.apiPesquisaCRUDByFilial usuloginXXX')
+            //console.log(tipo)  
+            
+            //let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisa`; 
+            let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisateste`;
+      
+                
+            this.resultPesquisaCRUD = []
+            this.pages = []   
+     
+            if(procurarPor.dataInicial.length==10){
+              dataTesteIni =  procurarPor.dataInicial.substring(0,4) + procurarPor.dataInicial.substring(5,7) + procurarPor.dataInicial.substring(8,10)  
+            }else{
+              dataTesteIni = ""  
+            }
+    
+            if(procurarPor.dataFinal.length==10){
+              dataTesteFim =  procurarPor.dataFinal.substring(0,4) + procurarPor.dataFinal.substring(5,7) + procurarPor.dataFinal.substring(8,10)  
+            }else{
+              dataTesteFim = ""  
+            }          
+    
+    
+            this.testeDAO={  
+    
+                dataInicial:dataTesteIni,
+                dataFinal:dataTesteFim, 
+                lote:procurarPor.lote,  
+                idfil:this.$store.state.usuarioSistema.idfil,
+                produtor:procurarPor.produtor ,
+                item: procurarPor.item ,
+            }  
+             
+    
+            await this.axios.post(
+              url,
+              JSON.stringify(this.testeDAO),
+              //{
+              //headers: { "Content-Type": "application/json" }
+             // }
+             this.apiTokenHeader({ "Content-Type": "application/json" })
+              )
+              .then(response => {
+                
+                this.resultPesquisaCRUD = response.data    
+    
+                this.msgProcessamento = ''
+    
+                this.setaPesquisaCRUD(this.resultPesquisaCRUD)
+                this.apiSetPagesCRUD() 
+    
+                this.msgProcessamento = ''
+     
+              }) 
+              .catch(error => {
+                console.log("Erro: ", error.response.data);
+                this.haErros = true
+                this.mensagemErro = error.response.data
+                this.msgProcessamento = ''
+              });  
+    
+    
         
-        //let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisa`; 
-        let url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisateste`;
+        }else if(tipo=="testecqfio"){   
+
+          let dataTesteIni ;
+          let dataTesteFim ;
+
+          this.msgProcessamento = "Processando"
+          this.page = 1
+          this.apiProcessamento()
+
+          let url = `${process.env.VUE_APP_BASE_URL}/tqf/pesquisa`;
+    
+              
+          this.resultPesquisaCRUD = []
+          this.pages = []   
   
-            
-        this.resultPesquisaCRUD = []
-        this.pages = []   
- 
-        if(procurarPor.dataInicial.length==10){
-          dataTesteIni =  procurarPor.dataInicial.substring(0,4) + procurarPor.dataInicial.substring(5,7) + procurarPor.dataInicial.substring(8,10)  
-        }else{
-          dataTesteIni = ""  
-        }
+          if(procurarPor.dataInicial.length==10){
+            dataTesteIni =  procurarPor.dataInicial.substring(0,4) + procurarPor.dataInicial.substring(5,7) + procurarPor.dataInicial.substring(8,10)  
+          }else{
+            dataTesteIni = ""  
+          }
 
-        if(procurarPor.dataFinal.length==10){
-          dataTesteFim =  procurarPor.dataFinal.substring(0,4) + procurarPor.dataFinal.substring(5,7) + procurarPor.dataFinal.substring(8,10)  
-        }else{
-          dataTesteFim = ""  
-        }          
+          if(procurarPor.dataFinal.length==10){
+            dataTesteFim =  procurarPor.dataFinal.substring(0,4) + procurarPor.dataFinal.substring(5,7) + procurarPor.dataFinal.substring(8,10)  
+          }else{
+            dataTesteFim = ""  
+          }       
+
+          this.testeCqFioDAO={ 
+
+              "id":procurarPor.id ,	 
+              "idfil":this.$store.state.usuarioSistema.idfil,   
+              "turno":procurarPor.turno ,    
+              "localFisico":procurarPor.localFisico ,  	   
+              "item":procurarPor.item ,     
+              "dataInicial":dataTesteIni,
+              "dataFinal":dataTesteFim,
+              "tipoMaquina":procurarPor.tipoMaquina ,
+              "loteFiacao":procurarPor.loteFiacao   
+
+          }   
 
 
-        this.testeDAO={  
+          
 
-            dataInicial:dataTesteIni,
-            dataFinal:dataTesteFim, 
-            lote:procurarPor.lote,  
-            idfil:this.$store.state.usuarioSistema.idfil,
-            produtor:procurarPor.produtor ,
-            item: procurarPor.item ,
-        }  
-         
+          await this.axios.put(
+            url,
+            JSON.stringify(this.testeCqFioDAO), 
+          this.apiTokenHeader({ "Content-Type": "application/json" })
+            )
+            .then(response => {
+              
+              this.resultPesquisaCRUD = response.data    
 
-        await this.axios.post(
-          url,
-          JSON.stringify(this.testeDAO),
-          //{
-          //headers: { "Content-Type": "application/json" }
-         // }
-         this.apiTokenHeader({ "Content-Type": "application/json" })
-          )
-          .then(response => {
-            
-            this.resultPesquisaCRUD = response.data    
+              this.msgProcessamento = ''
 
-            this.msgProcessamento = ''
+              this.setaPesquisaCRUD(this.resultPesquisaCRUD)
+              this.apiSetPagesCRUD() 
 
-            this.setaPesquisaCRUD(this.resultPesquisaCRUD)
-            this.apiSetPagesCRUD() 
-
-            this.msgProcessamento = ''
- 
-          }) 
-          .catch(error => {
-            console.log("Erro: ", error.response.data);
-            this.haErros = true
-            this.mensagemErro = error.response.data
-            this.msgProcessamento = ''
-          });  
+              this.msgProcessamento = ''
+  
+            }) 
+            .catch(error => {
+              console.log("Erro: ", error.response.data);
+              this.haErros = true
+              this.mensagemErro = error.response.data
+              this.msgProcessamento = ''
+            });  
 
 
       }else if(tipo=="usuarioseg"){   
@@ -1318,7 +1426,7 @@ export default {
 
       this.msgProcessamento = "Processando"
       this.page = 1
-      this.apiProcessamento()
+      this.apiProcessamento()   
 
 
       let url;
@@ -1334,6 +1442,8 @@ export default {
             url = `${process.env.VUE_APP_BASE_URL}/${tipo}/pesquisanmred/${this.$store.state.usuarioSistema.idfil}/${procurarPor}` 
         }else if(  tipo=="operadorCpf"){ 
           url = `${process.env.VUE_APP_BASE_URL_CPF}/operador/${this.$store.state.usuarioSistema.idfil}/${nomeCampoProcura}/${procurarPor}` 
+        }else if( tipo=="fio"  ){ 
+          url = `${process.env.VUE_APP_BASE_URL}/item/pesquisa/${this.$store.state.usuarioSistema.idfil}/${nomeCampoProcura}/${procurarPor}` 
         } 
         //console.log(url)
           //console.log( this.$store.state._token)
@@ -1399,39 +1509,39 @@ export default {
 // DALTON
     async apiLoteFiacao(){
 
-      let url = `${process.env.VUE_APP_BASE_URL}/lotefiacao/buscaLotePorChave`;
+      let url = `${process.env.VUE_APP_BASE_URL_CPF}/lotefiacao/buscaLotePorChave`;
       let itemTmp;
     
     
       //console.log(url)  ;
       let retorno = false;
 
-      if  (!(this.producaoFiacao.item==null || this.producaoFiacao.item=='')){
-          itemTmp = this.producaoFiacao.item.padStart(7, '0'); 
+      if  (!(this.testeCqFio.item==null || this.testeCqFio.item=='')){
+          itemTmp = this.testeCqFio.item ;   ///.padStart(7, '0'); 
       }else{
           itemTmp = null;
       }
 
-      if  (!(this.producaoFiacao.loteProducao==null || this.producaoFiacao.loteProducao=='')){
+      if  (!(this.testeCqFio.loteFiacao==null || this.testeCqFio.loteFiacao=='')){
           
-          this.producaoFiacao.loteProducao = this.producaoFiacao.loteProducao.padStart(10, '0');
+          this.testeCqFio.loteFiacao = this.testeCqFio.loteFiacao.padStart(10, '0');
 
-          this.loteFiacao =  
+          this.loteFiacaoDAO =  
           {    
             idfil:this.$store.state.usuarioSistema.idfil , 
-            tipoMaquina:  this.cdTipoMaquina ,   
+            tipoMaquina:  this.testeCqFio.tipoMaquina ,   
             item:  itemTmp ,
             idSSM: 0,
-            lote:this.producaoFiacao.loteProducao 
+            lote:this.testeCqFio.loteFiacao 
           },   
 
           //console.log('this.loteFiacao XXXX');  
-          //console.log(this.loteFiacao);   
+          //console.log(this.loteFiacaoDAO);   
 
 
           await this.axios.post(
             url,
-            JSON.stringify(this.loteFiacao),
+            JSON.stringify(this.loteFiacaoDAO),
             //{
             //headers: { "Content-Type": "application/json" }
             //}
@@ -1894,6 +2004,10 @@ export default {
 
             if ("0123456789".indexOf(event.key) != -1 || (event.key == 'Backspace' && !isNaN(numero))) {
 
+
+                //console.log('1111111111')   
+
+
                 //console.log('isNegative', isNegative, " Index: ", numero.indexOf("-"), " Numero: ", numero)
 
                 if (isNegative) {
@@ -1985,7 +2099,24 @@ export default {
                 //console.log('Final : ', newValue, '  Target : ', event.target.value)
 
             } else {
-                event.target.value = event.target.value.substr(0, (event.target.value.length) - 1)
+
+                //console.log('222222222')   
+
+                //if(event.key != 'Home' &&
+//                  event.key != 'PageDown'  &&
+                  //event.key != 'PageUp' &&
+                  //event.key != 'Insert' &&
+                  //event.key != 'ArrowRight'  &&  
+                  //event.key != 'ArrowLeft' &&
+                  //event.key != 'End'  
+                  //
+                  if(event.key == 'Backspace'){
+                  {
+                    event.target.value = event.target.value.substr(0, (event.target.value.length) - 1) 
+                  }  
+                }
+
+                //event.target.value = event.target.value.substr(0, (event.target.value.length) - 1)
             }
 
         }

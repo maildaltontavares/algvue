@@ -53,38 +53,38 @@
                    
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" >    
-                          
+                        <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
+                            <v-row>
 
-                                    <v-autocomplete
-                                        label="Produtor"
-                                        :items="produtorItens"                              
-                                        v-model.trim="this.pilha.produtor" 
-                                        item-title="descricao" 
-                                        item-value="codigo"
-                                        variant="outlined"
-                                        style=" width: 10%;min-width: 180px; "  
-                                        class="espacoEntreComponentes" 
-                                        bg-color="white"   
-                                        density="compact"
-                                        :rules="[campoRequerido]" 
-                                        :disabled="this.produtorDesabilitado"
-                                    ></v-autocomplete>  
+                                  <v-col class="campoPadrao"  >  
+                                      <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>   
+                              
+
+                                        <v-autocomplete
+                                            id="produtor"
+                                            :items="produtorItens"                              
+                                            v-model.trim="this.pilha.produtor" 
+                                            item-title="descricao" 
+                                            item-value="codigo"
+                                            variant="outlined"  
+                                            bg-color="white"   
+                                            density="compact"
+                                            :rules="[campoRequerido]" 
+                                            :disabled="this.produtorDesabilitado"
+                                        ></v-autocomplete>
+                                  </v-col>  
 
                               
  
-
-      
-                             
+                                  <v-col class="campoPadrao"  >  
+                                      <label  for="pilha" class="col-form-label labelCampoPadrao"><b>Nova_Pilha</b></label><br>   
                                                     
                                       <v-text-field  
                                           id="pilha"
-                                          label="Nova Pilha"
+                                     
                                           ref="pilha"  
                                           v-model.trim="this.pilha.pilha"
-                                          maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          maxlength="5"   
                                           variant="outlined" 
                                           type="number"
                                           inputmode="numeric" 
@@ -93,108 +93,106 @@
                                           @blur="configuraPilha() "
                                           :disabled="this.pilhaDesabilitado"
 
-                                      ></v-text-field>                                    
+                                      ></v-text-field> 
+
+                                  </v-col>                                   
                                          
                              
 
-                               
+                                  <v-col class="campoPadrao"  >  
+                                      <label  for="pilha" class="col-form-label labelCampoPadrao"><b>Fardos_na_Pilha</b></label><br>                                  
                                       
-                                      <v-text-field  
-                                       
-                                          label="Fardos na Pilha" 
+                                      <v-text-field   
                                           v-model.trim="this.pilha.numFardosPilha"
-                                          maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          maxlength="5"  
                                           variant="outlined" 
                                           type="number"
                                           inputmode="numeric" 
                                           density="compact"   
                                           disabled
 
-                                      ></v-text-field>                                    
-                                          
-                                
+                                      ></v-text-field>  
+                                  </v-col>     
 
-
-
-
-
-                                <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "   >   
-                                        
-                                    <div class="input-group">   
-                                        
-                                        <div class="d-flex  justify-content-start">
+                                  <v-col class="campoConjugado" cols="3"  >  
+                                      
+                                    <div  >   
+                                        <label for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>   
                                             
-                                            <v-text-field
-                                             
-                                                id="item"
-                                                label="Item"
-                                                ref="item"  
-                                                maxlength="7"  
-                                                style=" width: 120px; "
-                                                variant="outlined"
-                                                bg-color="white"
-                                                v-model.trim="this.pilha.item"
-                                                type="number"
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                :disabled="this.itemDesabilitado"
-                                                @blur="apiPesquisaParam('itemPilha', this.pilha.item  , this.pilha)"
-                                            ></v-text-field>    
+                                        <div class="input-group">   
+                                            
+                                            <div class="d-flex  justify-content-start">
                                                 
-                                            <v-btn   data-bs-toggle="modal" 
-                                            data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                                 :disabled="this.itemDesabilitado"
-                                                style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                                > 
-                                                    <v-icon
-                                                    this.
-                                                    class="mb-6"
-                                                    color="primary"
-                                                    icon="mdi-card-search-outline"
-                                                    size="45"
-                                                   
-                                                    ></v-icon>  
-                                            </v-btn>     
+                                                <v-text-field
+                                                
+                                                    id="item"  
+                                                    ref="item"  
+                                                    maxlength="7"  
+                                                    style=" width: 120px; "
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    v-model.trim="this.pilha.item"
+                                                    type="number"
+                                                    inputmode="numeric"
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    :disabled="this.itemDesabilitado"
+                                                    @blur="apiPesquisaParam('itemPilha', this.pilha.item  , this.pilha)"
+                                                ></v-text-field>    
+                                                    
+                                                <v-btn   data-bs-toggle="modal" 
+                                                data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
+                                                    :disabled="this.itemDesabilitado"
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                    > 
+                                                        <v-icon
+                                                        this.
+                                                        class="mb-6"
+                                                        color="primary"
+                                                        icon="mdi-card-search-outline"
+                                                        size="45"
+                                                      
+                                                        ></v-icon>  
+                                                </v-btn>     
 
-                                        </div  >      
+                                            </div  >      
 
-                                        <div style="   flex-grow: 1;height:43px;"  >    
-                                            <v-text-field
-                                             
-                                                id="descFio"   
-                                                disabled 
-                                                class="limitadorMedia"
-                                                density="compact"
-                                                v-model.trim="this.pilha.descFio"
-                                                style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
-                                            ></v-text-field>   
-                                        </div>  
+                                            <div class="descricaoCampoConjugado" >   
+                                                <v-text-field
+                                                
+                                                    id="descFio"   
+                                                    disabled 
+                                                    class="limitadorMedia"
+                                                    density="compact"
+                                                    v-model.trim="this.pilha.descFio"
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                ></v-text-field>   
+                                            </div>  
 
-                                    </div>
+                                        </div>
 
-                                </div>    
+                                    </div>   
 
-
-
-                              
+                                  </v-col>
+                                  <v-col class="campoPadrao"  >  
+                                      <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>                                      
                                                     
                                       <v-text-field  
                                           id="lote"
-                                          label="Lote"
+                                       
                                           ref="lote"  
                                           v-model.trim="this.pilha.lote"
-                                          maxlength="5"                                         
-                                          style=" width: 10%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
+                                          maxlength="5"   
                                           variant="outlined"   
                                           density="compact"  
                                           :disabled="this.loteDesabilitado"
   
-                                      ></v-text-field>    
- 
+                                      ></v-text-field> 
+
+                                   </v-col>   
+
+
+                            </v-row>
                         </div>
                         <!--
 
@@ -206,47 +204,49 @@
 
 
                         -->
-                        <div class="flex-linha "  style="margin-left:6%;width:88%;margin-top: 1%;background-color:white" > 
+                        <div class="flex-linha linhaPadrao"    >  
+                            <v-row>
 
-                              
+                                  <v-col class="campoPadrao"  >  
+                                        <label  for="numFardos" class="col-form-label labelCampoPadrao"><b>Num_Fardos_Selec.</b></label><br>    
                                          
                                          <v-text-field
           
                                              v-model.trim="this.totalFardosMistura" 
                                              id="numFardos"
-                                             label="Num. Fardos Selec." 
+                                        
                                              ref="numFardos"  
-                                             maxlength="150"                                            
-                                             style=" width: 10%;min-width: 180px; "  
-                                             class="espacoEntreComponentes" 
+                                             maxlength="150"   
                                              variant="outlined"
                                              bg-color="white"                                           
                                              type="text"     
                                              density="compact"
                                              disabled
                                              
-                                         ></v-text-field>      
-                                                        
+                                         ></v-text-field>   
+
+                                  </v-col>   
+                                  <v-col class="campoPadrao"  >  
+                                          <label  for="pesoMistura" class="col-form-label labelCampoPadrao"><b>Peso</b></label><br>  
                                           <v-text-field
           
                                               v-model.trim="this.nPesoMovimento" 
                                               id="pesoMistura"
-                                              label="Peso" 
+                                       
                                               ref="pesoMistura"  
-                                              maxlength="150"                                            
-                                              style=" width: 10%;min-width: 180px; "  
-                                              class="espacoEntreComponentes" 
+                                              maxlength="150"   
                                               variant="outlined"
                                               bg-color="white"                                           
                                               type="text"     
                                               density="compact"
                                               disabled
                                               
-                                          ></v-text-field>                                    
+                                          ></v-text-field>   
+                                </v-col>                                 
                                                                 
                                    
 
-
+                            </v-row>
 
         
                           </div>      
@@ -901,7 +901,7 @@
                                     <div class="col-3 div_rodape d-flex justify-content-end"    >
                                         <v-btn color="secondary" class="botao_rodape" v-if="this.acaoDesabilitado"  :disabled="this.unirPilhaDesabilitado" style="min-width: 70px; "  accesskey="c"  @click="ativaConsulta()"><u>C</u>onfirmar</v-btn>
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
-
+                                        <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                                     </div>  
 
 

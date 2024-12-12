@@ -38,62 +38,58 @@
                    
 
                    
-                    <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >   
-
- 
-                            
+                   <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
+                          <v-row>
+                                  <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                      <label  for="dataInicial" class="col-form-label labelCampoPadrao"><b>Data_Inicial</b></label><br>   
 
                                       <v-text-field
                                           v-model.trim="this.param.dataInicial" 
-                                          id="dataInicial"
-                                          label="Data Inicial" 
-                                          ref="dataInicial"  
-                                          style=" width: 30%;min-width: 180px; "  
-                                          class="espacoEntreComponentes"  
+                                          id="dataInicial" 
+                                          ref="dataInicial"   
                                           variant="outlined"
                                           bg-color="white" 
                                           type="date" 
                                           :rules="[campoRequerido]" 
                                           density="compact"
                                           
-                                      ></v-text-field>     
-                                          
-                                  
-                                      
-                                      <v-text-field
-                                          v-model.trim="this.param.dataFinal" 
-                                          id="dataFinal"
-                                          label="Data Final" 
-                                          ref="dataFinal"  
-                                          style=" width: 30%;min-width: 180px; "  
-                                          class="espacoEntreComponentes" 
-                                          variant="outlined"
-                                          bg-color="white" 
-                                          type="date" 
-                                          :rules="[campoRequerido]" 
-                                          density="compact"
-                                          
-                                      ></v-text-field>        
+                                      ></v-text-field> 
 
-                                 
-                                              
-                                      <v-text-field
-                                          v-model.trim="this.param.mistura" 
-                                          id="mistura"
-                                          label="Mistura" 
-                                          ref="mistura"  
-                                          maxlength="10"                                            
-                                          style=" width: 30%;min-width: 180px; "  
-                                          class="espacoEntreComponentes"
-                                          variant="outlined"
-                                          bg-color="white"                                           
-                                          type="text"     
-                                          density="compact"
-                                          @blur="validaMistura()"
-                                      ></v-text-field>                                    
+                                  </v-col> 
                                           
+                                  <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                          <label  for="dataFinal" class="col-form-label labelCampoPadrao"><b>Data_Final</b></label><br>                                     
+                                          
+                                          <v-text-field
+                                              v-model.trim="this.param.dataFinal" 
+                                              id="dataFinal" 
+                                              ref="dataFinal" 
+                                              variant="outlined"
+                                              bg-color="white" 
+                                              type="date" 
+                                              :rules="[campoRequerido]" 
+                                              density="compact"
+                                              
+                                          ></v-text-field>   
+                                  </v-col>     
+
+                                  <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                          <label  for="mistura" class="col-form-label labelCampoPadrao"><b>Mistura</b></label><br>                                        
+                                                  
+                                          <v-text-field
+                                              v-model.trim="this.param.mistura" 
+                                              id="mistura" 
+                                              ref="mistura"  
+                                              maxlength="10"
+                                              variant="outlined"
+                                              bg-color="white"                                           
+                                              type="text"     
+                                              density="compact"
+                                              @blur="validaMistura()"
+                                          ></v-text-field>                                    
+                                  </v-col>                                               
                                 
-                             
+                        </v-row>                             
 
 
                     </div>
@@ -257,6 +253,8 @@
                                <v-btn color="primary" class="botao_rodape"  
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "
                                  accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
+
+                                 <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                            </div>   
    
                        </div>    

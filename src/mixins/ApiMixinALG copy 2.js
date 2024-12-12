@@ -495,17 +495,10 @@ export default {
                             let somaFardosMistura;
                             let somaFardosEstoque;
                             let pesoMovimento;
-
-                            let somaPesoMistura;
-                            let somaPesoEstoque;
- 
+                             
                   
                             pesoMovimento = 0;
                             this.nPesoMovimento = 0;
-
-                            somaPesoMistura = 0;
-                            somaPesoEstoque = 0;
-                           
                   
                             // Resumo da Mistura
                             let nSAC_RT = 0;
@@ -526,8 +519,6 @@ export default {
                             let nRS_RT = 0;   
                             let nB_RT = 0;   
                             let nTrCnt_RT = 0;    
-                            //let nPeso_RT = 0; 
-                            
                   
                             let nSAC_GERAL  = 0;
                             let nTRID_GERAL  = 0;
@@ -547,16 +538,12 @@ export default {
                             let nRS_GERAL = 0;   
                             let nB_GERAL = 0;   
                             let nTrCnt_GERAL = 0;    
-                            //let nPeso_GERAL = 0;  
-                           
                                
                   
                   
                                                  
                             somaFardosMistura = 0;
                             somaFardosEstoque = 0;
-                            somaPesoMistura = 0;
-                            somaPesoEstoque = 0;
                             this.aResumoMistura = [];
                             this.aResumoProdutor = [];
                             this.aResumoProdutorTotalizador=[];
@@ -582,12 +569,10 @@ export default {
                                     if(aFardos[j].qtde != null && aFardos[j].qtde > 0 ){
                                         somaFardosMistura+=aFardos[j].qtde;
                                         pesoMovimento += aFardos[j].qtde * aFardos[j].m4PESMED;
-                                        somaPesoMistura += aFardos[j].qtde * aFardos[j].m4PESMED;
                                     }
                   
                                     if(aFardos[j].estoque != null && aFardos[j].estoque > 0 ){
                                         somaFardosEstoque+=aFardos[j].estoque;
-                                        somaPesoEstoque += aFardos[j].qtde * aFardos[j].m4PESMED;
                                     }                  
                   
                                     /// Fardos Selecionados
@@ -691,9 +676,7 @@ export default {
 
                                           if(aFardos[j].m4RS){
                                             nRS_RT= aFardos[j].m4RS * aFardos[j].qtde;
-                                          } 
-
-                                          //nPeso_RT =    aFardos[j].m4PESMED * aFardos[j].qtde;                                       
+                                          }                                            
                    
                                     }else{
                   
@@ -716,7 +699,7 @@ export default {
                                           nTrCnt_RT = 0;
                                           nB_RT     = 0;
                                           nRS_RT    = 0;
-                                          //nPeso_RT  = 0;  
+
                                                                                         
                   
                                     }  // Final possui quantidade selecionada
@@ -821,9 +804,7 @@ export default {
 
                                           if(aFardos[j].m4RS){
                                             nRS_GERAL= aFardos[j].m4RS * aFardos[j].estoque;
-                                          }   
-                                          
-                                          //nPeso_GERAL = aFardos[j].m4PESMED * aFardos[j].estoque;
+                                          }                                            
                   
                   
                                     }else{
@@ -846,8 +827,7 @@ export default {
                                          nTrAr_GERAL =  0; 
                                          nTrCnt_GERAL = 0;
                                          nB_GERAL     = 0;
-                                         nRS_GERAL    = 0;       
-                                         //nPeso_GERAL = 0;                                  
+                                         nRS_GERAL    = 0;                                         
                   
                   
                   
@@ -871,15 +851,13 @@ export default {
                                             
                                                       objEstQual.TotalTestadoMistura     += aFardos[j].estoque;  
                                                       objEstQual.TotFardosEstoque     += aFardos[j].estoque;  
-                                                      objEstQual.TotPesoEstoque        += aFardos[j].m4PESMED * aFardos[j].estoque; 
                                             }else{ 
                   
                                                     let objEstkQualidade = {
                                                       
                                                             qualidade: aFardos[j].m4QUAL, 
                                                             TotalTestadoMistura:aFardos[j].estoque,
-                                                            TotFardosEstoque:   aFardos[j].estoque ,
-                                                            TotPesoEstoque : aFardos[j].m4PESMED * aFardos[j].estoque                                        
+                                                            TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                   }
                   
@@ -919,7 +897,6 @@ export default {
 
                                                       objEstProd.TotalTestadoMistura  += aFardos[j].estoque;
                                                       objEstProd.TotFardosEstoque     += aFardos[j].estoque;  
-                                                      objEstProd.TotPesoEstoque += aFardos[j].m4PESMED * aFardos[j].estoque;    
                                                       
                                                       //console.log(this.aResumoMistura); 
                   
@@ -949,11 +926,9 @@ export default {
                                                             B: nB_GERAL,  
                                                             RS:nRS_GERAL,                                                              
                                                             TotFardosMistura:   0,
-                                                            TotPesoMistura:   0,
                                                             TotFardos_selec:    0,
                                                             TotalTestadoMistura:aFardos[j].estoque,
-                                                            TotFardosEstoque:   aFardos[j].estoque,
-                                                            TotPesoEstoque : aFardos[j].m4PESMED * aFardos[j].estoque                                         
+                                                            TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                   }
                   
@@ -994,11 +969,9 @@ export default {
                                                           objMistura.RS    += nRS_RT; 
 
                                                           objMistura.TotFardosMistura     += aFardos[j].qtde;
-                                                          objMistura.TotPesoMistura       += aFardos[j].m4PESMED * aFardos[j].qtde; 
                                                           objMistura.TotFardos_selec      += aFardos[j].qtde;
                                                           objMistura.TotalTestadoMistura  += aFardos[j].qtde;
                                                           objMistura.TotFardosEstoque     += aFardos[j].estoque;  
-                                                          objMistura.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque 
                                                           
                                                           //console.log(this.aResumoMistura); 
                   
@@ -1028,11 +1001,9 @@ export default {
                                                                 B     : nB_RT,  
                                                                 RS    : nRS_RT,                                                                 
                                                                 TotFardosMistura:   aFardos[j].qtde,
-                                                                TotPesoMistura: aFardos[j].m4PESMED *  aFardos[j].qtde, 
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
-                                                                TotFardosEstoque:   aFardos[j].estoque, 
-                                                                TotPesoEstoque: aFardos[j].m4PESMED *  aFardos[j].estoque,                                         
+                                                                TotFardosEstoque:   aFardos[j].estoque,                                       
                   
                                                       }
                   
@@ -1053,7 +1024,6 @@ export default {
                                                           objProdutor.SCI  += nSCI_RT,
                                                           objProdutor.MST  += nMST_RT,
                                                           objProdutor.MIC  += nMIC_RT,
-
                                                           objProdutor.MAT += nMAT_RT,
                                                           objProdutor.UHML += nUHML_RT,
                                                           objProdutor.UI   += nUI_RT,                       
@@ -1066,11 +1036,9 @@ export default {
                                                           objProdutor.B     += nB_RT;  
                                                           objProdutor.RS    += nRS_RT;                                                           
                                                           objProdutor.TotFardosMistura     += aFardos[j].qtde;
-                                                          objProdutor.TotPesoMistura       += aFardos[j].m4PESMED * aFardos[j].qtde; 
                                                           objProdutor.TotFardos_selec      += aFardos[j].qtde;
                                                           objProdutor.TotalTestadoMistura  += aFardos[j].qtde;
                                                           objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
-                                                          objProdutor.TotPesoEstoque     += aFardos[j].m4PESMED * aFardos[j].estoque; 
                                                           
                                                           //console.log(this.aResumoMistura); 
                   
@@ -1102,9 +1070,7 @@ export default {
                                                                 TotFardosMistura:   aFardos[j].qtde,
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
-                                                                TotFardosEstoque:   aFardos[j].estoque,  
-                                                                TotPesoMistura : aFardos[j].m4PESMED * aFardos[j].qtde,  
-                                                                TotPesoEstoque:aFardos[j].m4PESMED * aFardos[j].estoque                                     
+                                                                TotFardosEstoque:   aFardos[j].estoque,                                       
                   
                                                       }
                   
@@ -1141,9 +1107,7 @@ export default {
                                                           objQualidade.TotFardosMistura     += aFardos[j].qtde;
                                                           objQualidade.TotFardos_selec      += aFardos[j].qtde;
                                                           objQualidade.TotalTestadoMistura  += aFardos[j].qtde;
-                                                          objQualidade.TotFardosEstoque     += aFardos[j].estoque;                                                           
-                                                          objQualidade.TotPesoMistura       += aFardos[j].m4PESMED * aFardos[j].qtde;                                                          
-                                                          objQualidade.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque;  
+                                                          objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
                                                           
                                                           //console.log(this.aResumoMistura); 
                   
@@ -1176,8 +1140,6 @@ export default {
                                                                 TotFardos_selec:    aFardos[j].qtde,
                                                                 TotalTestadoMistura:aFardos[j].qtde,
                                                                 TotFardosEstoque:   aFardos[j].estoque,                                       
-                                                                TotPesoMistura:  aFardos[j].m4PESMED * aFardos[j].qtde,                                                          
-                                                                TotPesoEstoque : aFardos[j].m4PESMED * aFardos[j].estoque  
                   
                                                       }
                   
@@ -1200,8 +1162,6 @@ export default {
                   
                                                     if (objMistura) {
                                                               
-                                                                                                                
-                                                         objMistura.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
                                                          objMistura.TotFardosEstoque     += aFardos[j].estoque;  
                             
                                                     }else{
@@ -1229,11 +1189,9 @@ export default {
                                                                     B     : 0,  
                                                                     RS    : 0,
                                                                     TotFardosMistura:   0,
-                                                                    TotPesoMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
-                                                                    TotFardosEstoque:   aFardos[j].estoque,  
-                                                                    TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                      
+                                                                    TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                           }
                   
@@ -1246,7 +1204,7 @@ export default {
                                                     let objProdutor = this.aResumoProdutor.find(objProdutor => objProdutor.produtor ===  aFardos[j].produt); 
                   
                                                     if (objProdutor) {
-                                                          objProdutor.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
+                                                              
                                                           objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
                             
                                                     }else{
@@ -1274,11 +1232,9 @@ export default {
                                                                     B     : 0,  
                                                                     RS    : 0,  
                                                                     TotFardosMistura:   0,
-                                                                    TotPesoMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
-                                                                    TotFardosEstoque:   aFardos[j].estoque    ,
-                                                                    TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                      
+                                                                    TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                           }
                   
@@ -1289,7 +1245,7 @@ export default {
                                                     let objQualidade = this.aResumoQualidade.find(objQualidade => objQualidade.qualidade ===  aFardos[j].m4QUAL); 
                   
                                                     if (objQualidade) {
-                                                           objQualidade.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque;
+                                                              
                                                            objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
                             
                                                     }else{
@@ -1317,11 +1273,9 @@ export default {
                                                                     B     : 0,  
                                                                     RS    : 0, 
                                                                     TotFardosMistura:   0,
-                                                                    TotPesoMistura:   0,
                                                                     TotFardos_selec:    0,
                                                                     TotalTestadoMistura:0,
-                                                                    TotFardosEstoque:   aFardos[j].estoque  ,
-                                                                    TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                         
+                                                                    TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                           }
                   
@@ -1341,7 +1295,6 @@ export default {
                                              
                   
                                             if (objEstQual) { 
-                                                   objEstQual.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque;
                                                    objEstQual.TotFardosEstoque     += aFardos[j].estoque;  
                                             }else{ 
                   
@@ -1349,8 +1302,7 @@ export default {
                                                       
                                                             qualidade: aFardos[j].m4QUAL, 
                                                             TotalTestadoMistura:0,
-                                                            TotFardosEstoque:   aFardos[j].estoque ,
-                                                            TotPesoEstoque :    aFardos[j].m4PESMED * aFardos[j].estoque                                          
+                                                            TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                   }
                   
@@ -1364,7 +1316,6 @@ export default {
                                              
                   
                                             if (objEstProd) { 
-                                                      objEstProd.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque;
                                                       objEstProd.TotFardosEstoque     += aFardos[j].estoque;   
                                             }else{
                   
@@ -1391,11 +1342,9 @@ export default {
                                                           B     : 0,  
                                                           RS    : 0,  
                                                           TotFardosMistura:   0,
-                                                          TotPesoMistura:   0,
                                                           TotFardos_selec:    0,
                                                           TotalTestadoMistura:0,
-                                                          TotFardosEstoque:   aFardos[j].estoque,
-                                                          TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                           
+                                                          TotFardosEstoque:   aFardos[j].estoque                                        
                   
                                                   }
                   
@@ -1416,11 +1365,8 @@ export default {
                                   
                                                         
                                                             objMistura.TotFardosMistura     += aFardos[j].qtde;
-                                                        
                                                             objMistura.TotFardos_selec      += aFardos[j].qtde;                                          
-                                                            objMistura.TotFardosEstoque     += aFardos[j].estoque;  
-                                                            objMistura.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
-                                                            objMistura.TotPesoMistura     += aFardos[j].m4PESMED * aFardos[j].qtde;
+                                                            objMistura.TotFardosEstoque     += aFardos[j].estoque;   
                     
                           
                                                   }else{
@@ -1450,9 +1396,7 @@ export default {
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
-                                                                   TotFardosEstoque:   aFardos[j].estoque,
-                                                                   TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque ,
-                                                                   TotPesoMistura :aFardos[j].m4PESMED * aFardos[j].qtde                                          
+                                                                   TotFardosEstoque:   aFardos[j].estoque,                                       
                     
                                                         }
                     
@@ -1468,9 +1412,7 @@ export default {
                                                             //console.log('Forma Array Produtor 2222')
                                                             objProdutor.TotFardosMistura     += aFardos[j].qtde;
                                                             objProdutor.TotFardos_selec      += aFardos[j].qtde;                                          
-                                                            objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
-                                                            objProdutor.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
-                                                            objProdutor.TotPesoMistura     += aFardos[j].m4PESMED * aFardos[j].qtde; 
+                                                            objProdutor.TotFardosEstoque     += aFardos[j].estoque;   
                   
                                                             //console.log(this.aResumoProdutor)
                     
@@ -1503,9 +1445,7 @@ export default {
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
-                                                                   TotFardosEstoque:   aFardos[j].estoque,
-                                                                   TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque ,
-                                                                   TotPesoMistura :aFardos[j].m4PESMED * aFardos[j].qtde                                         
+                                                                   TotFardosEstoque:   aFardos[j].estoque,                                       
                     
                                                         }
                     
@@ -1524,10 +1464,9 @@ export default {
                                                             //console.log('Forma Array Produtor 2222')
                                                             objQualidade.TotFardosMistura     += aFardos[j].qtde;
                                                             objQualidade.TotFardos_selec      += aFardos[j].qtde;                                          
-                                                            objQualidade.TotFardosEstoque     += aFardos[j].estoque; 
-                                                            objQualidade.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
-                                                            objQualidade.TotPesoMistura       += aFardos[j].m4PESMED * aFardos[j].qtde;   
-                                                           
+                                                            objQualidade.TotFardosEstoque     += aFardos[j].estoque;   
+                  
+                                                            
                     
                           
                                                   }else{
@@ -1558,9 +1497,7 @@ export default {
                                                                    TotFardosMistura:   aFardos[j].qtde,
                                                                    TotFardos_selec:    aFardos[j].qtde,
                                                                    TotalTestadoMistura: 0,
-                                                                   TotFardosEstoque:   aFardos[j].estoque,
-                                                                   TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque ,
-                                                                   TotPesoMistura :aFardos[j].m4PESMED * aFardos[j].qtde                                         
+                                                                   TotFardosEstoque:   aFardos[j].estoque,                                       
                     
                                                         }
                     
@@ -1578,7 +1515,7 @@ export default {
                                                       let objMistura = this.aResumoMistura.find(objMistura => objMistura.mistura === this.mistura.numeroMistura); 
                     
                                                       if (objMistura) { 
-                                                                objMistura.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque;
+                     
                                                                 objMistura.TotFardosEstoque     += aFardos[j].estoque;  
                               
                                                       }else{
@@ -1606,11 +1543,9 @@ export default {
                                                                       B     : 0,  
                                                                       RS    : 0,  
                                                                       TotFardosMistura:   0,
-                                                                      TotPesoMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
-                                                                      TotFardosEstoque:   aFardos[j].estoque,
-                                                                      TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                           
+                                                                      TotFardosEstoque:   aFardos[j].estoque                                        
                     
                                                             }
                     
@@ -1625,8 +1560,7 @@ export default {
                   
                                                       if (objProdutor) {
                      
-                                                              objProdutor.TotFardosEstoque     += aFardos[j].estoque; 
-                                                              objProdutor.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
+                                                              objProdutor.TotFardosEstoque     += aFardos[j].estoque;  
                               
                                                       }else{
                     
@@ -1653,11 +1587,9 @@ export default {
                                                                       B     : 0,  
                                                                       RS    : 0,  
                                                                       TotFardosMistura:   0,
-                                                                      TotPesoMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
-                                                                      TotFardosEstoque:   aFardos[j].estoque   ,
-                                                                      TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                        
+                                                                      TotFardosEstoque:   aFardos[j].estoque                                        
                     
                                                             }
                     
@@ -1669,7 +1601,7 @@ export default {
                                                       let objQualidade = this.aResumoQualidade.find(objQualidade => objQualidade.produtor ===  aFardos[j].m4QUAL); 
                   
                                                       if (objQualidade) {
-                                                             objQualidade.TotPesoEstoque       += aFardos[j].m4PESMED * aFardos[j].estoque; 
+                     
                                                              objQualidade.TotFardosEstoque     += aFardos[j].estoque;  
                               
                                                       }else{
@@ -1697,11 +1629,9 @@ export default {
                                                                       B     : 0,  
                                                                       RS    : 0,  
                                                                       TotFardosMistura:   0,
-                                                                      TotPesoMistura:   0,
                                                                       TotFardos_selec:    0,
                                                                       TotalTestadoMistura:0,
-                                                                      TotFardosEstoque:   aFardos[j].estoque  ,
-                                                                      TotPesoEstoque :aFardos[j].m4PESMED * aFardos[j].estoque                                         
+                                                                      TotFardosEstoque:   aFardos[j].estoque                                        
                     
                                                             }
                     
@@ -1774,9 +1704,7 @@ export default {
                                       TotFardosMistura:   0,
                                       TotFardos_selec:    0,
                                       TotalTestadoMistura:0,
-                                      TotFardosEstoque:  0,
-                                      TotPesoEstoque:  0,
-                                      TotPesoMistura:   0,                                          
+                                      TotFardosEstoque:  0                                       
                   
                             }
                   
@@ -1815,9 +1743,7 @@ export default {
                                     this.aResumoProdutorTotalizador[0].TotFardos_selec      += this.aResumoProdutor[j].TotFardos_selec  ; 
                   
                                     this.aResumoProdutorTotalizador[0].TotalTestadoMistura   += this.aResumoProdutor[j].TotalTestadoMistura  ; 
-                                    this.aResumoProdutorTotalizador[0].TotFardosEstoque      += this.aResumoProdutor[j].TotFardosEstoque  ; 
-                                    this.aResumoProdutorTotalizador[0].TotPesoEstoque      += this.aResumoProdutor[j].TotPesoEstoque  ; 
-                                    this.aResumoProdutorTotalizador[0].TotPesoMistura   += this.aResumoProdutor[j].TotPesoMistura  ;  
+                                    this.aResumoProdutorTotalizador[0].TotFardosEstoque      += this.aResumoProdutor[j].TotFardosEstoque  ;  
                   
                   
                           
@@ -1857,9 +1783,7 @@ export default {
                                         TotFardosMistura:   0,
                                         TotFardos_selec:    0,
                                         TotalTestadoMistura:0,
-                                        TotFardosEstoque:  0   ,
-                                        TotPesoEstoque:  0,
-                                        TotPesoMistura:   0,                                       
+                                        TotFardosEstoque:  0                                       
                     
                               }
                     
@@ -1895,8 +1819,8 @@ export default {
                                       this.aEstoqueProdutorTotalizador[0].RS      += this.aEstoqueProdutor[j].RS  ;                                       
                                       this.aEstoqueProdutorTotalizador[0].TotalTestadoMistura   += this.aEstoqueProdutor[j].TotalTestadoMistura  ; 
                                       this.aEstoqueProdutorTotalizador[0].TotFardosEstoque += this.aEstoqueProdutor[j].TotFardosEstoque  ; 
-                                      this.aEstoqueProdutorTotalizador[0].TotPesoEstoque += this.aEstoqueProdutor[j].TotPesoEstoque  ; 
-                                        
+                                
+                    
                     
                             
                                        
@@ -1934,9 +1858,7 @@ export default {
                                         TotFardosMistura:   0,
                                         TotFardos_selec:    0,
                                         TotalTestadoMistura:0,
-                                        TotFardosEstoque:  0 ,
-                                        TotPesoEstoque:  0,
-                                        TotPesoMistura:   0,                                           
+                                        TotFardosEstoque:  0                                       
                     
                               }
                     
@@ -1977,8 +1899,7 @@ export default {
                                       this.aResumoQualidadeTotalizador[0].TotalTestadoMistura   += this.aResumoQualidade[j].TotalTestadoMistura  ; 
                                       this.aResumoQualidadeTotalizador[0].TotFardosEstoque      += this.aResumoQualidade[j].TotFardosEstoque  ;  
                     
-                                      this.aResumoQualidadeTotalizador[0].TotPesoEstoque      += this.aResumoQualidade[j].TotPesoEstoque  ; 
-                                      this.aResumoQualidadeTotalizador[0].TotPesoMistura   += this.aResumoQualidade[j].TotPesoMistura  ;  
+                    
                             
                                       
                               
@@ -2016,9 +1937,7 @@ export default {
                                           TotFardosMistura:   0,
                                           TotFardos_selec:    0,
                                           TotalTestadoMistura:0,
-                                          TotFardosEstoque:  0,
-                                          TotPesoEstoque:  0,
-                                          TotPesoMistura:   0,                                          
+                                          TotFardosEstoque:  0                                       
                       
                                 }
                       
@@ -2057,8 +1976,7 @@ export default {
                                         this.aEstoqueQualidadeTotalizador[0].TotalTestadoMistura   += this.aEstoqueQualidade[j].TotalTestadoMistura  ; 
                                         this.aEstoqueQualidadeTotalizador[0].TotFardosEstoque += this.aEstoqueQualidade[j].TotFardosEstoque  ; 
                                   
-                                        this.aEstoqueQualidadeTotalizador[0].TotPesoEstoque      += this.aEstoqueQualidade[j].TotPesoEstoque  ; 
-                                        this.aEstoqueQualidadeTotalizador[0].TotPesoMistura   += this.aEstoqueQualidade[j].TotPesoMistura  ; 
+                      
                       
                               
                                        
@@ -2219,8 +2137,6 @@ export default {
                            
                             this.totalFardosMistura = somaFardosMistura;
                             this.totalFardosEstoque = somaFardosEstoque;
-                            this.totalPesoMistura = somaPesoMistura;
-                            this.totalPesoEstoque = somaPesoEstoque;
                             this.nPesoMovimento =  pesoMovimento.toFixed(2);
                             this.nPesoMovimento = this.apiFormataNumero(this.nPesoMovimento,2);
                   
@@ -2267,9 +2183,7 @@ export default {
                                           TotFardosMistura:objProdutor.TotFardosMistura,
                                           TotFardos_selec:objProdutor.TotFardos_selec,
                                           TotalTestadoMistura:objProdutor.TotalTestadoMistura,
-                                          TotFardosEstoque:  objProdutor.TotFardosEstoque,   
-                                          TotPesoMistura:  objProdutor.TotPesoMistura,                                                          
-                                          TotPesoEstoque : objProdutor.TotPesoEstoque,                                      
+                                          TotFardosEstoque:  objProdutor.TotFardosEstoque,                                       
                   
                                 }
                   
@@ -2305,10 +2219,7 @@ export default {
                                               TotFardosMistura:this.aResumoProdutor[0].TotFardosMistura,
                                               TotFardos_selec:this.aResumoProdutor[0].TotFardos_selec,
                                               TotalTestadoMistura:this.aResumoProdutor[0].TotalTestadoMistura,
-                                              TotFardosEstoque:  this.aResumoProdutor[0].TotFardosEstoque, 
-                                                                                    
-                                              TotPesoMistura:  this.aResumoProdutor[0].TotPesoMistura,                                                          
-                                              TotPesoEstoque : this.aResumoProdutor[0].TotPesoEstoque,                                       
+                                              TotFardosEstoque:  this.aResumoProdutor[0].TotFardosEstoque,                                       
                   
                                     }
                   
@@ -2318,40 +2229,7 @@ export default {
                             }
                   
                   
-                            //this.aResumoQualidade  
-                            //this.aEstoqueQualidade  
-
-
-                            this.aResumoQualidade.sort(function(a, b) {
-                              if (a.qualidade < b.qualidade) {
-                                  return -1;
-                              }
-                              if (a.qualidade > b.qualidade) {
-                                  return 1;
-                              }
-                              return 0;
-                             }); 
-
-
-                             this.aEstoqueQualidade.sort(function(a, b) {
-                              if (a.qualidade < b.qualidade) {
-                                  return -1;
-                              }
-                              if (a.qualidade > b.qualidade) {
-                                  return 1;
-                              }
-                              return 0;
-                             }); 
-
-                             //console.log('this.aResumoQualidade');
-
-                             //console.log(this.aResumoQualidade);
-                             //console.log('this.aEstoqueQualidade');
-
-
-                            
-                            //console.log(this.aEstoqueQualidade);
-                             
+                  
                             
                             // Final Formacao linha resumo mistura/produtor
                             // Final Formacao linha resumo mistura/produtor          
@@ -2365,34 +2243,9 @@ export default {
                             // Final calcula Totais
                             // Final calcula Totais
                             // Final calcula Totais                           
-                         
-                            calculaTesteFiacao( pTeste ) {
-                                  
-                                  this.aDadosQ = [];  
-                        
-
-                                  for (let m = 0; m < pTeste.length; m++) {   
 
 
-                                      this.testeItemTempAux = Object.assign({},this.testeCqFioDetalheInicial);   
-    
-                                      this.testeItemTempAux.id=          pTeste[m].id; 
-                                      this.testeItemTempAux.idfil=       pTeste[m].idfil;
-                                      this.testeItemTempAux.idPai=       pTeste[m].idPai;
-                                      this.testeItemTempAux.seqProva=    pTeste[m].seqProva; 
-                                      this.testeItemTempAux.numeroFusos= pTeste[m].numeroFusos;
-                                      this.testeItemTempAux.peso=        pTeste[m].peso;
-                                      this.testeItemTempAux.titulo=      pTeste[m].titulo;  
-                                      
-                                      this.aDadosQ.push(this.testeItemTempAux );
-                            
-                            
-                                } 
-                          }
+
 
     }
-
-
-
-
 }    

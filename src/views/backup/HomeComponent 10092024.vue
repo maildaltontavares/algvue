@@ -1,8 +1,7 @@
 <template> 
 
 <!--style="background-color:#ec4022;-->
-    <!--<v-navigation-drawer :expand-on-hover="this.$store.state.expandOnHover" :rail="this.$store.state.rail" :temporary="this.tipoTemporario"  v-model="isDrawerOpen"  style="background-color:rgb(109, 109, 129);color:white;"  >  -->
-    <v-navigation-drawer :expand-on-hover="this.$store.state.expandOnHover"  :width="270"   :rail="false" :temporary="this.tipoTemporario"  v-model="isDrawerOpen"  style="background-color:#003366;color:white;"  >  
+    <v-navigation-drawer :expand-on-hover="this.$store.state.expandOnHover" :rail="this.$store.state.rail" :temporary="this.tipoTemporario"  v-model="isDrawerOpen"  style="background-color:rgb(109, 109, 129);color:white;"  >  
       
 
         <v-list style="padding: 0px;margin:0px">
@@ -17,7 +16,7 @@
                          <v-btn @click="fixaMenu()" :disabled="desabilitaPin" :icon="this.tipoIconeFixo"  density="compact" style="margin-top:5px;margin-right:5px;padding:3px;background-color:#003366 " ></v-btn>                           
                          <v-btn @click="isDrawerOpen=false" v-if ="exibeMenu" fill-dot="true" icon="mdi-arrow-left-circle-outline" density="compact" style="margin-top:5px;margin-right:5px;padding:3px;background-color:#003366  " ></v-btn>
                     </div>              
-                      
+                     
             </div>
  
             <v-divider style="padding: 0px;margin:0px"></v-divider>
@@ -61,9 +60,13 @@
                 ></v-list-item>
 
                 </template> 
-                <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="color:#ffff02" @click="navegarParaMovimentacaoEstoque">Movimentação de Estoque</v-list-item>   
-                <v-list-item   prepend-icon="mdi-tree-outline" class="item-hover font-menu margin-item_menu " style=" color:#ffff02" @click="navegarParaTesteCQ">Testes de HVI</v-list-item>   
-                
+                <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMovimentacaoEstoque">Movimentação de Estoque</v-list-item>   
+                <v-list-item   prepend-icon="mdi-tree-outline" class="item-hover font-menu  " style=" margin-left:-40px;color:#ffff02" @click="navegarParaTesteCQ">Testes de CQ</v-list-item>   
+                <!--
+                <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Teste Qualidade</v-list-item>   
+                <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Formação de Pilhas</v-list-item>   
+                <v-list-item   prepend-icon="mdi-file-check-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02">Apontamento Abertura</v-list-item>   
+                 -->
 
 
             </v-list-group>   
@@ -80,8 +83,8 @@
                 ></v-list-item>
                 </template> 
                 
-                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="color:#ffff02" @click="navegarParaMisturaPadrao">Mistura Padrão</v-list-item>   
-                <v-list-item prepend-icon="mdi-arrow-down-bold-box-outline " class="item-hover font-menu margin-item_menu" style="color:#ffff02" @click="navegarParaBaixarMisturaPadrao">Descida</v-list-item>
+                <v-list-item prepend-icon="mdi-account-edit-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaMisturaPadrao">Mistura Padrão</v-list-item>   
+                <v-list-item prepend-icon="mdi-arrow-down-bold-box-outline " class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaBaixarMisturaPadrao">Descida</v-list-item>
             
 
             </v-list-group>   
@@ -98,8 +101,8 @@
                 ></v-list-item>
                 </template> 
 
-                <v-list-item prepend-icon="mdi-arrange-send-backward" class="item-hover font-menu margin-item_menu" style="color:#ffff02" @click="navegarParaAcessoUnirPilha">Formar</v-list-item>   
-                <v-list-item prepend-icon="mdi-human-male-height" class="item-hover font-menu margin-item_menu" style="color:#ffff02" @click="navegarParaAcessoLocalizarPilha">Localizar</v-list-item>  
+                <v-list-item prepend-icon="mdi-arrange-send-backward" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoUnirPilha">Formar</v-list-item>   
+                <v-list-item prepend-icon="mdi-human-male-height" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaAcessoLocalizarPilha">Localizar</v-list-item>  
 
 
             </v-list-group>   
@@ -115,25 +118,9 @@
                     ></v-list-item>
                 </template>   
 
-                <v-list-item prepend-icon="mdi-keyboard-settings-outline" class="item-hover font-menu margin-item_menu" style="color:#ffff02"  @click="navegarParaProducaoAbertura">Abertura</v-list-item>      
+                <v-list-item prepend-icon="mdi-keyboard-settings-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaProducaoAbertura">Abertura</v-list-item>      
                         
-            </v-list-group>      
-            
-            <v-list-group value="Laboratorio"  style="color:white" >
-
-                <template v-slot:activator="{ props }">
-                <v-list-item
-                prepend-icon="mdi-clipboard-file-outline"            
-                    v-bind="props"
-                    title="Laboratorio"
-                    class="item-hover"
-                ></v-list-item>
-
-                </template>  
-                <v-list-item   prepend-icon="mdi-tree-outline" class="item-hover font-menu margin-item_menu " style=" color:#ffff02" @click="navegarParaTesteCQFio">Testes CQ Fita/Fio</v-list-item>   
-                
-
-            </v-list-group>              
+            </v-list-group>             
  
             <v-list-group value="Consultas" style="color:white" > 
 
@@ -146,11 +133,9 @@
                         ></v-list-item>
                     </template>   
 
-                    <v-list-item prepend-icon="mdi-warehouse" class="item-hover font-menu margin-item_menu" style= "color:#ffff02"  @click="navegarParaConsultaEstoque">Estoque</v-list-item>      
+                    <v-list-item prepend-icon="mdi-warehouse" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaConsultaEstoque">Estoque</v-list-item>      
                             
             </v-list-group>              
-
-             
 
             
             <v-list-group value="Autorizações" style="color:white" > 
@@ -169,7 +154,7 @@
              <!--   <v-list-item prepend-icon="mdi-account" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02" @click="navegarParaUsuarios" ><b>Usuários</b></v-list-item>            
                 <v-list-item prepend-icon="mdi-file-account-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaUsuariosLogin">Credenciais</v-list-item>      
                  -->
-                <v-list-item prepend-icon="mdi-card-account-details-outline" class="item-hover font-menu margin-item_menu" style="color:#ffff02"  @click="navegarParaTrocarSenha">Trocar Senha</v-list-item>      
+                <v-list-item prepend-icon="mdi-card-account-details-outline" class="item-hover font-menu margin-item_menu" style="margin-left:-40px;color:#ffff02"  @click="navegarParaTrocarSenha">Trocar Senha</v-list-item>      
                           
             </v-list-group>  
 
@@ -196,7 +181,7 @@
                 <v-app-bar-title  class="cabecalho_principal_empresa" style="margin-left:15px;margin-right:15px">{{this.$store.state.tituloPrincipal }}</v-app-bar-title>
             </div>
 
-            <div class="cabecalho_principal_empresa d-flex justify-content-center"  style=" margin-right: 16%;">
+            <div class="cabecalho_principal_empresa d-flex justify-content-center">
                 <label class="empresa">{{ this.$store.state.usuarioSistema.empresa }}</label>
             </div>  
 
@@ -271,7 +256,7 @@
                     this.tipoTemporario=!this.tipoTemporario;
 
                     if(this.tipoTemporario){
-                        // Movel // Celular e Tablet
+                        // Movel
                         this.isDrawerOpen=false;
                         this.exibeMenu=true;
                         this.tipoIconeFixo ="mdi-pin-off";  
@@ -280,26 +265,23 @@
                             //this.$store.state.configuracaoTela.tamanhoRodape = '99%';  
                           //  this.$store.state.configuracaoTela.tamanhoRodape = '1890px' ; 
                             this.$store.state.configuracaoTela.tamanhoRodape = '100%' ; 
-                            this.$store.state.pinOff = false;
-                            this.$store.state.configuracaoTela.marginRightRodape = '35px' 
-                            this.$store.state.menuExpandido = false;
+                            this.$store.state.pinOff = false; 
                         }
                          
                     }else{ 
                         this.isDrawerOpen=true;
                         this.exibeMenu=false;
                         this.tipoIconeFixo ="mdi-pin"; 
-                        this.$store.state.configuracaoTela.marginRightRodape='135px';
-                        this.$store.state.menuExpandido = true;
-                        this.$store.state.tamanhoEspacoMarginRight = '14px';
 
                         if( this.$store.state.tipoDispositivo=='desktop'){ 
                              //this.$store.state.configuracaoTela.tamanhoRodape = '1630px' ; 
                              this.$store.state.configuracaoTela.tamanhoRodape = '97%' ; 
                              this.$store.state.pinOff = true; 
                         }
-                    } 
-                   
+                    }
+
+                    //console.log('this.$store.state.pinOff222')
+                    //console.log(this.$store.state.pinOff)   
 
                 },
                 
@@ -314,7 +296,7 @@
                 navegarParaConsultaEstoque(){this.$router.push({name:'consultaestoque'  })}   ,
                 navegarParaTesteCQ(){this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,  itemProps : ' ' ,operacao : 'I' }  })}   ,
                 navegarParaProducaoAbertura(){this.$router.push({name:'producaoabertura', params : {  misturaProps: ' ', seqProps:' ' , operacao : 'I'   }  })}   ,
-                navegarParaTesteCQFio(){this.$router.push({name:'testecqfio', params : {tipoMaquinaProps:'01',idProps:0, operacao : 'I' }  })}   ,
+              
 
             },
             created() {
@@ -345,24 +327,7 @@
                     this.tipoIconeFixo ="mdi-pin-off-outline"; 
                     this.desabilitaPin=true;
                }
-
-               if(this.$store.state.tipoDispositivo == 'mobile'  ){ 
-                this.$store.state.configuracaoTela.marginRightRodape='5px'  
-
-                }else if(this.$store.state.tipoDispositivo == 'tablet' ){ 
-                    this.$store.state.configuracaoTela.marginRightRodape='5px'   
-                }else  {   
-                    this.$store.state.configuracaoTela.marginRightRodape='35px'  
-                }
-
-
             }
-
-           
-
-
-
-             
 
 
             
@@ -383,7 +348,7 @@
 
      .margin-item_menu{
 
-        margin-left: -58px;
+        margin-left: -50px;
 
      }
 
@@ -672,13 +637,59 @@
     
     }
 
- 
+
+
+    .pai{    
+    background-color:cornflowerblue ;
+    align-content: center;
+    border: solid 5px;
+    width:95%; 
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    }
+    
+    .pai21{
+    background-color:cornflowerblue ;
+    align-content: center;
+    /*  Comentar */
+    /*
+    border: solid 5px; 
+    border-color:brown;  
+    */
+    
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 5px;     
+    margin-bottom: 5px; 
+    
+    }
+    
     .frontCampoConjugado{ 
  
      width: 100px;
      flex-grow: 0;
      } 
- 
+
+    .filho21{
+     
+    background-color: aqua;
+    width: 100px;
+    flex-grow: 0;
+    } 
+    
+    .filho41{
+     
+     background-color: aqua;
+     width: 100px;
+     flex-grow: 0;
+    } 
+    
+    .filho31{  
+    background-color: aquamarine;
+    width: 350px; 
+    flex-grow: 1;
+    } 
 
 
     .backCampoConjugado{  
@@ -689,7 +700,26 @@
     
 
     } 
+    
+    .filho51{  
+    background-color: aquamarine;
+    width:450px;
+    
+    } 
+    
+    .filho1{
      
+    background-color: aqua;
+    width: 100px;
+    
+    }
+    
+     
+    
+    .filho3{  
+    background-color: aquamarine;
+    width: 600px; 
+    }
     
     .limitadorMedia{
     text-align: center;
@@ -746,11 +776,6 @@
     width: 10%;
     min-width: 180px;  
 }
-
-.campoPadraoReduzido{
-    width: 10%;
-    min-width: 100px;  
-}
  
 
 .campoConjugado{
@@ -784,10 +809,10 @@
       
   } 
 
-.linhaPadraoItem{  
-   margin-left:3%;
-   width:95%;  
-
+  .linhaPadraoItem{  
+    margin-left:3%;
+    width:95%;  
+    
 }
 
 .labelCampoPadraoItem{

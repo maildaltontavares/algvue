@@ -248,7 +248,6 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             
-                                            
                                         ></v-text-field>            
                             </v-col>               
                                     
@@ -474,8 +473,8 @@
                     <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
                     <div class="d-flex justify-content-end " style="margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    
                         <div style="width:100%;background-color:#c0c0c1; height:50px  ">
-                            <p  class="text-white text-center  mt-3  " style=" margin-left:19%;width:60%; font-size: 18px; height:20px "><b>Itens</b></p>                               
-                        </div>    
+                            <p  class="text-white text-center  mt-3  " style=" margin-left:20%;width:60%; font-size: 18px; height:20px "><b>Itens</b></p>                               
+                        </div>        
 
                         <v-btn  
                          
@@ -520,27 +519,27 @@
                                     <div class="d-flex justify-content-end " style=" margin-left:1px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
 
                                         <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
-                                        <div style="width:100%;background-color:rgb(240, 237, 232); height:40px  "  v-if="i.statusItem != 'Exclusão'">
+                                        <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
                                             
-                                            <p  class="text-center   " style="margin-top:10px;color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
+                                            <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
                                         </div>    
 
-                                        <div style="width:100%; ; height:40px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
-                                            <p  class="text-white text-center   " style=" margin-top:10px;margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
+                                        <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
+                                            <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
                                         </div>   
                                         
-                                        <div style="width:100%; height:40px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
-                                            <p  class=" text-center   "  style="margin-top:10px;color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
-                                        </div>  
+                                        <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
+                                            <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
+                                        </div>                                                   
+
                                         <v-btn  
-                                                style="height:38px; background-color:rgb(240, 237, 232); "    
-                                                title="Excluir Item" 
+                                                style="height:20px; background-color:rgb(240, 237, 232); "    
                                                 @click="excluirItem(indice)"
                                                 >   
                                                     <v-icon                                                       
                                                     color="primary"
                                                     icon="mdi-minus-box-outline"  
-                                                    size="35"
+                                                    size="23"
                                                     ></v-icon>  
                                                 
                                         </v-btn>  
@@ -549,7 +548,7 @@
                                     </div>   
                                 
                                     <!-- LINHA 0001 -->
-                                    <div class="flex-linha-item  linhaPadraoItem" style="margin-top:17px"  >
+                                    <div class="flex-linha-item  linhaPadraoItem"   >
 
                                         <v-row>
 
@@ -1155,8 +1154,6 @@
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
                                 accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
 
-                                <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
-
                             </div> 
 
                         </div>
@@ -1585,13 +1582,7 @@
                 produtor:'' ,
                 lote:'' , 
                 idItem :''
-            }  ,
-            testeDAO:{
-                idfil:'' ,
-                produtor:'' ,
-                lote:'' , 
-                item :''
-            }          
+            }            
             
            
         }              
@@ -1781,26 +1772,11 @@
 
                        // url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}`  
 
-                       // 10/09/2024
-                       //url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
-
-                       url = `${process.env.VUE_APP_BASE_URL}/testecq/busca` 
+                       url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
                        
 
-                       this.testeDAO =
-                            {
-                                idfil:this.$store.state.usuarioSistema.idfil,
-                                produtor:produtor ,
-                                lote:i.lote ,  
-                                item: i.item  
-                            }   
-
-                                //console.log(this.testeDAO);
-                        await this.axios.put(
-                            url,
-                            JSON.stringify(this.testeDAO),
-                            this.apiTokenHeader({ "Content-Type": "application/json" })
-                        ).then(response => {
+                        await this.axios.get(url,this.apiTokenHeader())
+                        .then(response => {
 
                             //console.log("TipoMovimento");
                             this.resultado = response.data;  

@@ -20,6 +20,8 @@ import TestesCQ  from '@/views/TestesCQComponent.vue'
 import TestesCQPesquisa  from '@/views/TestesCQPesquisaComponent.vue'
 import ProducaoAbertura  from '@/views/ProducaoAberturaComponent.vue'
 import ProducaoAberturaPesquisa  from '@/views/ProducaoAberturaPesquisaComponent.vue'
+import TestesCQFioComponent  from '@/views/TesteCQFioComponent.vue'
+import TesteCQFioPesquisa  from '@/views/TesteCQFioPesquisaComponent.vue'
 
 import store from '@/store/index'
 import axios from 'axios' 
@@ -238,7 +240,27 @@ const routes =
                     meta: { requerAutorizacao: true, codigoPagina: 'pagProducaoAberturaPesquisa' }    , 
                     name: 'producaoaberturapesquisa' 
                       
-                  }                   
+                  }   ,   
+                   
+  
+                  {
+                    path: 'testecqfio/:tipoMaquinaProps/:idProps/:operacao',
+                    props: true,
+                    component: TestesCQFioComponent,
+                    meta: { requerAutorizacao: false, codigoPagina: 'pagpagTesteCQFio' }    , 
+                    name: 'testecqfio' 
+                      
+                  }  ,
+                  {
+                    path: 'testecqfiopesquisa',
+                    props: true,
+                    component: TesteCQFioPesquisa,
+                    meta: { requerAutorizacao: true, codigoPagina: 'pagProducaoAberturaPesquisa' }    , 
+                    name: 'testecqfiopesquisa' 
+                      
+                  }   , 
+                  
+                  
  
   
 

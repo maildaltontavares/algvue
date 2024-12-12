@@ -43,38 +43,35 @@
 
                    </div> 
                    
-
-                   
    
-                   <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
-                        <v-row>  
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >   
 
-                              <v-col class="campoPadrao"  >  
-                              <label  for="dataInicial" class="col-form-label labelCampoPadrao"><b>Data_Inicial</b></label><br>                          
+                        
 
                                 <v-text-field
                                     v-model.trim="this.param.dataInicial" 
                                     id="dataInicial"
-                               
-                                    
-                                    ref="dataInicial" 
+                                    label="Data Inicial" 
+                                    ref="dataInicial"  
+                                    style=" width: 15%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                     
-                                ></v-text-field>    
-                            </v-col>    
+                                ></v-text-field>          
                                     
-                            <v-col class="campoPadrao"  >  
-                                <label  for="dataFinal" class="col-form-label labelCampoPadrao"><b>Data_Final</b></label><br>                               
+                             
                                 
                                 <v-text-field
-                                    v-model.trim="this.param.dataFinal"
-                                     
-                                    id="dataFinal" 
-                                    ref="dataFinal"   
+                                    v-model.trim="this.param.dataFinal" 
+                                    id="dataFinal"
+                                    label="Data Final" 
+                                    ref="dataFinal"  
+                                    style=" width: 15%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
@@ -82,14 +79,13 @@
                                     density="compact"
                                     
                                 ></v-text-field>                                    
-                            </v-col>                                
+                            
                     
                                                    
  
-                            <v-col class="campoConjugado" cols="3"  >  
-                                       
-                                <div  >   
-                                    <label for="fornecedor" class="col-form-label labelCampoPadrao"><b>Fornecedor</b></label><br>     
+                                <div  class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "    >
+                          
+                                
                                     <div class="input-group"    > 
                                      
                                         
@@ -97,7 +93,7 @@
                                                 
                                                 <v-text-field
                                                     v-model.trim="this.param.fornecedor" 
-                                                   
+                                                    label="Fornecedor"
                                                     id="fornecedor"                                                  
                                                     ref="fornecedor"  
                                                     maxlength="5"                                                    
@@ -126,7 +122,7 @@
 
                                             </div  >      
 
-                                            <div class="descricaoCampoConjugado" >   
+                                            <div style="   flex-grow: 1;height:43px;"  >   
                                                 <v-text-field
                                                     v-model="this.nomeFornecedor" 
                                                     id="nomeFornecedor"   
@@ -140,84 +136,75 @@
                                     </div> 
                                   
 
-                              </div> 
-                            </v-col>                                
+                                </div> 
 
-                            <v-col class="campoPadrao"  >  
-                              <label  for="notaFiscal" class="col-form-label labelCampoPadrao"><b>Documento</b></label><br> 
 
                                 <v-text-field
                                       v-model.trim="this.param.notaFiscal" 
-                                      id="notaFiscal" 
+                                      id="notaFiscal"
+                                      label="Documento" 
                                       ref="notaFiscal"  
-                                      maxlength="10"  variant="outlined"
+                                      maxlength="10"                                            
+                                      style=" width: 20%;min-width: 180px; "  
+                                      class="espacoEntreComponentes" 
+                                      variant="outlined"
                                       bg-color="white"                                           
                                       type="text"     
                                       density="compact"
                                       
                                ></v-text-field> 
-                            </v-col>
 
-                        </v-row>
                            
                          
                     </div> 
-                    <div class="flex-linha linhaPadrao"   >  
-                        <v-row>
-
-                              <v-col class="campoPadrao"  >  
-
-                                <label  for="tipoMovimento" class="col-form-label labelCampoPadrao"><b>Tipo_Movimento</b></label><br>    
+                    <div class="flex-linha "  style="margin-left:6%;width:90%; background-color:white" >   
                   
                                 
-                                <v-autocomplete
-                                     id="tipoMovimento" 
-                                  
-                                    :items="tipoMovimentoItens"        
-                                    v-model="this.param.tipoMovimento"   
-                                    item-title="codigo" 
-                                    item-value="codigo"
-                                    variant="outlined"
-                                    bg-color="white"      
-                                    density="compact"  
-                                ></v-autocomplete>  
+                          <v-autocomplete
+                              label="Tipo Movimento"
+                              :items="tipoMovimentoItens"        
+                              v-model="this.param.tipoMovimento"   
+                              item-title="codigo" 
+                              item-value="codigo"
+                              variant="outlined"
+                              style=" width: 20%;min-width: 180px; font-size:16px;"  
+                              class="espacoEntreComponentes"      
+                              bg-color="white"      
+                              density="compact"  
+                          ></v-autocomplete>  
+              
 
-                             </v-col>
-                             <v-col class="campoPadrao"  >  
+                      <v-autocomplete
+                          label="Produtor"
+                          :items="produtorItens"                              
+                          v-model="this.param.produtor"   
+                          item-title="descricao" 
+                          item-value="codigo"
+                          variant="outlined"
+                          style=" width: 20%;min-width: 180px; "  
+                          class="espacoEntreComponentes" 
+                          bg-color="white"   
+                          density="compact"
+                      ></v-autocomplete> 
 
-                                <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>                  
+                                
 
-                                <v-autocomplete
-                                    id="produtor"
-                                    :items="produtorItens"                              
-                                    v-model="this.param.produtor"   
-                                    item-title="descricao" 
-                                    item-value="codigo"
-                                    variant="outlined"
-                                    bg-color="white"   
-                                    density="compact"
-                                ></v-autocomplete> 
+                  
 
-                            </v-col>
-
-                            <v-col class="campoPadrao"  >  
-
-                                <label  for="tipoMP" class="col-form-label labelCampoPadrao"><b>Tipo_MP</b></label><br>   
-
-                                <v-autocomplete
-                                    id="tipoMP"
-                                    :items="tipoMPItens"                                                                       
-                                    v-model="this.param.tipoMP"   
-                                    item-title="codigo" 
-                                    item-value="codigo"
-                                    variant="outlined"
-                                    bg-color="white"                                    
-                                    density="compact"                                
-                                ></v-autocomplete> 
-
-                            </v-col>
-      
-                      </v-row>
+                      <v-autocomplete
+                          label="Tipo MP"
+                          :items="tipoMPItens"                                                                       
+                          v-model="this.param.tipoMP"   
+                          item-title="codigo" 
+                          item-value="codigo"
+                          variant="outlined"
+                          style=" width: 20%;min-width: 180px; font-size:16px "  
+                          class="espacoEntreComponentes"  
+                          bg-color="white"                                    
+                          density="compact"                                
+                      ></v-autocomplete> 
+ 
+ 
   
                     </div>
 
@@ -422,8 +409,6 @@
                                <v-btn color="primary" class="botao_rodape"  
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "
                                  accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
-
-                                 <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                            </div>   
    
                        </div>    

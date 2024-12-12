@@ -1,3 +1,4 @@
+//import { create } from 'core-js/core/object';
 import { mapState } from 'vuex'
 
 export default { 
@@ -74,7 +75,7 @@ export default {
                 this.$store.state.configuracaoTela.marginBottomTela
                 this.marginTopLogin = '20%'
                 this.$store.state.configuracaoTela.marginLeftRodape='1px',
-                this.$store.state.configuracaoTela.marginRightRodape='5px',
+                //this.$store.state.configuracaoTela.marginRightRodape='5px',
                 this.$store.state.configuracaoTela.tamanhoRodape='99%'     
                 this.$store.state.configuracaoTela.alturaRodape='8%'   
                 this.$store.state.alturaCard = '3000px'            
@@ -94,7 +95,7 @@ export default {
                 this.$store.state.configuracaoTela.marginBottomTela
                 this.marginTopLogin = '20%'
                 this.$store.state.configuracaoTela.marginLeftRodape='2px',
-                this.$store.state.configuracaoTela.marginRightRodape='5px',
+                //this.$store.state.configuracaoTela.marginRightRodape='5px',
                 this.$store.state.configuracaoTela.tamanhoRodape='98%'                  
                 this.$store.state.configuracaoTela.alturaRodape='6%'
                 this.$store.state.alturaCard = '3000px'            
@@ -115,7 +116,7 @@ export default {
                   this.marginLeftLogin =  ((window.innerWidth-400 )/2)+'px'
                   this.marginTopLogin = '9%'
                   this.$store.state.configuracaoTela.marginLeftRodape='0px',
-                  this.$store.state.configuracaoTela.marginRightRodape='35px',
+                  //this.$store.state.configuracaoTela.marginRightRodape='35px',
                   
                   this.$store.state.configuracaoTela.alturaRodape='6%'  
                   this.$store.state.alturaCard = '800px'            
@@ -155,5 +156,31 @@ export default {
 
 
 
-    }
-}    
+    } 
+
+
+
+}           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

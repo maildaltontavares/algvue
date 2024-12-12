@@ -286,6 +286,8 @@
                                     <v-btn color="primary"  v-if="senhaAlterada" class="botao_rodape" style="min-width: 120px;" accesskey="n"  @click="navegarParaLogin"><u>N</u>ovo login</v-btn> 
                                     <v-btn color="primary" type="submit" v-if="senhaAlterada==false"  class="botao_rodape" style="min-width: 70px;" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " accesskey="n"  ><u>S</u>alvar</v-btn> 
 
+                                    <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
+
                               </div>  
 
 

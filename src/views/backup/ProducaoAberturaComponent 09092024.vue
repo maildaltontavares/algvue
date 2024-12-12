@@ -20,49 +20,59 @@
 
                    </div>         
                    
-                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >  
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" > 
 
-                            <v-row>
-                                    <!-- Primeiro Campo -->
-                                    <v-col class="campoPadrao"  >
-                                            <label   for="mistura" class="col-form-label labelCampoPadrao"><b>Mistura</b></label><br> 
-                                            <v-text-field
-                                                v-model.trim="this.producaoAbertura.mistura" 
-                                                id="mistura" 
-                                                ref="mistura"   
-                                                variant="outlined"
-                                                bg-color="white"  
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                maxlength="10"  
-                                                @blur="buscaByChave"
-                                                type="number"
-                                                :disabled="this.misturaDesabilitado" 
-                                        ></v-text-field> 
-                                    </v-col>
 
-                                    <v-col style=" width: 30%;min-width: 180px; "  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                            <label   for="sequencia" class="col-form-label labelCampoPadrao"><b>Sequencia</b></label><br> 
+                              
 
-                                            <v-text-field
-                                                    v-model.trim="this.producaoAbertura.seq" 
-                                                    id="sequencia"   
-                                                    ref="sequencia"  
-                                                    variant="outlined"
-                                                    bg-color="white"  
-                                                    inputmode="numeric"
-                                                    :rules="[campoRequerido]" 
-                                                    density="compact"
-                                                    maxlength="3"   
-                                                    @blur="buscaByChave" 
-                                                    type="number"
-                                                    :disabled="this.seqDesabilitado"  
-                                           ></v-text-field>  
-                                    </v-col>  
- 
-                            </v-row>
-                   </div>
+                                <v-text-field
+                                        v-model.trim="this.producaoAbertura.mistura" 
+                                        id="mistura"
+                                        label="Mistura" 
+                                        ref="mistura"  
+                                        style=" width: 30%;min-width: 180px; "  
+                                        class="espacoEntreComponentes"  
+                                        variant="outlined"
+                                        bg-color="white"  
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        maxlength="10"  
+                                        @blur="buscaByChave"
+                                        type="number"
+                                        :disabled="this.misturaDesabilitado"
+                                     
+
+                                    
+                                ></v-text-field>  
+
+                        
+
+
+                        
+
+                                <v-text-field
+                                        v-model.trim="this.producaoAbertura.seq" 
+                                        id="sequencia"
+                                        label="Sequencia" 
+                                        ref="sequencia"  
+                                        style=" width: 30%;min-width: 180px; "  
+                                        class="espacoEntreComponentes"  
+                                        variant="outlined"
+                                        bg-color="white"  
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        maxlength="3"   
+                                        @blur="buscaByChave" 
+                                        type="number"
+                                        :disabled="this.seqDesabilitado"  
+                                ></v-text-field>  
+
+                           
+
+                      
+                    </div>
 
                     <!--  DADOS PRODUCAO -->
                     <!--  DADOS QUALIDADE -->
@@ -77,16 +87,17 @@
                         </div>  
                     </div>     
 
-                    <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
-                          <v-row>
-                               <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                      <label  for="dataMovimento" class="col-form-label labelCampoPadrao"><b>Data_Movimento</b></label><br> 
-
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" >  
+                                
+                                        
                                         <v-text-field
                                             
                                             v-model.trim="this.producaoAbertura.dataMovimento" 
-                                            id="dataMovimento" 
-                                            ref="dataMovimento"  
+                                            id="dataMovimento"
+                                            label="Data Movimento" 
+                                            ref="dataMovimento"    
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataMovimentoDesabilitado"  
@@ -95,17 +106,16 @@
                                             density="compact"
                                             
                                         ></v-text-field>       
-                               </v-col>
-
-                               <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                      <label  for="dataMovimento" class="col-form-label labelCampoPadrao"><b>Hora</b></label><br> 
-
+                              
                                         
                                         <v-text-field
                                             
                                             v-model.trim="this.producaoAbertura.horaMovimento" 
-                                            id="horaMovimento" 
-                                            ref="horaMovimento"   
+                                            id="horaMovimento"
+                                            label="Hora" 
+                                            ref="horaMovimento"    
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="horaMovimentoDesabilitado"  
@@ -114,35 +124,38 @@
                                             density="compact"
                                             
                                         ></v-text-field>   
-                               </v-col>
-                               <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                      <label  for="turno" class="col-form-label labelCampoPadrao"><b>Turno</b></label><br> 
+                               
 
                                     <v-autocomplete
                                         v-model.trim="this.producaoAbertura.turno" 
-                                        id="turno" 
+                                        label="Turno"
                                         :items="turnos"   
                                         item-title="nome" 
                                         item-value="codigo"
-                                        variant="outlined"  
+                                        variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
-                                        @blur="validaTurno()"  
+                                        @blur="validaTurno()"
+                                    
+                                        
                                     ></v-autocomplete> 
 
-                                </v-col>
-                                <v-col class="campoConjugado"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                       
-                                          <div  >   
-                                                <label for="operador" class="col-form-label labelCampoPadrao"><b>Operador</b></label><br>                                                 
+                              
+
+                            
+                                    <div   class="espacoEntreComponentes" style="width: 40%; min-width:350px; "   >   
+                                                
                                                 <div class="input-group">   
                                                     
                                                     <div class="d-flex  justify-content-start">
                                                         
                                                         <v-text-field
                                                         
-                                                            id="operador" 
+                                                            id="operador"
+                                                            label="Operador"
                                                             ref="operador"  
                                                             maxlength="5"  
                                                             style=" width: 120px; "
@@ -175,7 +188,7 @@
             
                                                     </div  >      
             
-                                                    <div class="descricaoCampoConjugado" >    
+                                                    <div style="   flex-grow: 1;height:43px;"  >    
                                                         <v-text-field
                                                         
                                                             id="nomeOperador"   
@@ -190,43 +203,41 @@
             
                                                 </div>
             
-                                          </div>  
-                                </v-col>   
+                                    </div>     
 
-                          </v-row> 
+
 
 
                     </div>
-                    <div class="flex-linha linhaPadrao"   > 
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%;background-color:white" > 
 
-                        <v-row>
-
-                            <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                <label   for="tipoMaquina" class="col-form-label labelCampoPadrao"><b>Tipo_Máquina</b></label><br> 
+                           
 
                                 <v-autocomplete
-                                    id="tipoMaquina"  
+                                    label="Tipo Máquina"
                                     :items="tipoMaquinaItens"      
                                     item-title="descricao" 
                                     item-value="codigo"
                                     v-model.trim="this.producaoAbertura.tipoMaquina"   
-                                    variant="outlined"  
+                                    variant="outlined"
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     bg-color="white"   
                                     density="compact"
                                     :rules="[campoRequerido]"  
                                     disabled
                                 ></v-autocomplete>  
 
-                            </v-col>
-
-                            <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                <label   for="localFisico" class="col-form-label labelCampoPadrao"><b>Local_Físico</b></label><br> 
+                           
                                         
                                 <v-text-field
                                     v-model.trim="this.producaoAbertura.localFisico"   
-                                    id="localFisico" 
+                                    id="localFisico"
+                                    label="Local Físico"
                                     ref="localFisico"  
-                                    maxlength="3"       
+                                    maxlength="3"                                            
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -236,16 +247,12 @@
                                     @blur="buscaMaquinaPorLocal"
                                     
                                 ></v-text-field>                                  
-                            </v-col>         
+                                     
                            
                             
                             
                             
-                            <v-col class="campoConjugado"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                       
-                                <div>   
-                                         <label   for="maquina" class="col-form-label labelCampoPadrao"><b>Maquina</b></label><br>                                                 
-
+                            <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "   >   
                                         
                                         <div class="input-group">   
                                             
@@ -254,7 +261,7 @@
                                                 <v-text-field
                                                  
                                                     id="maquina"
-                                                
+                                                    label="Maquina"
                                                     ref="maquina"  
                                                     maxlength="6"  
                                                     style=" width: 120px; "
@@ -283,7 +290,7 @@
     
                                             </div  >      
     
-                                            <div class="descricaoCampoConjugado" > 
+                                            <div style="   flex-grow: 1;height:43px;"  > 
                                                 <v-text-field
                                                  
                                                     id="descMaquina"   
@@ -298,59 +305,55 @@
     
                                         </div>
     
-                                 </div>    
+                            </div>    
 
-                            </v-col>
-
-                            <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                <label   for="lado" class="col-form-label labelCampoPadrao"><b>Lado</b></label><br> 
-                                                       
                                     <v-autocomplete
-                                        id="lado"
                                         v-model.trim="this.producaoAbertura.lado" 
-                                        base-color=""
+                                        label="Lado" 
                                         :items="lados"     
                                         item-title="nome" 
                                         item-value="codigo"
-                                        variant="outlined" 
+                                        variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact" 
                                         @blur="validaLado"
                                     ></v-autocomplete>  
+                  
 
-                            </v-col>
+                    </div>  
+
+
+                     
+
+ 
                             
 
 
-                                    
-                       </v-row>
-
-                    </div>   
                         
  
 
-                        <div class="flex-linha linhaPadrao" >              
+                        <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%; ">                            
 
-                            <v-row> 
-                                <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
-                                    <label  for="obs" class="col-form-label labelCampoPadrao"><b>Observacao</b></label><br> 
-                                
-                                    <v-text-field
-                                        v-model.trim="this.producaoAbertura.observacao"
-                                        id="obs" 
-                                        ref="obs"     
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact" 
+                        
+                                                
+                                <v-text-field
+                                    v-model.trim="this.producaoAbertura.observacao"
+                                    id="obs"
+                                    label="Observacao" 
+                                    ref="obs"                               
+                                    style=" width: 100%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
+                                    variant="outlined"
+                                    bg-color="white"                                           
+                                    type="text"     
+                                    density="compact" 
                                     
-                                        
-                                    ></v-text-field>   
-
-                                </v-col>
+                                ></v-text-field>   
                             
-                            </v-row> 
+                      
 
                     </div>  
              
@@ -405,8 +408,6 @@
                                         :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
                                          accesskey="p" ><u>P</u>esquisar</v-btn>
 
-                                         <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
-
                                           
 
 
@@ -441,7 +442,7 @@
   
     
    import ApiMixinValidator from '@/mixins/ApiMixinValidator'   
-   import MensagemMobile  from '../components/MensagemMobileComponent.vue'
+   import MensagemMobile  from '../../components/MensagemMobileComponent.vue'
    import ApiMixinALG from '@/mixins/ApiMixinALG'
    import SimNao from '@/requires/SimNao.vue' 
    import PesquisaOperador from '@/requires/PesquisaOperador';

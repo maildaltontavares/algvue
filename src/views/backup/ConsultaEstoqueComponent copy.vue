@@ -1,4 +1,4 @@
-<template>   
+<template>    
 
 <v-form  ref="formulario"   style=" background-color:white;height:100% "  >    
 
@@ -11,7 +11,7 @@
                         
                         <div    class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p class="text-white text-end mt-3 pe-5" style="font-size: 18px"><b>Localizar Pilha</b></p>
+                                <p class="text-white text-end mt-3 pe-5" style="font-size: 18px"><b>Consulta de Estoque</b></p>
                                                          
                             </div> 
                         </div>    
@@ -45,207 +45,203 @@
                         <v-row>
 
                               <v-col class="campoPadrao"  >  
-                                   <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>  
-
+                                   <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>     
                                     <v-autocomplete
-                                        id="produtor"
+                                        id="produtor"  
                                         :items="produtorItens"                              
                                         v-model.trim="this.estoque.produtor" 
                                         item-title="descricao" 
                                         item-value="codigo"
-                                        variant="outlined" 
+                                        variant="outlined"  
                                         bg-color="white"   
                                         density="compact"
                                        
                                         :disabled="this.produtorDesabilitado"
                                     ></v-autocomplete> 
-
-                               </v-col>
- 
-
+                              </v-col> 
       
-                               <v-col class="campoConjugado" cols="3"  >  
-                                      
-                                      <div  >   
-                                         <label for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>    
-                                        
-                                          <div class="input-group">   
-                                              
-                                              <div class="d-flex  justify-content-start">
-                                                  
-                                                  <v-text-field
-                                                  
-                                                      id="item"
-                                                     
-                                                      ref="item"  
-                                                      maxlength="7"  
-                                                      style=" width: 120px; "
-                                                      variant="outlined"
-                                                      bg-color="white"
-                                                      v-model.trim="this.estoque.item"
-                                                      type="number"
-                                                      inputmode="numeric"
-                                                      
-                                                      density="compact"
-                                                      :disabled="this.itemDesabilitado"
-                                                      @blur="apiPesquisaParam('itemPilha', this.estoque.item  , this.estoque)"
-                                                  ></v-text-field>    
-                                                      
-                                                  <v-btn   data-bs-toggle="modal" 
-                                                  data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                                      :disabled="this.itemDesabilitado"
-                                                      style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                                      > 
-                                                          <v-icon
-                                                          this.
-                                                          class="mb-6"
-                                                          color="primary"
-                                                          icon="mdi-card-search-outline"
-                                                          size="45"
-                                                        
-                                                          ></v-icon>  
-                                                  </v-btn>     
-
-                                              </div  >      
-
-                                              <div class="descricaoCampoConjugado" >    
-                                                  <v-text-field
-                                                  
-                                                      id="descFio"   
-                                                      disabled 
-                                                      class="limitadorMedia"
-                                                      density="compact"
-                                                      v-model.trim="this.estoque.descFio"
-                                                      style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
-                                                  ></v-text-field>   
-                                              </div>  
-
-                                          </div> 
-
-
-                                      </div>  
-                                </v-col>  
-
-                                <v-col class="campoPadrao"  >  
-                                     <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>   
-                                      <v-text-field  
-                                          id="lote"
-                                       
-                                          ref="lote"  
-                                          v-model.trim="this.estoque.lote"
-                                          maxlength="5"  
-                                          variant="outlined"   
-                                          density="compact"  
-                                          :disabled="this.loteDesabilitado"
   
-                                      ></v-text-field>    
-                                 </v-col>
-                               
-                                 <v-col class="campoPadrao"  >  
-                                         <label  for="pilha" class="col-form-label labelCampoPadrao"><b>Pilha</b></label><br>  
-                                                    
-                                          <v-text-field  
-                                              id="pilha"  
-                                              ref="pilha"  
-                                              v-model.trim="this.estoque.pilha"
-                                              maxlength="5"   
-                                              variant="outlined" 
-                                              type="number"
-                                              inputmode="numeric" 
-                                              density="compact" 
-                                              
-                                              @blur="configuraPilha() "
-                                              :disabled="this.pilhaDesabilitado"
-    
-                                          ></v-text-field>  
-                                </v-col>                                  
-                                                       
-                             
+                              <v-col class="campoConjugado" cols="3"  >  
+                                      
+                                 <div  >   
+                                    <label for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>    
+                                    <div class="input-group">   
+                                        
+                                        <div class="d-flex  justify-content-start">
+                                            
+                                            <v-text-field
+                                             
+                                                id="item"
+                                               
+                                                ref="item"  
+                                                maxlength="7"  
+                                                style=" width: 120px; "
+                                                variant="outlined"
+                                                bg-color="white"
+                                                v-model.trim="this.estoque.item"
+                                                type="number"
+                                                inputmode="numeric"
+                                                
+                                                density="compact"
+                                                :disabled="this.itemDesabilitado"
+                                                @blur="apiPesquisaParam('itemPilha', this.estoque.item  , this.estoque)"
+                                            ></v-text-field>    
+                                                
+                                            <v-btn   data-bs-toggle="modal" 
+                                            data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
+                                                 :disabled="this.itemDesabilitado"
+                                                style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                > 
+                                                    <v-icon
+                                                    this.
+                                                    class="mb-6"
+                                                    color="primary"
+                                                    icon="mdi-card-search-outline"
+                                                    size="45"
+                                                   
+                                                    ></v-icon>  
+                                            </v-btn>     
 
-                                <v-col class="campoPadrao"  >  
-                                  <label  for="procedencia" class="col-form-label labelCampoPadrao"><b>Procedencia</b></label><br>  
-                           
-                                      <v-autocomplete
-                                          
-                                          id="procedencia"
-                                          :items="procedenciaItens" 
-                                          v-model.trim="this.estoque.procedencia"   
-                                          :disabled="this.procedenciaDesabilitado"               
-                                         
-                                          item-title="descricao" 
-                                          item-value="codigo"
-                                          variant="outlined" 
-                                          bg-color="white"     
-                                          
-                                          density="compact" 
-                                          
-                                      ></v-autocomplete> 
+                                        </div  >      
 
+                                        <div class="descricaoCampoConjugado" > 
+                                            <v-text-field
+                                             
+                                                id="descFio"   
+                                                disabled 
+                                                class="limitadorMedia"
+                                                density="compact"
+                                                v-model.trim="this.estoque.descFio"
+                                                style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                            ></v-text-field>   
+                                        </div>  
 
-                                </v-col>
+                                    </div>
 
+                                </div> 
+                              </v-col>   
 
-                        </v-row>
-                                  
-                  </div>
-                  <div class="flex-linha linhaPadrao"   >  
-                        <v-row>
 
                               <v-col class="campoPadrao"  >  
-                                   <label  for="tamanho" class="col-form-label labelCampoPadrao"><b>Tamanho</b></label><br>   
+                                        <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>     
+                                
+                                                        
+                                          <v-text-field  
+                                              id="lote" 
+                                              ref="lote"  
+                                              v-model.trim="this.estoque.lote"
+                                              maxlength="5"   
+                                              variant="outlined"   
+                                              density="compact"  
+                                              :disabled="this.loteDesabilitado"
+      
+                                          ></v-text-field>    
+                            </v-col>
 
-                                            <v-autocomplete
+                            <v-col class="campoPadrao"  >  
+                                    <label  for="pilha" class="col-form-label labelCampoPadrao"><b>Pilha</b></label><br>                                    
+                                              
+                                    <v-text-field  
+                                        id="pilha" 
+                                        ref="pilha"  
+                                        v-model.trim="this.estoque.pilha"
+                                        maxlength="5"  
+                                        variant="outlined" 
+                                        type="number"
+                                        inputmode="numeric" 
+                                        density="compact" 
+                                        
+                                        @blur="configuraPilha() "
+                                        :disabled="this.pilhaDesabilitado"
 
-                                                  id="tamanho"
-                                                  :items="tamanhoItens"  
-                                                  v-model.trim="this.estoque.tamanho" 
-                                                  item-title="nome" 
-                                                  item-value="id"
-                                                  variant="outlined" 
-                                                  bg-color="white" 
-                                                  :disabled="this.tamanhoDesabilitado"     
-                                                  
-                                                  density="compact"
+                                    ></v-text-field>                                    
+                                                          
+                                  
+                          </v-col>
 
-                                          ></v-autocomplete>  
-                              </v-col>
+                          <v-col class="campoPadrao"  >  
+                              <label  for="procedencia" class="col-form-label labelCampoPadrao"><b>Procedencia</b></label><br>                                 
+                                <v-autocomplete
+                                    id="procedencia"
+                                
+                                    :items="procedenciaItens" 
+                                    v-model.trim="this.estoque.procedencia"   
+                                    :disabled="this.procedenciaDesabilitado"               
+                                  
+                                    item-title="descricao" 
+                                    item-value="codigo"
+                                    variant="outlined" 
+                                    bg-color="white"     
+                                    
+                                    density="compact" 
+                                    
+                                ></v-autocomplete> 
+                        </v-col>
+
+                                  
 
 
-                                   
+                        <v-col class="campoPadrao"  >  
+                                  <label  for="tamanho" class="col-form-label labelCampoPadrao"><b>Tamanho</b></label><br>  
+                                  <v-autocomplete
+                                        id="tamanho"
+                                        base-color=""
+                                        :items="tamanhoItens"  
+                                        v-model.trim="this.estoque.tamanho" 
+                                        item-title="nome" 
+                                        item-value="id"
+                                        variant="outlined" 
+                                        bg-color="white" 
+                                        :disabled="this.tamanhoDesabilitado"     
+                                        
+                                        density="compact"
 
-                              <v-col class="campoPadrao" v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
-                                <label  for="qualid" class="col-form-label labelCampoPadrao"><b>Qualid.</b></label><br>  
-                               
+                                ></v-autocomplete>  
+                          </v-col>
+                      </v-row>
+
+                  </div>
+
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->
+                  <!--  FINAL LINHA 00001  -->                    
+
+                  <div class="flex-linha linhaPadrao"     >  
+                        <v-row>
+
+                              <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                       <label  for="qualid" class="col-form-label labelCampoPadrao"><b>Qualid</b></label><br>    
 
                                         <v-autocomplete
+                                            id="qualid" 
                                             
-                                            id="qualid"
                                             :items="qualidadeItens" 
                                             v-model.trim="this.estoque.qual1" 
                                             :disabled="this.qual1Desabilitado" 
                                             item-title="descricao" 
                                             item-value="codigo"
-                                            variant="outlined" 
+                                            variant="outlined"
+                                             
                                             bg-color="white" 
                                             density="compact" 
                                             
                                         ></v-autocomplete> 
-                            </v-col>
+                              </v-col>
 
-                                
-
-                            <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
-                                        <label  for="classfic" class="col-form-label labelCampoPadrao"><b>Classfic</b></label><br>  
-
+                               
+                              <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                       <label  for="classfic" class="col-form-label labelCampoPadrao"><b>Classfic</b></label><br>    
                                         <v-autocomplete
-                                            
+                                   
                                             id="classfic"
                                             :items="classificacaoItens" 
                                             v-model.trim="this.estoque.qual2" 
                                             :disabled="this.qual2Desabilitado"    
                                             item-title="descricao" 
                                             item-value="codigo"
-                                            variant="outlined" 
+                                            variant="outlined"
+                                             
                                             bg-color="white" 
                                             density="compact" 
                                             
@@ -253,149 +249,143 @@
                             </v-col>
 
                             <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
-                                       <label  for="cor" class="col-form-label labelCampoPadrao"><b>Cor</b></label><br>                              
+                                        <label  for="cor" class="col-form-label labelCampoPadrao"><b>Cor</b></label><br>   
+                            
                                           
-                                        <v-autocomplete 
-                                          
-                                           
+                                        <v-autocomplete  
+                                   
                                             :items="coloracao"  
                                             id="cor"    
                                             item-title="codigo" 
                                             item-value="codigo"
-                                            variant="outlined" 
+                                            variant="outlined"
+                                             
                                             bg-color="white"  
                                             density="compact"
                                             v-model.trim="this.estoque.coloracao" 
                                             :disabled="this.coloracaoDesabilitado"                                              
 
-                                        ></v-autocomplete> 
-                            </v-col> 
-                                    
-                                       
-
-                                
-                                
-                            <v-col class="campoConjugado" cols="3"  >  
-                                      
-                                      <div  >   
-                                         <label for="fornecedor" class="col-form-label labelCampoPadrao"><b>Fornecedor</b></label><br>   
-                                          <div class="input-group">  
-                                              
-                                                  <div class="d-flex  justify-content-start">
-                                                      
-                                                    <v-text-field
-                                                          v-model.trim="this.estoque.fornecedor" 
-                                                         
-                                                          id="fornecedor"                                                  
-                                                          ref="fornecedor"  
-                                                          maxlength="5"                                                    
-                                                          style=" width: 120px; " 
-                                                          variant="outlined"
-                                                          bg-color="white"                                                  
-                                                          type="number"
-                                                          inputmode="numeric"                                                   
-                                                          density="compact"
-                                                          @blur="apiPesquisaParam('fornecedor', this.estoque.fornecedor, this.estoque)"
-                                                          :disabled="this.fornecedorDesabilitado" 
-                                                          
-                                                      ></v-text-field>   
-                                                          
-                                                      <v-btn   data-bs-toggle="modal" 
-                                                          data-bs-target="#modalPesquisaFornecedor"  
-                                                          :disabled="this.fornecedorDesabilitado" 
-                                                          tabindex="-1"  @click="apiFlushPesquisa"  
-                                                          style="height:43px;width:60px;background-color:rgb(240, 237, 232);; " 
-                                                          > 
-                                                              <v-icon
-                                                                  class="mb-6"
-                                                                  color="primary"
-                                                                  icon="mdi-card-search-outline"
-                                                                  size="45"
-                                                              ></v-icon>  
-                                                      </v-btn>     
-
-                                                  </div  >      
-
-                                                  <div class="descricaoCampoConjugado" > 
-                                                      <v-text-field
-                                                          v-model.trim="this.nomeFornecedor"
-                                                          id="nomeFornecedor"   
-                                                          disabled 
-                                                          class="limitadorMedia"                                                                                                 
-                                                          style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
-                                                          density="compact"
-                                                      ></v-text-field>   
-                                                  </div>     
-                                          </div>
-
-                                      </div>   
-
+                                        ></v-autocomplete>  
                             </v-col>
-                                
-                              
-                            <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                  
 
-                                      <label  for="destino" class="col-form-label labelCampoPadrao"><b>Destino</b></label><br>    
-                                      <v-autocomplete
+                                
+                                
+ 
+                            <v-col class="campoConjugado" cols="3"  >  
+                                       
+                                 <div  >   
+                                     <label for="fornecedor" class="col-form-label labelCampoPadrao"><b>Fornecedor</b></label><br>  
+                                    <div class="input-group">  
                                         
+                                            <div class="d-flex  justify-content-start">
+                                                
+                                              <v-text-field
+                                                    v-model.trim="this.estoque.fornecedor"  
+                                                    id="fornecedor"                                                  
+                                                    ref="fornecedor"  
+                                                    maxlength="5"                                                    
+                                                    style=" width: 120px; " 
+                                                    variant="outlined"
+                                                    bg-color="white"                                                  
+                                                    type="number"
+                                                    inputmode="numeric"                                                   
+                                                    density="compact"
+                                                    @blur="apiPesquisaParam('fornecedor', this.estoque.fornecedor, this.estoque)"
+                                                    :disabled="this.fornecedorDesabilitado" 
+                                                    
+                                                ></v-text-field>   
+                                                    
+                                                <v-btn   data-bs-toggle="modal" 
+                                                    data-bs-target="#modalPesquisaFornecedor"  
+                                                    :disabled="this.fornecedorDesabilitado" 
+                                                    tabindex="-1"  @click="apiFlushPesquisa"  
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232);; " 
+                                                    > 
+                                                        <v-icon
+                                                            class="mb-6"
+                                                            color="primary"
+                                                            icon="mdi-card-search-outline"
+                                                            size="45"
+                                                        ></v-icon>  
+                                                </v-btn>     
+
+                                            </div  >      
+
+                                            <div class="descricaoCampoConjugado" > 
+                                                <v-text-field
+                                                    v-model.trim="this.nomeFornecedor"
+                                                    id="nomeFornecedor"   
+                                                    disabled 
+                                                    class="limitadorMedia"                                                                                                 
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  "
+                                                    density="compact"
+                                                ></v-text-field>   
+                                            </div>     
+                                    </div>
+
+                                </div>  
+                            </v-col> 
+                                
+                            <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                      <label  for="destino" class="col-form-label labelCampoPadrao"><b>Destino</b></label><br>                               
+
+                                      <v-autocomplete
+                                      
                                           id="destino"
                                           :items="destinoItens"       
                                           v-model.trim="this.estoque.destino" 
                                           item-title="descricao" 
                                           item-value="codigo"
-                                          variant="outlined" 
+                                          variant="outlined"  
                                           bg-color="white"      
                                      
                                           density="compact"
                                           :disabled="this.destinoDesabilitado" 
                                           
-                                      ></v-autocomplete> 
+                                      ></v-autocomplete>  
+                           </v-col>
 
-                              </v-col>
-                                                               
-                              <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
-                              
-                                      <label  for="corteza" class="col-form-label labelCampoPadrao"><b>Corteza</b></label><br>                                 
-
+                           <v-col class="campoPadrao"  v-if="this.$store.state.usuarioSistema.idfil == '05'"  >  
+                                      <label  for="corteza" class="col-form-label labelCampoPadrao"><b>Corteza</b></label><br>                            
                              
                                       <v-autocomplete
-
+                                          
                                             id="corteza"
-                                            :items="cortezaItens"       
-                                         
+                                            :items="cortezaItens"    
                                             v-model.trim="this.estoque.corteza"
                                             item-title="nome" 
                                             item-value="id"
-                                            variant="outlined"  
+                                            variant="outlined"
+                                             
                                             bg-color="white" 
                                             density="compact"
                                             :disabled="this.cortezaDesabilitado" 
 
-                                      ></v-autocomplete>   
+                                      ></v-autocomplete>     
 
-                              </v-col>
-
+                           </v-col>
                         </v-row>
  
-                  </div>
-                        <!--
+                    </div>
+                    <!--
 
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
-                          Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
+                      Final primeira Linha de dados
 
 
-                        -->
+                    -->
 
 
             
 
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->
-                  <!-- Final Painel Unir Pilhas -->      
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->
+                  <!-- Final Painel Estoque -->      
 
 
 
@@ -456,11 +446,6 @@
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >QUAL</th>  
                                       <th class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" >CORTEZA</th>  
                                       <th class="col-2 text-start"  >PILHA</th>  
-                                      <th class="col-2 text-start"  >NOVA PILHA</th>  
-
-
-
-
                                       <th class="col-2 text-start" >LOTE</th>  
                                       <th class="col-2 text-start" >TAM</th>  
                                       <th class="col-2 text-start"  >ESTOQUE</th>  
@@ -485,6 +470,7 @@
                                       <th class="col-2 text-start" >TrAr</th>  
                                       <th class="col-2 text-start" >TrCnt</th>  
                                       <th class="col-2 text-start" >UHML</th>  
+                                      <th class="col-2 text-start" >Consultar</th> 
                                     
                                     
 
@@ -511,28 +497,15 @@
                                       
                                       <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
                                         {{ i.m4QUAL}}
-                                      </td>                                         
- 
+                                      </td>       
+                                      
                                       <td class="col-1 text-start" v-if="this.$store.state.usuarioSistema.idfil == '05'" :style="{backgroundColor: i.corLinha} ">
                                         {{ i.m4CORTEZ}}
-                                      </td>
-
-
+                                      </td>                                         
+ 
                                       <td class="col-1 text-start"   :style="{backgroundColor: i.corLinha} ">
                                         {{ i.pi}}
-                                      </td>   
-
-                                      <td  class="col-2  "   >    
- 
-                                          <input type="number"
-                                              v-model.trim="i.novaPilha" 
-                                              maxlength="5"                                            
-                                              style=" width: 100px;height: 30px;border:solid 1px ;text-align: center;font-size:16px;border-radius:5px 5px 5px 5px; "   
-                                              @blur="atualizaPilha( i )"
-                                             
-                                          >         
-
-                                      </td>                                         
+                                      </td>  
 
                                       <td class="col-1 text-start" :style="{backgroundColor: i.corLinha} " >
                                         {{ i.lote}}
@@ -720,8 +693,15 @@
 
                                       <td class="col-1 text-center" :style="{backgroundColor: i.corLinha} "     v-if="i.mic == 0 || i.uhml == 0 || i.mat == 0 || i.sic == 0  || i.m4UHML ==null">
                                         {{  }}
-                                      </td>                                        
-
+                                      </td>  
+                                      
+                                      
+                                      <td>
+                                        
+                                          <a   class="btn btn-sm btn-primary" style="width:100px" @click="exibeMovimentos(i)"  >
+                                              <span  title="Movimentos" ><i   style="cursor: pointer;"></i>Movim. Lote</span>
+                                          </a>    
+                                     </td>
                                      
                                     </tr>
  
@@ -743,7 +723,416 @@
                     <!-- /// Final corpo Pilha -->  
                     <!-- /// Final corpo Pilha -->   
 
+
+
+                    
+                    
+
+                    <!-- /// Estoque por Produtor -->  
+                    <!-- /// Estoque por Produtor -->   
+                    <!-- /// Estoque por Produtor -->   
+                    <!-- /// Estoque por Produtor -->  
+                    <div class="d-flex justify-content-center"  style="height:500px; background-color:white ;margin-top:100px;overflow-y: scroll; overflow-x: scroll;"   >  
+                          <div   style=" width:4%;  "> </div>
+                          <div class="container-fluid"  style=" height:100px; width:90%; ">
+                                <table class="table table-sm  ">
+                                    <thead   >
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          <th  colspan="23" style="background-color:cadetblue; text-align:center;font-size:18px; "   >ESTOQUE POR PRODUTOR</th> 
+                                          
+                                      </tr> 
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          
+                                          <th class="col-1 text-start tabGrid"  >PRODUTOR</th>  
+                                          <th class="col-1 text-start tabGrid"  >SAC</th>  
+                                          <th class="col-1 text-start tabGrid" >TRID</th>  
+                                          <th class="col-1 text-start tabGrid">PIM</th>  
+                                          <th class="col-1 text-start tabGrid ">SC</th>  
+                                          <th class="col-1 text-start tabGrid" >SCI</th>
+                                          <th class="col-1 text-start tabGrid" >MST</th>
+                                          <th class="col-1 text-start tabGrid" >MIC</th>   
+                                          <th class="col-1 text-start tabGrid" >MAT</th>  
+                                          <th class="col-1 text-start tabGrid" >UHML</th> 
+                                          <th class="col-1 text-start tabGrid" >UI</th> 
+                                          <th class="col-1 text-start tabGrid" >SF</th>  
+                                          <th class="col-1 text-start tabGrid" >STR</th> 
+                                          <th class="col-1 text-start tabGrid" >ELG</th> 
+                                          <th class="col-1 text-start tabGrid" >+B</th> 
+                                          <th class="col-1 text-start tabGrid" >RD</th>                                           
+<!--                                          
+                                          <th class="col-1 text-start tabGrid"  >TIPO</th>  
+-->                                          
+                                          <th class="col-1 text-start tabGrid" >TrAr</th>  
+                                          <th class="col-1 text-start tabGrid" >TrCnt</th> 
+                                          <th class="col-1 text-end tabGrid" >Estoque</th> 
+                                          <th class="col-1 text-end tabGrid" >%</th> 
+                                          <th class="col-1 text-end tabGrid" >Testados</th>  
+                                          <th class="col-1 text-end tabGrid" >Não Testados</th> 
+                                          
+
+                                      </tr>
+                                    </thead>  
+
+                                    <tbody  >
+                                      <template  v-for="(i,indice) in aEstoqueProdutor" :key="indice">
+    
+                                        <tr   >  
+
+                                            <td class="col-1 text-start tabGridCol"   >
+                                              {{ i.produtor }} 
+                                            </td> 
+
+                                            <td class="col-1 text-start tabGridCol"   >
+                                              {{ (i.SAC).toFixed(1)}} 
+                                            </td> 
+                                        
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TRID).toFixed(1) }}
+                                            </td>  
+
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.PIM).toFixed(1) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.SC).toFixed(1) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.SCI).toFixed(0) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.MST).toFixed(1) }}
+                                            </td> 
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.MIC).toFixed(2) }}
+                                            </td>    
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.MAT).toFixed(2) }}
+                                            </td>    
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.UHML).toFixed(2) }}
+                                            </td>  
+
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.UI).toFixed(1) }}
+                                            </td>                                                
  
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.SF).toFixed(1) }}
+                                            </td>   
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.STR).toFixed(1) }}
+                                            </td>   
+                                            
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.ELG).toFixed(1) }}
+                                            </td>   
+<!--
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TIPO).toFixed(2) }}
+                                            </td>                                                                                           
+                                          -->                
+                                          <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.B).toFixed(1) }}
+                                            </td>   
+
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.RS).toFixed(1) }}
+                                            </td>                                               
+<!--
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TIPO).toFixed(2) }}
+                                            </td>                                                                                           
+                                          -->                
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TrAr).toFixed(2) }}
+                                            </td>   
+
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TrCnt).toFixed(2) }}
+                                            </td>   
+
+                                            <td class="col-1 text-end tabGridCol" style="color:blue"  >
+                                              {{ this.apiFormataNumero(i.TotFardosEstoque ,0) }}
+                                            </td>     
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2)}}
+                                            </td>       
+ 
+                                            <td class="col-1 text-end tabGridCol"  >
+                                              {{ i.TotalTestadoMistura }}
+                                            </td>                                   
+ 
+                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura>0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td> 
+
+                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura<=0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td>                                                                                             
+
+                                             
+
+                                        </tr>  
+
+                                      </template>
+
+                                      <!-- Totais estoque por produtor -->
+                                      <!-- Totais estoque por produtor -->
+                                      <!-- Totais estoque por produtor -->
+                                      <!-- Totais estoque por produtor -->
+
+
+                                      <template  v-for="(i,indice) in aEstoqueProdutorTotalizador" :key="indice">
+    
+                                        <tr   >  
+
+                                            <td class="col-1 text-start tabGridColTotais"   >
+                                              {{ i.produtor }} 
+                                            </td> 
+
+                                            <td class="col-1 text-start tabGridColTotais"   >
+                                              {{ (i.SAC).toFixed(1)}} 
+                                            </td> 
+                                        
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.TRID).toFixed(1) }}
+                                            </td>  
+
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.PIM).toFixed(1) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.SC).toFixed(1) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.SCI).toFixed(0) }}
+                                            </td>  
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.MST).toFixed(1) }}
+                                            </td> 
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.MIC).toFixed(2) }}
+                                            </td>    
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.MAT).toFixed(2) }}
+                                            </td>    
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.UHML).toFixed(2) }}
+                                            </td>  
+
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.UI).toFixed(1) }}
+                                            </td>                                                
+ 
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.SF).toFixed(1) }}
+                                            </td>   
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.STR).toFixed(1) }}
+                                            </td>   
+                                            
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.ELG).toFixed(1) }}
+                                            </td>   
+<!--
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.TIPO).toFixed(2) }}
+                                            </td>                                                                                           
+                                          -->                
+                                           <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.B).toFixed(1) }}
+                                            </td>   
+
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.RS).toFixed(1) }}
+                                            </td>                                               
+<!--
+                                            <td class="col-1 text-start tabGridCol"  >
+                                              {{ (i.TIPO).toFixed(2) }}
+                                            </td>                                                                                           
+                                          -->                
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.TrAr).toFixed(2) }}
+                                            </td>   
+
+                                            <td class="col-1 text-start tabGridColTotais"  >
+                                              {{ (i.TrCnt).toFixed(2) }}
+                                            </td>   
+
+                                            <td class="col-1 text-end tabGridColTotais"   >
+                                              {{ this.apiFormataNumero(i.TotFardosEstoque ,0)}}
+                                            </td>     
+
+                                            <td class="col-1 text-end tabGridColTotais"   >
+                                              {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2)}}
+                                            </td>                                              
+                                                                                     
+
+ 
+                                            <td class="col-1 text-end tabGridColTotais" >
+                                              {{ i.TotalTestadoMistura }}
+                                            </td>                                   
+ 
+                                            <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura>0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td> 
+
+                                            <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura<=0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td>                                                                                             
+
+                                             
+
+                                        </tr>  
+
+                                      </template>
+
+                                      <!-- Final Totais estoque por produtor -->
+                                      <!-- Final Totais estoque por produtor -->
+                                      <!-- Final Totais estoque por produtor -->
+                                      <!-- Final Totais estoque por produtor -->  
+
+
+
+                                    </tbody> 
+
+                                </table>  
+                          </div> 
+                          <div   style=" width:4%;  "> </div>
+                    </div>  
+
+                    <!-- /// Final Estoque por Produtor -->  
+                    <!-- /// Final Estoque por Produtor -->   
+                    <!-- /// Final Estoque por Produtor -->   
+                    <!-- /// Final Estoque por Produtor --> 
+
+
+
+                    <!-- /// Estoque por Qualidade -->  
+                    <!-- /// Estoque por Qualidade -->   
+                    <!-- /// Estoque por Qualidade -->   
+                    <!-- /// Estoque por Qualidade -->  
+                    <div class="d-flex justify-content-center"  style="height:400px; background-color:white ;margin-top:100px;margin-bottom:500px;overflow-y: scroll; overflow-x: scroll;"   v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+                          <div   style=" width:4%;  "> </div>
+                          <div class="container-fluid"  style=" height:100px; width:20%; ">
+                                <table class="table table-sm  ">
+                                    <thead   >
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          <th  colspan="20" style="background-color:cadetblue; text-align:center;font-size:18px; " v-if="this.$store.state.usuarioSistema.idfil == '05'"  >ESTOQUE POR QUALIDADE</th> 
+                                           
+                                      </tr> 
+                                      <tr  style="background-color:cadetblue; color: white;"> 
+                                          
+                                          <th class="col-1 text-start tabGrid"  >QUALIDADE</th>   
+                                          <th class="col-1 text-end tabGrid" >Estoque</th> 
+                                          <th class="col-1 text-end tabGrid" >%</th> 
+                                          <th class="col-1 text-end tabGrid" >Testados</th>  
+                                          <th class="col-1 text-end tabGrid" >Não Testados</th> 
+
+                                          
+                                          
+
+                                      </tr>
+                                    </thead>  
+
+                                    <tbody  >
+                                      <template  v-for="(i,indice) in aEstoqueQualidade" :key="indice">
+    
+                                        <tr   >  
+
+                                            <td class="col-1 text-start tabGridCol"   >
+                                              {{ i.qualidade }} 
+                                            </td> 
+
+                                             <td class="col-1 text-end tabGridCol" style="color:blue"  >
+                                              {{this.apiFormataNumero(i.TotFardosEstoque ,0)}}
+                                            </td>   
+
+                                            <td class="col-1 text-end tabGridCol"   >
+                                              {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2) }}
+                                            </td>   
+
+                                            <td class="col-1 text-end tabGridCol" >
+                                              {{ i.TotalTestadoMistura }}
+                                            </td>                                   
+ 
+                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura>0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td> 
+
+                                            <td class="col-1 text-end tabGridCol" v-if="i.TotalTestadoMistura<=0"  >
+                                              {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                            </td>  
+
+                                        </tr>  
+
+                                      </template>
+
+                                      <template  v-for="(i,indice) in aEstoqueQualidadeTotalizador" :key="indice">
+    
+                                            <tr   >  
+
+                                                <td class="col-1 text-start tabGridColTotais"   >
+                                                  {{ i.qualidade }} 
+                                                </td> 
+
+                                                <td class="col-1 text-end tabGridColTotais"    >
+                                                  {{ this.apiFormataNumero(i.TotFardosEstoque ,0) }}
+                                                </td>   
+
+                                                <td class="col-1 text-end tabGridColTotais"   >
+                                                  {{ ((i.TotFardosEstoque / this.totalFardosEstoque)*100).toFixed(2) }}
+                                                </td>   
+
+                                                <td class="col-1 text-end tabGridColTotais" >
+                                                  {{ i.TotalTestadoMistura }}
+                                                </td>                                   
+
+                                                <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura>0"  >
+                                                  {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                                </td> 
+
+                                                <td class="col-1 text-end tabGridColTotais" v-if="i.TotalTestadoMistura<=0"  >
+                                                  {{ i.TotFardosEstoque  - i.TotalTestadoMistura }}
+                                                </td>  
+
+                                            </tr>  
+
+                                      </template>                                      
+
+                                    </tbody> 
+
+                                </table>  
+                          </div> 
+                          <div   style=" width:4%;  "> </div>
+                    </div>  
+
+                    <!-- /// Final Estoque por Qualidade -->  
+                    <!-- /// Final Estoque por Qualidade -->   
+                    <!-- /// Final Estoque por Qualidade -->   
+                    <!-- /// Final Estoque por Qualidade -->                     
+
+  
+  
+
+                                            
+   
+  
                       <div style="height:80px">   <!--   Libera espaco da barra de botoes no mobile-->
   
                       </div>   
@@ -800,9 +1189,8 @@
                               <!-- Inicio Rodape Manutencao Pilha -->        
 
                               <div class="col-3 div_rodape d-flex justify-content-end"    > 
-                                <v-btn color="secondary" class="botao_rodape" style="min-width: 70px; " v-if="this.acaoDesabilitado==true "  accesskey="l"   @click="exibeModal('localizar','Confirma localização?',['S','N'],'aviso'  )"><u>L</u>ocalizar</v-btn>                                     
-                                <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
-                                <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
+                                  <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
+                                  <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                               </div>  
 
 
@@ -822,6 +1210,7 @@
     </v-form>
     <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>
     <PesquisaFornecedor @setaPesquisa="setaPesquisa($event)"></PesquisaFornecedor>
+    <PesquisaNotasLote   :nfLoteProps ="paramDadosNfLote"  :loteProps ="paramLote"  ref="pesquisaNotasLote"></PesquisaNotasLote>
     <SimNao @confirmaAcao="confirmaAcao($event)" :pergunta="simNaoPergunta" :botoes="simNaoBotoes" :tipo="simNaoTipo" ref="simNao"></SimNao> 
 </template> 
     
@@ -836,21 +1225,24 @@
     import SimNao from '@/requires/SimNao.vue' 
     import PesquisaItem from '@/requires/PesquisaItem'
     import PesquisaFornecedor from '@/requires/PesquisaFornecedor'
+    import PesquisaNotasLote from '@/requires/PesquisaNotasLote'
   
     export default {
       name: 'PilhaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile, SimNao,PesquisaItem,PesquisaFornecedor},  
+      components: {MensagemMobile, SimNao,PesquisaItem,PesquisaFornecedor,PesquisaNotasLote},  
        
       data: () => ({
 
         resultPesquisaCRUD : [] , 
+        paramDadosNfLote:[],
+        paramLote:'',
 
         produtorItens: [],
         produtorItensTemp:{ 
             codigo:'',
             descricao:'',
-            chave:'' 
+            chave:''
         }, 
 
         tamanhoItens:[
@@ -920,6 +1312,8 @@
         resultadoPesquisa:[],        
         totalFardosMistura:0, 
         totalFardosEstoque:0, 
+        totalPesoMistura:0, 
+        totalPesoEstoque:0, 
         simNaoTipo: 'sucesso',
         simNaoPergunta: '',
         simNaoBotoes: [],
@@ -975,7 +1369,7 @@
         itemDesabilitado:false,  
         loteDesabilitado:false,  
         destinoDesabilitado:false,
-        cortezaDesabilitado:false, 
+        cortezaDesabilitado:false,
         qual1Desabilitado:false,
         qual2Desabilitado:false,
         coloracaoDesabilitado:false,
@@ -996,7 +1390,7 @@
         loteFiacao:'',
         observacao:'',
         destino:'' 
-
+        
         
         },
         aMovimentoItemDAOEnt:[],
@@ -1012,7 +1406,14 @@
         tamTela:"",
         labelNovo:"",
         heightNovaPilha:"",
-        aEstoque:[],
+        dadosNotasLote:[],
+        paramPesqNotasLote:{
+          idfil:'' ,
+          produtor:'' ,
+          lote:'' , 
+          idItem :''
+
+        },
 
         cortezaItens:[ 
                '1',
@@ -1050,158 +1451,58 @@
 
          },
 
-         async atualizaPilha(elemento){
- 
-            let novaPilha=0;   
-            if  (!(elemento.novaPilha=='' )){
-                  
-                  if(typeof elemento.novaPilha  === "string" ){ 
 
-                        if(elemento.novaPilha.length()>0) {
-                          novaPilha   = elemento.novaPilha ;
-                          novaPilha   =  novaPilha.padStart(5, '0');  
-                          elemento.novaPilha = novaPilha;
+        async exibeMovimentos(elemento){ 
 
-                          if(elemento.novaPilha == '00000'){
-                              elemento.novaPilha = ''; 
-                            } 
-                        }else{
-                          elemento.novaPilha="";
+                let url;  
+                this.dadosNotasLote =[];    
 
-                        }
+                url = `${process.env.VUE_APP_BASE_URL}/movimento/exibemovimentacao`  
 
+                console.log(url)
 
-                  } else{
+                this.paramPesqNotasLote.idfil = this.$store.state.usuarioSistema.idfil; 
+                this.paramPesqNotasLote.produtor = elemento.cod_PROD;
+                this.paramPesqNotasLote.lote = elemento.lote;
+                this.paramPesqNotasLote.item = elemento.m4ITEM; 
 
-                      if(elemento.novaPilha >0) {
-                          novaPilha   = elemento.novaPilha.toString() ;
-                          novaPilha   =  novaPilha.padStart(5, '0');  
-                          elemento.novaPilha = novaPilha;
-
-                          if(elemento.novaPilha == '00000'){
-                              elemento.novaPilha = ''; 
-                            } 
-                        }else{
-                          elemento.novaPilha="";
-
-                        }
-
-                  }
-              
-
-
-            } 
-
-
-          },         
-
-          validaDadosNovaPilha(){
-
-           
-            let umElementoSelecionado=0; 
-
-              for (let i = 0; i < this.aComposicao.length; i++) {    
-                  if(this.aComposicao[i].novaPilha != ''){  
-                         umElementoSelecionado++;
-                  }
-               }
+                await this.axios.post(
+                    url,
+                    JSON.stringify(this.paramPesqNotasLote),
+                    this.apiTokenHeader({ "Content-Type": "application/json" })
+                )                
+                .then(response => {
 
                
-                //console.log('umElementoSelecionado');
-                //console.log(umElementoSelecionado);
-               
-               if(umElementoSelecionado==0){
-
-               
-                    this.msgProcessamento = "" ;   
-                    this.apiDisplayMensagem('Nenhum lote selecionado.');
-                    this.haErros = true;     
+                    this.resultado = response.data;   
                     
-                    return false;
-                     
+                    if (this.resultado){ 
+                        if(this.resultado.length>0){
+                          this.dadosNotasLote = this.resultado; 
+                          this.exibeModalNotasLote(this.dadosNotasLote,elemento.lote)
+                          }
+                   } 
+                    
+                })
+                .catch(error => {  
+                    
+                        console.log("Erro: ", error); 
+                        this.msgProcessamento = '' 
+                        this.apiDisplayMensagem(error ) 
+                        
+                });    
 
-               }
+                
+
+         },
+         async pesquisaDados(){
              
+                let validacaoOk = true;  
 
-               return true;
-
- 
-
-          },
-
-          async submitForm(){
-
-            let objEstoque;
-            this.aEstoque=[];
-
-            this.msgProcessamento = "Processando" ;
-            this.apiProcessamento()  ;
-
-            if(this.validaDadosNovaPilha()==true){
-
-                  for (let i = 0; i < this.aComposicao.length; i++) {    
-
-                      if(this.aComposicao[i].novaPilha != ''){  
-
-                          objEstoque = {
-                              idfil:this.$store.state.usuarioSistema.idfil,  
-                              id:this.aComposicao[i].m4ID,  	  
-                              pilha:this.aComposicao[i].novaPilha 
-                              
-                          }  
-
-                          this.aEstoque.push(objEstoque);
-                      
-                      }
-                  }  
-
-                  //console.log('objEstoque');
-                  //console.log(this.aEstoque);
-
-
-                  let url = `${process.env.VUE_APP_BASE_URL}/estoquemp/atualizapilha`      
-
-                  await this.axios.post(
-                      url,
-                      JSON.stringify(this.aEstoque),
-                      this.apiTokenHeader({ "Content-Type": "application/json" })
-                  )
-                  .then(response => { 
-
-                      this.resultado = response.data;  
-
-                      if(this.resultado){
-                          this.msgProcessamento = ""  
-                          this.apiDisplayMensagemSucesso('Lotes localizados com sucesso.');
-                          this.simNaoRetorno="S";
-                          this.resetarForm();   
-                      } 
-                      
-
-                  })
-                  .catch(error => {
-                      this.msgProcessamento = "" 
-                      console.log("Erro: ", error.response.data); 
-                      this.apiDisplayMensagem(error.response.data ) 
-                  }); 
-
-                  this.msgProcessamento = ""  
-
-            } 
-
-
-          }, 
-
-
-
-         async pesquisaDados(){ 
-          
-                let validacaoOk = false;   
- 
                 this.acaoDesabilitado=true;  
                 this.configuraCampos('A')
-                this.populaForm();  
-  
+                this.populaForm(); 
+
                 return validacaoOk;
 
          },         
@@ -1225,7 +1526,7 @@
                      procedencia:this.estoque.procedencia, 
                      coloracao:this.estoque.coloracao, 
                      destino:this.estoque.destino, 
-                     corteza:this.estoque.corteza,  
+                     corteza:this.estoque.corteza, 
                      tipoQualidade:this.estoque.qual1,  
                      classifQualidade:this.estoque.qual2,  
                      tamanho:this.estoque.tamanho, 
@@ -1255,7 +1556,7 @@
                       //console.log(this.resultado );
 
 
-                                let aItens =  this.resultado; 
+                      let aItens =  this.resultado; 
                                
                                for (let i = 0; i < aItens.length; i++) {   
 
@@ -1288,6 +1589,7 @@
                                              ui: aItens[i].ui,
                                              tipo: aItens[i].tipo,
                                              m4QUAL: aItens[i].m4QUAL,
+                                             m4CORTEZ: aItens[i].m4CORTEZ,
                                              elg: aItens[i].elg,
                                              mst: aItens[i].mst,
                                              estoque: aItens[i].estoque,
@@ -1299,7 +1601,6 @@
                                              m4TRCNT: aItens[i].m4TRCNT,
                                              m4COLOR: aItens[i].m4COLOR,
                                              m4DEST: aItens[i].m4DEST,
-                                             m4CORTEZ: aItens[i].m4CORTEZ,
                                              m4RS: aItens[i].m4RS,
                                              m4TRAR: aItens[i].m4TRAR,
                                              m4TPMIC: aItens[i].m4TPMIC,
@@ -1307,9 +1608,7 @@
                                              cod_PROD: aItens[i].cod_PROD,
                                              lote: aItens[i].lote, 
                                              m7DESC: aItens[i].m7DESC,
-                                             corLinha: "white",
-                                             novaPilha:'',
-
+                                             corLinha: "white"                                           
                                              
 
 
@@ -1343,6 +1642,8 @@
                   this.configuraCampos('I')
                   this.totalFardosMistura=0;
                   this.totalFardosEstoque=0;
+                  this.totalPesoMistura=0;
+                  this.totalPesoEstoque=0;
                   this.nPesoMovimento =0;
                   this.aComposicao=[];
                   this.aResumoMistura=[];
@@ -1415,7 +1716,7 @@
                    this.itemDesabilitado=true;
                    this.loteDesabilitado=true;
                    this.destinoDesabilitado=true;
-                   this.cortezaDesabilitado=true;  
+                   this.cortezaDesabilitado=true; 
                    this.qual1Desabilitado=true;
                    this.qual2Desabilitado=true;
                    this.coloracaoDesabilitado=true;
@@ -1451,12 +1752,8 @@
                          
                         if(this.acao == 'cancelaEdicao')
                         {
-                          this.resetarForm(); 
-                        }else if(this.acao == 'localizar'){
-                          this.submitForm();
-
-                        }
-                        
+                            this.resetarForm(); 
+                        }  
  
                     }  
             },     

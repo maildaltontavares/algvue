@@ -132,65 +132,64 @@
                       </div>   
 
 
-                    <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
-                        <v-row>
-                            <v-col class="campoPadrao"  >  
-                                      <label  for="tipoMovimento" class="col-form-label labelCampoPadrao"><b>Tipo_Movimento</b></label><br>                                
+                    <div class="flex-linha"  style="margin-left:6%;width:90%;margin-top: 1%; ">   
+                               
                                  
                                     <v-autocomplete
-                                        id="tipoMovimento"
-                                        :items="tipoMovimentoItens"     
+                                        
+                                        :items="tipoMovimentoItens"    
+                                        label="Tipo Movimento"          
                                         v-model="this.movimento.tipoMovimento"   
                                         @blur="buscaTipoMovimento"
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         :disabled="tipoMovimentoDesabilitado"  
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                   
                                         
                                     ></v-autocomplete>  
-                            </v-col>  
-
-                            <v-col class="campoPadrao"  >  
-                                <label  for="tipoMP" class="col-form-label labelCampoPadrao"><b>Tipo_MP</b></label><br>                             
+                                
 
                                     <v-autocomplete
-                                        id="tipoMP"
+                                         
+                                        label="Tipo MP"
                                         :items="tipoMPItens" 
                                         :disabled="tipoMPDesabilitado"                                           
                                         v-model="this.movimento.tipoMP"   
                                         item-title="codigo" 
                                         item-value="codigo"
                                         variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white"      
                                         :rules="[campoRequerido]" 
                                         density="compact"
                                         @blur="buscaTipoMatP"
                                     ></v-autocomplete>  
+                                
 
-                            </v-col>                                  
-
-                            <v-col class="campoConjugado" cols="3" >  
-                                       
-                                 <div  >   
-                                        <label for="fornecedor" class="col-form-label labelCampoPadrao"><b>Fornecedor</b></label><br>    
+                                    <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; " >   
+                                    <!-- <label style='font-size:16px'>Fornecedor</label>-->
                                         <div class="input-group">  
                                             
                                                 <div class="d-flex  justify-content-start">
                                                     
                                                     <v-text-field
                                                         
-                                                        v-model.trim="this.movimento.fornecedor"  
+                                                        v-model.trim="this.movimento.fornecedor" 
+                                                        label="Fornecedor"
                                                         id="fornecedor"                                                  
                                                         ref="fornecedor"  
                                                         maxlength="5" 
-                                                        @blur="buscaByChave" 
+                                                        @blur="buscaByChave"
+                                                        style=" width: 120px; " 
                                                         variant="outlined"
                                                         bg-color="white"
-                                                        :disabled="fornecedorDesabilitado" 
-                                                        style=" width: 120px; " 
+                                                        :disabled="fornecedorDesabilitado"  
                                                         type="number"
                                                         inputmode="numeric"
                                                         :rules="[campoRequerido]" 
@@ -214,7 +213,7 @@
 
                                                 </div  >      
 
-                                                <div class="descricaoCampoConjugado" >   
+                                                <div style="   flex-grow: 1;height:43px;"  >   
                                                     <v-text-field
                                                         v-model="this.nomeFornecedor" 
                                                         id="nomeFornecedor"   
@@ -225,22 +224,25 @@
                                                     ></v-text-field>   
                                                 </div>     
                                         </div>
-                                </div>
 
-                            </v-col>
+                                    </div>
 
 
                                 
-                            <v-col class="campoPadrao"  >  
-                                <label  for="notaFiscal" class="col-form-label labelCampoPadrao"><b>Documento</b></label><br>  
+                                    
+                                            
+                                            
                                                 
                                         <v-text-field
                                                 
                                             v-model.trim="this.movimento.notaFiscal" 
-                                            id="notaFiscal"  
+                                            id="notaFiscal"
+                                            label="Documento" 
                                             ref="notaFiscal"  
                                             maxlength="10" 
                                             @blur="buscaByChave"
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="notaFiscalDesabilitado"  
@@ -248,17 +250,18 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             
-                                            
                                         ></v-text-field>            
-                            </v-col>               
+                                            
                                     
-                            <v-col class="campoPadrao"  >  
-                                <label  for="dataBase" class="col-form-label labelCampoPadrao"><b>Data_Movimento</b></label><br>                                          
+                                        
                                         <v-text-field
                                             
                                             v-model.trim="this.movimento.dataBase" 
-                                            id="dataBase" 
-                                            ref="dataBase" 
+                                            id="dataBase"
+                                            label="Data Movimento" 
+                                            ref="dataBase"    
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataBaseDesabilitado"  
@@ -267,17 +270,16 @@
                                             density="compact"
                                             
                                         ></v-text-field>    
-                                
-                            </v-col>        
-                            
-                            
-                            <v-col class="campoPadrao"  >  
-                                <label  for="dataEmissao" class="col-form-label labelCampoPadrao"><b>Data_Emissão</b></label><br>  
+                                  
+                                        
                                         <v-text-field
                                             
                                             v-model.trim="this.movimento.dataEmissao" 
                                             id="dataEmissao"
-                                            ref="dataEmissao" 
+                                            label="Data Emissão" 
+                                            ref="dataEmissao"  
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="dataEmissaoDesabilitado"  
@@ -285,105 +287,101 @@
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             
-                                        ></v-text-field>  
-                            </v-col>      
-                                        
-                        </v-row>                                        
+                                        ></v-text-field>                                    
                                
                     </div>     
-                    <!--  FIM LINHA 0001 -->  
-                    <!--  FIM LINHA 0001 --> 
-                    <!--  FIM LINHA 0001 --> 
-                    <!--  FIM LINHA 0001 --> 
-                    <!--  FIM LINHA 0001 --> 
-                    <div class="flex-linha linhaPadrao"   >
+                       <!--  FIM LINHA 0001 -->  
+                    <div class="flex-linha"  style="margin-left:6%;width:90%; ">    
 
-                        <v-row>                      
+                           
 
-                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'" >  
-                                   <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>                             
-
-                                    <v-autocomplete 
-                                        id="produtor"                                      
+                                    <v-autocomplete v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'"
+                                         
+                                        label="Produtor"
                                         :items="produtorItens" 
                                         :disabled="produtorDesabilitado "    
                                         v-model="this.movimento.produtor"   
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
-                                        bg-color="white"   
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
+                                        bg-color="white"     
+                                         
                                         density="compact"
                                         
                                     ></v-autocomplete> 
 
-                            </v-col>                                          
-
                                
-                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05'"   >  
-                                <label  for="procedencia" class="col-form-label labelCampoPadrao"><b>Procedencia</b></label><br>                                  
+                                
                                
 
                                     <v-autocomplete
-                                        id="procedencia"
+                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05'"  
                                          clear-icon=""
-                                        
+                                        label="Procedencia"
                                         :items="procedenciaItens" 
                                         :disabled="procedenciaDesabilitado"                                           
                                         v-model="this.movimento.procedencia"   
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white"     
                                         
                                         density="compact" 
                                         
                                     ></v-autocomplete> 
-                            </v-col>
+
                                                     
                                 
                                
-                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  this.$store.state.usuarioSistema.idfil=='05' && this.movimento.tipoMovimento =='NFE' "  >  
-                                <label  for="qualidadeItens" class="col-form-label labelCampoPadrao"><b>Qualid_Compra</b></label><br>    
-                                    <v-autocomplete 
-                                        id="qualidadeItens"
+
+                                    <v-autocomplete
+                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  &&  this.$store.state.usuarioSistema.idfil=='05' && this.movimento.tipoMovimento =='NFE' "
+                                        label="Qualid. Compra"
                                         :items="qualidadeItens" 
                                         :disabled="qual1Desabilitado"                                           
                                         v-model="this.movimento.qual1"   
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white" 
                                         density="compact" 
                                         
                                     ></v-autocomplete>  
-                            </v-col>   
+                                
                               
-                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  && this.movimento.tipoMovimento =='NFE' "   >  
-                                <label  for="classfic" class="col-form-label labelCampoPadrao"><b>Classfic</b></label><br> 
+
                                     <v-autocomplete
-                                        id="classfic"
-                                   
+                                        v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  && this.movimento.tipoMovimento =='NFE' "  
+                                        label="Classfic"
                                         :items="classificacaoItens" 
                                         :disabled="qual2Desabilitado"                                           
                                         v-model="this.movimento.qual2"   
                                         item-title="descricao" 
                                         item-value="codigo"
                                         variant="outlined"
+                                        style=" width: 10%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         bg-color="white" 
                                         density="compact" 
                                         
                                     ></v-autocomplete>  
-                            </v-col>
 
-                            <v-col class="campoPadrao" v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"    >  
-                                <label  for="pesoTotal" class="col-form-label labelCampoPadrao"><b>Peso_Liquido</b></label><br>                                  
+
+                                 
                                         <v-text-field
-                                            
+                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'" 
                                             v-model.trim="this.movimento.pesoTotal" 
-                                            class="text-end "
+                                            class="text-end espacoEntreComponentes"
                                             id="pesoTotal"
-                                       
-                                            ref="pesoTotal"    
+                                            label="Peso Liquido" 
+                                            ref="pesoTotal"   
+                                            style=" width: 10%;min-width: 180px; "   
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="pesoTotalDesabilitado"                                                                                          
@@ -397,17 +395,19 @@
 
 
                                         ></v-text-field>                                    
-                            </v-col>
-                                
+            
+                                <!--@blur="this.movimento.pesoTotal = $event.target.value" -->
      
-                            <v-col class="campoPadrao" v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"   >  
-                                <label  for="numVolumes" class="col-form-label labelCampoPadrao"><b>Núm_Volumes</b></label><br>                               
+                            
                                         
                                         <v-text-field
-                                            
+                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"
                                             v-model.trim="this.movimento.numVolumes" 
-                                            id="numVolumes"                                     
-                                            ref="numVolumes"
+                                            id="numVolumes"
+                                            label="Núm. Volumes" 
+                                            ref="numVolumes"   
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             :disabled="numVolumesDesabilitado"  
@@ -417,18 +417,19 @@
                                             density="compact"
                                             @blur="calcPesoMedio"
                                         ></v-text-field>                                    
-                         </v-col>   
+                            
 
 
-                         <v-col class="campoPadrao" v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"    >  
-                            <label  for="pesoMedio" class="col-form-label labelCampoPadrao"><b>Peso_Médio</b></label><br>                                
+                             
                                         
                                         <v-text-field
-                                              
+                                            v-if="(this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S') || this.movimento.tipoMovimento == 'MIST'"    
                                             v-model.trim="this.movimento.pesoMedio" 
                                             id="pesoMedio"
-                                    
-                                            ref="pesoMedio" 
+                                            label="Peso Médio" 
+                                            ref="pesoMedio"   
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             disabled
@@ -439,16 +440,18 @@
                                             
                                             
                                         ></v-text-field>                                    
-                         </v-col>
+              
 
-                         <v-col class="campoPadrao" v-if="this.movimento.tipoMovimento == 'MIST'"   >  
-                                      <label  for="idAuto" class="col-form-label labelCampoPadrao"><b>Id_Movim</b></label><br>                          
+                      
                                                 
                                         <v-text-field
-                                            
+                                            v-if="this.movimento.tipoMovimento == 'MIST'"
                                             v-model.trim="this.movimento.idAutomatico" 
                                             id="idAuto"
-                                            ref="idAuto"
+                                            label="Id Movim" 
+                                            ref="idAuto"   
+                                            style=" width: 10%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"
                                             disabled 
@@ -457,25 +460,38 @@
                                             density="compact"
                                             
                                             
-                                        ></v-text-field>  
-                         </v-col>      
+                                        ></v-text-field>        
  
  
-                        </v-row>  
+<!--
+                                <div    class="espacoEntreComponentes">  
+                                     
+                                     <v-autocomplete
+                                         class="text-input"
+                                         label="Id Movimento" 
+                                         disabled                                           
+                                         v-model="this.movimento.id"   
+                                         @blur="buscaTipoMovimento"
+                                         item-title="idCab" 
+                                         item-value="idCab"
+                                         variant="outlined"
+                                         style="width: 160px; font-size:16px;" 
+                                         bg-color="white"   
+                                         density="compact" 
 
-                    </div>    
-                    
-                    <!--  FIM LINHA 0002 -->    
-                    <!--  FIM LINHA 0002 -->    
-                    <!--  FIM LINHA 0002 -->    
-                    <!--  FIM LINHA 0002 -->    
+                                     ></v-autocomplete> 
+ 
+                                 </div>  
+ -->
 
+
+                    </div>    <!--  FIM LINHA 0002 -->    
 
                     <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
                     <div class="d-flex justify-content-end " style="margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    
                         <div style="width:100%;background-color:#c0c0c1; height:50px  ">
-                            <p  class="text-white text-center  mt-3  " style=" margin-left:19%;width:60%; font-size: 18px; height:20px "><b>Itens</b></p>                               
-                        </div>    
+                            <p  class="text-white text-center  mt-3  " style=" margin-left:20%;width:60%; font-size: 18px; height:20px "><b>Itens</b></p>                               
+                        </div>        
 
                         <v-btn  
                          
@@ -509,7 +525,7 @@
 -->                 <!-- DIV GRID  -->   
                     <div style="height:2000px;overflow: auto; background-color:white  "> 
                     
-                        <div class="flex-linha-item"  >   
+                        <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  ">   
 
 
                            
@@ -520,27 +536,27 @@
                                     <div class="d-flex justify-content-end " style=" margin-left:1px; width:99%; margin-top: 10px;border-radius:15px 15px 15px 15px;">                                    
 
                                         <!--  <div style="width:100%;background-color:#003366;; height:20px  "  v-if="i.statusItem != 'Exclusão'">-->
-                                        <div style="width:100%;background-color:rgb(240, 237, 232); height:40px  "  v-if="i.statusItem != 'Exclusão'">
+                                        <div style="width:100%;background-color:rgb(240, 237, 232); height:20px  "  v-if="i.statusItem != 'Exclusão'">
                                             
-                                            <p  class="text-center   " style="margin-top:10px;color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
+                                            <p  class="text-center   " style="color:rgb(44, 42, 42); margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}}</b></p>                               
                                         </div>    
 
-                                        <div style="width:100%; ; height:40px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
-                                            <p  class="text-white text-center   " style=" margin-top:10px;margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
+                                        <div style="width:100%; ; height:20px  " class="vermelho"  v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal == 'Exclusão'">
+                                            <p  class="text-white text-center   " style=" margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluído</b></p>                               
                                         </div>   
                                         
-                                        <div style="width:100%; height:40px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
-                                            <p  class=" text-center   "  style="margin-top:10px;color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
-                                        </div>  
+                                        <div style="width:100%; height:20px; background-color:rgb(233, 229, 12);   "   v-if="i.statusItem == 'Exclusão' && i.statusItemOriginal != 'Exclusão'">
+                                            <p  class=" text-center   " style="color:black; margin-bottom:5px;margin-left:20%;width:55%; font-size: 15px; height:20px;border-radius:15px 15px 15px 15px; "><b>Item: {{i.ind}} - Excluir</b></p>                               
+                                        </div>                                                   
+
                                         <v-btn  
-                                                style="height:38px; background-color:rgb(240, 237, 232); "    
-                                                title="Excluir Item" 
+                                                style="height:20px; background-color:rgb(240, 237, 232); "    
                                                 @click="excluirItem(indice)"
                                                 >   
                                                     <v-icon                                                       
                                                     color="primary"
                                                     icon="mdi-minus-box-outline"  
-                                                    size="35"
+                                                    size="23"
                                                     ></v-icon>  
                                                 
                                         </v-btn>  
@@ -549,14 +565,10 @@
                                     </div>   
                                 
                                     <!-- LINHA 0001 -->
-                                    <div class="flex-linha-item  linhaPadraoItem" style="margin-top:17px"  >
+                                    <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  ">
 
-                                        <v-row>
-
-                                           <v-col class="campoConjugado"  cols="3" > <!-- Ajuste a largura de cada campo com "cols" -->
-                                       
-                                                <div  >   
-                                                    <label for="item" class="col-form-label labelCampoPadraoItem"><b>Item</b></label><br>      
+                                            <div   class="espacoEntreComponentes"  style="width: 40%; min-width: 350px;" 
+                                            >  
                                                     
                                                     <div class="input-group">   
                                                             
@@ -565,7 +577,7 @@
                                                                 <v-text-field
                                                                     v-model.trim="i.item" 
                                                                     id="item"
-                                                                    
+                                                                    label="Item"
                                                                     ref="item"  
                                                                     maxlength="7"  
                                                                     style=" width: 120px; "
@@ -596,7 +608,7 @@
 
                                                             </div  >      
 
-                                                            <div class="descricaoCampoConjugado" >  
+                                                            <div style="   flex-grow: 1;height:43px;"  >  
                                                                 <v-text-field
                                                                     v-model="i.descFio " 
                                                                     id="descFio"   
@@ -611,14 +623,15 @@
 
                                                     </div>
 
-                                                </div>   
-                                            </v-col> 
+                                            </div>   
+    
+                                        
+
+
+
                                       
                                             
-                                        <v-col cols="1"   style="max-width:250px;min-width:250px; "  >  
-                                       
-                                            <div  >   
-                                                <label for="idMovimento" class="col-form-label labelCampoPadraoItem"><b>Id</b></label><br>   
+                                            <div   class="espacoEntreComponentes"  style="width: 5%;min-width:180px;   " >   
                                             <!-- <label style='font-size:16px'>Item</label>-->
                                                     <div class="input-group">   
 
@@ -628,9 +641,9 @@
                                                                 <v-text-field
                                                                             v-model.trim="i.idMovimento" 
                                                                             id="idMovimento"
-                                                                            
+                                                                            label="id" 
                                                                             ref="idMovimento"   
-                                                                           
+                                                                            style=" width: 120px; "
                                                                             variant="outlined"
                                                                             bg-color="white" 
                                                                             type="number"
@@ -665,7 +678,7 @@
                                                                 <v-text-field
                                                                 v-model.trim="i.idMovimento" 
                                                                             id="idMovimento"
-                                                                          
+                                                                            label="id" 
                                                                             ref="idMovimento"     
                                                                             style=" width: 120px; "
                                                                             variant="outlined"
@@ -700,7 +713,7 @@
                                                                 <v-text-field
                                                                 v-model.trim="i.idMovimento" 
                                                                             id="idMovimento"
-                                                                            
+                                                                            label="id" 
                                                                             ref="idMovimento"     
                                                                             style=" width: 120px; "
                                                                             variant="outlined"
@@ -730,35 +743,41 @@
 
                                                     </div>
 
-                                            </div>  
-                                        </v-col>  
-                                        <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='N'"   >  
-                                            <label  for="produtor" class="col-form-label labelCampoPadraoItem"><b>Produtor</b></label><br>                                          
+                                            </div>   
+    
+                                       
+
+ 
+                                        
                                                      
                                                     
                                             <v-autocomplete
-                                                id="produtor"  
+                                                v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='N'"
+                                                label="Produtor"
                                                 :items="produtorItens" 
                                                 disabled 
                                                 v-model="i.produtor"   
                                                 item-title="descricao" 
                                                 item-value="codigo"
                                                 variant="outlined"
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes"   
                                                 bg-color="white"  
                                                 density="compact"
                                             
                                             ></v-autocomplete> 
-                                        </v-col>
                                                 
-                                        <v-col class="campoPadrao"   >  
-                                            <label  for="lote" class="col-form-label labelCampoPadraoItem"><b>Lote</b></label><br>  
+
  
                                             
                                             <v-text-field
                                                 v-model.trim= i.lote  
-                                                id="lote"  
+                                                id="lote"
+                                                label="Lote" 
                                                 ref="lote"  
-                                                maxlength="10" 
+                                                maxlength="10"                                         
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 variant="outlined"
                                                 bg-color="white"
                                                 :disabled="(loteItemDesabilitado  && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
@@ -767,14 +786,10 @@
                                                 density="compact" 
                                                 @blur="validaLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"                                                       
                                             ></v-text-field>  
-                                        </v-col>
-
-                                        <v-col class="campoPadrao"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05' " >  
-                                            <label  for="produtor" class="col-form-label labelCampoPadraoItem"><b>Cor</b></label><br>                                              
-
+ 
                                             <v-autocomplete 
-                                                
-                                                
+                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05' "
+                                                label="Cor"
                                                 :items="coloracao"  
                                                 id="cor"                                         
                                                 :disabled="(coloracaoDesabilitado   && (i.statusItemOriginal == 'Alteração'  || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N'"  
@@ -782,99 +797,97 @@
                                                 item-title="codigo" 
                                                 item-value="codigo"
                                                 variant="outlined"
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 bg-color="white"  
                                                 density="compact"
                                                 :rules="[campoRequerido]"  
 
                                             ></v-autocomplete>  
-                                        </v-col>
-
-                                        <v-col class="campoPadrao"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05' " >  
-                                            <label  for="pilha" class="col-form-label labelCampoPadraoItem"><b>Pilha</b></label><br>                                          
                                                     
                                             <v-text-field 
-                                                
+                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil!='05' "
                                                 v-model.trim="i.pilha" 
                                                 id="pilha"
-                                              
+                                                label="Pilha"
                                                 ref="pilha"  
-                                                maxlength="5"
+                                                maxlength="5"                                         
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 variant="outlined"
                                                 :disabled="(pilhaDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'" 
                                                 type="number"
                                                 inputmode="numeric" 
                                                 density="compact" 
-                                            ></v-text-field>  
-                                        </v-col>                                  
+                                            ></v-text-field>                                    
                                                  
 
                           
-                                        <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  "  >  
-                                            <label  for="Tam" class="col-form-label labelCampoPadraoItem"><b>Tam</b></label><br>  
+
                                             <v-autocomplete
-                                                id="tam"
                                                 v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  "
-                                                
+                                                label="Tam"
                                                 :items="tamanhoItens"                                                        
                                                 :disabled="(tamanhoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
                                                 v-model="i.tamanho"   
                                                 item-title="nome" 
                                                 item-value="id"
                                                 variant="outlined"
-                                                maxlength="5" 
+                                                maxlength="5"                                         
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 bg-color="white"      
                                                 :rules="[campoRequerido]" 
                                                 density="compact"
                                                 
-                                            ></v-autocomplete> 
-                                        </v-col>                
-                                        
-                                        <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  " >  
-                                            <label  for="qualid" class="col-form-label labelCampoPadraoItem"><b>Qualid</b></label><br>                                          
+                                            ></v-autocomplete>  
+                
 
-                                            <v-autocomplete center-affix=""
-                                                 id="qualid"
+                                            <v-autocomplete
+                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
+                                                label="Qualid"
                                                 :items="qualidadeItens"                                                       
                                                 :disabled="(tipoQualidadeDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
                                                 v-model="i.tipoQualidade"   
                                                 item-title="nome" 
                                                 item-value="id"
                                                 variant="outlined"
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 bg-color="white"      
                                                 :rules="[campoRequerido]" 
                                                 density="compact"
                                                 
                                             ></v-autocomplete>  
-                                        </v-col>      
 
-                                        <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">  
-                                            <label  for="classif" class="col-form-label labelCampoPadraoItem"><b>Classif</b></label><br> 
                                    
                                             <v-autocomplete
-                                                
-                                                id="classif"
+                                                v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
+                                                label="Classif"
                                                 :items="classificacaoItens"                                                        
                                                 :disabled="(classifQualidadeDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
                                                 v-model="i.classifQualidade"   
                                                 item-title="nome" 
                                                 item-value="id"
                                                 variant="outlined"
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 bg-color="white"      
+                                                
                                                 density="compact"
                                                 
                                             ></v-autocomplete> 
-
-                                        </v-col>                                            
                                  
 
-                                        <v-col class="campoPadrao"  >  
-                                            <label  for="quantidade" class="col-form-label labelCampoPadraoItem"><b>Qtde/Num.Vol</b></label><br>                
+               
                                                     
                                             <v-text-field
                                                 v-model.trim="i.quantidade" 
                                                 id="quantidade"
-                                             
-                                                ref="quantidade" 
+                                                label="Qtde/Num.Vol" 
+                                                ref="quantidade"  
+                                                style=" width: 2%;min-width: 100px; "  
+                                                class="espacoEntreComponentes" 
                                                 variant="outlined"
                                                 bg-color="white"
                                                 :disabled="quantidadeDesabilitado && i.habilitado"   
@@ -884,206 +897,175 @@
                                                 density="compact"
                                                 @blur="calculaPesoItem(i)"                                                        
                                             ></v-text-field>   
-                                        </v-col>
-                                        
-                                        </v-row>
 
                                     </div>                             
                                     <!--  FINAL LINHA 0001 -->
-                                    <!--  FINAL LINHA 0001 -->
-                                    <!--  FINAL LINHA 0001 -->
-                                    <!--  FINAL LINHA 0001 -->                                                                                                                  
                                          
-                                    <div class="flex-linha-item  linhaPadraoItem "  >
-
-                                        <v-row>
-                                            <v-col class="campoPadrao"  >  
-                                                <label  for="peso" class="col-form-label labelCampoPadraoItem"><b>Peso_Liq</b></label><br>                                                      
-                                                    <v-text-field
-                                                        v-model.trim="i.peso" 
-                                                        id="peso"                                                        
-                                                        ref="peso"                                                          
-                                                        variant="outlined"
-                                                        bg-color="white"
-                                                        :disabled="pesoDesabilitado && i.habilitado"    
-                                                        inputmode="numeric"
-                                                        :rules="[campoRequerido]" 
-                                                        density="compact"
-                                                        @keyup="apiEntraNumero($event,2) " 
-                                                        @blur="calculaPesoMedItem(i,$event)" 
+                                   <div class="flex-linha-completa"  style="margin-left:1%;width:99%;margin-top: 5px ;  "> 
+                                                    
+                                        <v-text-field
+                                            v-model.trim="i.peso" 
+                                            id="peso"
+                                            label="Peso Liq." 
+                                            ref="peso"  
+                                            style=" width: 2%;min-width: 100px; " 
+                                            class="espacoEntreComponentes" 
+                                            variant="outlined"
+                                            bg-color="white"
+                                            :disabled="pesoDesabilitado && i.habilitado"    
+                                            inputmode="numeric"
+                                            :rules="[campoRequerido]" 
+                                            density="compact"
+                                            @keyup="apiEntraNumero($event,2) " 
+                                            @blur="calculaPesoMedItem(i,$event)" 
+                                            
+                                        ></v-text-field>      
+                                                
                                                         
-                                                    ></v-text-field> 
-                                            </v-col>     
+                                        <v-text-field
+                                            v-if="this.vOperAlteraItem=='S'"
+                                            v-model.trim="i.unidadeMedida" 
+                                            id="um"
+                                            label="UM" 
+                                            ref="um"   
+                                            style=" width: 2%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
+                                            variant="outlined"
+                                            bg-color="white"
+                                            :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
+                                            
+                                            density="compact"                                     
+                                        ></v-text-field>  
+
+    
                                                         
-                                            <v-col class="campoPadrao" v-if="this.vOperAlteraItem=='S'" >  
-
-                                                <label  for="um" class="col-form-label labelCampoPadraoItem"><b>UM</b></label><br>                                                                                                         
-                                                <v-text-field 
-                                                    
-                                                    v-model.trim="i.unidadeMedida" 
-                                                    id="um"
-                                                  
-                                                    ref="um" 
-                                                    
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    :disabled= "(umDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão')) || this.vOperAlteraItem=='N' "    
-                                                    
-                                                    density="compact"                                     
-                                                ></v-text-field>  
-
-                                            </v-col>                                                
-
-                                            <v-col class="campoPadrao" v-if="this.vOperAlteraItem=='S'">  
-                                                
-                                                <label  for="vlUnitario" class="col-form-label labelCampoPadraoItem"><b>Vlr_Unit</b></label><br>               
-                                                                
-                                                <v-text-field
-                                                    
-                                                    v-model.trim="i.vlUnitario" 
-                                                    id="vlUnitario"
-                                                 
-                                                    ref="vlUnitario" 
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    :disabled="vlUnitarioDesabilitado && i.habilitado"   
-                                                    inputmode="numeric"
-                                                    @keyup="apiEntraNumero($event,2) " 
-                                                    @blur="i.vlUnitario = $event.target.value"  
-                                                    density="compact" 
-                                                ></v-text-field>
-
-                                            </v-col> 
-
-                                            <v-col class="campoPadrao"  v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  ">  
-                                                
-                                                <label  for="loteAdicional" class="col-form-label labelCampoPadraoItem"><b>Lote_Adicional</b></label><br>                                              
-                                                                
-                                                <v-text-field
-                                                    
-                                                    class="v-input "
-                                                    v-model.trim="i.loteAdicional" 
-                                                    id="loteAdicional"
-                                                    
-                                                    ref="loteAdicional" 
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    :disabled="loteAdicionalDesabilitado && i.habilitado"                                                            
-                                                    density="compact"
-                                                ></v-text-field>  
-
-                                            </v-col> 
-            
-                                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05'  ">  
-                                                
-                                                <label  for="loteAdicional" class="col-form-label labelCampoPadraoItem"><b>Destino</b></label><br> 
-                                                <v-autocomplete
-                                                    
-                                                    
-                                                    :items="destinoItens"                                                        
-                                                    :disabled="(destinoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                                    v-model="i.destino"   
-                                                    item-title="descricao" 
-                                                    item-value="codigo"
-                                                    variant="outlined"
-                                                    bg-color="white"      
-                                                    :rules="[campoRequerido]" 
-                                                    density="compact"
-                                                    
-                                                ></v-autocomplete>  
-                                            </v-col>
-
-                                            <v-col class="campoPadrao" v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  " >  
-                                                
-                                                <label  for="corteza" class="col-form-label labelCampoPadraoItem"><b>Corteza</b></label><br>                                             
-            
-                                                <v-autocomplete
-                                                    id="corteza"
-                                                  
-                                                    :items="cortezaItens"                                                        
-                                                    :disabled="(cortezaDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
-                                                    v-model="i.corteza"   
-                                                    item-title="nome" 
-                                                    item-value="id"
-                                                    variant="outlined"
-                                                    bg-color="white" 
-                                                    :rules="[campoRequerido]"  
-                                                    density="compact"
-                                                    
-                                                ></v-autocomplete>  
-            
-                                            </v-col>
-
-                                            <v-col class="campoPadrao"  >  
-                                                
-                                                <label  for="observacao" class="col-form-label labelCampoPadraoItem"><b>Observação</b></label><br>     
-
-                                                <v-text-field
-                                                    class="v-input "
-                                                    v-model.trim="i.observacao" 
-                                                    id="observacao"
-                                                   
-                                                    ref="observacao"   
-                                                 
-                                                    
-                                                    variant="outlined"
-                                                    bg-color="white"
-                                                    :disabled="observacaoDesabilitado && i.habilitado"    
-                                                    
-                                                    density="compact"
-                                                ></v-text-field>   
-                                            </v-col>
-
-                                            <v-col style=" margin-top: 16px;min-width:250px;max-width:250px" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">
-                                                <label>          </label>         
-                                                <v-btn   
-                                                    class="espacoEntreComponentes" 
-                                                    
-                                                    style="height:45px;width:200px;background-color:rgb(240, 237, 232); "   
-                                                        @click="this.exibePopUpNotasLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"  
+                                        <v-text-field
+                                            v-if="this.vOperAlteraItem=='S'"
+                                            v-model.trim="i.vlUnitario" 
+                                            id="vlUnitario"
+                                            label="Vl. Unit." 
+                                            ref="vlUnitario"   
+                                            style=" width: 2%;min-width: 100px; "   
+                                            class="espacoEntreComponentes" 
+                                            variant="outlined"
+                                            bg-color="white"
+                                            :disabled="vlUnitarioDesabilitado && i.habilitado"   
+                                            inputmode="numeric"
+                                            @keyup="apiEntraNumero($event,2) " 
+                                            @blur="i.vlUnitario = $event.target.value"  
+                                            density="compact" 
+                                        ></v-text-field>   
                                                         
-                                                    > 
-                                                    <v-icon
-                                                    class="mb-6"
-                                                    color="primary"
-                                                    icon="mdi-card-search-outline"
-                                                    size="41"
-                                                    ></v-icon>  
-                                                    <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
-                                                </v-btn>   
+                                        <v-text-field
+                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
+                                            class="v-input espacoEntreComponentes"
+                                            v-model.trim="i.loteAdicional" 
+                                            id="loteAdicional"
+                                            label="Lote Adicional"
+                                            ref="loteAdicional"   
+                                            style=" width: 2%;min-width: 100px; "  
+                                            variant="outlined"
+                                            bg-color="white"
+                                            :disabled="loteAdicionalDesabilitado && i.habilitado"                                                            
+                                            density="compact"
+                                        ></v-text-field>    
+    
 
-                                            </v-col>         
+                                        <v-autocomplete
+                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S' && this.$store.state.usuarioSistema.idfil=='05'  "
+                                            label="Destino"
+                                            :items="destinoItens"                                                        
+                                            :disabled="(destinoDesabilitado   && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                            v-model="i.destino"   
+                                            item-title="descricao" 
+                                            item-value="codigo"
+                                            variant="outlined"
+                                            style=" width: 2%;min-width: 100px; "   
+                                            class="espacoEntreComponentes" 
+                                            bg-color="white"      
+                                            :rules="[campoRequerido]" 
+                                            density="compact"
+                                            
+                                        ></v-autocomplete>  
+    
+                                        <v-autocomplete
+                                            v-if="this.tipoMatP == 'ALGOD' && this.vOperAlteraItem=='S'  && this.$store.state.usuarioSistema.idfil=='05'  "
+                                            label="Corteza"
+                                            :items="cortezaItens"                                                        
+                                            :disabled="(cortezaDesabilitado && (i.statusItemOriginal == 'Alteração' || i.statusItemOriginal == 'Exclusão') ) || this.vOperAlteraItem=='N'"                                
+                                            v-model="i.corteza"   
+                                            item-title="nome" 
+                                            item-value="id"
+                                            variant="outlined"
+                                            style=" width: 2%;min-width: 100px; " 
+                                            class="espacoEntreComponentes" 
+                                            bg-color="white" 
+                                            :rules="[campoRequerido]"  
+                                            density="compact"
+                                            
+                                        ></v-autocomplete>  
+    
+                                                        
+                                        <v-text-field
+                                            class="v-input espacoEntreComponentes"
+                                            v-model.trim="i.observacao" 
+                                            id="observacao"
+                                            label="Observação" 
+                                            ref="observacao"   
+                                            style=" width: 15%;min-width: 180px; "  
+                                            
+                                            variant="outlined"
+                                            bg-color="white"
+                                            :disabled="observacaoDesabilitado && i.habilitado"    
+                                            
+                                            density="compact"
+                                        ></v-text-field>   
 
-                                            <v-col style="  min-width:150px;max-width:150px" v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">
-                                                <label>          </label>   
-                                                <div   class="espacoEntreComponentes"   >    
-                                                    
-                                                    <div > 
-                                                        <label  style="font-size:15px">Lote Testado</label>
-                                                        <div >
-                                                            <v-icon  
-                                                                class="mb-6"
-                                                                color="green"
-                                                                icon="mdi-check"
-                                                                size="25"                                                        
-                                                                ></v-icon>                                                 
-                                                                                            
-                                                        </div>
-
-
-                                                    </div>
+                                
+                                                        
+                                        <v-btn   
+                                            class="espacoEntreComponentes" 
+                                            v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaLancado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')"
+                                            style="height:45px;width:200px;background-color:rgb(240, 237, 232); margin-bottom: 25px"   
+                                                @click="this.exibePopUpNotasLote(this.$store.state.usuarioSistema.idfil,this.movimento.produtor, i)"  
                                                 
-                                                </div>   
-                                            </v-col> 
+                                            > 
+                                            <v-icon
+                                            class="mb-6"
+                                            color="primary"
+                                            icon="mdi-card-search-outline"
+                                            size="41"
+                                            ></v-icon>  
+                                            <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
+                                        </v-btn>   
+
+                                                    
+
+
+                                        <div   class="espacoEntreComponentes"   v-if="this.tipoMatP == 'ALGOD'  && this.vOperAlteraItem=='S' && i.loteJaTestado == 'S' && (this.movimento.tipoMovimento == 'NFE' || this.movimento.tipoMovimento == 'EST+')">    
+                                            
+                                            <div > 
+                                                <label >Lote Testado</label>
+                                                <div >
+                                                    <v-icon  
+                                                        class="mb-6"
+                                                        color="green"
+                                                        icon="mdi-check"
+                                                        size="25"                                                        
+                                                        ></v-icon>                                                 
+                                                                                    
+                                                </div>
+
+
+                                            </div>
                                         
-                                        </v-row>
+                                        </div>     
+                                        
+
    
                                     </div>
 
                                     <!--  FINAL LINHA 0002 -->
-                                    <!--  FINAL LINHA 0002 -->
-                                    <!--  FINAL LINHA 0002 -->
-                                    <!--  FINAL LINHA 0002 -->    
                                 </template>
 
                          
@@ -1154,8 +1136,6 @@
                                 <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
                                 accesskey="p" @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"><u>P</u>esquisar</v-btn>
-
-                                <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
 
                             </div> 
 
@@ -1585,13 +1565,7 @@
                 produtor:'' ,
                 lote:'' , 
                 idItem :''
-            }  ,
-            testeDAO:{
-                idfil:'' ,
-                produtor:'' ,
-                lote:'' , 
-                item :''
-            }          
+            }            
             
            
         }              
@@ -1781,26 +1755,11 @@
 
                        // url = `${process.env.VUE_APP_BASE_URL}/testecq/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}`  
 
-                       // 10/09/2024
-                       //url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
-
-                       url = `${process.env.VUE_APP_BASE_URL}/testecq/busca` 
+                       url = `${process.env.VUE_APP_BASE_URL}/testecq/busca/${this.$store.state.usuarioSistema.idfil}/${produtor}/${i.lote}/${i.item}`  
                        
 
-                       this.testeDAO =
-                            {
-                                idfil:this.$store.state.usuarioSistema.idfil,
-                                produtor:produtor ,
-                                lote:i.lote ,  
-                                item: i.item  
-                            }   
-
-                                //console.log(this.testeDAO);
-                        await this.axios.put(
-                            url,
-                            JSON.stringify(this.testeDAO),
-                            this.apiTokenHeader({ "Content-Type": "application/json" })
-                        ).then(response => {
+                        await this.axios.get(url,this.apiTokenHeader())
+                        .then(response => {
 
                             //console.log("TipoMovimento");
                             this.resultado = response.data;  

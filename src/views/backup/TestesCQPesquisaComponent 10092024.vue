@@ -20,7 +20,7 @@
                     
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de HVI</b></p>                               
+                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de CQ</b></p>                               
                             </div> 
                         </div>    
 
@@ -44,152 +44,136 @@
                    </div> 
                    
    
-                   <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;margin-top: 1%; background-color:white" >   
 
-                      <v-row>
+                         
 
-                          <v-col class="campoPadrao"  >  
-
-                                <label  for="dataInicial" class="col-form-label labelCampoPadrao"><b>Data_Inicial</b></label><br>    
                                 <v-text-field
                                     v-model.trim="this.param.dataInicial" 
                                     id="dataInicial"
-                                    
+                                    label="Data Inicial" 
                                     ref="dataInicial"  
-                                     
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                     
-                                ></v-text-field>   
-
-                          </v-col> 
-                          <v-col class="campoPadrao"  >  
-
-                                <label  for="dataFinal" class="col-form-label labelCampoPadrao"><b>Data_Final</b></label><br>                                   
+                                ></v-text-field>         
                                 
                                 <v-text-field
                                     v-model.trim="this.param.dataFinal" 
                                     id="dataFinal"
-                                    
+                                    label="Data Final" 
                                     ref="dataFinal"  
-                                     
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white" 
                                     type="date" 
                                     :rules="[campoRequerido]" 
                                     density="compact"
                                     
-                                ></v-text-field>   
-                          </v-col>                                 
+                                ></v-text-field>                                    
                             
                     
                                                
-                          <v-col class="campoPadrao"  >  
+    
+                    
+                        
 
-                            <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>       
                             <v-autocomplete
-                                id="produtor"
+                                label="Produtor"
                                 :items="produtorItens"                              
                                 v-model="this.param.produtor"   
                                 item-title="descricao" 
                                 item-value="codigo"
                                 variant="outlined"
-                          
+                                style=" width: 10%;min-width: 180px; "  
+                                class="espacoEntreComponentes" 
                                 bg-color="white"   
                                 density="compact"
                             ></v-autocomplete> 
 
-                        </v-col>
-
                         
-                        <v-col class="campoPadrao"  >  
-
-                                <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>                             
+                        
                           
                                         
                                 <v-text-field
                                     v-model.trim="this.param.lote" 
                                     id="lote"
-                                   
+                                    label="Lote" 
                                     ref="lote"  
                                     maxlength="10"                                            
-                                     
+                                    style=" width: 10%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
                                     density="compact"
                                     
-                                ></v-text-field>       
-
-                        </v-col>                       
+                                ></v-text-field>                                    
                                      
-                                             
+                           
                              
-                        <v-col class="campoConjugado" cols="3" >   
-
-                                <label  for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>    
-
-                                <div    >   
-                                                
-                                    <div class="input-group">   
+                        <div   class="espacoEntreComponentes"  style="width: 40%; min-width: 350px; " >   
                                         
-                                        <div class="d-flex  justify-content-start">
+                            <div class="input-group">   
+                                
+                                <div class="d-flex  justify-content-start">
+                                    
+                                    <v-text-field
+                                      
+                                        id="item"
+                                        label="Item"
+                                        ref="item"  
+                                        maxlength="7"  
+                                        style=" width: 120px; "
+                                        variant="outlined"
+                                        bg-color="white"
+                                        v-model.trim="this.param.item"
+                                        type="number"                                                     
+                                      
+                                        density="compact" 
+                                        @blur="buscaItem" 
+                                    ></v-text-field>    
+                                        
+                                    <v-btn   data-bs-toggle="modal" 
+                                    data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
+                                          :disabled="this.itemDesabilitado"
+                                        style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                        > 
+                                            <v-icon
+                                            this.
+                                            class="mb-6"
+                                            color="primary"
+                                            icon="mdi-card-search-outline"
+                                            size="45"
                                             
-                                            <v-text-field
-                                              
-                                                id="item"
-                                                label="Item"
-                                                ref="item"  
-                                                maxlength="7"  
-                                                style=" width: 120px; "
-                                                variant="outlined"
-                                                bg-color="white"
-                                                v-model.trim="this.param.item"
-                                                type="number"                                                     
-                                              
-                                                density="compact" 
-                                                @blur="buscaItem" 
-                                            ></v-text-field>    
-                                                
-                                            <v-btn   data-bs-toggle="modal" 
-                                            data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                                  :disabled="this.itemDesabilitado"
-                                                style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                                > 
-                                                    <v-icon
-                                                    this.
-                                                    class="mb-6"
-                                                    color="primary"
-                                                    icon="mdi-card-search-outline"
-                                                    size="45"
-                                                    
-                                                    ></v-icon>  
-                                            </v-btn>     
+                                            ></v-icon>  
+                                    </v-btn>     
 
-                                        </div  >      
+                                </div  >      
 
-                                        <div class="descricaoCampoConjugado" >     
-                                            <v-text-field
-                                              
-                                                id="descFio"   
-                                                disabled 
-                                                class="limitadorMedia"
-                                                density="compact"
-                                                v-model.trim="this.param.descItem"
-                                                style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
-                                            ></v-text-field>   
-                                        </div>  
+                                <div style="   flex-grow: 1;height:43px;"  >  
+                                    <v-text-field
+                                      
+                                        id="descFio"   
+                                        disabled 
+                                        class="limitadorMedia"
+                                        density="compact"
+                                        v-model.trim="this.param.descItem"
+                                        style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
+                                    ></v-text-field>   
+                                </div>  
 
-                                    </div>
-            
-                                </div>    
-
-                        </v-col>        
+                            </div>
+    
+                        </div>            
  
-                      </v-row>
+  
                     </div>
 
                     <div class="d-flex justify-content-center"  style="margin-left:4%;width:96%;margin-top: 1%;background-color:white" v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile' " >  
@@ -347,8 +331,6 @@
                                <v-btn color="primary" class="botao_rodape"  
                                 :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "
                                  accesskey="n" @click="NavegarParaInclusao"> <u>N</u>ovo </v-btn  >  
-
-                                 <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                            </div>   
    
                        </div>    
@@ -508,7 +490,7 @@
 
           async pesquisaDados(){     
 
-                this.haErros = false 
+                this.haErros = false
                 this.haSucesso = false  
                 this.mensagemSucesso = ''
                 this.mensagemErro = '' 

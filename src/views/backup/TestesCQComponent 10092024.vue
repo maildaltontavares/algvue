@@ -20,20 +20,19 @@
 
                    </div>         
                    
-                   <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
-                        <v-row>
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white;margin-top: 1%; " > 
 
-                            <v-col class="campoPadrao"  >  
-
-                                <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>        
+                              
 
                                 <v-autocomplete
-                                    id="produtor"
+                                    label="Produtor"
                                     :items="produtorItens"                              
                                     v-model="this.teste.produtor"   
                                     item-title="descricao" 
                                     item-value="codigo"
-                                    variant="outlined" 
+                                    variant="outlined"
+                                    style=" width: 7%;min-width: 270px; "  
+                                    class="espacoEntreComponentes" 
                                     bg-color="white"   
                                     density="compact"
                                     :rules="[campoRequerido]" 
@@ -41,16 +40,19 @@
                                     :disabled="produtorDesabilitado"
                                 ></v-autocomplete> 
 
-                            </v-col>
                              
-                            <v-col class="campoPadrao"  >  
 
-                                <label  for="lote" class="col-form-label labelCampoPadrao"><b>Lote</b></label><br>   
+
+                       
+                                        
                                 <v-text-field
                                     v-model.trim="this.teste.lote" 
-                                    id="lote"                                     
+                                    id="lote"
+                                    label="Lote" 
                                     ref="lote"  
-                                    maxlength="20"
+                                    maxlength="20"                                            
+                                    style=" width: 7%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     variant="outlined"
                                     bg-color="white"                                           
                                     type="text"     
@@ -60,79 +62,80 @@
                                     :disabled="loteDesabilitado"
                                     
                                 ></v-text-field>                                  
-                            </v-col>        
+                                     
                            
                               
 
-                            <v-col class="campoConjugado" cols="3" >   
 
-                                   <label  for="item" class="col-form-label labelCampoPadrao"><b>Item</b></label><br>    
 
-                                    <div    >   
+
+                            <div   class="espacoEntreComponentes" style="width: 40%; min-width: 350px; "  >   
+                                        
+                                        <div class="input-group">   
+                                            
+                                            <div class="d-flex  justify-content-start">
                                                 
-                                                <div class="input-group">   
+                                                <v-text-field
+                                                 
+                                                    id="item"
+                                                    label="Item"
+                                                    ref="item"  
+                                                    maxlength="7"  
+                                                    style=" width: 120px; "
+                                                    variant="outlined"
+                                                    bg-color="white"
+                                                    v-model.trim="this.teste.item"
+                                                    type="number"                                                     
+                                                    :rules="[campoRequerido]" 
+                                                    density="compact"
+                                                    :disabled="this.itemDesabilitado"
+                                                    @blur="buscaByChave"
+                                                ></v-text-field>    
                                                     
-                                                    <div class="d-flex  justify-content-start">
-                                                        
-                                                        <v-text-field
-                                                        
-                                                            id="item"
-                                                         
-                                                            ref="item"  
-                                                            maxlength="7"  
-                                                            style=" width: 120px; "
-                                                            variant="outlined"
-                                                            bg-color="white"
-                                                            v-model.trim="this.teste.item"
-                                                            type="number"                                                     
-                                                            :rules="[campoRequerido]" 
-                                                            density="compact"
-                                                            :disabled="this.itemDesabilitado"
-                                                            @blur="buscaByChave"
-                                                        ></v-text-field>    
-                                                            
-                                                        <v-btn   data-bs-toggle="modal" 
-                                                        data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
-                                                            :disabled="this.itemDesabilitado"
-                                                            style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
-                                                            > 
-                                                                <v-icon
-                                                                this.
-                                                                class="mb-6"
-                                                                color="primary"
-                                                                icon="mdi-card-search-outline"
-                                                                size="45"
-                                                            
-                                                                ></v-icon>  
-                                                        </v-btn>     
-            
-                                                    </div  >      
-            
-                                                    <div class="descricaoCampoConjugado" >    
-                                                        <v-text-field
-                                                        
-                                                            id="descFio"   
-                                                            disabled 
-                                                            class="limitadorMedia"
-                                                            density="compact"
-                                                            v-model.trim="this.teste.descItem"
-                                                            style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
-                                                        ></v-text-field>   
-                                                    </div>  
-            
-                                                </div>
-            
-                                    </div>                                
+                                                <v-btn   data-bs-toggle="modal" 
+                                                data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
+                                                     :disabled="this.itemDesabilitado"
+                                                    style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
+                                                    > 
+                                                        <v-icon
+                                                        this.
+                                                        class="mb-6"
+                                                        color="primary"
+                                                        icon="mdi-card-search-outline"
+                                                        size="45"
+                                                       
+                                                        ></v-icon>  
+                                                </v-btn>     
+    
+                                            </div  >      
+    
+                                            <div style="   flex-grow: 1;height:43px;"  >   
+                                                <v-text-field
+                                                 
+                                                    id="descFio"   
+                                                    disabled 
+                                                    class="limitadorMedia"
+                                                    density="compact"
+                                                    v-model.trim="this.teste.descItem"
+                                                    style="background-color:rgb(247, 247, 247); color:black;height:43px;border-radius:0px 5px 5px 0px;  " 
+                                                ></v-text-field>   
+                                            </div>  
+    
+                                        </div>
+    
+                            </div>                                
                      
-                            </v-col>
-                            <v-col class="campoPadrao"  >  
 
-                                   <label  for="dataTeste" class="col-form-label labelCampoPadrao"><b>Data_do_Teste</b></label><br>   
+
+                          
 
                                     <v-text-field
                                         v-model.trim="this.teste.dataTeste" 
-                                        id="dataTeste" 
-                                        ref="dataTeste" 
+                                        id="dataTeste"
+                                        label="Data do Teste" 
+                                        ref="dataTeste"  
+                                        style=" width: 7%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white" 
                                         type="date" 
@@ -141,43 +144,41 @@
                                      
 
                                         
-                                    ></v-text-field>    
-                            </v-col>  
+                                    ></v-text-field>      
 
-                        </v-row>                                   
+                                                    
                    </div>
+                   <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white" > 
 
-                   <div class="flex-linha linhaPadrao"   >  
-                        <v-row>
+                            
 
-                            <v-col class="campoPadrao"  >   
-                                <label  for="tipoTeste" class="col-form-label labelCampoPadrao"><b>Tipo_Teste</b></label><br> 
                                 <v-autocomplete
 
-                                    id="tipoTeste"
+                                    label="Tipo Teste"
                                     :items="tipoTesteItens"                                                                                            
                                     v-model="this.teste.prdint"  
                                     item-title="nome" 
                                     item-value="codigo"
-                                    variant="outlined"  
+                                    variant="outlined"
+                                    style=" width: 7%;min-width: 180px; "  
+                                    class="espacoEntreComponentes" 
                                     bg-color="white"      
                                     :rules="[campoRequerido]" 
                                     density="compact"
-
+                                   
                                     
                                 ></v-autocomplete>  
-                            </v-col>
 
-
-                            <v-col class="campoPadrao"  >   
-                                <label  for="numVolumes" class="col-form-label labelCampoPadrao"><b>Num_Volumes</b></label><br> 
-                                                                    
+                                              
                                     <v-text-field
 
                                         v-model.trim="this.teste.numVolumes" 
-                                        id="numVolumes" 
+                                        id="numVolumes"
+                                        label="Num. Fardos Testados" 
                                         ref="numVolumes"  
-                                        maxlength="3"
+                                        maxlength="3"                                            
+                                        style=" width: 7%;min-width: 180px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="number"  
@@ -186,11 +187,13 @@
                                          
 
                                     ></v-text-field>                                    
-                            </v-col>         
+                                        
                                 
                                
-                            <v-col style=" margin-top: 38px;min-width:250px;max-width:250px; ">
-                                <label>          </label>     
+
+                            <div   class="espacoEntreComponentes"> 
+                          
+
                                     <v-btn   
                                         style="height:45px;width:200px;background-color:rgb(240, 237, 232); margin-bottom: 25px"   
                                             @click="this.exibeMovimentos()"  
@@ -203,11 +206,13 @@
                                         size="41"
                                         ></v-icon>  
                                         <span  style="margin-bottom:18px"><b>Movim. do Lote</b></span> <!-- Texto centralizado -->
-                                    </v-btn>
-                                    
-                            </v-col>
-                     
-                        </v-row>
+                                    </v-btn>   
+
+
+                            </div>                            
+                            
+                            
+        
 
                     </div>     
 
@@ -267,20 +272,19 @@
                     </div>    
 
 
-                    <div class="flex-linha linhaPadrao"  style="margin-top: 1% "  >  
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white;margin-top: 1%;">
 
-                        <v-row>
-                        
-                        
-                            <v-col class="campoPadraoReduzido"  >  
 
-                                <label  for="sci" class="col-form-label labelCampoPadraoItem"><b>SCI</b></label><br>   
+
+                   
 
                                     <v-text-field
                                             v-model.trim="this.teste.sic" 
                                             id="sci"
-                                      
-                                            ref="sci" 
+                                            label="SCI" 
+                                            ref="sci"  
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white"  
                                             inputmode="numeric"
@@ -290,17 +294,19 @@
                                            
                                         
                                     ></v-text-field>  
-                            </v-col>
+
                         
 
-                            <v-col class="campoPadraoReduzido"  >  
 
-                                <label  for="mst" class="col-form-label labelCampoPadraoItem"><b>MST</b></label><br>   
+                            
 
                                 <v-text-field
                                         v-model.trim="this.teste.mst" 
-                                        id="mst" 
-                                        ref="mst"   
+                                        id="mst"
+                                        label="MST" 
+                                        ref="mst"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white" 
                                         inputmode="numeric"
@@ -311,18 +317,16 @@
                                         maxlength="4"   
                                        
                                 ></v-text-field>  
-                            </v-col>
 
-                            <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="mic" class="col-form-label labelCampoPadrao"><b>MIC</b></label><br>                           
+                        
 
                                     <v-text-field
                                             v-model.trim="this.teste.mic" 
                                             id="mic"
-                                            
+                                            label="MIC" 
                                             ref="mic"  
-                                            
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -334,18 +338,18 @@
                                         
                                     ></v-text-field>  
 
-                             </v-col>
+                             
 
 
-                             <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="mat" class="col-form-label labelCampoPadrao"><b>MAT</b></label><br>                          
+                      
 
                                     <v-text-field
                                             v-model.trim="this.teste.mat" 
                                             id="mat"
-                                            
-                                            ref="mat"   
+                                            label="MAT" 
+                                            ref="mat"  
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
@@ -356,408 +360,376 @@
                                             maxlength="5" 
                                         
                                     ></v-text-field>   
-                                </v-col>
+                  
 
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                        <label  for="uhml" class="col-form-label labelCampoPadrao"><b>UHML</b></label><br>                                       
-
-                                        <v-text-field
-                                                v-model.trim="this.teste.uhml" 
-                                                id="uhml"
-                                                
-                                                ref="uhml"  
-                                                
-                                                variant="outlined"
-                                                bg-color="white" 
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                @keyup="apiEntraNumero($event,3) " 
-                                                @blur="this.teste.uhml = $event.target.value"  
-                                                maxlength="6"                                  
-                                        ></v-text-field>  
-                                </v-col>
+                                <v-text-field
+                                        v-model.trim="this.teste.uhml" 
+                                        id="uhml"
+                                        label="UHML" 
+                                        ref="uhml"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,3) " 
+                                        @blur="this.teste.uhml = $event.target.value"  
+                                        maxlength="6"                                  
+                                ></v-text-field>  
 
                              
 
-                                <v-col class="campoPadraoReduzido"  >  
 
-                                        <label  for="ui" class="col-form-label labelCampoPadrao"><b>UI</b></label><br>     
                   
 
-                                        <v-text-field
-                                                v-model.trim="this.teste.ui" 
-                                                id="ui"
-                                                
-                                                ref="ui"  
-                                                
-                                                variant="outlined"
-                                                bg-color="white" 
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                @keyup="apiEntraNumero($event,1) " 
-                                                @blur="this.teste.ui = $event.target.value"   
-                                                maxlength="5"                                 
-                                        ></v-text-field>  
+                                <v-text-field
+                                        v-model.trim="this.teste.ui" 
+                                        id="ui"
+                                        label="UI" 
+                                        ref="ui"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.ui = $event.target.value"   
+                                        maxlength="5"                                 
+                                ></v-text-field>  
+   
 
-                                </v-col>
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                            <label  for="sf" class="col-form-label labelCampoPadrao"><b>SF</b></label><br>    
-                                            <v-text-field
-                                                    v-model.trim="this.teste.sf" 
-                                                    id="sf"
-                                                  
-                                                    ref="sf"  
-                                                    
-                                                    variant="outlined"
-                                                    bg-color="white" 
-                                                    inputmode="numeric"
-                                                    :rules="[campoRequerido]" 
-                                                    density="compact"
-                                                    @keyup="apiEntraNumero($event,1) " 
-                                                    @blur="this.teste.sf = $event.target.value"  
-                                                    maxlength="5"                                    
-                                            ></v-text-field>  
-                                </v-col>
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                        <label  for="str" class="col-form-label labelCampoPadrao"><b>STR</b></label><br>    
-
-                                        <v-text-field
-                                                v-model.trim="this.teste.str" 
-                                                id="str"
-                                                 
-                                                ref="str"  
-                                                
-                                                variant="outlined"
-                                                bg-color="white" 
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                @keyup="apiEntraNumero($event,1) " 
-                                                @blur="this.teste.str = $event.target.value" 
-                                                maxlength="5"                                     
-                                        ></v-text-field>  
-
-                                </v-col>
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                        <label  for="elg" class="col-form-label labelCampoPadrao"><b>ELG</b></label><br>                                    
-
-                                        <v-text-field
-                                                v-model.trim="this.teste.elg" 
-                                                id="elg"
-                                               
-                                                ref="elg"  
-                                                
-                                                variant="outlined"
-                                                bg-color="white" 
-                                                inputmode="numeric"
-                                                :rules="[campoRequerido]" 
-                                                density="compact"
-                                                @keyup="apiEntraNumero($event,1) " 
-                                                @blur="this.teste.elg = $event.target.value"  
-                                                maxlength="4"                                    
-                                        ></v-text-field>  
-                                </v-col>
-
-
-                        </v-row>
- 
-
-                    </div>
-                    <div class="flex-linha linhaPadrao"   >  
-
-                        <v-row>
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="rd" class="col-form-label labelCampoPadrao"><b>RD</b></label><br>    
                                     <v-text-field
-                                            v-model.trim="this.teste.rs" 
-                                            id="rd"
-                                           
-                                            ref="rd"  
-                                            
+                                            v-model.trim="this.teste.sf" 
+                                            id="sf"
+                                            label="SF" 
+                                            ref="sf"  
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.rs = $event.target.value"   
-                                            maxlength="5"                                   
-                                    ></v-text-field> 
-                                </v-col> 
-
-
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="b" class="col-form-label labelCampoPadrao"><b>+B</b></label><br>  
-
-                                    <v-text-field
-                                            v-model.trim="this.teste.b" 
-                                            id="b"
-                                            
-                                            ref="b"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.b = $event.target.value"  
+                                            @blur="this.teste.sf = $event.target.value"  
                                             maxlength="5"                                    
                                     ></v-text-field>  
 
-                                </v-col>
-    
-                                <v-col class="campoPadraoReduzido"  >  
+                                                  
 
-                                    <label  for="tipo" class="col-form-label labelCampoPadrao"><b>Tipo</b></label><br>  
+
+                    
 
                                     <v-text-field
-                                            v-model.trim="this.teste.tipo" 
-                                            id="tipo"
-                                            
-                                            ref="tipo"  
-                                            
+                                            v-model.trim="this.teste.str" 
+                                            id="str"
+                                            label="STR" 
+                                            ref="str"  
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             variant="outlined"
                                             bg-color="white" 
                                             inputmode="numeric"
                                             :rules="[campoRequerido]" 
                                             density="compact"
                                             @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.tipo = $event.target.value" 
+                                            @blur="this.teste.str = $event.target.value" 
                                             maxlength="5"                                     
                                     ></v-text-field>  
+ 
 
-                                </v-col>
+                                <v-text-field
+                                        v-model.trim="this.teste.elg" 
+                                        id="elg"
+                                        label="ELG" 
+                                        ref="elg"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.elg = $event.target.value"  
+                                        maxlength="4"                                    
+                                ></v-text-field>  
+ 
 
-                                <v-col class="campoPadraoReduzido"  >  
+                    </div>
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white">                               
 
-                                    <label  for="trcnt" class="col-form-label labelCampoPadrao"><b>TrCNT</b></label><br>    
-                                    <v-text-field
-                                            v-model.trim="this.teste.trcnt" 
-                                            id="trcnt"
-                                            
-                                            ref="trcnt"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.trcnt = $event.target.value" 
-                                            maxlength="5"                                     
-                                    ></v-text-field>
-                                </v-col>   
-
-                                                     
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="trar" class="col-form-label labelCampoPadrao"><b>TrAR</b></label><br>                                    
-
-                                    <v-text-field
-                                            v-model.trim="this.teste.trar" 
-                                            id="trar"  
-                                            ref="trar"  
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,2) " 
-                                            @blur="this.teste.trar = $event.target.value"  
-                                            maxlength="6"                                    
-                                    ></v-text-field>  
-                                </v-col>  
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="trid" class="col-form-label labelCampoPadrao"><b>TRID</b></label><br>                                      
-
-                                    <v-text-field
-                                            v-model.trim="this.teste.trid" 
-                                            id="trid"
-                                            
-                                            ref="trid"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.trid = $event.target.value"  
-                                            maxlength="4"                                    
-                                    ></v-text-field> 
-                                </v-col> 
-
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="sac" class="col-form-label labelCampoPadrao"><b>SAC</b></label><br>   
-
-                                    <v-text-field
-                                            v-model.trim="this.teste.sac" 
-                                            id="sac"
-                                           
-                                            ref="sac"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                        
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.sac = $event.target.value"                                    
-                                    ></v-text-field>  
-
-                                </v-col>
-                                <v-col class="campoPadraoReduzido"  >  
-
-                                    <label  for="pim" class="col-form-label labelCampoPadrao"><b>PIM</b></label><br>                                   
                             
-                                    <v-text-field
-                                            v-model.trim="this.teste.pim" 
-                                            id="pim"
-                                            
-                                            ref="pim"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                            
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.pim = $event.target.value"                                    
-                                    ></v-text-field>  
-                                </v-col>
+
+                                <v-text-field
+                                        v-model.trim="this.teste.rs" 
+                                        id="rd"
+                                        label="RD" 
+                                        ref="rd"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.rs = $event.target.value"   
+                                        maxlength="5"                                   
+                                ></v-text-field>  
+
+
+
+                            
+ 
+
+                            
+
+                                <v-text-field
+                                        v-model.trim="this.teste.b" 
+                                        id="b"
+                                        label="+B" 
+                                        ref="b"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.b = $event.target.value"  
+                                        maxlength="5"                                    
+                                ></v-text-field>  
+ 
+
+                                <v-text-field
+                                        v-model.trim="this.teste.tipo" 
+                                        id="tipo"
+                                        label="Tipo" 
+                                        ref="tipo"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.tipo = $event.target.value" 
+                                        maxlength="5"                                     
+                                ></v-text-field>  
+
+                                                         
+
+                            
+
+                                <v-text-field
+                                        v-model.trim="this.teste.trcnt" 
+                                        id="trcnt"
+                                        label="TrCNT" 
+                                        ref="trcnt"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.trcnt = $event.target.value" 
+                                        maxlength="5"                                     
+                                ></v-text-field>  
+
+                            
+
+
+                          
+
+                                <v-text-field
+                                        v-model.trim="this.teste.trar" 
+                                        id="trar"
+                                        label="TrAR" 
+                                        ref="trar"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.trar = $event.target.value"  
+                                        maxlength="5"                                    
+                                ></v-text-field>    
+
+                                <v-text-field
+                                        v-model.trim="this.teste.trid" 
+                                        id="trid"
+                                        label="TRID" 
+                                        ref="trid"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes"  
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        :rules="[campoRequerido]" 
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.trid = $event.target.value"  
+                                        maxlength="4"                                    
+                                ></v-text-field>  
+
+                               
+                            
+                            
+                              
+
+                                <v-text-field
+                                        v-model.trim="this.teste.sac" 
+                                        id="sac"
+                                        label="SAC" 
+                                        ref="sac"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                       
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.sac = $event.target.value"                                    
+                                ></v-text-field>  
 
                            
-                                <v-col class="campoPadraoReduzido"  >  
+                                <v-text-field
+                                        v-model.trim="this.teste.pim" 
+                                        id="pim"
+                                        label="PIM" 
+                                        ref="pim"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                        
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.pim = $event.target.value"                                    
+                                ></v-text-field>  
 
-                                    <label  for="sc" class="col-form-label labelCampoPadrao"><b>SC</b></label><br> 
+                           
+
                              
 
-                                    <v-text-field
-                                            v-model.trim="this.teste.sc" 
-                                            id="sc"
-                                            
-                                            ref="sc"  
-                                            
-                                            variant="outlined"
-                                            bg-color="white" 
-                                            inputmode="numeric"
-                                        
-                                            density="compact"
-                                            @keyup="apiEntraNumero($event,1) " 
-                                            @blur="this.teste.sc = $event.target.value"                                    
-                                    ></v-text-field>  
-
-                                </v-col>
-
-                        </v-row>
+                                <v-text-field
+                                        v-model.trim="this.teste.sc" 
+                                        id="sc"
+                                        label="SC" 
+                                        ref="sc"  
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        variant="outlined"
+                                        bg-color="white" 
+                                        inputmode="numeric"
+                                      
+                                        density="compact"
+                                        @keyup="apiEntraNumero($event,1) " 
+                                        @blur="this.teste.sc = $event.target.value"                                    
+                                ></v-text-field>  
  
                     </div>
-                    <div class="flex-linha linhaPadrao"   >  
+                    <div class="flex-linha "  style="margin-left:6%;width:90%;background-color:white">
 
-                        <v-row>
-
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="hvi" class="col-form-label labelCampoPadrao"><b>HVI</b></label><br>     
+                           
                                                 
-                                    <v-text-field
-                                        v-model.trim="this.teste.hvi" 
-                                        id="hvi"
+                                <v-text-field
+                                    v-model.trim="this.teste.hvi" 
+                                    id="hvi"
+                                    label="HVI" 
+                                    ref="hvi"                               
+                                    style=" width: 7%;min-width: 320px; "  
+                                    class="espacoEntreComponentes" 
+                                    variant="outlined"
+                                    bg-color="white"                                           
+                                    type="text"     
+                                    density="compact"
+                            
+                                    
+                                ></v-text-field>                                  
                                         
-                                        ref="hvi"    
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact" 
-                                        
-                                    ></v-text-field>                                  
-                                </v-col>     
+                            
+                           
+                              
 
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="benef" class="col-form-label labelCampoPadrao"><b>Beneficiamento</b></label><br>    
-                                                    
-                                    <v-text-field
-                                        v-model.trim="this.teste.benef" 
-                                        id="benef"
-                                       
-                                        ref="benef"                               
-                                         
+                                               
+
+                            
+                                                
+                                <v-text-field
+                                    v-model.trim="this.teste.benef" 
+                                    id="benef"
+                                    label="Beneficiamento" 
+                                    ref="benef"                               
+                                    style=" width: 7%;min-width: 320px; "  
+                                    class="espacoEntreComponentes" 
+                                    variant="outlined"
+                                    bg-color="white"                                           
+                                    type="text"     
+                                    density="compact"
+                            
+                                    
+                                ></v-text-field>          
+
+                                    <v-autocomplete
+
+                                        label="Possui Selo"
+                                        :items="possuiSelo"                                                                                            
+                                        v-model="this.teste.possuiSelo"  
+                                        item-title="nome" 
+                                        item-value="codigo"
                                         variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
+                                        style=" width: 7%;min-width: 100px; "  
+                                        class="espacoEntreComponentes" 
+                                        bg-color="white"      
+                                        :rules="[campoRequerido]" 
                                         density="compact"
-                                
+                                        @blur="configuraSelo"
                                         
-                                    ></v-text-field>   
-                                </v-col>       
+                                    ></v-autocomplete> 
 
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="possuiSelo" class="col-form-label labelCampoPadrao"><b>Possui_Selo?</b></label><br>                                    
+                                     
+
+                                
 
                                         <v-autocomplete
-                                            id="possuiSelo"
-                                            
-                                            :items="possuiSelo"                                                                                            
-                                            v-model="this.teste.possuiSelo"  
+
+                                            label="Tipo de Selo"
+                                            :items="tipoSelo"                                                                                            
+                                            v-model="this.teste.tipoSelo"  
                                             item-title="nome" 
                                             item-value="codigo"
                                             variant="outlined"
-                                            
+                                            style=" width: 7%;min-width: 100px; "  
+                                            class="espacoEntreComponentes" 
                                             bg-color="white"      
-                                            :rules="[campoRequerido]" 
-                                            density="compact"
-                                            @blur="configuraSelo"
                                             
-                                        ></v-autocomplete> 
-                                </v-col>
-
-                                        
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="tipoSelo" class="col-form-label labelCampoPadrao"><b>Tipo_de_Selo</b></label><br>  
-                                    
-
-                                            <v-autocomplete
-                                                id="tipoSelo"
-                                                
-                                                :items="tipoSelo"                                                                                            
-                                                v-model="this.teste.tipoSelo"  
-                                                item-title="nome" 
-                                                item-value="codigo"
-                                                variant="outlined"
-                                                
-                                                bg-color="white"      
-                                                
-                                                density="compact"
-                                                
-                                            ></v-autocomplete>  
-                                </v-col>
-
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="numeroSelo" class="col-form-label labelCampoPadrao"><b>Numero_Selo</b></label><br>  
-                                
+                                            density="compact"
+                                            
+                                        ></v-autocomplete>  
+                              
                                                 
                                         <v-text-field
                                             v-model.trim="this.teste.numeroSelo" 
                                             id="numeroSelo"
-                                           
-                                            ref="numeroSelo" 
+                                            label="Numero Selo" 
+                                            ref="numeroSelo"                               
+                                            style=" width: 7%;min-width: 180px; "  
+                                            class="espacoEntreComponentes" 
                                             maxlength="30"
                                             variant="outlined"
                                             bg-color="white"                                           
@@ -765,51 +737,53 @@
                                             density="compact"
                                     
                                             
-                                        ></v-text-field>     
-                                </v-col>                             
+                                        ></v-text-field>                                  
                                                         
                                             
                                                             
 
 
-                        </v-row>                                    
-
-                    </div>                     
 
 
-                    <div class="flex-linha linhaPadrao"   >  
+                        </div>                     
 
-                        <v-row>
 
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="obs" class="col-form-label labelCampoPadrao"><b>Observação</b></label><br>  
+                        <div class="flex-linha "  style="margin-left:6%;width:90%; ">                            
+
+                            
                                                 
-                                    <v-text-field
-                                        v-model.trim="this.teste.obs" 
-                                        id="obs"
-                                      
-                                        ref="obs"    
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                
+                                <v-text-field
+                                    v-model.trim="this.teste.obs" 
+                                    id="obs"
+                                    label="Observacao" 
+                                    ref="obs"                               
+                                    style=" width: 100%;min-width: 320px; "  
+                                    class="espacoEntreComponentes" 
+                                    variant="outlined"
+                                    bg-color="white"                                           
+                                    type="text"     
+                                    density="compact"
+                            
+                                    
+                                ></v-text-field>                                  
                                         
-                                    ></v-text-field>   
-                               </v-col>
-                        </v-row>
-                    </div>  
+                            
+                             
+
+
+                        </div>  
                         
-                   <div class="flex-linha "  style="margin-left:6%;width:90%; ">                            
-                        <v-row>                 
-                                <v-col class="campoPadrao"  >   
-                                    <label  for="arq" class="col-form-label labelCampoPadrao"><b>Arquivo_Importado</b></label><br>                                  
+                        <div class="flex-linha "  style="margin-left:6%;width:90%; ">                            
+
+                                 
                                                     
                                     <v-text-field
                                         v-model.trim="this.teste.arqImportacao" 
                                         id="arq"
-                                    
-                                        ref="arq"   
+                                        label="Arquivo Importado" 
+                                        ref="arq"                               
+                                        style=" width: 100%;min-width: 320px; "  
+                                        class="espacoEntreComponentes" 
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
@@ -820,12 +794,10 @@
                                     ></v-text-field>                                  
                                             
 
-                                </v-col>
-                        </v-row>
-                    </div>                                   
+                                 
 
 
-                                          
+                        </div>                         
             
     
               <div style="height:  500px; background-color:white"     >
@@ -878,10 +850,6 @@
                                         :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} "  
                                          accesskey="p" ><u>P</u>esquisar</v-btn>
 
-                                        <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
-
-                                      
-
                                           
 
 
@@ -918,7 +886,7 @@
   
     
    import ApiMixinValidator from '@/mixins/ApiMixinValidator'   
-   import MensagemMobile  from '../components/MensagemMobileComponent.vue'
+   import MensagemMobile  from '../../components/MensagemMobileComponent.vue'
    import ApiMixinALG from '@/mixins/ApiMixinALG'
    import SimNao from '@/requires/SimNao.vue' 
    import PesquisaNotasLote from '@/requires/PesquisaNotasLote'
@@ -1575,8 +1543,8 @@
 
             },           
 
-    
-            async populaForm(){     
+  
+            async populaForm(){   
 
                     let url;
                     let dataFormatada;

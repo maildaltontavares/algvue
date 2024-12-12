@@ -20,7 +20,7 @@
                     
                         <div class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
-                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de HVI</b></p>                               
+                                <p  class="text-white text-end mt-3 pe-5" style="font-size: 18px;"><b>Pesquisa Testes de CQ Fio/Fita</b></p>                               
                             </div> 
                         </div>    
 
@@ -87,22 +87,58 @@
                             
                     
                                                
-                          <v-col class="campoPadrao"  >  
+                          <v-col class="campoPadrao"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                <label   for="tipoMaquina" class="col-form-label labelCampoPadrao"><b>Tipo_Máquina</b></label><br> 
 
-                            <label  for="produtor" class="col-form-label labelCampoPadrao"><b>Produtor</b></label><br>       
-                            <v-autocomplete
-                                id="produtor"
-                                :items="produtorItens"                              
-                                v-model="this.param.produtor"   
-                                item-title="descricao" 
-                                item-value="codigo"
-                                variant="outlined"
-                          
-                                bg-color="white"   
-                                density="compact"
-                            ></v-autocomplete> 
+                                <v-autocomplete
 
-                        </v-col>
+                                    id="tipoMaquina"  
+                                    :items="tipoMaquinaItens"      
+                                    item-title="descricao" 
+                                    item-value="codigo"
+                                    v-model.trim="this.param.tipoMaquina"   
+                                    variant="outlined"  
+                                    bg-color="white"   
+                                    density="compact"  
+                                   
+                                   
+                                ></v-autocomplete>  
+
+                            </v-col>
+
+                            <v-col class="campoPadraoReduzido"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                  <label  for="turno" class="col-form-label labelCampoPadrao"><b>Turno</b></label><br> 
+
+                                  <v-autocomplete
+                                      v-model.trim="this.param.turno" 
+                                      id="turno" 
+                                      :items="turnos"   
+                                      item-title="nome" 
+                                      item-value="codigo"
+                                      variant="outlined"  
+                                      bg-color="white"       
+                                      density="compact"
+                                    
+                                    
+                                  ></v-autocomplete> 
+   
+                            </v-col>                             
+
+                            <v-col class="campoPadraoReduzido"  > <!-- Ajuste a largura de cada campo com "cols" -->
+                                <label   for="localFisico" class="col-form-label labelCampoPadrao"><b>Local_Físico</b></label><br> 
+                                        
+                                <v-text-field
+                                    v-model.trim="this.param.localFisico"   
+                                    id="localFisico" 
+                                    ref="localFisico"  
+                                    maxlength="3"       
+                                    variant="outlined"
+                                    bg-color="white"                                           
+                                    type="text"     
+                                    density="compact"  
+                                    @blur="strzeroLocal"
+                                ></v-text-field>                                  
+                            </v-col>                                
 
                         
                         <v-col class="campoPadrao"  >  
@@ -111,7 +147,7 @@
                           
                                         
                                 <v-text-field
-                                    v-model.trim="this.param.lote" 
+                                    v-model.trim="this.param.loteFiacao" 
                                     id="lote"
                                    
                                     ref="lote"  
@@ -121,6 +157,7 @@
                                     bg-color="white"                                           
                                     type="text"     
                                     density="compact"
+                                    @blur="strzeroLote"
                                     
                                 ></v-text-field>       
 
@@ -155,7 +192,7 @@
                                             ></v-text-field>    
                                                 
                                             <v-btn   data-bs-toggle="modal" 
-                                            data-bs-target="#modalPesquisaItem" @click="apiFlushPesquisa()" tabindex="-1"     
+                                            data-bs-target="#modalPesquisaFio" @click="apiFlushPesquisa()" tabindex="-1"     
                                                   :disabled="this.itemDesabilitado"
                                                 style="height:43px;width:60px;background-color:rgb(240, 237, 232); " 
                                                 > 
@@ -188,6 +225,10 @@
                                 </div>    
 
                         </v-col>        
+
+ 
+
+
  
                       </v-row>
                     </div>
@@ -216,11 +257,13 @@
                             <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
-                                      <th class="col-1">DATA</th>
-                                      <th class="col-4 text-start">PRODUTOR</th>     
-                                      <th class="col-4 text-start">LOTE</th>                                                             
-                                      <th class="col-4 text-start">ITEM</th>   
-                                      <th class="col-3 text-start">OPER</th>  
+                                      <th class="col-2">DATA</th> 
+                                      <th class="col-2">TURNO</th> 
+                                      <th class="col-4">TIPO MAQ</th> 
+                                      <th class="col-2">MAQ</th> 
+ 
+                                      <th class="col-1 text-start">OPER</th>     
+                               
                                 
                                      
                                       
@@ -234,31 +277,85 @@
 
                                       <td class="col-1 text-start">
                                         {{ i.dataTeste}}
-                                      </td>                                       
-                                  
-
-  
-                                       
-                                      <td class="col-2 text-start" v-if="exibePaginador" >
-                                        
-                                        <span v-if="i.produtor !=null">{{ i.nomeProdutor.trimRight() }} ({{i.produtor}}  )</span>
-                                        <span v-else> </span>
-                                       
-                                      </td>      
+                                      </td>   
 
                                       <td class="col-1 text-start">
-                                        {{ i.lote}}
-                                      </td>   
+                                        {{ i.turno}}
+                                      </td>         
                                       
                                       <td class="col-1 text-start">
-                                        {{ i.item}}
-                                      </td>                                        
+                                        {{ i.descTipoMaquina}}
+                                      </td>    
+                                      
+                                      <td class="col-1 text-start">
+                                        {{ i.maquina}}
+                                      </td>                                         
+   
+                                   
                                       
                                       <td class="col-1  "  >  
-                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'testecq' , params: { produtorProps : i.produtor ,  loteProps : i.lote ,  itemProps : i.item ,operacao : 'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
+                                            <v-btn   icon="mdi-pencil" text="Editar"   :to="{ name: 'testecqfio' , params: { tipoMaquinaProps:i.tipoMaquina, idProps : i.id ,operacao : 'A'}}"  style="background-color:rgb(83, 138, 83);margin-right: 10px;margin-top:1px;height:30px;width:30px ; "></v-btn>
                                        </td>                                        
                                     
   
+                                    </tr>
+
+                                    <tr> 
+
+                                        <td class="col-1 text-start">
+                                           {{ i.loteFiacao}}
+                                        </td>   
+
+                                        <td class="col-1 text-start">
+                                          {{ i.descTipoTeste}}
+                                        </td>                                         
+                                        
+                                        <td class="col-1 text-start">
+                                           {{ i.item}}
+                                        </td>     
+                                        <td class="col-1 text-start">
+                                          
+                                        </td>                                           
+                                        <td class="col-1 text-start">
+                                  
+                                        </td>                                           
+                                    </tr>
+
+                                    <tr>
+
+                                      <td class="col-1 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>
+                                      <td class="col-1 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      </td>
+                                      
+                                      <td class="col-1 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>     
+                                      
+                                      <td class="col-1 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>   
+                                      
+                                      <td class="col-1 text-start"  >
+                                        <div style="border:2px solid black ;">
+
+                                        </div>
+                                      
+                                      </td>                                         
+
                                     </tr>
  
 
@@ -357,7 +454,7 @@
        </v-container>                    
    
     </v-form>
-  <PesquisaItem @setaPesquisa="setaPesquisa($event)"></PesquisaItem>     
+  <PesquisaFio @setaPesquisa="setaPesquisa($event)"></PesquisaFio>     
 </template> 
     
 <script>
@@ -368,72 +465,58 @@
     import ApiMixinALG from '@/mixins/ApiMixinALG'
     import ApiMixinValidator from '@/mixins/ApiMixinValidator'
     import MensagemMobile  from '@/components/MensagemMobileComponent.vue'
-    import PesquisaItem from '@/requires/PesquisaItem'
+    import PesquisaFio from '@/requires/PesquisaFio.vue'
    
 
     //import {VDataTable } from "vuetify/labs/VDataTable";
   
     export default {
-      name: 'TesteCQPesquisaComponent',
+      name: 'TesteCQFioPesquisaComponent',
       mixins: [ApiMixin,ApiMixinSEG,ApiMixinValidator,ApiMixinALG],
-      components: {MensagemMobile,PesquisaItem },  
+      components: {MensagemMobile,PesquisaFio },  
       data: () => ({
+        
         resultPesquisaCRUD : [] , 
-        'testeDTO':{  
 
+        'testeCqFioDAO':{  
+            id:0,
+            idfil:'',
+            turno:'',
             dataInicial:'',
             dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:''  ,
+            loteFiacao:'',  
+            localFisico:'', 
             item:''  , 
-            descItem:''
-        }, 
-
-        'testeDAO':{  
-
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''  
-        },         
-
-  
-
-        produtorItens: [],
-        produtorItensTemp:{ 
-            codigo:'',
-            descricao:''
-        },     
+            tipoMaquina:''
+        },   
         
         param:{
 
+            id:0,
+            idfil:'',
+            turno:'',
             dataInicial:'',
             dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'' ,
+            loteFiacao:'',  
+            localFisico:'', 
             item:''  , 
-            descItem:''  ,
-
+            tipoMaquina:'',
+            descItem :'',
 
         }, 
+ 
 
-        testeParamDTO:{
-
-            dataInicial:'',
-            dataFinal:'' ,   
-            lote:'',  
-            idfil:'',
-            produtor:'',
-            item:''  , 
-            descItem:''
-
-
-        },
+        tipoMaquinaItens: [],
+        tipoMaquinaTemp: {    
+              codigo:'' ,
+              nome:  '' , 
+        },    
+        
+        turnos:[
+            {codigo:"A", nome:"A"},
+            {codigo:"B", nome:"B"},
+            {codigo:"C", nome:"C"} 
+        ],          
 
 
 
@@ -447,7 +530,9 @@
         haErros: false,      
         haSucesso: false,    
         exibePaginador:false,         
-        resultadoPesquisa:[],         
+        resultadoPesquisa:[], 
+  
+       
          
       }),
       computed: mapState(['usuarioSistema']),
@@ -455,7 +540,7 @@
   
         NavegarParaInclusao( ){ 
        
-          this.$router.push({name:'testecq', params : { produtorProps : ' ' ,  loteProps : ' ' ,itemProps: ' ',operacao : 'I' }  })
+          this.$router.push({name:'testecqfio', params : { tipoMaquinaProps:'01',  idProps : ' ' ,   operacao : 'I' }  })
         },
        setaPesquisaCRUD(pCursor) {  
               this.resultPesquisaCRUD = pCursor   
@@ -466,10 +551,14 @@
         setaPesquisa(e) {   
  
             this.param.item = e.obj.codigo;
-            this.param.descItem = e.obj.material.descricao.substring(0, 40);
+            this.param.descItem = e.obj.descricao.substring(0, 40);
             
       
         },
+
+        strzeroLocal(){ this.param.localFisico = this.param.localFisico.padStart(3, '0'); },
+        strzeroLote(){ this.param.loteFiacao = this.param.loteFiacao.padStart(10, '0'); },
+
         buscaItem() {
 
           if(!(this.param.item==null || this.param.item=='')){
@@ -490,10 +579,12 @@
 
             this.param.dataInicial='';
             this.param.dataFinal='' ;
-            this.param.lote=''; 
-            this.param.produtor='';  
+            this.param.loteFiacao='';  
             this.param.item='';  
-            this.param.descItem='';  
+            this.param.descItem='';   
+            this.param.turno='';  
+            this.param.localFisico='';  
+            this.param.tipoMaquina='';  
 
             this.resultPesquisaCRUD = [];
             this.exibePaginador = false;
@@ -538,7 +629,7 @@
                         if(periodoPreenchido) {
                             this.haErros = false
                             this.exibePaginador = true;
-                            this.apiPesquisaCRUDByFilial('testecq','nome',  this.param)
+                            this.apiPesquisaCRUDByFilial('testecqfio','nome',  this.param)
                         }
 
                 
@@ -554,7 +645,8 @@
                 this.navegarParaLogin();
             }   
           
-            this.populaProdutor();
+       
+            this.populaTipoMaquina();  
             //this.populaProcedencia();
 
             this.msgProcessamento = '';

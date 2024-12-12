@@ -2,22 +2,13 @@
 
 <v-form  ref="formulario"   style=" background-color:white;height:100% "  >    
 
-   <!-- <v-container style="width:100%;background-color:white"  >-->  
-
-
+   <!-- <v-container style="width:100%;background-color:white"  >-->   
    
            <div class="d-flex justify-content-center" style="width:100%;background-color:white; "  >  
    
                <div  style="width:100%"  > 
-                <!--
-               <v-card rounded="lg" class=" elevation-12" 
-      
-                  :style="{  minWidth:  this.$store.state.larguraCardPesq,
-                                     height:  this.$store.state.alturaCardPesq }" 
-                  
-                  >  
-                    -->
-                   <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;background-color:white" >   
+   
+                   <div class="flex-linha-between"  style=" width:100%;margin-top: 1%;" >   
                         
                         <div    class="d-flex justify-content-end" style="background-color:#003366;width:350px; margin-top: 15px;border-radius:0px 15px 15px 0px;">  
                             <div>                         
@@ -27,7 +18,7 @@
 
 
                         <div class=" d-flex justify-content-end"   style=" height:45px;margin-right: 10px; "  
-                        v-if="this.$store.state.tipoDispositivo == 'desktop' " > 
+                            v-if="this.$store.state.tipoDispositivo == 'desktop' " > 
 
 
                            <div   class="espacoEntreComponentes">    
@@ -80,115 +71,113 @@
                   <!-- Inicio Painel Manutencao Mistura -->                     
 
 
-                  <template v-if="this.acaoSelecionada=='I'">
+                  <template v-if="this.acaoSelecionada=='I'" >
                    
 
    
-                        <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
+                        <div class="flex-linha linhaPadrao"  style="margin-top: 1%;" >    
 
+                            <v-row  >                  
 
-                           
-
-
-                              <div   class="espacoEntreComponentes" v-if="this.$store.state.tipoDispositivo != 'desktop' ">    
-                                            
+                                   <v-col class="campoPadraoReduzido"  v-if="this.$store.state.tipoDispositivo != 'desktop' ">  
+                                    <label  for="statusMistura" class="col-form-label labelCampoPadrao"><b>Status</b></label><br>    
                                     <v-text-field
+                                        
                                         v-model.trim="this.mistura.statusMistura" 
-                                        id="statusMistura"
-                                        label="Status" 
+                                        id="statusMistura" 
                                         ref="statusMistura"  
-                                        maxlength="10"                                            
-                                        style=" width: 150px; " 
+                                        maxlength="10"   
                                         variant="outlined"
                                         bg-color="white"                                           
                                         type="text"     
                                         density="compact" 
                                         disabled
                                     ></v-text-field>     
-                                  
-                              </div>   
-                        
 
-                              <div    class="espacoEntreComponentes"    >  
+                                  </v-col>
 
-                                  <v-autocomplete
 
-                                      label="Operacao"
-                                      :items="operMistItens"      
-                                      v-model.trim="this.operMist"  
-                                      item-title="descricao" 
-                                      item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 160px; "
-                                      bg-color="white"   
-                                      density="compact"
-                                      @blur="trocaOperMist()"
-                                      :disabled="operMistDesabilitado"
-                                      
 
-                                  ></v-autocomplete> 
-
-                              </div>    
-      
-                              <div   class="espacoEntreComponentes" v-if = "(this.operMist=='I' || this.operMist=='C' )   ">    
-                                              
-                                    <v-text-field
-
-                                        v-model.trim="this.mistura.numeroMistura" 
-                                        id="numeroMistura"
-                                        label="Mistura" 
-                                        ref="numeroMistura"  
-                                        maxlength="10"                                            
-                                        style=" width: 180px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :disabled="numeroMisturaDesabilitado"   
-                                        
-                                        @blur="preparaMistura()"
-                                        
-                                        
-                                    ></v-text-field>                                    
-                                          
-                                
-                              </div> 
-      
-                              <div    class="espacoEntreComponentes" v-if = "this.operMist=='A'" >  
-                                      
+                                  <v-col class="campoPadrao"   >    
+                                      <label  for="operacao" class="col-form-label labelCampoPadrao"><b>Operação</b></label><br>    
                                       <v-autocomplete
+
+                                          id="operacao"
                                           
+                                          :items="operMistItens"      
+                                          v-model.trim="this.operMist"  
+                                          item-title="descricao" 
+                                          item-value="codigo"
+                                          variant="outlined"
+                              
+                                          bg-color="white"   
+                                          density="compact"
+                                          @blur="trocaOperMist()"
+                                          :disabled="operMistDesabilitado"
+                                          
+
+                                      ></v-autocomplete> 
+                                  </v-col>
+
+
+
+                                  <v-col class="campoPadrao"  v-if = "(this.operMist=='I' || this.operMist=='C' ) ">                                 
+       
+                                      <label  for="numeroMistura" class="col-form-label labelCampoPadrao"><b>Mistura</b></label>  
+                                      <v-text-field
+                                          
+                                          v-model.trim="this.mistura.numeroMistura" 
+                                    
+                                        
+                                          ref="numeroMistura"  
+                                          maxlength="10"                                            
+     
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="number"  
+                                          inputmode="numeric"   
+                                          density="compact"
+                                          :disabled="numeroMisturaDesabilitado"   
+                                          
+                                          @blur="preparaMistura()"
+                                          
+                                          
+                                      ></v-text-field>        
+                                  </v-col>                            
+                                          
+                              
+                            
+                                  <v-col class="campoPadraoReduzido"   v-if = "this.operMist=='A'"   >    
+
+                                      <label  for="misturasAbertas" class="col-form-label labelCampoPadrao"><b>Mistura</b></label> 
+                                      <v-autocomplete
+                                                           
+                                          id="misturasAbertas"
                                           :items="misturasAbertas"    
-                                          label="Mistura"          
+                                               
                                           v-model="this.mistura.numeroMistura"    
                                           item-title="codigo" 
                                           item-value="codigo"
                                           variant="outlined"
-                                          style="width: 180px;"                                       
+                                       
                                           :rules="[campoRequerido]" 
                                           density="compact"
                                           @blur="preparaMistura()"
                                           :disabled="numeroMisturaDesabilitado"  
-                                    
-                                          
-                                      ></v-autocomplete> 
+                                      ></v-autocomplete>  
 
-                                  </div>  
-
-
-
-
-                              <div   class="espacoEntreComponentes">    
-                                              
+                                  </v-col>        
+                                  
+                                  <v-col class="campoPadraoReduzido"  >                                      
+                                    <label  for="quantidade" class="col-form-label labelCampoPadrao"><b>Quantidade</b></label><br> 
                                     <v-text-field
                                           
                                         v-model.trim="this.mistura.quantidade" 
-                                        class="text-end"
+                                        class="text-end "
                                         id="quantidade"
-                                        label="Quantidade" 
+                                      
                                         ref="quantidade"   
-                                        style=" width: 170px; " 
+                                    
                                         variant="outlined"
                                         bg-color="white"
                                         type="number"    
@@ -198,40 +187,40 @@
                                         :disabled="quantidadeDesabilitado"  
                                         @change="calculaCor(aComposicao)"
         
-                                    ></v-text-field>                                    
-                              </div>                
-                              
-                              
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
+                                    ></v-text-field>     
+                                     
+                                  </v-col>                                        
                                           
-                                        v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                        class="text-end"
-                                        id="totalMisturasUtilizadas"
-                                        label="Utilizadas" 
-                                        ref="totalMisturasUtilizadas"   
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"
-                                        type="number"    
-                                        density="compact" 
-                                        inputmode="numeric"  
-                                        disabled
-        
-                                    ></v-text-field>                                    
-                              </div>  
-      
+                              
+                              
 
-                              <div   class="espacoEntreComponentes">     
+                                  <v-col class="campoPadraoReduzido"  >                               
+                                      <label  for="totalMisturasUtilizadas" class="col-form-label labelCampoPadrao"><b>Utilizadas</b></label><br> 
+                                      <v-text-field
+                                        
+                                          v-model.trim="this.mistura.totalMisturasUtilizadas" 
+                                          class="text-end  "
+                                          id="totalMisturasUtilizadas"
+                               
+                                          ref="totalMisturasUtilizadas"   
+                                      
+                                          variant="outlined"
+                                          bg-color="white"
+                                          type="number"    
+                                          density="compact" 
+                                          inputmode="numeric"  
+                                          disabled
+          
+                                      ></v-text-field>          
 
+                                   </v-col>                                      
+                        
+                                   <v-col class="campoPadrao"  >                                  
+                                      <label  for="dataInicial" class="col-form-label labelCampoPadrao"><b>Data_Inicial</b></label> 
                                       <v-text-field
                                           v-model.trim="this.mistura.dataInicial" 
-                                          id="dataInicial"
-                                          label="Data Inicial" 
-                                          ref="dataInicial"  
-                                          style=" width: 170px; " 
+                                          id="dataInicial"   
+                                          ref="dataInicial"   
                                           variant="outlined"
                                           bg-color="white" 
                                           type="date" 
@@ -239,20 +228,18 @@
                                           density="compact"
                                           :disabled="dataInicialDesabilitado"  
                                           
-                                      ></v-text-field>      
-                          
-                              </div>           
+                                      ></v-text-field> 
 
-                              <div   class="espacoEntreComponentes">    
-                                          
-                                  
-                                      
+                                   </v-col>                                        
+
+                                  <v-col class="campoPadrao"  >                                    
+                                      <label  for="dataFinal" class="col-form-label labelCampoPadrao"><b>Data_Final</b></label> 
                                       <v-text-field
                                           v-model.trim="this.mistura.dataFinal" 
                                           id="dataFinal"
-                                          label="Data Final" 
+                                       
                                           ref="dataFinal"  
-                                          style=" width: 170px; " 
+   
                                           variant="outlined"
                                           bg-color="white" 
                                           type="date" 
@@ -260,21 +247,31 @@
                                           density="compact"
                                           :disabled="dataFinalDesabilitado"  
                                           
-                                      ></v-text-field>                                    
-                                  
-                          
-                              </div>         
-                              
-                              <div   class="espacoEntreComponentes">    
+                                      ></v-text-field>       
+                                      
+                                  </v-col >                                        
+
+                                                                       
+                            </v-row>
+                        </div>    
+                        
+                        <!-- FINAL LINHA 00001-->
+                        <!-- FINAL LINHA 00001-->
+                        <!-- FINAL LINHA 00001-->
+                        <!-- FINAL LINHA 00001-->
+
+                        <div class="flex-linha linhaPadrao"  >   
+                             
+                            <v-row>                              
+                                  <v-col class="campoPadrao"  >                                    
+                                    <label  for="totalFardos" class="col-form-label labelCampoPadrao"><b>Total_de_Fardos</b></label>                    
                                               
                                     <v-text-field
                                           
                                         v-model.trim="this.mistura.totalFardos" 
-                                        class="text-end"
-                                        id="totalFardos"
-                                        label="Total de Fardos" 
-                                        ref="totalFardos"   
-                                        style=" width: 150px; " 
+                                        class="text-end "
+                                        id="totalFardos" 
+                                        ref="totalFardos"    
                                         variant="outlined"
                                         bg-color="white"
                                         type="number"  
@@ -283,148 +280,151 @@
                                         inputmode="numeric" 
                                         :disabled="totalFardosDesabilitado"    
         
-                                    ></v-text-field>                                    
-                              </div>  
+                                    ></v-text-field>    
 
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.loteFiacao" 
-                                        id="loteFiacao"
-                                        label="Lote Fiação" 
-                                        ref="loteFiacao"  
-                                        maxlength="10"                                            
-                                        style=" width: 170px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="number"  
-                                        inputmode="numeric"   
-                                        density="compact"
-                                        :rules="[campoRequerido]" 
-                                        :disabled="loteFiacaoDesabilitado" 
-                                        @blur="buscaLote()"
-                                        
-                                    ></v-text-field>                                    
+                                  </v-col>                                
+                            
+                                  <v-col class="campoPadrao"  >                                    
+                                      <label  for="loteFiacao" class="col-form-label labelCampoPadrao"><b>Lote_Fiação</b></label>      
+                          
+                                                
+                                      <v-text-field
+                                          v-model.trim="this.mistura.loteFiacao" 
+                                          id="loteFiacao"
                                           
-                                
-                              </div> 
-
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->
-                              <!-- Meio Painel Manutencao Mistura -->                        
-
-                              <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
-
-                                  <v-autocomplete
-
-                                      label="Fardos"
-                                      :items="destinoItens"      
-                                      v-model.trim="this.mistura.destino"  
-                                      item-title="descricao" 
-                                      item-value="codigo"
-                                      variant="outlined"
-                                      style=" width: 150px; "
-                                      bg-color="white"   
-                                      density="compact"
-                                      :disabled="destinoDesabilitado" 
-                                      :rules="[campoRequerido]"  
-                                      
-                                  ></v-autocomplete> 
-
-                              </div>                           
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-                                        v-model.trim="this.mistura.observacao" 
-                                        id="observacao"
-                                        label="Observação" 
-                                        ref="observacao"  
-                                        maxlength="150"                                            
-                                        style=" width: 450px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                        :disabled="observacaoDesabilitado" 
-                                        
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div>     
-
-                              <div   class="espacoEntreComponentes">    
-                                              
-                                    <v-text-field
-
-                                        v-model.trim="this.totalFardosMistura" 
-                                        id="numFardos"
-                                        label="Num. Fardos Selec." 
-                                        ref="numFardos"  
-                                        maxlength="150"                                            
-                                        style=" width: 150px; " 
-                                        variant="outlined"
-                                        bg-color="white"                                           
-                                        type="text"     
-                                        density="compact"
-                                        disabled
-                                        
-                                    ></v-text-field>                                    
-                                            
-                                  
-                              </div> 
-
-
-                              <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                                  
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="green"
-                                                  icon="mdi-check"
-                                                  size="55"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                        
-                              </div>  
-
-                              <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                          ref="loteFiacao"  
+                                          maxlength="10"            
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="number"  
+                                          inputmode="numeric"   
+                                          density="compact"
+                                          :rules="[campoRequerido]" 
+                                          :disabled="loteFiacaoDesabilitado" 
+                                          @blur="buscaLote()"
                                           
-                                          <div >
-                                              <v-icon
-                                                  class="mb-6"
-                                                  color="red"
-                                                  icon="mdi-alert-circle-outline"  
-                                                  size="35"
-                                              ></v-icon>                                                 
-                                                                                
-                                          </div>
-                                  
-                              </div> 
+                                      ></v-text-field>                                    
+                                          
+                                  </v-col>                                     
+                           
 
-                              <div   class="espacoEntreComponentes">    
+                                  <!-- Meio Painel Manutencao Mistura -->
+                                  <!-- Meio Painel Manutencao Mistura -->
+                                  <!-- Meio Painel Manutencao Mistura -->
+                                  <!-- Meio Painel Manutencao Mistura -->                        
+
+                              
+                                  <v-col class="campoPadrao" v-if="this.$store.state.usuarioSistema.idfil == '05'" >     
+
+                                      <label  for="fardos" class="col-form-label labelCampoPadrao"><b>Fardos</b></label>   
+                                      <v-autocomplete
+                                          
+                                         
+                                          id="fardos"
+                                          :items="destinoItens"     
+                                          v-model.trim="this.mistura.destino"   
+                    
+                                          item-title="descricao" 
+                                          item-value="codigo"
+                                          variant="outlined" 
+                                          bg-color="white"   
+                                          density="compact"
+                                          :disabled="destinoDesabilitado" 
+                                          :rules="[campoRequerido]"  
+                                          
+                                      ></v-autocomplete>  
+
+                                  </v-col>
+                 
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="observacao" class="col-form-label labelCampoPadrao"><b>Observação</b></label>                                         
+                                      <v-text-field
+                                          v-model.trim="this.mistura.observacao" 
+                                          id="observacao" 
+                                          ref="observacao"  
+                                          maxlength="150"      
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          :disabled="observacaoDesabilitado" 
+                                          
+                                      ></v-text-field> 
+                                  </v-col>   
+
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="numFardos" class="col-form-label labelCampoPadrao"><b>Fardos_Selecionados</b></label>                                        
+                              
                                               
-                                              <v-text-field
-          
-                                                  v-model.trim="this.nPesoMovimento" 
-                                                  id="pesoMistura"
-                                                  label="Peso" 
-                                                  ref="pesoMistura"  
-                                                  maxlength="150"                                            
-                                                  style=" width: 150px; " 
-                                                  variant="outlined"
-                                                  bg-color="white"                                           
-                                                  type="text"     
-                                                  density="compact"
-                                                  disabled
-                                                  
-                                              ></v-text-field>                                    
+                                      <v-text-field
+
+                                          v-model.trim="this.totalFardosMistura" 
+                                          id="numFardos"
+                                     
+                                          ref="numFardos"  
+                                          maxlength="150"    
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field>                                    
+                                  </v-col>
+                                  
+                         
+
+
+                                  <div   class="espacoEntreComponentes" style="margin-top:50px"  v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
                                                       
-                             </div>   
+                                              <div >
+                                                  <v-icon
+                                                      class="mb-6"
+                                                      color="green"
+                                                      icon="mdi-check"
+                                                      size="55"
+                                                  ></v-icon>                                                 
+                                                                                    
+                                              </div>
+                                            
+                                  </div>  
+
+                                  <div   class="espacoEntreComponentes"  style="margin-top:60px"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                              
+                                              <div >
+                                                  <v-icon
+                                                      class="mb-6"
+                                                      color="red"
+                                                      icon="mdi-alert-circle-outline"  
+                                                      size="35"
+                                                  ></v-icon>                                                 
+                                                                                    
+                                              </div>
+                                      
+                                  </div> 
+
+                                  <v-col class="campoPadrao"  >          
+                                        <label  for="pesoMistura" class="col-form-label labelCampoPadrao"><b>Peso</b></label>                                     
+                                                      
+                                      <v-text-field
+
+                                          v-model.trim="this.nPesoMovimento" 
+                                          id="pesoMistura"
+                                   
+                                          ref="pesoMistura"  
+                                          maxlength="150"     
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field>                                    
+                                  </v-col>  
+                                                 
+                            </v-row>                            
         
-                          </div>      
+                        </div>      
 
 
                   </template>
@@ -445,281 +445,277 @@
                    
 
    
-                   <div class="flex-linha "  style="margin-left:6%;width:94%;margin-top: 1%;background-color:white" >   
-                     
- 
- 
-                         <div    class="espacoEntreComponentes"   >  
-                                 
-                                 <v-autocomplete
-                                     
-                                     :items="misturasABaixar"    
-                                     label="Mistura"          
-                                     v-model="this.mistura.numeroMistura"    
-                                     item-title="codigo" 
-                                     item-value="codigo"
-                                     variant="outlined"
-                                     style="width: 180px;"                                       
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     @blur="preparaMistura()" 
-                               
-                                     :disabled="misturasABaixarDesabilitado"  
-                                
-                               
-                                     
-                                 ></v-autocomplete> 
+                   <div class="flex-linha linhaPadrao"  style="margin-top: 1%;" >   
+    
+                            <v-row>                                       
 
-                             </div>  
+                                   <v-col class="campoPadrao"  >          
+                                        <label  for="misturasABaixar" class="col-form-label labelCampoPadrao"><b>Mistura</b></label>                                  
+                                        <v-autocomplete
+                                            id="misturasABaixar"
+                                            :items="misturasABaixar"    
+                                               
+                                            v-model="this.mistura.numeroMistura"    
+                                            item-title="codigo" 
+                                            item-value="codigo"
+                                            variant="outlined" 
+                                            :rules="[campoRequerido]" 
+                                            density="compact"
+                                            @blur="preparaMistura()" 
+                                      
+                                            :disabled="misturasABaixarDesabilitado"   
+                                      
+                                            
+                                        ></v-autocomplete>  
+                                  </v-col>
 
 
 
 
-                         <div   class="espacoEntreComponentes">    
+                                  <v-col class="campoPadrao"  >          
+                                        <label  for="quantidade" class="col-form-label labelCampoPadrao"><b>Quantidade</b></label>                        
                                          
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.quantidade" 
-                                   class="text-end"
-                                   id="quantidade"
-                                   label="Quantidade" 
-                                   ref="quantidade"   
-                                   style=" width: 170px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"    
-                                   density="compact" 
-                                   inputmode="numeric"  
-                                   :rules="[campoRequerido]"  
-                                   :disabled="quantidadeDesabilitado"  
-                                   @change="calculaCor(aComposicao)"
-   
-                               ></v-text-field>                                    
-                         </div>                
+                                        <v-text-field
+                                              
+                                            v-model.trim="this.mistura.quantidade" 
+                                            class="text-end "
+                                            id="quantidade"
+                                           
+                                            ref="quantidade"   
+                                      
+                                            append-inner-icon=""
+                                            variant="outlined"
+                                            bg-color="white"
+                                            type="number"    
+                                            density="compact" 
+                                            inputmode="numeric"  
+                                            :rules="[campoRequerido]"  
+                                            :disabled="quantidadeDesabilitado"  
+                                            @change="calculaCor(aComposicao)"
+            
+                                        ></v-text-field>                                    
+                                  </v-col>  
                          
-                         
-
-                         <div   class="espacoEntreComponentes">    
+                            
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="totalMisturasUtilizadas" class="col-form-label labelCampoPadrao"><b>Utilizadas</b></label>  
+                          
                                          
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.totalMisturasUtilizadas" 
-                                   class="text-end"
-                                   id="totalMisturasUtilizadas"
-                                   label="Utilizadas" 
-                                   ref="totalMisturasUtilizadas"   
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"    
-                                   density="compact" 
-                                   inputmode="numeric"  
-                                   disabled
-   
-                               ></v-text-field>                                    
-                         </div>  
- 
+                                      <v-text-field
+                                            
+                                          v-model.trim="this.mistura.totalMisturasUtilizadas" 
+                                          class="text-end  "
+                                          id="totalMisturasUtilizadas" 
+                                          ref="totalMisturasUtilizadas"    
+                                          variant="outlined"
+                                          bg-color="white"
+                                          type="number"    
+                                          density="compact" 
+                                          inputmode="numeric"  
+                                          disabled
+          
+                                      ></v-text-field>                                    
+                          
+                                  </v-col>
 
-                         <div   class="espacoEntreComponentes">     
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="dataInicial" class="col-form-label labelCampoPadrao"><b>Data_Inicial</b></label>                       
 
-                                 <v-text-field
-                                     v-model.trim="this.mistura.dataInicial" 
-                                     id="dataInicial"
-                                     label="Data Inicial" 
-                                     ref="dataInicial"  
-                                     style=" width: 150px; " 
-                                     variant="outlined"
-                                     bg-color="white" 
-                                     type="date" 
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     disabled
-                                     
-                                 ></v-text-field>      
-                     
-                         </div>           
+                                      <v-text-field
+                                          v-model.trim="this.mistura.dataInicial" 
+                                          id="dataInicial"  
+                                          ref="dataInicial"  
+                                          variant="outlined"
+                                          bg-color="white" 
+                                          type="date" 
+                                          :rules="[campoRequerido]" 
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field>      
 
-                         <div   class="espacoEntreComponentes">    
-                                     
-                             
-                                 
-                                 <v-text-field
-                                     v-model.trim="this.mistura.dataFinal" 
-                                     id="dataFinal"
-                                     label="Data Final" 
-                                     ref="dataFinal"  
-                                     style=" width: 150px; " 
-                                     variant="outlined"
-                                     bg-color="white" 
-                                     type="date" 
-                                     :rules="[campoRequerido]" 
-                                     density="compact"
-                                     disabled
-                                     
-                                 ></v-text-field>                                    
-                             
-                     
-                         </div>         
-                         
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                     
-                                   v-model.trim="this.mistura.totalFardos" 
-                                   class="text-end"
-                                   id="totalFardos"
-                                   label="Total de Fardos" 
-                                   ref="totalFardos"   
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"
-                                   type="number"  
-                                   :rules="[campoRequerido]"      
-                                   density="compact" 
-                                   inputmode="numeric" 
-                                   disabled
-   
-                               ></v-text-field>                                    
-                         </div>  
+                                  </v-col>
 
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                   v-model.trim="this.mistura.loteFiacao" 
-                                   id="loteFiacao"
-                                   label="Lote Fiação" 
-                                   ref="loteFiacao"  
-                                   maxlength="10"                                            
-                                   style=" width: 170px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="number"  
-                                   inputmode="numeric"   
-                                   density="compact"
-                                   :rules="[campoRequerido]" 
-                                   disabled
-                                   
-                                   
-                               ></v-text-field>                                    
+                                  <v-col class="campoPadrao"  >          
+                                     <label  for="dataFinal" class="col-form-label labelCampoPadrao"><b>Data_Final</b></label>                                       
+                                      
+                                      <v-text-field
+                                          v-model.trim="this.mistura.dataFinal" 
+                                          id="dataFinal" 
+                                          ref="dataFinal"   
+                                          variant="outlined"
+                                          bg-color="white" 
+                                          type="date" 
+                                          :rules="[campoRequerido]" 
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field>      
+                                  </v-col>                                         
+
+                            </v-row>                                        
+
+                   </div>
+
+                   <!-- FINAL LINHA 0001 -->
+                   <!-- FINAL LINHA 0001 -->
+                   <!-- FINAL LINHA 0001 -->
+                   <!-- FINAL LINHA 0001 -->
+
+                  
+                    <div class="flex-linha linhaPadrao"    >                               
+                         <v-row> 
+
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="totalFardos" class="col-form-label labelCampoPadrao"><b>Total_de_Fardos</b></label>                        
+                                        <v-text-field
+                                              
+                                            v-model.trim="this.mistura.totalFardos" 
+                                            class="text-end  "
+                                            id="totalFardos" 
+                                            ref="totalFardos"    
+                                            variant="outlined"
+                                            bg-color="white"
+                                            type="number"  
+                                            :rules="[campoRequerido]"      
+                                            density="compact" 
+                                            inputmode="numeric" 
+                                            disabled
+            
+                                        ></v-text-field>                                    
+                                  </v-col>
+
+                                  <v-col class="campoPadrao"  >          
+                                      <label  for="loteFiacao" class="col-form-label labelCampoPadrao"><b>Lote_Fiação</b></label>                               
+                                          
+                                      <v-text-field
+                                          v-model.trim="this.mistura.loteFiacao" 
+                                          id="loteFiacao" 
+                                          ref="loteFiacao"  
+                                          maxlength="10"        
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="number"  
+                                          inputmode="numeric"   
+                                          density="compact"
+                                          :rules="[campoRequerido]" 
+                                          disabled
+                                          
+                                          
+                                      ></v-text-field>    
+                                  </v-col>                                
                                      
                            
-                         </div> 
+                         
 
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->
                          <!-- Meio Painel Baixar Mistura -->                        
 
-                         <div    class="espacoEntreComponentes" v-if="this.$store.state.usuarioSistema.idfil == '05'">  
+                                  <v-col class="campoPadrao" v-if="this.$store.state.usuarioSistema.idfil == '05'" >          
+                                        <label  for="loteFiacao" class="col-form-label labelCampoPadrao"><b>Fardos</b></label>                           
 
-                             <v-autocomplete
-
-                                 label="Fardos"
-                                 :items="destinoItens"      
-                                 v-model.trim="this.mistura.destino"  
-                                 item-title="descricao" 
-                                 item-value="codigo"
-                                 variant="outlined"
-                                 style=" width: 150px; "
-                                 bg-color="white"   
-                                 density="compact"
-                                 :disabled="destinoDesabilitado" 
-                                 :rules="[campoRequerido]"  
-                                 
-                             ></v-autocomplete> 
-
-                         </div>                           
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-                                   v-model.trim="this.mistura.observacao" 
-                                   id="observacao"
-                                   label="Observação" 
-                                   ref="observacao"  
-                                   maxlength="150"                                            
-                                   style=" width: 450px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="text"     
-                                   density="compact"
-                                   :disabled="observacaoDesabilitado" 
-                                   
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div>     
-
-                         <div   class="espacoEntreComponentes">    
-                                         
-                               <v-text-field
-
-                                   v-model.trim="this.totalFardosMistura" 
-                                   id="numFardos"
-                                   label="Num. Fardos Selec." 
-                                   ref="numFardos"  
-                                   maxlength="150"                                            
-                                   style=" width: 150px; " 
-                                   variant="outlined"
-                                   bg-color="white"                                           
-                                   type="text"     
-                                   density="compact"
-                                   disabled
-                                   
-                               ></v-text-field>                                    
-                                       
-                             
-                         </div> 
-
-
-                         <div   class="espacoEntreComponentes"   v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                             
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="green"
-                                             icon="mdi-check"
-                                             size="55"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                                   
-                         </div>  
-
-                         <div   class="espacoEntreComponentes"  v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
-                                     
-                                     <div >
-                                         <v-icon
-                                             class="mb-6"
-                                             color="red"
-                                             icon="mdi-alert-circle-outline"  
-                                             size="35"
-                                         ></v-icon>                                                 
-                                                                           
-                                     </div>
-                             
-                         </div> 
-
-
-                         <div   class="espacoEntreComponentes">    
+                                        <v-autocomplete 
+                                            id="fardos"
+                                            :items="destinoItens"      
+                                            v-model.trim="this.mistura.destino"  
+                                            item-title="descricao" 
+                                            item-value="codigo"
+                                            variant="outlined" 
+                                            bg-color="white"   
+                                            density="compact"
+                                            :disabled="destinoDesabilitado" 
+                                            :rules="[campoRequerido]"  
+                                            
+                                        ></v-autocomplete>  
+                              
+                                  </v-col>          
+                                  
+                                  <v-col class="campoPadrao"   >          
+                                          <label  for="observacao" class="col-form-label labelCampoPadrao"><b>Observação</b></label>                                        
+                                          <v-text-field
+                                              v-model.trim="this.mistura.observacao" 
+                                              id="observacao" 
+                                              ref="observacao"  
+                                              maxlength="150"      
+                                              variant="outlined"
+                                              bg-color="white"                                           
+                                              type="text"     
+                                              density="compact"
+                                              :disabled="observacaoDesabilitado" 
                                               
-                                <v-text-field
+                                          ></v-text-field>      
+                                  </v-col>
+                  
+                                  <v-col class="campoPadrao"   >  
 
-                                    v-model.trim="this.nPesoMovimento" 
-                                    id="pesoMistura"
-                                    label="Peso" 
-                                    ref="pesoMistura"  
-                                    maxlength="150"                                            
-                                    style=" width: 150px; " 
-                                    variant="outlined"
-                                    bg-color="white"                                           
-                                    type="text"     
-                                    density="compact"
-                                    disabled
+                                      <label  for="numFardos" class="col-form-label labelCampoPadrao"><b>Fardos_Selec.</b></label>                                          
+                                      <v-text-field
+
+                                          v-model.trim="this.totalFardosMistura" 
+                                          id="numFardos" 
+                                          ref="numFardos"  
+                                          maxlength="150"   
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field> 
+
+                                  </v-col>        
+
+
+                                <div   class="espacoEntreComponentes"  style="margin-top:50px"  v-if="this.totalFardosMistura == this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                                    
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="green"
+                                                    icon="mdi-check"
+                                                    size="55"
+                                                ></v-icon>                                                 
+                                                                                  
+                                            </div>
+                                          
+                                </div>  
+
+                                <div   class="espacoEntreComponentes"  style="margin-top:60px" v-if="this.totalFardosMistura != this.mistura.totalFardos && this.totalFardosMistura > 0 ">    
+                                            
+                                            <div >
+                                                <v-icon
+                                                    class="mb-6"
+                                                    color="red"
+                                                    icon="mdi-alert-circle-outline"  
+                                                    size="35"
+                                                ></v-icon>                                                 
+                                                                                  
+                                            </div>
                                     
-                                ></v-text-field>                                    
-                                                      
-                             </div>                           
+                                </div>  
+                                  <v-col class="campoPadrao"   >  
+
+                                      <label  for="pesoMistura" class="col-form-label labelCampoPadrao"><b>Peso</b></label>                                               
+                                      <v-text-field
+
+                                          v-model.trim="this.nPesoMovimento" 
+                                          id="pesoMistura" 
+                                          ref="pesoMistura"  
+                                          maxlength="150"     
+                                          variant="outlined"
+                                          bg-color="white"                                           
+                                          type="text"     
+                                          density="compact"
+                                          disabled
+                                          
+                                      ></v-text-field>     
+
+                                  </v-col>
+                                
+                        </v-row>                              
+                                                 
    
                      </div>      
 
@@ -1049,13 +1045,50 @@
                     <!-- ///Final Resumo Mistura -->
                     <!-- ///Final Resumo Mistura -->
                     <!-- ///Final Resumo Mistura -->
+
+                    <!-- <div class="d-flex justify-content-end " style=" margin-left:1%; width:99%; margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    -->
+                      <div class="d-flex justify-content-end " style="margin-top: 25px;border-radius:15px 15px 15px 15px;" >                                    
+         
+
+                        <v-btn   
+                            style="height:25px;width:15px;background-color:rgb(240, 237, 232); "  @click="alteraTamanhoPainel('subtrair')"   
+                            title="Diminuir painel"
+                            > 
+                                <v-icon 
+                                color="primary"
+                                icon="mdi-minus-box-outline"
+                                size="25"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+
+                        <v-btn   
+                            style="height:25px;width:10px;background-color:rgb(240, 237, 232); "  @click="alteraTamanhoPainel('somar')"  
+                            title="Aumentar painel"  
+                            > 
+                                <v-icon
+                               
+                                color="primary"
+                                icon="mdi-plus-box-outline"
+                                size="25"
+                                ></v-icon>  
+                                <span  style="margin-bottom:28px"></span> <!-- Texto centralizado -->
+                        </v-btn>  
+
+                    </div>    
+
+
+
                      
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->  
                     <!-- ///Corpo da Mistura -->                     
  
-                     <div class="container-fluid"  style=" height:800px; overflow-y: scroll; overflow-x: scroll;">
+                     <div class="container-fluid"  style="overflow-y: scroll; overflow-x: scroll;"
+                                :style="{height:  this.alturaPainelPrincipal} "  
+                     >
                             <table class="table table-sm  tabela">
                                 <thead class="cabecalho " style="background-color:#003366;color: white;">
                                   <tr>
@@ -2290,6 +2323,7 @@
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"    accesskey="s" @click="submitForm('S')"  v-if="(this.mistura.statusMistura=='A'  || this.mistura.statusMistura==null ||    this.mistura.statusMistura=='' ) && this.acaoDesabilitado==true   && this.operMist != 'C' &&   this.totalFardosMistura >0 "><u>S</u>alvar</v-btn>
                                         
                                         <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>                                   
+                                        <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
 
                                     </div> 
 <!--
@@ -2323,7 +2357,7 @@
                                     <!-- @click="exibeModal('confirmaDescida','Confirma descida da mistura?',['S','N'],'sucesso'  )" -->
                                     <v-btn color="secondary" class="botao_rodape" style="min-width: 70px; "  :disabled="confirmaBaixaDesabilitado" @click="confirmaBaixaMistura()" v-if="this.aComposicao.length>0  && this.totalFardosMistura>0"  accesskey="n"   ><u>C</u>onfirmar</v-btn>                                   
                                     <v-btn color="primary" class="botao_rodape" style="min-width: 70px; "  accesskey="n" :style="{marginRight:  this.$store.state.configuracaoTela.marginRightRodape} " @click="exibeModal('cancelaEdicao','Deseja sair da edição?',['S','N'],'sucesso'  )"><u>N</u>{{this.labelNovo}}</v-btn>
-
+                                    <div v-if="this.$store.state.menuExpandido" ><div :style="{marginRight:this.$store.state.tamanhoEspacoMarginRight}"  ></div></div>
                                 </div> 
 
                                                               
@@ -2514,7 +2548,9 @@
         nomeDestino:'TODOS',
         nPesoMovimento:0,
         labelNovo:'',
-        aBaixas:[] 
+        aBaixas:[] ,
+        alturaPainelPrincipal:'',
+        varAlturaPainel:400
         
          
       }),
@@ -3685,8 +3721,8 @@
 
                  
 
-                  //console.log('url') 
-                  //console.log(url)  
+                  console.log('url') 
+                  console.log(url)  
 
                   this.numItem = 0; 
                   this.aMisturaItem = [];
@@ -3817,6 +3853,33 @@
                   return  retornoPopForm;                 
         } ,
 
+
+        alteraTamanhoPainel(acao){
+              if(acao=='subtrair'){
+                
+                  if(this.varAlturaPainel >= 200){
+                    this.varAlturaPainel = this.varAlturaPainel  - 100; 
+                  }else{
+                    this.apiDisplayMensagem('Configuração atingiu tamanho minimo') ;
+                  }  
+         
+              }
+
+              if(acao=='somar'){
+                
+                if(this.varAlturaPainel <= 1200){
+                  this.varAlturaPainel = this.varAlturaPainel  + 100; 
+                }else{
+                  this.apiDisplayMensagem('Configuração atingiu tamanho maximo') ;
+                }  
+       
+            }              
+              
+              this.alturaPainelPrincipal = this.varAlturaPainel.toString() + "px";
+        }
+
+        ,
+
         
         async pesquisaBaixas() {   
                 let url ;
@@ -3858,6 +3921,7 @@
 
             this.msgProcessamento = '';
             this.scrollToTop();
+            this.alturaPainelPrincipal = "400px";
     
       }
   

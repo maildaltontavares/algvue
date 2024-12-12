@@ -21,6 +21,8 @@ export default new Vuex.Store({
     expandOnHover: false,
     rail: false,
     tituloPrincipal:''   ,
+    menuExpandido:false,
+    tamanhoEspacoMarginRight:''
   } ,
   mutations: {
       setUsuarioEmpresa(state, empresa) {
@@ -102,7 +104,15 @@ export default new Vuex.Store({
       setTituloPrincipal(state, tituloPrincipal) {
         state.tituloPrincipal =  tituloPrincipal
 
-      }     
+      }    ,
+     setMenuExpandido(state, menuExpandido) {
+        state.menuExpandido = menuExpandido
+      }     ,
+      setTamanhoEspacoMarginRight(state, tamanhoEspacoMarginRight) {
+         state.tamanhoEspacoMarginRight = tamanhoEspacoMarginRight
+       }    
+      
+
       
       
           
