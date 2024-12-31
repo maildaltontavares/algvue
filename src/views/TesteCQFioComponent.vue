@@ -54,7 +54,8 @@
                                     maxlength="3"       
                                     variant="outlined"
                                     bg-color="white"                                           
-                                    type="text"     
+                                    type="text"   
+                                    inputmode="numeric" 
                                     density="compact"
                                     :rules="[campoRequerido]"  
                                     :disabled="localFisicoDesabilitado"
@@ -242,7 +243,8 @@
                                                             variant="outlined"
                                                             bg-color="white"
                                                             v-model.trim="this.testeCqFio.item"
-                                                            type="number"                                                     
+                                                            type="number"  
+                                                            inputmode="numeric"                                                    
                                                             :rules="[campoRequerido]" 
                                                             density="compact"
                                                             :disabled="itemDesabilitado"
@@ -295,10 +297,11 @@
                                             maxlength="10"
                                             variant="outlined"
                                             bg-color="white"                                           
-                                            type="text"     
+                                            type="text" 
+                                            inputmode="numeric"     
                                             density="compact"
                                             :rules="[campoRequerido]" 
-                                            @blur="apiLoteFiacao"
+                                            @blur="buscaLoteFia"
                                             :disabled="loteFiacaoDesabilitado"
                                             
                                         ></v-text-field>                                  
@@ -490,8 +493,8 @@
 
                                 <thead   style="background-color:#003366;color: white;height:30px;margin-bottom:30px"  >
                                         <tr>
-                                            <th class="col-1"  style="text-align:center  ;font-size:17px">Num. Prova</th> 
-                                            <th class="col-1"  style="text-align:center  ;font-size:17px" v-if="this.tpMaquina== '04' || this.tpMaquina== '05' || this.tpMaquina== '06' || this.tpMaquina== '07'">Num. Fusos</th> 
+                                            <th class="col-1"  style="text-align:center  ;font-size:17px">Prova</th> 
+                                            <th class="col-1"  style="text-align:center  ;font-size:17px" v-if="this.tpMaquina== '04' || this.tpMaquina== '05' || this.tpMaquina== '06' || this.tpMaquina== '07'">Fuso</th> 
                                             <th class="col-1"  style="text-align:center  ;font-size:17px" v-if="this.tpMaquina== '02' || this.tpMaquina== '03' || this.tpMaquina== '05' ">Peso (g)</th> 
                                             <th class="col-1"  style="text-align:center  ;font-size:17px">Titulo</th>  
                                             
@@ -606,11 +609,59 @@
 
                  <!--    <div class="flex-linha "  style="margin-left:4%;width:90%;margin-top: 0.3%;background-color:white"  v-if="this.exibeDetalhe==true"  >   -->
                     
-                    <div class="flex-linha "  style="margin-top:20px"  :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  >
-                    
+                    <div class="flex-linha "  style="margin-top:10px;margin-bottom:0px ; height: 15px"  :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  > 
+                            <div class="d-flex justify-content-start"  style="margin-bottom:0px ;" >  
+                                <div style="margin-bottom:0px ;" >                         
+                                    <p  class=" mt-3 pe-5" style="font-size: 20px;"><b>Titulo do item:  </b></p>                               
+                                </div> 
+                                <div style="margin-bottom:0px ;" >                          
+                                    <p  class=" mt-3 pe-5" style="font-size: 20px;color:red;"><b>{{this.tituloFioAtual}}  </b></p>    
+                                </div>                                 
+                            </div>   
+                    </div>
 
-                        <!-- <v-row style="margin-left:23%;max-width:50%">  
-                            -->
+                    <div class="flex-linha " style="margin-top:20px; height: 15px" :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  > 
+                            <div class="d-flex justify-content-start" style="margin-top:0px;"  >  
+                                <div>                         
+                                    <p  class=" mt-3 pe-5" style="font-size: 20px;"><b>Média do teste:  </b></p>                               
+                                </div> 
+                                <div>      
+                                    <p  class=" mt-3 pe-5"  style= "font-size: 20px;color:red" v-if="this.tpMaquina== '02' || this.tpMaquina== '03' || this.tpMaquina== '05' " ><b>{{this.mediaTeste.toFixed(3)}}</b></p>                               
+                                    <p  class=" mt-3 pe-5"  style= "font-size: 20px;color:red" v-if="this.tpMaquina== '04' || this.tpMaquina== '06' || this.tpMaquina== '07' " ><b>{{this.mediaTeste.toFixed(2)}}</b></p>                               
+                                </div>                                 
+                            </div>   
+                    </div>       
+                    
+                    <div class="flex-linha " style="margin-top:20px; height: 15px" :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  > 
+                            <div class="d-flex justify-content-start"  >  
+                                <div>                         
+                                    <p  class=" mt-3 pe-5" style="font-size: 20px;"><b>Desvio padrão:  </b></p>                               
+                                </div> 
+                                <div>      
+                                    <p class=" mt-3 pe-5"    style= "font-size: 20px;color:red" v-if="this.tpMaquina== '02' || this.tpMaquina== '03' || this.tpMaquina== '05' "><b>{{this.desvioPadraoTeste.toFixed(3)}}</b></p>                               
+                                    <p  class=" mt-3 pe-5"   style= "font-size: 20px;color:red" v-if="this.tpMaquina== '04' || this.tpMaquina== '06' || this.tpMaquina== '07' "><b>{{this.desvioPadraoTeste.toFixed(2)}}</b></p>                               
+
+                                </div>                                 
+                            </div>   
+                    </div>       
+                    
+                    <div class="flex-linha " style="margin-top:20px; ;height: 15px"  :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  > 
+                            <div class="d-flex justify-content-start"  >  
+                                <div>                         
+                                    <p  class=" mt-3 pe-5" style="font-size: 20px;"><b>Coeficiente de variação:  </b></p>                               
+                                </div> 
+                                <div>      
+                                    <p  class=" mt-3 pe-5"  style= "font-size: 20px;color:red"  v-if="this.tpMaquina== '02' || this.tpMaquina== '03' || this.tpMaquina== '05' "><b> {{this.coeficienteVariacaoTeste.toFixed(3)}}  </b></p>                               
+                                    <p  class=" mt-3 pe-5"  style= "font-size: 20px;color:red"  v-if="this.tpMaquina== '04' || this.tpMaquina== '06' || this.tpMaquina== '07' "><b> {{this.coeficienteVariacaoTeste.toFixed(2)}}  </b></p>                               
+
+                                </div>                                 
+                            </div>   
+                    </div>                      
+
+
+                    <!--
+                    <div class="flex-linha "  style="margin-top:20px"  :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  >
+
 
                         <v-row >
 
@@ -667,8 +718,7 @@
                     <div class="flex-linha "  style="margin-top:20px"  :style="{width:this.larguraRodapeGrid,marginLeft:this.margemEsquerdaGrid}"  v-if="this.exibeDetalhe==true"  >
                     
 
-                    <!-- <v-row style="margin-left:23%;max-width:50%">  
-                        -->
+              
 
                         <v-row >                            
                             
@@ -725,7 +775,7 @@
 
                         </v-row>
                     </div>     
-             
+                -->
     
               <div style="height:  500px; background-color:white"     >
 
@@ -770,7 +820,7 @@
 
                                         <v-btn color="primary" class="botao_rodape" style=" min-width: 70px;"    accesskey="e"  @click="exibeModal('excluir','Confirma exclusão ?',['S','N'],'aviso'  )"><u>E</u>xcluir </v-btn>              
 
-                                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px;"   type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
+                                        <v-btn color="primary" class="botao_rodape" style="min-width: 70px;" :disabled="salvarDesabilitado"    type="submit"  accesskey="s"><u>S</u>alvar</v-btn>
                                         <v-btn color="secondary" class="botao_rodape" style="min-width: 100px;"
                                         @click="exibeModal('pesquisar','Deseja sair deste formulário?',['S','N'] ,'sucesso' )"
                                         
@@ -1042,7 +1092,8 @@
             desvioPadraoTeste:0,
             coeficienteVariacaoTeste:0,
             larguraRodapeGrid:'0%',
-            aTesteDet:[]
+            aTesteDet:[],
+            salvarDesabilitado:false,
 
             
             
@@ -1118,6 +1169,15 @@
                 
                 this.testeCqFio.item = '';
                 this.testeCqFio.descItem = '';
+
+            },
+
+            buscaLoteFia(){ 
+
+               if(this.testeCqFio.loteFiacao!="" && this.testeCqFio.loteFiacao!=null && this.testeCqFio.loteFiacao!="0000000000"){
+                this.testeCqFio.loteFiacao = this.testeCqFio.loteFiacao.padStart(10, '0');
+                this.apiLoteFiacao(this.testeCqFio.item,this.tpMaquina,this.testeCqFio.loteFiacao,'S') 
+               }
 
             },
             
@@ -1700,6 +1760,7 @@
                         this.mediaTeste = 0;
                         this.desvioPadraoTeste=0;
                         this.coeficienteVariacaoTeste=0;
+                        this.salvarDesabilitado = false;
                      
                         
                         
@@ -2345,7 +2406,7 @@
                        
                        if(indic.peso != '' && indic.peso != null && indic.peso != 0.00 && indic.peso != '0,00'   && indic.peso != 'NaN' && indic.peso != Infinity) {
 
-                            console.log(' calculaTitulo  222222')
+                            //console.log(' calculaTitulo  222222')
                             if (this.testeCqFio.dobradora == 'M'  ){
 
                                 //console.log(' calculaTitulo  3333')
@@ -2395,24 +2456,46 @@
                     soma = 0.000 ;
                     md = 0.000;
 
+
+                    //console.log('Calcula Media')
                     for (let m = 0; m < valores.length; m++) {    
                         if(valores[m].titulo != '' && valores[m].titulo != null && valores[m].titulo != 0.000 && valores[m].titulo != '0,0' && valores[m].titulo != '0,00' && valores[m].titulo != '0,000' && valores[m].titulo != 'NaN' && valores[m].titulo != 'Infinity') {
                          
                             vlr   =  valores[m].titulo;  
 
-                            if (this.tpMaquina!= '02' && this.tpMaquina!= '03'){ 
+                            //if (this.tpMaquina!= '02' && this.tpMaquina!= '03'){ 
                                 if(vlr.length > 0){ 
+
+                                    //console.log('vlr1')
+                                    //console.log(vlr)
+
                                     vlr = parseFloat(vlr.replace(",", "."));
+                                    //console.log('vlr2')
+
+                                    //console.log(vlr)
                                 }
 
-                            }
+                            //}
 
                             soma +=  vlr;      
                             totalTestes++;  
+                            
+                            //console.log(vlr)
+                            //console.log(soma)
+                            //console.log(totalTestes)
+
+
+
 
                         }
                          
                     }  
+
+
+
+
+
+
                     if (!isNaN(parseFloat(soma).toFixed(3) / totalTestes )  ){
                           md = parseFloat(soma).toFixed(3) / totalTestes ; 
                     }else{
@@ -2535,7 +2618,7 @@
        
         async submitForm() {   
 
-                console.log("submitForm");
+                //console.log("submitForm");
  
                 let objItem; 
                 this.haErros = false
@@ -2544,6 +2627,8 @@
                 this.mensagemErro = '' 
 
                 this.aTesteDet = [] 
+
+                this.salvarDesabilitado = true;
  
                 // Obtém a data atual
                 let dataAtual = new Date();
@@ -2561,6 +2646,7 @@
 
                  if( this.testeCqFio.dataTeste > dataAtualFormatada ){
                     this.apiDisplayMensagem('Data inválida.' ) 
+                    this.salvarDesabilitado = false;
                     return false; 
                  } 
                  
@@ -2573,8 +2659,16 @@
                 if (this.tipoOperacao=="I") {  
                     if( dataTesteDate < dataAtual){
                         this.apiDisplayMensagem('Data inválida.' ) 
+                        this.salvarDesabilitado = false;
                         return false;                    
                     } 
+                }
+
+
+                if(!this.validaDadosTeste()){
+                    console.log('submitForm  validaDadosTeste');
+                    this.salvarDesabilitado = false;
+                    return false;
                 }
 
                // if(this.validaLado("submit")==false){
@@ -2591,8 +2685,9 @@
                 this.validacao = await this.$refs.formulario.validate(); 
                 if (!this.validacao.valid) {
                     this.apiDisplayMensagem('Preencha os campos com críticas.');
+                    this.salvarDesabilitado = false;
                     this.haErros = true;
-                    return;
+                    return false;
                 } else {  
 
                     let dataInsercao;
@@ -2625,7 +2720,7 @@
                         let url = `${process.env.VUE_APP_BASE_URL}/tqf/insert` 
 
                       
-                        console.log(url)
+                        //console.log(url)
 
                         if (this.aTesteDetalhe!=null) { 
                                 
@@ -2693,7 +2788,7 @@
  
                             }   
 
-                            console.log(this.testeCqFioDAO);
+                            //console.log(this.testeCqFioDAO);
  
 
                             await this.axios.post(
@@ -2704,16 +2799,20 @@
                             .then(response => {
 
                                 this.resultado = response.data;  
+                                this.tipoOperacao = 'A'; 
+                                this.testeCqFio.id = this.resultado;
 
                                 this.apiDisplayMensagemSucesso('Registro gravado com sucesso.' )                              
-                                this.tipoOperacao = 'A'; 
+                               
                                 this.configuraCampos('A' )  ;
+                                this.salvarDesabilitado = false;
                             
                             })
                             .catch(error => { 
                               
                                 console.log("Erro: ", error.response.data); 
                                 this.apiDisplayMensagem(error.response.data ) 
+                                this.salvarDesabilitado = false;
                             });  
  
                     } else {
@@ -2790,7 +2889,7 @@
                                             }   
 
 
-                                            console.log(this.testeCqFioDAO);                                            
+                                            //console.log(this.testeCqFioDAO);                                            
 
  
                                             
@@ -2803,6 +2902,7 @@
 
                                             this.resultado = response.data;  
                                             this.apiDisplayMensagemSucesso('Registro alterado com sucesso.' ) 
+                                            this.salvarDesabilitado = false;
                                                                   
 
                                         
@@ -2810,6 +2910,7 @@
                                         .catch(error => { 
                                             console.log("Erro: ", error.response.data);
                                             this.apiDisplayMensagem(error.response.data ) 
+                                            this.salvarDesabilitado = false;
                                         });
  
  
@@ -2823,6 +2924,221 @@
                 }  
  
         },        
+        validaDadosTeste() {   
+
+            //console.log('validaDadosTeste 1111');
+            //console.log(this.aTesteDetalhe);
+            //console.log(this.aTesteDetalhe==[]);
+
+            let testeValido = 0;
+
+            if (this.aTesteDetalhe!=null) { 
+
+                //console.log('validaDadosTeste 2222');
+                                
+                for (let v = 0; v < this.aTesteDetalhe.length; v++) {   
+
+                       //console.log('validaDadosTeste MACARO');
+                       //console.log(this.aTesteDetalhe[v].seqProva);
+                       //console.log(this.aTesteDetalhe[v].numeroFusos);
+                       //console.log(this.aTesteDetalhe[v].titulo);
+                       //console.log(this.aTesteDetalhe[v].peso);                    
+                    
+                   
+
+                    if(this.tpMaquina == '02' || this.tpMaquina == '03') {
+
+       
+                        if(this.aTesteDetalhe[v].titulo==' '){
+                            this.aTesteDetalhe[v].titulo=null
+                        }   
+                        
+                        if(this.aTesteDetalhe[v].peso==' '){
+                            this.aTesteDetalhe[v].peso=null
+                        }                           
+
+                        //console.log('validaDadosTeste MACARO');
+                        //console.log(this.aTesteDetalhe[v].seqProva);
+                        //console.log(this.aTesteDetalhe[v].numeroFusos);
+                        //console.log(this.aTesteDetalhe[v].titulo);
+                        //console.log(this.aTesteDetalhe[v].peso);
+                        //console.log(this.aTesteDetalhe[v].peso != '' && this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].titulo == '')
+                        //console.log((this.aTesteDetalhe[v].peso == '' || this.aTesteDetalhe[v].peso == '0,00' ) &&  this.aTesteDetalhe[v].titulo != '' ) 
+           
+                        //console.log(this.aTesteDetalhe[v].titulo)
+                        //console.log(this.aTesteDetalhe[v].titulo!= '')
+                        //console.log(this.aTesteDetalhe[v].titulo== '')
+                        //console.log(this.aTesteDetalhe[v].titulo==null)
+
+                        // Preencheu peso e nao preencheu titulo
+ 
+                        if(this.aTesteDetalhe[v].peso == '0,00' ){
+                            this.apiDisplayMensagem('Campo peso do teste ' + this.aTesteDetalhe[v].seqProva + ' inválido') 
+                            return false
+                        }
+
+
+
+
+                        if((this.aTesteDetalhe[v].peso != '' && this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].titulo == '' ) ||
+                        ((this.aTesteDetalhe[v].peso == '' || this.aTesteDetalhe[v].peso == '0,00' ) &&  this.aTesteDetalhe[v].titulo != '' )  
+                        )  
+                        {
+                            this.apiDisplayMensagem('Teste ' + this.aTesteDetalhe[v].seqProva + ' incompleto.')
+                            return false
+                        } else{
+
+
+                            if(!((this.aTesteDetalhe[v].peso == '' || this.aTesteDetalhe[v].peso == '0,00')  &&  this.aTesteDetalhe[v].titulo == '' )){
+                                testeValido++;
+
+                            } 
+
+                        }
+
+                    }
+
+                    if(this.tpMaquina == '04' || this.tpMaquina == '06') {
+
+            
+
+                        if(this.aTesteDetalhe[v].numeroFusos==' '){
+                            this.aTesteDetalhe[v].numeroFusos=null
+                        } 
+                        if(this.aTesteDetalhe[v].titulo==' '){
+                            this.aTesteDetalhe[v].titulo=null
+                        }   
+
+
+                        if(
+                           (this.aTesteDetalhe[v].numeroFusos != '' && this.aTesteDetalhe[v].numeroFusos != null &&  (this.aTesteDetalhe[v].titulo == '0,000'  ||  this.aTesteDetalhe[v].titulo == '' ||  this.aTesteDetalhe[v].titulo == null) ) ||
+                           ((this.aTesteDetalhe[v].numeroFusos == '' ||  this.aTesteDetalhe[v].numeroFusos == null   ) && (this.aTesteDetalhe[v].titulo != '0,000'  &&  this.aTesteDetalhe[v].titulo != '' &&  this.aTesteDetalhe[v].titulo != null) ) 
+                        )  
+                        {
+                            this.apiDisplayMensagem('Teste ' + this.aTesteDetalhe[v].seqProva + ' incompleto.')
+                            return false
+                        } else{
+
+
+                                if( (this.aTesteDetalhe[v].titulo != '' && this.aTesteDetalhe[v].titulo != '0.000' && this.aTesteDetalhe[v].titulo != null)  &&
+                                    (this.aTesteDetalhe[v].numeroFusos != ''  && this.aTesteDetalhe[v].numeroFusos != null ) 
+
+                                ) {
+                                    //console.log('Errrrrrooooo')
+                                    testeValido++;
+
+                                } 
+
+                        } 
+
+                    }   
+                    
+                    
+                    if(  this.tpMaquina == '05') {
+
+
+
+                        if(this.aTesteDetalhe[v].numeroFusos==' '){
+                            this.aTesteDetalhe[v].numeroFusos=null
+                        } 
+                        if(this.aTesteDetalhe[v].titulo==' '){
+                            this.aTesteDetalhe[v].titulo=null
+                        }   
+                        
+                        if(this.aTesteDetalhe[v].peso==' '){
+                            this.aTesteDetalhe[v].peso=null
+                        }                            
+                   
+     
+
+                        //console.log('validaDadosTeste MACARO');
+                        //console.log(this.aTesteDetalhe[v].seqProva);
+                        //console.log(this.aTesteDetalhe[v].numeroFusos);
+                        //console.log(this.aTesteDetalhe[v].titulo);
+                        //console.log(this.aTesteDetalhe[v].peso);
+
+                        //console.log(this.aTesteDetalhe[v].numeroFusos == null)
+                        //console.log(this.aTesteDetalhe[v].titulo == null || this.aTesteDetalhe[v].titulo == '' || isNaN(this.aTesteDetalhe[v].titulo))
+                        //console.log(this.aTesteDetalhe[v].peso == null)
+
+                        //console.log(this.aTesteDetalhe[v].numeroFusos != '' && (this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == '' || this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == ''))
+                        //console.log(this.aTesteDetalhe[v].numeroFusos != '' )                        
+                        //console.log(this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == '' ||  this.aTesteDetalhe[v].titulo == null)
+                        //console.log( this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == '' ||  this.aTesteDetalhe[v].peso == null)
+
+
+                        //console.log(this.aTesteDetalhe[v].numeroFusos != '' && (this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == '' || this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == ''))
+                        //console.log(this.aTesteDetalhe[v].numeroFusos == '' && (this.aTesteDetalhe[v].titulo != '0.000'  &&  this.aTesteDetalhe[v].titulo != '' && this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].peso != ''))  
+                        //console.log((this.aTesteDetalhe[v].titulo != '0,000'  &&  this.aTesteDetalhe[v].titulo != '')  && (this.aTesteDetalhe[v].numeroFusos == '' || this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == ''))
+                        //console.log((this.aTesteDetalhe[v].titulo == '0,000'  ||  this.aTesteDetalhe[v].titulo == '')  && (this.aTesteDetalhe[v].numeroFusos != '' && this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].peso != ''))
+                        //console.log((this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].peso != '')  && (this.aTesteDetalhe[v].numeroFusos == '' || this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == ''))
+                        //console.log((this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == '')  && (this.aTesteDetalhe[v].numeroFusos != '' && this.aTesteDetalhe[v].titulo != '0.000'  &&  this.aTesteDetalhe[v].titulo != '')) 
+                       
+                        //console.log('validaDadosTeste MACARO individual');
+                        //console.log(this.aTesteDetalhe[v].numeroFusos == '')
+                        //console.log(this.aTesteDetalhe[v].titulo != '0.000'  &&  this.aTesteDetalhe[v].titulo != '' || this.aTesteDetalhe[v].peso != '0,00'  ||  this.aTesteDetalhe[v].peso != '')
+
+
+                        //console.log(this.aTesteDetalhe[v].titulo != '0.000')   
+                        //console.log(this.aTesteDetalhe[v].titulo != '' ) 
+                        //console.log(this.aTesteDetalhe[v].titulo != null) 
+                        //console.log(isNaN(this.aTesteDetalhe[v].titulo) )
+
+
+
+
+
+
+                        // Preencheu peso e nao preencheu titulo
+                        if(
+                        (this.aTesteDetalhe[v].numeroFusos != '' && this.aTesteDetalhe[v].numeroFusos != null && (this.aTesteDetalhe[v].titulo == null  || this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == ''     || this.aTesteDetalhe[v].peso == '0,00'      ||  this.aTesteDetalhe[v].peso == ''  ||  this.aTesteDetalhe[v].peso == null)) ||
+                        ((this.aTesteDetalhe[v].numeroFusos == '' || this.aTesteDetalhe[v].numeroFusos == null) && (this.aTesteDetalhe[v].titulo != null && this.aTesteDetalhe[v].titulo != '0.000'  &&  this.aTesteDetalhe[v].titulo != ''     && this.aTesteDetalhe[v].peso != '0,00'     &&  this.aTesteDetalhe[v].peso != ''  &&  this.aTesteDetalhe[v].peso != null))  ||
+                        ((this.aTesteDetalhe[v].titulo != '0,000'  &&  this.aTesteDetalhe[v].titulo != '' &&  this.aTesteDetalhe[v].titulo != null )  && (this.aTesteDetalhe[v].numeroFusos == null || this.aTesteDetalhe[v].numeroFusos == '' || this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == ''  ||  this.aTesteDetalhe[v].peso == null)) ||
+                        ((this.aTesteDetalhe[v].titulo == '0,000'  ||  this.aTesteDetalhe[v].titulo == '' ||  this.aTesteDetalhe[v].titulo == null)  && (this.aTesteDetalhe[v].numeroFusos != null && this.aTesteDetalhe[v].numeroFusos != ''  &&  this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].peso != ''  &&  this.aTesteDetalhe[v].peso != null)) ||
+                        ((this.aTesteDetalhe[v].peso != '0,00'  &&  this.aTesteDetalhe[v].peso != '' &&  this.aTesteDetalhe[v].peso != null)  && (this.aTesteDetalhe[v].numeroFusos == null || this.aTesteDetalhe[v].numeroFusos == '' || this.aTesteDetalhe[v].titulo == '0.000'  ||  this.aTesteDetalhe[v].titulo == '' ||  this.aTesteDetalhe[v].titulo == null)) ||
+                        ((this.aTesteDetalhe[v].peso == '0,00'  ||  this.aTesteDetalhe[v].peso == ''  ||  this.aTesteDetalhe[v].peso == null)  && (this.aTesteDetalhe[v].numeroFusos != null &&  this.aTesteDetalhe[v].numeroFusos != '' && this.aTesteDetalhe[v].titulo != '0.000'  &&  this.aTesteDetalhe[v].titulo != '' && this.aTesteDetalhe[v].titulo == null)) 
+                        )  
+                        {
+                        this.apiDisplayMensagem('Teste ' + this.aTesteDetalhe[v].seqProva + ' incompleto.')
+                        return false
+                        }else{
+
+
+                            if(  (this.aTesteDetalhe[v].peso != '' && this.aTesteDetalhe[v].peso != '0,00' && this.aTesteDetalhe[v].peso != null)  &&  
+                                (this.aTesteDetalhe[v].titulo != '' && this.aTesteDetalhe[v].titulo != '0.000' && this.aTesteDetalhe[v].titulo != null)  &&
+                                (this.aTesteDetalhe[v].numeroFusos != ''  && this.aTesteDetalhe[v].numeroFusos != null ) 
+                            
+                            ) {
+                                //console.log('Errrrrrooooo')
+                                testeValido++;
+
+                            } 
+
+                      } 
+
+                    }                       
+ 
+                }
+
+                if(testeValido == 0){
+                    this.apiDisplayMensagem('Informe pelo menos um teste válido.')
+                    return false; 
+                }
+                else{
+                    return true;
+                }
+
+                
+            }else{
+
+                this.apiDisplayMensagem('Nenhum teste efetuado.')
+                return false
+            }                                   
+
+
+
+        }
+
 
 
        } ,
@@ -2910,7 +3226,7 @@
                  }
                 
 
- 
+                 this.salvarDesabilitado = false;
 
  
 

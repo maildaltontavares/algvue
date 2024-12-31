@@ -1,31 +1,5 @@
 <template>
 
-<v-app-bar  color="#003366" class="border-b">  
-        
-        <div class="d-flex justify-space-between " style="width:98%;"> 
-           
-            <div class="d-flex">
-                <v-app-bar-nav-icon v-if="exibeMenu"  @click="isDrawerOpen=!isDrawerOpen"></v-app-bar-nav-icon>  
-                <v-app-bar-title  class="cabecalho_principal_empresa" style="margin-left:15px;margin-right:15px">ALG</v-app-bar-title>
-            </div>
-
-            <div class="cabecalho_principal_empresa d-flex justify-content-center"   >
-                <label class="empresa" style="font-size: 20px;">Santana Têxtil S/A.</label>
-            </div>  
-
-
-            <div class="d-flex justify-content-end" >
-                   
-            </div>
-
-
-        </div>
- </v-app-bar> 
-
-
- 
- <!--
-
   <div class="row topoLogin d-flex align-items-center"  >
     <div class="col-2 d-flex justify-content-start"> 
       <label>ALG</label>
@@ -33,10 +7,8 @@
     <div class="col-8  justify-content-center">
       <label>Santana Têxtil S/A.</label>
     </div>
-  </div> 
+  </div>
    
--->
-
   <v-card rounded="lg"
   
   :style="{marginLeft:  marginLeftLogin ,
@@ -94,7 +66,7 @@
     <v-alert v-if="haErros" color="danger" theme="dark" icon="mdi-alert-circle" >{{ erros }}</v-alert>
 
     <div class="d-flex justify-content-center" style="font-size: 9px;" >
-                 <p>Versao 1.00.27</p>
+                 <p>Versao 1.00.26</p>
       </div>  
 
     <v-card-actions>

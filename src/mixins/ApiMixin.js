@@ -1507,7 +1507,7 @@ export default {
 
 
 // DALTON
-    async apiLoteFiacao(){
+    async apiLoteFiacao(pItem,ptipoMaquina,pLote,pAddZeroItem){
 
       let url = `${process.env.VUE_APP_BASE_URL_CPF}/lotefiacao/buscaLotePorChave`;
       let itemTmp;
@@ -1516,23 +1516,30 @@ export default {
       //console.log(url)  ;
       let retorno = false;
 
-      if  (!(this.testeCqFio.item==null || this.testeCqFio.item=='')){
-          itemTmp = this.testeCqFio.item ;   ///.padStart(7, '0'); 
+      if  (!(pItem==null || pItem=='')){
+          
+          if(pAddZeroItem=="S"){
+               itemTmp = pItem.toString();
+               itemTmp =  itemTmp.padStart(7, '0'); 
+          }else{
+              itemTmp = pItem; //
+          }
+          
       }else{
           itemTmp = null;
       }
 
-      if  (!(this.testeCqFio.loteFiacao==null || this.testeCqFio.loteFiacao=='')){
+      if  (!(pLote==null || pLote=='')){
           
-          this.testeCqFio.loteFiacao = this.testeCqFio.loteFiacao.padStart(10, '0');
+          //this.testeCqFio.loteFiacao = this.testeCqFio.loteFiacao.padStart(10, '0');
 
           this.loteFiacaoDAO =  
           {    
             idfil:this.$store.state.usuarioSistema.idfil , 
-            tipoMaquina:  this.testeCqFio.tipoMaquina ,   
-            item:  itemTmp ,
+            tipoMaquina:  ptipoMaquina ,   
+            item:   itemTmp ,
             idSSM: 0,
-            lote:this.testeCqFio.loteFiacao 
+            lote: pLote
           },   
 
           //console.log('this.loteFiacao XXXX');  

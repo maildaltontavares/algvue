@@ -196,13 +196,9 @@
                 <v-app-bar-title  class="cabecalho_principal_empresa" style="margin-left:15px;margin-right:15px">{{this.$store.state.tituloPrincipal }}</v-app-bar-title>
             </div>
 
-            <div class="cabecalho_principal_empresa d-flex justify-content-center"    v-if="this.$store.state.tipoDispositivo == 'tablet' ||  this.$store.state.tipoDispositivo == 'mobile'">
+            <div class="cabecalho_principal_empresa d-flex justify-content-center"  style=" margin-right: 16%;">
                 <label class="empresa">{{ this.$store.state.usuarioSistema.empresa }}</label>
-            </div> 
-            
-            <div class="cabecalho_principal_empresa d-flex justify-content-center"  style=" margin-right: 13%;" v-if="this.$store.state.tipoDispositivo == 'desktop'  ">
-                <label class="empresa">{{ this.$store.state.usuarioSistema.empresa }}</label>
-            </div>             
+            </div>  
 
 
             <div class="d-flex justify-content-end" >
